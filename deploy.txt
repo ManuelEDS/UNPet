@@ -1,0 +1,89 @@
+Debemos tener python, node instalados
+Debemos correr los dos servidores al tiempo para poder trabajar 
+Deploy backend:
+
+Debemos instalar el paquete de Python:
+pip install virtualenv
+
+python -m venv venv
+en la carpeta venv están los paquetes de python 
+
+F1, luego select python interpreter, seleccionar el que tiene la estrella, cerrar y volver a abrir la terminal
+
+pip install django
+
+ django-admin startproject unpet_api .
+
+ python manage.py runserver
+ahora nuestro server está en:
+ http://localhost:8000/
+
+ python manage.py startapp pets
+
+agregar pets a intalled apps en settings.py
+
+ python manage.py migrate
+
+ verificar con 
+python manage.py runserver
+
+isntalar django rest framework
+pip install djangorestframework
+
+pip install django-cors-headers
+
+anhadir a installed apps en setting.py
+
+    'rest_framework',
+    'corsheaders',
+
+    y en middleware antes de commonmiddleware
+
+    
+    'corsheaders.middleware.CorsMiddleware',
+
+y al final CORS_ALLOWED_ORIGINS = []
+
+luego ir a models.python
+
+crear las tablas
+
+python manage.py makemigrations pets
+python manage.py migrate pets
+
+python manage.py createsuperuser
+petadmin 12344321
+
+
+instalar thunder client en vscode
+
+para autodocumentacion:
+pip install coreapi
+
+Frontend:
+
+utilizaremos Vitejs
+
+npm create vite
+
+nombre del proyecto  fronted: client
+
+Javascript
+
+entrar a la carpeta client
+npm install
+
+para correr el front:
+npm run dev
+
+npm i react-router-dom react-hot-toast axios react-hook-form
+
+limpiamos app.jsx y los css 
+
+creamos carpetas:
+    api para comunicarnos con el backend
+    components para los componentes
+    pages para las paginas
+
+
+
