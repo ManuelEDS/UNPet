@@ -1,5 +1,5 @@
 Debemos tener python, node instalados
-
+Debemos correr los dos servidores al tiempo para poder trabajar 
 Deploy backend:
 
 Debemos instalar el paquete de Python:
@@ -59,3 +59,31 @@ instalar thunder client en vscode
 
 para autodocumentacion:
 pip install coreapi
+
+Frontend:
+
+utilizaremos Vitejs
+
+npm create vite
+
+nombre del proyecto  fronted: client
+
+Javascript
+
+entrar a la carpeta client
+npm install
+
+para correr el front:
+npm run dev
+
+npm i react-router-dom react-hot-toast axios react-hook-form
+
+limpiamos app.jsx y los css 
+
+creamos carpetas:
+    api para comunicarnos con el backend
+    components para los componentes
+    pages para las paginas
+
+
+
