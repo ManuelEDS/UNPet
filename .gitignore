@@ -1,0 +1,23 @@
+# Archivos de configuración de Python
+*.pyc
+__pycache__/
+
+# Entorno virtual
+venv/
+env/
+
+# Archivo de registro de Django
+*.log
+
+# Base de datos SQLite
+db.sqlite3
+
+# Archivos generados por el entorno de desarrollo
+*.swp
+*.swo
+
+# Carpeta de medios (donde se almacenan archivos cargados por los usuarios)
+media/
+
+# Archivo de variables de entorno
+.env
