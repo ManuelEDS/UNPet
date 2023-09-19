@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const petApi = axios.create({
-    baseURL: 'https://unpet_api.onrender.com/pets/api/v1/'
+    baseURL: 'https://unpet.onrender.com/pets/api/v1/pets'
 })
 
 export const getPet = (id) =>
