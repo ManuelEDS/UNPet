@@ -4,4 +4,4 @@ set -o errexit
 # Instalar dependencias
 npm install
 # Ejecutar servidor react
-npm build
+npm run build
