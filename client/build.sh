@@ -2,6 +2,6 @@
 # exit on error
 set -o errexit
 # Instalar dependencias
-npm install
+#npm install
 # Ejecutar servidor react
 npm run build
