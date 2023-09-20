@@ -1,0 +1,49 @@
+1. abrir una consola, de preferencia powershell
+2. escribir:
+
+python -m venv venv
+
+3. Luego seleccionar el entorno virtual, ya sea con ayuda de vs code o ejecutando 
+el archivo venv/Scripts/Activate, etc. Luego matan la terminal actual y vuelven a crear otra para que
+aparezca el (venv) en la linea de comandos.
+
+
+3. Instalar las dependencias del backend:
+pip install -r requirements.txt
+
+
+4. Inician el backend con:
+python manage.py runserver
+
+
+Les arrojará un error, esto debido que le falta agregar algunas cosas a la URL, por ejemplo
+
+http://127.0.0.1:8000   --> actual
+
+http://127.0.0.1:8000/pets/api/v1/pets/  --> esta sirve
+
+
+OJO, el fronted de react que está en la carpeta client hace peticiones
+al server de render.com donde se desplegó, para hacer peticiones a su servidor de backend
+local, cambie la url que se encuentra en 
+carpeta client  > src > api > pets.api.js
+ORIGINAL:
+const petApi = axios.create({
+    baseURL: 'https://unpet.onrender.com/pets/api/v1/pets'
+})
+
+PARA SERVIDOR LOCAL: 
+const petApi = axios.create({
+    baseURL: 'http://127.0.0.1:8000/pets/api/v1/pets'
+})
+
+
+ESE 8000 ES DE SU LOCALHOST, PUEDE VARIAR
+
+4. Inician el fronted con:
+cd client
+
+npm run dev  
+-> OJO, SE DEBE USAR OTRA CONSOLA PARA INICIAR EL SERVER DE fronted
+
+FIN.
