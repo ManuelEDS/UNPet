@@ -2,10 +2,6 @@
 *.pyc
 __pycache__
 
-# Entorno virtual
-venv/
-env/
-
 # Archivo de registro de Django
 *.log
 
@@ -14,9 +10,15 @@ db.sqlite3
 # Archivos generados por el entorno de desarrollo
 *.swp
 *.swo
+.vscode
 
 # Carpeta de medios (donde se almacenan archivos cargados por los usuarios)
 media/
 
 # Archivo de variables de entorno
-.env
+.venv
+venv/
+env/
+
+# Dependencias
+node_modules
