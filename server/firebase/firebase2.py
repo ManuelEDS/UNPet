@@ -39,4 +39,4 @@ print("URL de la imagen:", url_imagen)
 url_firmada = blob.generate_signed_url(expiration=3153600000)  #100 años, basicamente infinito
 
 # Imprime la URL firmada o utilízala según tus necesidades
-print("URL de la imagen firmada:", url_firmada)
+print("URL de la imagen firmada:", url_firmada, '\n\nLongitud: ', len(url_firmada))

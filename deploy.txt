@@ -10,7 +10,7 @@ en la carpeta venv están los paquetes de python
 
 F1, luego select python interpreter, seleccionar el que tiene la estrella, cerrar y volver a abrir la terminal
 
-pip install django
+pip install -r requeriments_all.txt
 
  django-admin startproject unpet_api .
 
