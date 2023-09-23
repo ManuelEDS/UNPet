@@ -4,6 +4,7 @@ from . import views
 
 urlpatterns = [
     path('login/', PersonaList.as_view(), name='login'),
+    path('register/'),
     path('logout/', views.logout_view, name='logout'),
 ]
 
