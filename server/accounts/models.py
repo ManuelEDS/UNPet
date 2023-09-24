@@ -110,7 +110,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     id = models.AutoField(primary_key=True)
     email = models.EmailField(unique=True)
     username = models.CharField(max_length=50, unique=True)
-    n_doc = models.CharField(max_length=50, null=True, unique=True)
+    n_doc = models.CharField(max_length=20, null=True, unique=True)
     first_name = models.CharField(max_length=50, null=True)
     last_name = models.CharField(max_length=50, null=True)
     description = models.CharField(max_length=255, blank=True, null=True)

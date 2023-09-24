@@ -13,7 +13,7 @@ class UserRegister(APIView):
         user_email = request.data.get('email')
         username = request.data.get('username')
         user_pswd = request.data.get('password')
-        extra_fields = {key: value for key, value in request.POST.items() if key not in  ['email', 'username', 'password']}
+        extra_fields = {key: value for key, value in request.data.items() if key not in  ['email', 'username', 'password']}
         user_model = get_user_model()
         ##
         if not username.strip():
@@ -37,16 +37,21 @@ class UserLogin(APIView):
     permission_classes = (permissions.AllowAny,)
     authentication_classes = (SessionAuthentication,)
     def post(self, request):
-        user_ID = request.data.get('userID')
-        user_pswd = request.data.get('password')
-        extra_fields = {key: value for key, value in request.POST.items() if key not in  ['email', 'username', 'password']}
+        print("paso 0", request.data.get("userID"))
+        user_ID = request.data.get("userID").strip()
+        user_pswd = request.data.get("password").strip()
+        print("paso 1")
+        extra_fields = {key: value for key, value in request.data.items() if key not in  ["userID", "password"]}
         ##
-        if not user_ID.strip() or not user_pswd.strip():
+        print("paso 2 extrafields", extra_fields)
+        if not user_ID or not user_pswd:
             return Response({"details": "Ingrese un nombre de usuario o correo o numero de documento, campo obligatorio"}, status=status.HTTP_400_BAD_REQUEST)
         ##
+        print("paso 3", user_ID.strip(), len(user_ID))
         user_auth = authenticate(userID= user_ID, password=user_pswd, **extra_fields)
         ##
-        if user_auth is not None:
+        print("paso 4")
+        if user_auth!=None:
             login(request, user_auth)
             user_ser= UserSerializer(user_auth).data
             print(user_ser)

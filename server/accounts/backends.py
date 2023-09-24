@@ -20,10 +20,12 @@ class AccountsBackend(ModelBackend):
                 user = self.UserModel.objects.get(email=userID)
                 print("authenticate POR CORREO:", user)
             elif userID.isdigit():
+                print("es difito, se procede a por n_doc:", userID)
                 user = self.UserModel.objects.get(n_doc=userID)
             else:
                 user = self.UserModel.objects.get(username=userID)
-            return user if user.is_active else None
+            if user!=None :
+                return user if user.is_active else None
         except:
             pass
         return None
