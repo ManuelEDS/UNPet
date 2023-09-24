@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     "pets",
     "rest_framework",
     "coreapi",
+    "accounts"
 ]
 
 MIDDLEWARE = [
@@ -154,6 +155,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 CORS_ALLOWED_ORIGINS = ["http://localhost:5173", "https://unpet-der5.onrender.com"]
 CORS_ALLOW_CREDENTIALS = True
+
 AUTH_USER_MODEL = "accounts.User"
 
 AUTHENTICATION_BACKENDS = [
