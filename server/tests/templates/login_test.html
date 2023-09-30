@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio de Sesión</title>
+    <!-- Enlace a Bulma CSS (CDN) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css">
+</head>
+<body>
+    <li><a href="{{ url_for('home') }}">Atrás</a></li>
+    <div class="container mt-5">
+        <h1 class="title is-2">Inicio de Sesión</h1>
+        <form id="loginForm">
+            <!-- Campo de correo electrónico -->
+            <div class="field">
+                <label class="label">Correo Electrónico:</label>
+                <div class="control">
+                    <input class="input" type="text" id="userID" name="userID" required>
+                </div>
+            </div>
+
+            <!-- Campo de contraseña -->
+            <div class="field">
+                <label class="label">Contraseña:</label>
+                <div class="control">
+                    <input class="input" type="password" id="password" name="password" required>
+                </div>
+            </div>
+
+            <!-- Botón de inicio de sesión -->
+            <div class="field">
+                <div class="control">
+                    <button class="button is-primary" type="button" id="loginButton">Iniciar Sesión</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- Enlace a Bulma CSS (CDN) -->
+    <script src="https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css"></script>
+
+    <!-- Agrega un script para enviar datos JSON al servidor -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const loginForm = document.getElementById('loginForm');
+            const loginButton = document.getElementById('loginButton');
+
+            loginButton.addEventListener('click', function() {
+                const userID = document.getElementById('userID').value;
+                const password = document.getElementById('password').value;
+
+                const loginData = {
+                    userID: userID,
+                    password: password
+                };
+
+                // Enviar los datos JSON al servidor (puedes usar fetch o axios)
+                fetch('http://127.0.0.1:8000/accounts/api/login/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(loginData)
+                })
+                .then(response => {
+                    // Manejar la respuesta del servidor aquí
+                    console.log(response);
+                })
+                .catch(error => {
+                    // Manejar errores de la solicitud aquí
+                    console.error(error);
+                });
+            });
+        });
+    </script>
+</body>
+</html>

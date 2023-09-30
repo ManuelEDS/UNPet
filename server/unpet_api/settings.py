@@ -49,13 +49,16 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "corsheaders",
     "django.contrib.staticfiles",
-    "pets",
     "rest_framework",
     "coreapi",
-    "accounts"
+    "utils",
+    "accounts",
+    "pets",
+    "posts",
 ]
 
 MIDDLEWARE = [
+    
     "django.middleware.security.SecurityMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
@@ -63,6 +66,7 @@ MIDDLEWARE = [
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "accounts.middleware.UserInfoMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
@@ -152,8 +156,8 @@ if not DEBUG:
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # CORS URL AUTORIZADAS
-
-CORS_ALLOWED_ORIGINS = ["http://localhost:5173", "https://unpet-der5.onrender.com"]
+# 1: frontend de unpet, localhost 5000 para hacer pruebas rapidas con flask, onrender: deploy del frontend
+CORS_ALLOWED_ORIGINS = ["http://localhost:5173","http://localhost:5000","http://127.0.0.1:5000", "https://unpet-der5.onrender.com"]
 CORS_ALLOW_CREDENTIALS = True
 
 AUTH_USER_MODEL = "accounts.User"
@@ -170,3 +174,4 @@ REST_FRAMEWORK = {
         "rest_framework.authentication.SessionAuthentication"
     ],
 }
+

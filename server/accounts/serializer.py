@@ -1,32 +1,27 @@
+from typing import Self
 from rest_framework import serializers
 from django.contrib.auth import get_user_model, authenticate
-from .models import User, Organitation
+from .models import User, Organizacion
 
-UserModel = get_user_model()
 
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
-        model = User
-        fields = "__all__"
+        model = get_user_model()
+        exclude = ("id","password")
 
-
-class OrganitationSerializer(serializers.ModelSerializer):
+class UserloginSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Organitation
+        model = get_user_model()
+        fields = ('id', 'username', 'email', 'first_name', 'last_name', 'is_staff',)
+
+class OrganizationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Organizacion
         fields = "__all__"
 
 
 class ProfileSerializer(serializers.ModelSerializer):
-    username = serializers.CharField(max_length=50)
-    email = serializers.EmailField()
-    username = serializers.CharField(max_length=50)
-    n_doc = serializers.CharField(max_length=50)
-    first_name = serializers.CharField(max_length=50)
-    last_name = serializers.CharField(max_length=50)
-    description = serializers.CharField(max_length=255)
-    phoneNumber = serializers.CharField(max_length=20)
-
     class Meta:
-        model = User
-        exclude = ("id",)
+        model = get_user_model()
+        exclude = ("id","password")

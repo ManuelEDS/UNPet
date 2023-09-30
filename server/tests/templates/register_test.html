@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Registro</title>
+    <!-- Enlace a Bulma CSS (CDN) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css">
+    <style>
+        /* Estilo personalizado para centrar la tarjeta */
+        .card-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+    </style>
+</head>
+<body>
+    <div class="card card-container">
+        <div class="card-content">
+            <br><br><br><p></p>
+            
+            <h1 class="title is-2">Formulario de Registro</h1>
+            <li><a href="{{ url_for('home') }}">Atrás</a></li>
+            <form id="registrationForm">
+                <!-- Campo de correo electrónico -->
+                <div class="field">
+                    <label class="label">Correo Electrónico:</label>
+                    <div class="control">
+                        <input class="input" type="email" id="email" name="email" required>
+                    </div>
+                </div>
+    
+                <!-- Campo de nombre de usuario -->
+                <div class="field">
+                    <label class="label">Nombre de Usuario:</label>
+                    <div class="control">
+                        <input class="input" type="text" id="username" name="username" required>
+                    </div>
+                </div>
+    
+                <!-- Campo de contraseña -->
+                <div class="field">
+                    <label class="label">Contraseña:</label>
+                    <div class="control">
+                        <input class="input" type="password" id="password" name="password" required>
+                    </div>
+                </div>
+    
+                <!-- Campo de foto -->
+                <div class="field">
+                    <label class="label">Foto:</label>
+                    <div class="control">
+                        <input class="input" type="file" id="photo_file" name="photo_file">
+                    </div>
+                </div>
+    
+                <!-- Campo de tipo de documento -->
+                <div class="field">
+                    <label class="label">Tipo de Documento:</label>
+                    <div class="control">
+                        <div class="select">
+                            <select id="tipo_doc" name="tipo_doc">
+                                <option value="CC">Cédula de Ciudadanía (CC)</option>
+                                <option value="TI">Tarjeta de Identidad (TI)</option>
+                                <option value="CE">Cédula de Extranjería (CE)</option>
+                                <option value="Pasaporte">Pasaporte</option>
+                                <!-- Agrega más opciones según sea necesario -->
+                            </select>
+                        </div>
+                    </div>
+                </div>
+    
+                <!-- Campo de número de documento -->
+                <div class="field">
+                    <label class="label">Número de Documento:</label>
+                    <div class="control">
+                        <input class="input" type="text" id="n_doc" name="n_doc" required>
+                    </div>
+                </div>
+    
+                <!-- Campo de número de teléfono -->
+                <div class="field">
+                    <label class="label">Número de Teléfono:</label>
+                    <div class="control">
+                        <input class="input" type="text" id="telefono" name="telefono" required>
+                    </div>
+                </div>
+    
+                <!-- Campo de localidad -->
+                <div class="field">
+                    <label class="label">Localidad:</label>
+                    <div class="control">
+                        <div class="select">
+                            <select id="idlocalidad" name="idlocalidad">
+                                <option value="1">Usaquén</option>
+                                <option value="2">Chapinero</option>
+                                <option value="3">Santa Fe</option>
+                                <option value="4">San Cristóbal</option>
+                                <option value="5">Usme</option>
+                                <option value="6">Tunjuelito</option>
+                                <option value="7">Bosa</option>
+                                <option value="8">Kennedy</option>
+                                <option value="9">Fontibón</option>
+                                <option value="10">Engativá</option>
+                                <option value="11">Suba</option>
+                                <option value="12">Barrios Unidos</option>
+                                <option value="13">Teusaquillo</option>
+                                <option value="14">Los Mártires</option>
+                                <option value="15">Antonio Nariño</option>
+                                <option value="16">Puente Aranda</option>
+                                <option value="17">La Candelaria</option>
+                                <option value="18">Rafael Uribe Uribe</option>
+                                <option value="19">Ciudad Bolívar</option>
+                                <option value="20">Sumapaz</option>
+                                <!-- Agrega más opciones según sea necesario -->
+                            </select>
+                        </div>
+                    </div>
+                </div>
+    
+                <!-- Botón de enviar -->
+                <div class="field">
+                    <div class="control">
+                        <button class="button is-primary" type="button" id="registerButton">Registrarse</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Enlace a Bulma CSS (CDN) -->
+    <script src="https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css"></script>
+
+    <!-- Agrega un script para enviar datos JSON al servidor -->
+
+    <!-- Agrega un script para enviar datos JSON al servidor -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const registrationForm = document.getElementById('registrationForm');
+            const registerButton = document.getElementById('registerButton');
+
+            registerButton.addEventListener('click', function() {
+                const email = document.getElementById('email').value;
+                const username = document.getElementById('username').value;
+                const password = document.getElementById('password').value;
+                const photo_file = document.getElementById('photo_file').value;
+                const tipo_doc = document.getElementById('tipo_doc').value;
+                const n_doc = document.getElementById('n_doc').value;
+                const telefono = document.getElementById('telefono').value;
+                const idlocalidad = document.getElementById('idlocalidad').value;
+
+                const registrationData = {
+                    email: email,
+                    username: username,
+                    password: password,
+                    photo_file: photo_file,
+                    tipo_doc: tipo_doc,
+                    n_doc: n_doc,
+                    telefono: telefono,
+                    idlocalidad: idlocalidad
+                };
+                console.log(registrationData);
+                console.log('idlocalidad:-->')
+                console.log(idlocalidad)
+
+                // Enviar los datos JSON al servidor (puedes usar fetch o axios)
+                fetch('http://127.0.0.1:8000/accounts/api/register/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(registrationData)
+                })
+                .then(response => {
+                    // Manejar la respuesta del servidor aquí
+                    console.log(response);
+                })
+                .catch(error => {
+                    // Manejar errores de la solicitud aquí
+                    console.error(error);
+                });
+            });
+        });
+    </script>
+</body>
+</html>

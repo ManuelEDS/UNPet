@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menú de Pruebas</title>
+    <!-- Enlace a Bulma CSS (CDN) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css">
+</head>
+<body>
+
+    <section class="section">
+        <div class="container">
+            <h1 class="title is-2">Menú de Pruebas</h1>
+            <ul>
+                <li><a href="{{ url_for('login_test') }}">Test: Login</a></li>
+                <li><a href="{{ url_for('register_test') }}">Test: Register</a></li>
+                <!-- Agrega más opciones de prueba aquí -->
+            </ul>
+        </div>
+    </section>
+
+    <!-- Enlace a Bulma CSS (CDN) -->
+    <script src="https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css"></script>
+</body>
+</html>
