@@ -4,8 +4,10 @@ from .serializer import UserSerializer, ProfileSerializer, OrganizationSerialize
 from django.contrib.auth import get_user_model, authenticate, login, logout
 from rest_framework import permissions,status
 from utils.json_respond import Response
+from utils.unpet_user import UNPetUserManager
+from utils.firebase_manager import uploadUserIMG
 from .models import Organizacion, Persona
-
+from django.http.request import HttpRequest
 
 class AdminRegister(APIView):
     permission_classes = (permissions.IsAuthenticated,)
@@ -17,19 +19,23 @@ class AdminRegister(APIView):
 
 class UserRegister(APIView):
     permission_classes = (permissions.AllowAny,)
-    def get(self, request):
+    def get(self, request:HttpRequest):
         return Response(request=request,data={"Usuarios registrados":{u.username for u in get_user_model().objects.all()},
                                                  "Organizaciones registradas":{u.username for u in Organizacion.objects.all()},
                                                  "Personas registradas":{u.username for u in Persona.objects.all()}})
     def post(self, request):
+        
         user_email = request.data.get('email')
         username = request.data.get('username')
         user_pswd = request.data.get('password')
 
         for r in request.data:
             print(r, type(r))
-        #photo = request.files.get('photo_file')
-        #print('LA FOTO ESTÁ AQUI:-->', type(photo), photo)
+        photo = request.FILES.get('photo_file')
+        photo2 = request.data.get('photo_file')
+        print('LA FOTO ESTÁ AQUI:-->', type(photo), photo, type(photo2), photo2)
+
+
         extra_fields = {key: value for key, value in request.data.items() if key not in  ['email', 'username', 'password']}
         user_model = get_user_model()
         ##
@@ -49,7 +55,11 @@ class UserRegister(APIView):
         ##
         if user_auth:
             login(request, user_auth)
+            if photo is not None:
+                linkIMG=uploadUserIMG(foto=photo, nombre=f'user-img-{user_auth.id}')
+                print('IMAGEN SUBIDA, EL LINK ES: \n\n\n', linkIMG, '\n\n\n')
             return Response(request=request, data={"data": "Usuario registrado con exito", "user": UserSerializer(user_obj).data}, status=status.HTTP_201_CREATED)
+
         return Response(request=request, status=status.HTTP_400_BAD_REQUEST)
     
 
@@ -87,25 +97,27 @@ class UserLogin(APIView):
     permission_classes = (permissions.AllowAny,)
     authentication_classes = (SessionAuthentication,)
     def post(self, request):
-        print("paso 0", request.data.get("userID"))
-        user_ID = request.data.get("userID").strip()
-        user_pswd = request.data.get("password").strip()
-        print("paso 1")
+        if request.user.is_authenticated:
+            return Response(request=request, data={"data": "Usuario ya registrado"}, status=status.HTTP_400_BAD_REQUEST)
+        # print("paso 0", request.data.get("userID"))
+        user_ID = request.data.get("userID")
+        user_pswd = request.data.get("password")
+        # print("paso 1")
         extra_fields = {key: value for key, value in request.data.items() if key not in  ["userID", "password"]}
         ##
-        print("paso 2 extrafields", extra_fields)
+        # print("paso 2 extrafields", extra_fields)
         if not user_ID or not user_pswd:
             return Response(request=request, data={"data": "Ingrese un nombre de usuario o correo o numero de documento, campo obligatorio"}, status=status.HTTP_400_BAD_REQUEST)
         ##
-        print("paso 3", user_ID.strip(), len(user_ID))
-        user_auth = authenticate(request, userID= user_ID, password=user_pswd, **extra_fields)
+        # print("paso 3", user_ID.strip(), len(user_ID))
+        user_auth = authenticate(request, userID=  user_ID.strip(), password=user_pswd.strip(), **extra_fields)
         ##
-        print("paso 4")
+        # print("paso 4")
         if user_auth!=None:
-            print("paso 5 user auth !=None")
+            # print("paso 5 user auth !=None")
             login(request, user_auth)
             user_ser= UserSerializer(user_auth).data
-            print(user_ser)
+            # print(user_ser)
             return Response(request=request, data={"data": "Usuario logeado con exito", "user": UserSerializer(user_auth).data}, status=status.HTTP_200_OK)
         return Response(request=request, data={"data": "Error en el login", "DATOS":{"user_auth": user_auth, "user_ID":user_ID, "user_pswd":user_pswd, "extra_fields":extra_fields}}, status=status.HTTP_400_BAD_REQUEST)
 
@@ -124,23 +136,34 @@ class UserView(APIView):
     permission_classes = (permissions.AllowAny,)
     authentication_classes = (SessionAuthentication,)
     def get(self, request, username):
+        if not username: 
+            return Response(request=request, data={"details": "Ingrese un nombre de usuario"}, status=status.HTTP_400_BAD_REQUEST)
+        if not get_user_model().objects.filter(username=username).exists():
+            return Response(request=request, data={"details": "Este usuario no existe"}, status=status.HTTP_400_BAD_REQUEST)
         user_model = get_user_model().objects.get(username=username)
+
         if not user_model:
             return Response(request=request, data={"data": "Usuario no encontrado", "user":user_model}, status=status.HTTP_400_BAD_REQUEST)
         else:
-            return Response(request=request, data={"data": "Usuario encontrado", "user": UserSerializer(user_model).data}, status=status.HTTP_200_OK)
+            # print('si existe', user_model.toDict())
+            user= UNPetUserManager(user_instance=user_model)
+            # print('por user_instance se pudo', user_model.toDict())
+            # userB= UNPetUserManager(user_id=user_model.id)
+            # print('por id se pudo', user_model.toDict())
+            # print(userA, userB)
+            return Response(request=request, data={"data": "Usuario encontrado", "user": user.toDict()}, status=status.HTTP_200_OK)
 
 class ProfileView(APIView):
     permission_classes = (permissions.IsAuthenticated,)
     authentication_classes = (SessionAuthentication,)
     def get(self, request):
         # Verifica si el usuario ha iniciado sesión
-
-        return Response(request=request, data={'data': 'datos del request:', "request.user":ProfileSerializer(request.user).data, "request.auth":f"request.auth"}, status=status.HTTP_401_UNAUTHORIZED)
+        user = UNPetUserManager(user_instance=request.user)
+        return Response(request=request, data={'data': 'datos del perfil', 'profile': user.toDict()}, status=status.HTTP_401_UNAUTHORIZED)
     
     def put(self, request):
         current_user = ProfileSerializer(instance=request.user,data= request.data,partial=True)
-        print('USUARIO PROFILE PUT:', request.data, '====\n')
+        # print('USUARIO PROFILE PUT:', request.data, '====\n')
             # Valida y actualiza los campos de la instancia
         if current_user.is_valid():
             current_user.save()

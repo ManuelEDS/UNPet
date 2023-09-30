@@ -23,7 +23,7 @@
             
             <h1 class="title is-2">Formulario de Registro</h1>
             <li><a href="{{ url_for('home') }}">Atrás</a></li>
-            <form id="registrationForm">
+            <form id="registrationForm" method="POST" enctype="multipart/form-data">
                 <!-- Campo de correo electrónico -->
                 <div class="field">
                     <label class="label">Correo Electrónico:</label>
@@ -140,38 +140,32 @@
         document.addEventListener('DOMContentLoaded', function() {
             const registrationForm = document.getElementById('registrationForm');
             const registerButton = document.getElementById('registerButton');
-
+    
             registerButton.addEventListener('click', function() {
                 const email = document.getElementById('email').value;
                 const username = document.getElementById('username').value;
                 const password = document.getElementById('password').value;
-                const photo_file = document.getElementById('photo_file').value;
+                const photo_file_input = document.getElementById('photo_file'); // Cambia el nombre a "photo_file_input"
                 const tipo_doc = document.getElementById('tipo_doc').value;
                 const n_doc = document.getElementById('n_doc').value;
                 const telefono = document.getElementById('telefono').value;
                 const idlocalidad = document.getElementById('idlocalidad').value;
-
-                const registrationData = {
-                    email: email,
-                    username: username,
-                    password: password,
-                    photo_file: photo_file,
-                    tipo_doc: tipo_doc,
-                    n_doc: n_doc,
-                    telefono: telefono,
-                    idlocalidad: idlocalidad
-                };
-                console.log(registrationData);
-                console.log('idlocalidad:-->')
-                console.log(idlocalidad)
-
-                // Enviar los datos JSON al servidor (puedes usar fetch o axios)
+    
+                // Crea un objeto FormData y agrega los datos del formulario
+                const formData = new FormData();
+                formData.append('email', email);
+                formData.append('username', username);
+                formData.append('password', password);
+                formData.append('photo_file', photo_file_input.files[0]); // Agrega el archivo al FormData
+                formData.append('tipo_doc', tipo_doc);
+                formData.append('n_doc', n_doc);
+                formData.append('telefono', telefono);
+                formData.append('idlocalidad', idlocalidad);
+    
+                // Enviar los datos del formulario al servidor
                 fetch('http://127.0.0.1:8000/accounts/api/register/', {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(registrationData)
+                    body: formData
                 })
                 .then(response => {
                     // Manejar la respuesta del servidor aquí
@@ -184,5 +178,6 @@
             });
         });
     </script>
+    
 </body>
 </html>

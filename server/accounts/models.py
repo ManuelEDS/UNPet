@@ -1,3 +1,4 @@
+from xml.etree.ElementTree import tostring
 from django.db import models
 from django.contrib.auth.base_user import BaseUserManager
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, Group
@@ -68,7 +69,9 @@ class UserManager(BaseUserManager):
             nit=nit,
             **extra_fields,
         )
+        user.groups.add(Group.objects.get(name='Organizacion'))
         org.save(force_insert=True)
+        
         return user, org
 
     def create_Persona(self, email, username, password=None, **extra_fields):
@@ -89,6 +92,7 @@ class UserManager(BaseUserManager):
         user = self.create_user(
             email=email, username=username, password=password)
         p = Persona(id=user.id, email=email, username=username, **extra_fields)
+        user.groups.add(Group.objects.get(name='Organizacion'))
         p.save(force_insert=True)
         return user, p
 
@@ -129,10 +133,10 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     # Métodos necesarios para el funcionamiento del backend de autenticación
     def get_username(self):
-        return self.USERNAME_FIELD
+        return self.username
 
     def get_rol_name(self):
-        return self.__class__.__name__
+        return self.get_groups()[0].name
 
     def get_full_name(self):
         # Puedes personalizar cómo se devuelve el nombre completo
@@ -146,7 +150,18 @@ class User(AbstractBaseUser, PermissionsMixin):
         return [group for group in self.groups.all()]
 
     def __str__(self):
-        return f"{self.username}, {self.first_name}, {self.last_name}"
+        return f"{self.username}"
+    def toDict(self):
+        return {
+            "username":self.username,
+            "email":self.email,
+            "first_name":self.first_name,
+            "last_name":self.last_name,
+            "is_superuser":self.is_superuser,
+            "is_staff":self.is_staff,
+            "is_active":self.is_active,
+            "userType":self.get_groups()[0].name
+            }
 
     class Meta:
         db_table = "usuarios"
@@ -172,7 +187,25 @@ class Organizacion(models.Model):
     )
 
     objects = UserManager()
-
+    def toDict(self):
+        # print('to dict organizacion:', self.idlocalidad.nombre, type(self.idlocalidad.nombre))
+        Loc=''
+        idLoc =''
+        if self.idlocalidad is not None:
+            print('')
+            Loc, idLoc=self.idlocalidad.nombre, self.idlocalidad.idlocalidad
+        return {
+            "username":self.username,
+            "email":self.email,
+            "direccion":self.direccion,
+            "nit":self.nit,
+            "descripcion":self.descripcion,
+            "telefono":self.telefono,
+            "urlfoto":self.urlfoto,
+            "idlocalidad":idLoc,
+            "localidad":Loc,
+            "date_joined":self.date_joined,
+            }
     class Meta:
         db_table = "organizaciones"
 
@@ -210,7 +243,27 @@ class Persona(models.Model):
     )
     sexo = models.CharField(max_length=1, choices=SEXO_CHOICES)
     objects = UserManager()
-
+    def toDict(self):
+        # print('to dict persona:', self.idlocalidad.nombre, type(self.idlocalidad.nombre))
+        idLoc=''
+        Loc=''
+        if self.idlocalidad is not None:
+            Loc, idLoc=self.idlocalidad.nombre, self.idlocalidad.idlocalidad
+        return {
+            "username":self.username,
+            "email":self.email,
+            "first_name":self.first_name,
+            "last_name":self.last_name,
+            "tipo_doc":self.tipo_doc,
+            "n_doc":self.n_doc,
+            "descripcion":self.descripcion,
+            "telefono":self.telefono,
+            "urlfoto":self.urlfoto,
+            "idlocalidad":idLoc,
+            "localidad":Loc,
+            "date_joined":self.date_joined,
+            
+            }
     class Meta:
         db_table = "personas"
 
@@ -238,10 +291,13 @@ def create_organization(sender, instance, created, **kwargs):
 def create_persona(sender, instance, created, **kwargs):
     user = User.objects.get(id=instance.id)
     if created:
-        if not user.groups.filter(name='Persona').exists(): #True: Se creó un usuario | False: Se actualizó un usuario
-            # Agregar la persona al grupo
-            user.groups.add(Group.objects.get(name='Persona'))
+        print("signal - post_save de persona, if created = true")
+        # if not user.groups.filter(name='Persona').exists(): #True: Se creó un usuario | False: Se actualizó un usuario
+        #     # Agregar la persona al grupo
+        #     user.groups.add(Group.objects.get(name='Persona'))
+        pass
     else:
+        print("signal - post_save de persona, if created = false, actualizar datos")
         # Actualizar datos
         username, email = instance.username, instance.email
         if user.username != username:

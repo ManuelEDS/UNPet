@@ -15,21 +15,24 @@ class AccountsBackend(ModelBackend):
         patron_correo= r'^[\w\.-]+@[\w\.-]+\.\w+$'
         try:
             if re.match(patron_correo, userID):
-                print("authenticate POR CORREO:")
+                # print("authenticate POR CORREO:")
                 emailUser = self.UserModel.objects.get(email=userID)
+                # print('autheticate daots:', emailUser, userID, password )
+                # print('mas datos: email-> ', emailUser)
+                # print('mas datos: userID-> ', userID)
                 user = super().authenticate(request, username=emailUser.get_username(), password=password)
-                print("authenticate POR CORREO:", user)
+                # print("authenticate POR CORREO:", user)
             # elif userID.isdigit():
-            #     print("es difito, se procede a por n_doc:", userID)
+            #     # print("es difito, se procede a por n_doc:", userID)
             #     user = self.UserModel.objects.get(n_doc=userID, **kwargs)
             else:
                 #user = self.UserModel.objects.get(username=userID, **kwargs)
                 user = super().authenticate(request,username=userID, password=password)
-                print("authenticate POR username:", user)
+                # print("authenticate POR username:", user)
             if user!=None :
                 return user if user.is_active else None
         except Exception as e:
             print('athenticate falló: ', e)
-        return None
+        return user
             
         

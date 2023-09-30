@@ -1,19 +1,35 @@
 from django.contrib.auth import get_user_model
-from rest_framework.serializers import ModelSerializer
-from accounts.models import Localidad, User
+from accounts.models import Localidad, Persona as p, Organizacion as org
+
+
 class UNPetUserManager:
     user_class =get_user_model()
     user_instance = None
     role_instance = None
-
+    rol=''
     def __init__(self, user_instance=None,role_instance=None, user_id=None, **kwargs):
         if user_instance and isinstance(user_instance, self.user_class):
-           if role_instance and role_instance.id == user_instance.id:
-               self.role_instance = role_instance
+            ('paso 1')
+            if role_instance :
+                ('paso 2')
+                if role_instance.id == user_instance.id:
+                    ('paso 3')
+                    self.role_instance = role_instance
+                    self.user_instance = user_instance
+                else: raise ValueError('las instancias de usuarios no tienen la misma id, son dos usuarios completamente diferentes', user_instance, role_instance)
+            else:
+                ('paso 4')
+                self.role_instance = self.__find_role_instance(user_instance.id)
+                ('paso 5')
+                self.user_instance=user_instance
         elif role_instance and not self.user_class.objects.filter(id=role_instance.id).exists():
-            return
+            raise ValueError(f'Ésta instancia de rol {role_instance.get_groups()[0]} no tiene un usuario asociado, es decir que no hay un usuario registrado con id = {role_instance.id}, posiblemente porque no se a aplicado el metodo save() a la instancia')
         elif user_id and int(user_id)>0:
+            print('cuando solo se tiene la id es por aqui---.-.-.+')
             self.user_instance = self.user_class.objects.get(id=user_id)
+            self.role_instance = self.__find_role_instance(user_id)
+        self.rol = self.user_instance.get_rol_name()
+        print(self.rol)
 
     def crear_persona(self, **data):
         idlocalidad = data.get('idlocalidad')
@@ -22,12 +38,21 @@ class UNPetUserManager:
         if data.get('idlocalidad') ==None: raise ValueError('campo idlocalidad: no existe una localidad con esa id')
 
         return 
+    def __find_role_instance(self, id):
+        print('paso 1 fin role instance')
+        
+        if(p.objects.filter(id=id).exists()):
+            return p.objects.get(id=id)
+        elif(org.objects.filter(id=id).exists()):
+            return org.objects.get(id=id)
+
     def change_password(self, old_password, new_password):
         if self.user_instance.check_password(old_password) and old_password != new_password:
             self.user_instance.set_password(raw_password=new_password)
+    def toDict(self):
+        return {**self.user_instance.toDict(),**self.role_instance.toDict()}
 
-
-    def save(self, rolSerializer: ModelSerializer | None):
+    def save(self, rolSerializer=None):
         if rolSerializer is None:
             rolSerializer.save()
         else:
@@ -44,7 +69,10 @@ class UNPetUserManager:
             self.user_instance.save()
 
 
-    def is_role(self, role:str)->bool : return role in self.user_instance.get_groups()
+    def is_role(self, role:str)->bool : 
+        ('paso 2 fin role instance-- isrol()?')
+        if self.user_instance is not None:
+            return role in [r.name for r in self.user_instance.get_groups()]
 
     @property
     def get_user_instance(self): return self.user_instance
