@@ -8,7 +8,7 @@ template_dir = os.path.join(template_dir, 'tests', 'templates')
 app = Flask(__name__, template_folder = template_dir)
 
 
-    
+
 #Rutas de la aplicación
 @app.route('/')
 def home(): return render_template('index.html')
@@ -19,7 +19,8 @@ def login_test(): return render_template('login_test.html')
 @app.route('/register_test')
 def register_test(): return render_template('register_test.html')
 
-
+@app.route('/recovery_password_test')
+def recovery_password_test(): return render_template('recuperar_contraseña.html')
 
 @app.route('/persona_edit/<string:id>', methods=["POST"])
 def persona_edit(id):
