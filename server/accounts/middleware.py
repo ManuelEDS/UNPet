@@ -10,7 +10,7 @@ class UserInfoMiddleware:
         user_info = {
             'userType': 'Anonymus',  # Valor predeterminado para usuarios anónimos
         }
-
+        print('peticion desde el host: ', request.get_host())
         if request.user.is_authenticated:
                 user_info['username'] = request.user.username
                 user_info['userType'] = request.user.get_groups()

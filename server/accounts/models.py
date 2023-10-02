@@ -30,7 +30,6 @@ class UserManager(BaseUserManager):
         user = self.create_user(
             email=email, username=username, password=password)
         user.is_staff = True
-        user.save()
         return user
 
     def create_superuser(self, email, username, password, **extra_fields):
@@ -41,7 +40,6 @@ class UserManager(BaseUserManager):
         superuser = self.create_user(
             email=email, username=username, password=password,)
         superuser.is_superuser = True
-        superuser.save()
         return superuser
 
     def create_Organization(self, email, username, nit, password=None, **extra_fields):
@@ -62,6 +60,7 @@ class UserManager(BaseUserManager):
         user = self.create_user(
             email=email, username=username, password=password,
         )
+        user.groups.add(Group.objects.get(name='Organizacion'))
         org = Organizacion(
             id=user.id,
             email=email,
@@ -69,9 +68,8 @@ class UserManager(BaseUserManager):
             nit=nit,
             **extra_fields,
         )
-        user.groups.add(Group.objects.get(name='Organizacion'))
+
         org.save(force_insert=True)
-        
         return user, org
 
     def create_Persona(self, email, username, password=None, **extra_fields):
@@ -91,8 +89,9 @@ class UserManager(BaseUserManager):
             raise ValueError("Una contraseña de persona es requerido")
         user = self.create_user(
             email=email, username=username, password=password)
+
+        user.groups.add(Group.objects.get(name='Persona'))
         p = Persona(id=user.id, email=email, username=username, **extra_fields)
-        user.groups.add(Group.objects.get(name='Organizacion'))
         p.save(force_insert=True)
         return user, p
 
@@ -268,42 +267,42 @@ class Persona(models.Model):
         db_table = "personas"
 
 
-@receiver(post_save, sender=Organizacion)
-def create_organization(sender, instance, created, **kwargs):
-    user = User.objects.get(id=instance.id)
-    if created:
-        if user.groups.filter(name='Organizacion').exists(): #True: Se creó un usuario | False: Se actualizó un usuario
-            # Agregar la persona al grupo
-            user.groups.add(Group.objects.get(name='Organizacion'))
-    else:
-        # Actualizar datos
-        username, email = instance.username, instance.email
-        if user.username != username:
-            user.username = username
-        if user.email != email:
-            user.email = email
-    user.save()
+# @receiver(post_save, sender=Organizacion)
+# def create_organization(sender, instance, created, **kwargs):
+#     user = User.objects.get(id=instance.id)
+#     if created:
+#         if user.groups.filter(name='Organizacion').exists(): #True: Se creó un usuario | False: Se actualizó un usuario
+#             # Agregar la persona al grupo
+#             user.groups.add(Group.objects.get(name='Organizacion'))
+#     else:
+#         # Actualizar datos
+#         username, email = instance.username, instance.email
+#         if user.username != username:
+#             user.username = username
+#         if user.email != email:
+#             user.email = email
+#     user.save()
 
 
 
 
-@receiver(post_save, sender=Persona)
-def create_persona(sender, instance, created, **kwargs):
-    user = User.objects.get(id=instance.id)
-    if created:
-        print("signal - post_save de persona, if created = true")
-        # if not user.groups.filter(name='Persona').exists(): #True: Se creó un usuario | False: Se actualizó un usuario
-        #     # Agregar la persona al grupo
-        #     user.groups.add(Group.objects.get(name='Persona'))
-        pass
-    else:
-        print("signal - post_save de persona, if created = false, actualizar datos")
-        # Actualizar datos
-        username, email = instance.username, instance.email
-        if user.username != username:
-            user.username = username
-        if user.email != email:
-            user.email = email
-    user.save()
+# @receiver(post_save, sender=Persona)
+# def create_persona(sender, instance, created, **kwargs):
+#     user = User.objects.get(id=instance.id)
+#     if created:
+#         print("signal - post_save de persona, if created = true")
+#         # if not user.groups.filter(name='Persona').exists(): #True: Se creó un usuario | False: Se actualizó un usuario
+#         #     # Agregar la persona al grupo
+#         #     user.groups.add(Group.objects.get(name='Persona'))
+#         pass
+#     else:
+#         print("signal - post_save de persona, if created = false, actualizar datos")
+#         # Actualizar datos
+#         username, email = instance.username, instance.email
+#         if user.username != username:
+#             user.username = username
+#         if user.email != email:
+#             user.email = email
+#     user.save()
 
 

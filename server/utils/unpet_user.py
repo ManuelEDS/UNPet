@@ -8,28 +8,32 @@ class UNPetUserManager:
     role_instance = None
     rol=''
     def __init__(self, user_instance=None,role_instance=None, user_id=None, **kwargs):
-        if user_instance and isinstance(user_instance, self.user_class):
+        if user_instance is not None:
             ('paso 1')
-            if role_instance :
+            if role_instance is not None:
+                # role_instance.refresh_from_db()
+                # user_instance.refresh_from_db()
                 ('paso 2')
                 if role_instance.id == user_instance.id:
                     ('paso 3')
                     self.role_instance = role_instance
                     self.user_instance = user_instance
-                else: raise ValueError('las instancias de usuarios no tienen la misma id, son dos usuarios completamente diferentes', user_instance, role_instance)
+                else: raise ValueError('las instancias de usuarios no tienen la misma id, son dos usuarios completamente diferentes', user_instance.id, role_instance.id)
             else:
                 ('paso 4')
                 self.role_instance = self.__find_role_instance(user_instance.id)
                 ('paso 5')
                 self.user_instance=user_instance
-        elif role_instance and not self.user_class.objects.filter(id=role_instance.id).exists():
+        elif role_instance is not None and not self.user_class.objects.filter(id=role_instance.id).exists():
             raise ValueError(f'Ésta instancia de rol {role_instance.get_groups()[0]} no tiene un usuario asociado, es decir que no hay un usuario registrado con id = {role_instance.id}, posiblemente porque no se a aplicado el metodo save() a la instancia')
         elif user_id and int(user_id)>0:
             print('cuando solo se tiene la id es por aqui---.-.-.+')
             self.user_instance = self.user_class.objects.get(id=user_id)
             self.role_instance = self.__find_role_instance(user_id)
-        self.rol = self.user_instance.get_rol_name()
-        print(self.rol)
+        else:
+            print('se llega al else del constructor del unpetUserManager')
+        #self.rol = self.user_instance.get_rol_name()
+        #print(self.rol)
 
     def crear_persona(self, **data):
         idlocalidad = data.get('idlocalidad')
@@ -53,20 +57,20 @@ class UNPetUserManager:
         return {**self.user_instance.toDict(),**self.role_instance.toDict()}
 
     def save(self, rolSerializer=None):
-        if rolSerializer is None:
+        if rolSerializer is not None:
             rolSerializer.save()
         else:
             inst_name = self.role_instance.username
             inst_email = self.role_instance.email
+            rol_class = self.role_instance.__class__
 
-            if self.role_instance.objects.get(username= inst_name).id != self.role_instance.id:
+            if rol_class.objects.get(username= inst_name).id != self.role_instance.id:
                 raise ValueError('Otro usuario ya tiene ese nombre de usuario (username)')
 
-            if self.role_instance.objects.get(email= inst_email).id != self.role_instance.id:
+            if rol_class.objects.get(email= inst_email).id != self.role_instance.id:
                 raise ValueError('Otro usuario ya tiene ese correo (email)')
             
             self.role_instance.save()
-            self.user_instance.save()
 
 
     def is_role(self, role:str)->bool : 

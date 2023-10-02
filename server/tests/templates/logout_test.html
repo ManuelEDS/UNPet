@@ -12,27 +12,10 @@
     <div class="container mt-5">
         <h1 class="title is-2">Inicio de Sesión</h1>
         <form id="loginForm">
-          
-            <!-- Campo de correo electrónico -->
-            <div class="field">
-                <label class="label">Correo Electrónico o nombre de usuario:</label>
-                <div class="control">
-                    <input class="input" type="text" id="userID" name="userID" required>
-                </div>
-            </div>
-
-            <!-- Campo de contraseña -->
-            <div class="field">
-                <label class="label">Contraseña:</label>
-                <div class="control">
-                    <input class="input" type="password" id="password" name="password" required>
-                </div>
-            </div>
-
             <!-- Botón de inicio de sesión -->
             <div class="field">
                 <div class="control">
-                    <button class="button is-primary" type="button" id="loginButton">Iniciar Sesión</button>
+                    <button class="button is-primary" type="button" id="loginButton">Cerrar Sesión</button>
                 </div>
             </div>
         </form>
@@ -48,28 +31,16 @@
             const loginButton = document.getElementById('loginButton');
 
             loginButton.addEventListener('click', function() {
-                const userID = document.getElementById('userID').value;
-                const password = document.getElementById('password').value;
-
-                const loginData = {
-                    userID: userID,
-                    password: password
-                };
-
-                // Enviar los datos JSON al servidor (puedes usar fetch o axios)
-                fetch('http://127.0.0.1:8000/accounts/api/login/', {
+                fetch('http://127.0.0.1:8000/accounts/api/logout/', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(loginData)
+                    }
                 })
                 .then(response => {
-                    // Manejar la respuesta del servidor aquí
                     console.log(response);
                 })
                 .catch(error => {
-                    // Manejar errores de la solicitud aquí
                     console.error(error);
                 });
             });

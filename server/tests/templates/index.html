@@ -13,8 +13,11 @@
         <div class="container">
             <h1 class="title is-2">Menú de Pruebas</h1>
             <ul>
-                <li><a href="{{ url_for('login_test') }}">Test: Login</a></li>
-                <li><a href="{{ url_for('register_test') }}">Test: Register</a></li>
+                <li><a href="{{ url_for('login_test') }}" >Test: Login</a></li>
+                <li><a href="{{ url_for('logout_test') }}" >Test: Logout</a></li>
+                <li><a href="{{ url_for('register_test') }}" >Test: Persona Register</a></li>
+                <li><a href="{{ url_for('org_register_test') }}" >Test: Organizacion Register</a></li>
+                <li><a href="{{ url_for('recovery_password_test') }}">Test: Recuperar contraseña</a></li>
                 <!-- Agrega más opciones de prueba aquí -->
             </ul>
         </div>

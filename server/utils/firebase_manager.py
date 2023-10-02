@@ -39,6 +39,7 @@ def __isJPG(url: str):
 
 def uploadUserIMG(foto:UploadedFile, nombre:str):
     try:
+        
         photo_data=None
         # Lee los datos binarios de la foto
         if not isinstance(foto, UploadedFile) and not isinstance(foto, bytes):
