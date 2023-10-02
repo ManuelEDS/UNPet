@@ -22,3 +22,7 @@ export const createPet = (pet) => {
 export const deletePet = (id) => petApi.delete(`${id}`)
 
 export const editPet = (id, pet) => petApi.put(`/${id}/`, pet)
+
+export const recoverPassword = (email) => petApi.get(`/recoverPassword/`)
+
+export const setNewPassword = (email) => petApi.get(`/recoverPassword/`)
