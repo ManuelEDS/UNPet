@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cambiar Contraseña</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css">
+</head>
+<body>
+    <section class="section">
+        <div class="container">
+            <h1 class="title">Cambiar Contraseña</h1>
+            <form method="post" action="http://127.0.0.1:8000/accounts/api/password-change/" class="box">
+             
+                <input type="hidden" name="csrfmiddlewaretoken" value="VueL6Rsn3CtIRABgcEKbYq8z5SaCGPz82bDTklvRDbJeutSQwbmjHp2aWLQbhIn1">
+                <div class="content">
+                    <p>Ingrese su contraseña anterior, por razones de seguridad, y luego ingrese su nueva contraseña dos veces para que podamos verificar que la ingresó correctamente.</p>
+                </div>
+
+                <div class="field">
+                    <label for="id_old_password" class="label">Contraseña antigua:</label>
+                    <div class="control">
+                        <input type="password" name="old_password" id="id_old_password" class="input" autocomplete="current-password" autofocus required>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label for="id_new_password1" class="label">Contraseña nueva:</label>
+                    <div class="control">
+                        <input type="password" name="new_password1" id="id_new_password1" class="input" autocomplete="new-password" required>
+                    </div>
+                    <p class="help is-danger" id="id_new_password1_helptext">
+                        Su contraseña debe cumplir con los siguientes requisitos:
+                        <ul>
+                            <li>No puede asemejarse tanto a su otra información personal.</li>
+                            <li>Debe contener al menos 8 caracteres.</li>
+                            <li>No puede ser una clave utilizada comúnmente.</li>
+                            <li>No puede ser completamente numérica.</li>
+                        </ul>
+                    </p>
+                </div>
+
+                <div class="field">
+                    <label for="id_new_password2" class="label">Contraseña nueva (confirmación):</label>
+                    <div class="control">
+                        <input type="password" name="new_password2" id="id_new_password2" class="input" autocomplete="new-password" required>
+                    </div>
+                </div>
+
+                <div class="field is-grouped">
+                    <div class="control">
+                        <input type="submit" value="Cambiar mi contraseña" class="button is-primary">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+</body>
+</html>
