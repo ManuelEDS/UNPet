@@ -18,5 +18,5 @@ urlpatterns = [
 
     path('api/password-change/', djangoViews.PasswordChangeView.as_view(), name='password_change'),
     path('api/password-change/done/', djangoViews.PasswordChangeDoneView.as_view(), name='password_change_done'),
-
+    path('api/test/', views.front_test.as_view(), name='front_test')
 ]

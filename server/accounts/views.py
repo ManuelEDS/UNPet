@@ -15,6 +15,10 @@ class AdminRegister(APIView):
     def post(self, request):
         pass
 
+class front_test(APIView):
+    permission_classes = (permissions.AllowAny,)
+    def get(self, request):
+        return Response(request=request, data={"data": "test ok"}, status= status.HTTP_200_OK)
 
 
 class UserRegister(APIView):
@@ -31,6 +35,7 @@ class UserRegister(APIView):
 
         for r in request.data:
             print(r, type(r))
+        print(dict(request.data))
         photo = request.FILES.get('photo_file')
 
         if 'image' not in photo.content_type.lower():
@@ -67,10 +72,13 @@ class UserRegister(APIView):
                 print('IMAGEN SUBIDA, EL LINK ES: \n\n\n', linkIMG, '\n\n\n')
                 print('objetos:...>', user_obj, type(user_obj), rol_obj, type(rol_obj))
                 print('\n\nmas datos de objetos: ', user_auth, type(user_auth), user_obj, type(user_obj), rol_obj, type(rol_obj), 'id de user_obj: ', user_obj.id, 'id de rol_obj: ', rol_obj.id, user_obj.username, rol_obj.username)
-                user= UNPetUserManager(user_instance=user_obj, role_instance=rol_obj)
-                user.role_instance.urlfoto=linkIMG
-                user.save()
-            return Response(request=request, data={"data": "Usuario registrado con exito", "user": UserSerializer(user_obj).data}, status=status.HTTP_201_CREATED)
+                try:
+                    user= UNPetUserManager(user_instance=user_obj, role_instance=rol_obj)
+                    user.role_instance.urlfoto=linkIMG
+                    user.save()
+                except Exception as e:
+                    print('error en el login xy: ', e)
+                return Response(request=request, data={"data": "Usuario registrado con exito", "user": UserSerializer(user_obj).data}, status=status.HTTP_201_CREATED)
         print('user_auth es None: ', user_auth, type(user_auth), user_obj, type(user_obj), rol_obj, type(rol_obj), 'id de user_obj: ', user_obj.id, 'id de rol_obj: ', rol_obj.id, user_obj.username, rol_obj.username)
         list_u = [ (u, u.id, u.username, u.password) for u in get_user_model().objects.all()]
         for u in list_u:
@@ -207,7 +215,7 @@ class ProfileView(APIView):
     def get(self, request):
         # Verifica si el usuario ha iniciado sesión
         user = UNPetUserManager(user_instance=request.user)
-        return Response(request=request, data={'data': 'datos del perfil', 'profile': user.toDict()}, status=status.HTTP_401_UNAUTHORIZED)
+        return Response(request=request, data={'data': 'datos del perfil', 'user': user.toDict()}, status=status.HTTP_401_UNAUTHORIZED)
     
     def put(self, request):
         current_user = ProfileSerializer(instance=request.user,data= request.data,partial=True)

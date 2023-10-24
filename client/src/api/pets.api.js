@@ -4,10 +4,19 @@ import axios from 'axios'
 //     baseURL: 'https://unpet.onrender.com/pets/api/v1/pets'
 // })
 
+const isDevelopment = process.env.NODE_ENV === 'development';
 
-const petApi = axios.create({
-    baseURL: 'http://127.0.0.1:8000/pets/api/v1/pets'
-})
+const petApi = isDevelopment
+  ? axios.create({
+      baseURL: 'http://127.0.0.1:8000/pets/api/v1/pets'
+    })
+  : axios.create({
+      baseURL: 'https://unpet.onrender.com/pets/api/v1/pets'
+    });
+
+  // Resto del código para otros entornos
+
+
 
 export const getPet = (id) =>
 petApi.get(`/${id}/`)

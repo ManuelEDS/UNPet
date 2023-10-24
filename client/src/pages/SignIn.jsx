@@ -7,13 +7,14 @@ import TextField from '@mui/material/TextField';
 import { Link } from 'react-router-dom'
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+//import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-
+import {login, getUser, getprofile} from '../api/accounts.api'
 // TODO remove, this demo shouldn't need to reset the theme.
-
+// import SearchBar from '../components/SearchBar';
+// import User from '../components/User';
 const defaultTheme = createTheme();
 
 export function SignIn() {
@@ -21,12 +22,14 @@ export function SignIn() {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     console.log({
-      email: data.get('email'),
+      userID: data.get('userID'),
       password: data.get('password'),
     });
+    console.log(login(data))
   };
 
   return (
+    
     <ThemeProvider theme={defaultTheme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
@@ -39,7 +42,7 @@ export function SignIn() {
           }}
         >
           <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-            <LockOutlinedIcon />
+          <img src="../../public/user-img-default.png" alt="User" width="40" height="40" />
           </Avatar>
           <Typography component="h1" variant="h5">
             Ingresar
@@ -51,7 +54,7 @@ export function SignIn() {
               fullWidth
               id="email"
               label="Correo Electrónico"
-              name="email"
+              name="userID"
               autoComplete="email"
               autoFocus
             />
@@ -88,6 +91,8 @@ export function SignIn() {
           </Box>
         </Box>
       </Container>
+      
     </ThemeProvider>
+    
   );
 }

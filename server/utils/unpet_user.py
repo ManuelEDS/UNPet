@@ -57,20 +57,23 @@ class UNPetUserManager:
         return {**self.user_instance.toDict(),**self.role_instance.toDict()}
 
     def save(self, rolSerializer=None):
-        if rolSerializer is not None:
-            rolSerializer.save()
-        else:
-            inst_name = self.role_instance.username
-            inst_email = self.role_instance.email
-            rol_class = self.role_instance.__class__
+        try:
+            if rolSerializer is not None:
+                rolSerializer.save()
+            else:
+                inst_name = self.role_instance.username
+                inst_email = self.role_instance.email
+                rol_class = self.role_instance.__class__
 
-            if rol_class.objects.get(username= inst_name).id != self.role_instance.id:
-                raise ValueError('Otro usuario ya tiene ese nombre de usuario (username)')
+                if rol_class.objects.get(username= inst_name).id != self.role_instance.id:
+                    raise ValueError('Otro usuario ya tiene ese nombre de usuario (username)')
 
-            if rol_class.objects.get(email= inst_email).id != self.role_instance.id:
-                raise ValueError('Otro usuario ya tiene ese correo (email)')
-            
-            self.role_instance.save()
+                if rol_class.objects.get(email= inst_email).id != self.role_instance.id:
+                    raise ValueError('Otro usuario ya tiene ese correo (email)')
+                
+                self.role_instance.save()
+        except Exception as e:
+            print('error en el usaermanager Unpet: ', e)
 
 
     def is_role(self, role:str)->bool : 

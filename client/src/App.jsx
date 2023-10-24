@@ -1,10 +1,10 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import { FeedPage } from './pages/FeedPage'
 import { PetFormPage } from './pages/PetFormPage'
-import { SignIn } from './components/SignIn.jsx'
-import { SignUp } from './components/SignUp.jsx'
-import { OrgSingUp } from './components/OrgSingUp.jsx'
-import { Password } from './components/Password'
+import { SignIn } from './pages/SignIn.jsx'
+import { SignUp } from './pages/SignUp.jsx'
+import { OrgSingUp } from './pages/OrgSingUp.jsx'
+import { Password } from './pages/Password'
 
 function App() {
   return (
