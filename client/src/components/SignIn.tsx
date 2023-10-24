@@ -34,7 +34,7 @@ export default function SignIn() {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     console.log({
-      email: data.get('email'),
+      email: data.get('userID'),
       password: data.get('password'),
     });
   };
@@ -64,7 +64,7 @@ export default function SignIn() {
               fullWidth
               id="email"
               label="Correo Electrónico"
-              name="email"
+              name="userID"
               autoComplete="email"
               autoFocus
             />
@@ -73,7 +73,7 @@ export default function SignIn() {
               required
               fullWidth
               name="password"
-              label="Contraeña"
+              label="Contraseña"
               type="password"
               id="password"
               autoComplete="current-password"
