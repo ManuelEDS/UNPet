@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # exit on error
-set -o errexit
+#set -o errexit
 # Instalar dependencias
-npm install
+yarn install
 # Ejecutar servidor react
 npm run build
