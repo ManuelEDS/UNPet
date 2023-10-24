@@ -11,7 +11,7 @@
     "proptypes": "cross-env BABEL_ENV=development babel-node --extensions \".tsx,.ts,.js\" ./scripts/generateProptypes.ts",
     "deduplicate": "node scripts/deduplicate.mjs",
     "benchmark:browser": "yarn workspace benchmark browser",
-    "build": "lerna run --parallel --scope \"@mui/*\" build",
+    "build": "lerna run build --stream",
     "build:codesandbox": "NODE_OPTIONS=\"–max_old_space_size=4096\" lerna run --concurrency 8 --scope \"@mui/*\" build",
     "release:version": "lerna version --no-changelog --no-push --no-git-tag-version --force-publish=@mui/core-downloads-tracker",
     "release:build": "lerna run --concurrency 8 --scope \"@mui/*\" build --skip-nx-cache",
