@@ -1,21 +1,26 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import { FeedPage } from './pages/FeedPage'
 import { PetFormPage } from './pages/PetFormPage'
-import { Navigation } from './components/Navigation'
+import { SignIn } from './components/SignIn.jsx'
+import { SignUp } from './components/SignUp.jsx'
+import { OrgSingUp } from './components/OrgSingUp.jsx'
+import { Password } from './components/Password'
 
 function App() {
   return (
     <BrowserRouter>
-      <Navigation />
       <Routes>
         <Route path='/' element={<Navigate to="/pets" />} />
         <Route path='/pets' element={<FeedPage />} />
         <Route path='/pet-create' element={<PetFormPage />} />
         <Route path='/pets/:id' element={<PetFormPage />} />
-
+        <Route path='/sign-in' element={<SignIn />} />
+        <Route path='/sign-up' element={<SignUp />} />
+        <Route path='/sign-up-org' element={<OrgSingUp />} />
+        <Route path='/password' element={<Password />} />
       </Routes>
-    </BrowserRouter> 
-    
+    </BrowserRouter>
+
   )
 }
 
