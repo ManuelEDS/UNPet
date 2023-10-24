@@ -9,7 +9,7 @@ coreapi==2.3.3
 coreschema==0.0.4
 cryptography==41.0.4
 dj-database-url==2.1.0
-Django==4.2.5
+Django
 django-cors-headers==4.2.0
 djangorestframework==3.14.0
 firebase-admin==6.2.0
