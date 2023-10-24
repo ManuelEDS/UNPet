@@ -6,4 +6,4 @@ cd /client
 #npm install --save-dev lerna
 yarn install
 # Ejecutar servidor react
-npm run build
+npm run dev
