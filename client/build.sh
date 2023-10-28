@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-exit on error
+set -o errexit
 # Instalar dependencias y
 # Ejecutar servidor react
 yarn build
