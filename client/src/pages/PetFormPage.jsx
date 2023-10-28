@@ -1,65 +1,75 @@
-import { useForm, } from 'react-hook-form'
-import { createPet, deletePet, editPet, getPet } from '../api/pets.api'
+import { useState, useEffect } from 'react';
+import { createPet, deletePet, editPet, getPet } from '../api/pets.api';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useEffect } from 'react';
+import { TextField, Button, Select, MenuItem, FormControl, InputLabel } from '@mui/material';
 
 export function PetFormPage() {
-
-    const { register, handleSubmit,
-        formState: { errors },
-        setValue
-    } = useForm();
-
+    const [name, setName] = useState('');
+    const [race, setRace] = useState('');
+    const [errors, setErrors] = useState({});
     const navigate = useNavigate();
-
     const params = useParams();
-
-    const onSubmit = handleSubmit(async data => {
-        if (params.id) {
-            console.log(data)
-            await editPet(params.id, data)
-        } else {
-            const res = await createPet(data);
-            console.log(res)
-        }
-
-        // Auto redireccionamiento
-        navigate("/pets");
-
-    })
 
     useEffect(() => {
         async function loadPet() {
             if (params.id) {
                 const { data } = await getPet(params.id);
-                setValue('name', data.name);
-                setValue('race', data.race)
-                console.log(data)
+                setName(data.name);
+                setRace(data.race);
             }
         }
-        loadPet()
-    }, [])
+        loadPet();
+    }, []);
 
+    const onSubmit = async (event) => {
+        event.preventDefault();
+        const data = { name, race };
+        if (params.id) {
+            console.log(data);
+            await editPet(params.id, data);
+        } else {
+            const res = await createPet(data);
+            console.log(res);
+        }
+        // Auto redireccionamiento
+        navigate('/pets');
+    };
+
+    const onDelete = async () => {
+        const accepted = window.confirm('seguro?');
+        if (accepted) {
+            await deletePet(params.id);
+        }
+    };
 
     return (
         <div>
             <form onSubmit={onSubmit}>
-                <input type="text" placeholder="Nombre" {...register("name", { required: true })} />                {errors.name && <span>el nombre es requerido</span>}
-                <select name="race" id="race" {...register("race", { required: true })}>
-                    <option value="Gato">Gato</option>
-                    <option value="Perro">Perro</option>
-                </select>
+                <TextField
+                    label="Nombre"
+                    variant="outlined"
+                    value={name}
+                    onChange={(event) => setName(event.target.value)}
+                />
+                {errors.name && <span>el nombre es requerido</span>}
+                <FormControl variant="outlined">
+                    <InputLabel id="race-label">Raza</InputLabel>
+                    <Select
+                        labelId="race-label"
+                        id="race"
+                        value={race}
+                        onChange={(event) => setRace(event.target.value)}
+                        label="Raza"
+                    >
+                        <MenuItem value="Gato">Gato</MenuItem>
+                        <MenuItem value="Perro">Perro</MenuItem>
+                    </Select>
+                </FormControl>
                 {errors.race && <span>la raza es requerida</span>}
-                <button>Crear</button>
+                <Button variant="contained" type="submit">Crear</Button>
             </form>
-            {params.id && <button onClick={async () => {
-                const accepted = window.confirm('seguro?')
-                if (accepted) {
-                    await deletePet(params.id)
-                }
-            }
-            }>Delete</button>}
-
+            {params.id && <Button variant="contained" onClick={onDelete}>Delete</Button>}
         </div>
-    )
+    );
 }
+

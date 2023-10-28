@@ -65,7 +65,7 @@ export function Password() {
             </Button>
             <Grid container>
               <Grid item>
-                <Link to="/sign-up">
+                <Link to="/register">
                   {"No tienes una cuenta? Regístrate"}
                 </Link>
               </Grid>
