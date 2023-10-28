@@ -8,6 +8,7 @@ import { Password } from './pages/Password'
 import { HomePage } from './pages/HomePage'
 import {TermsCond} from './pages/TermsCond'
 import {PoliticsPriv} from  './pages/Politicspriv'
+import { Donations } from './components/Donations'
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         <Route path='/home' element={<HomePage />} />
         <Route path='/legal/terms-and-conditions' element={<TermsCond />} />
         <Route path='/legal/privacy-policies' element={<PoliticsPriv/>} />
+        <Route path='/donations' element={<Donations />} />
 
       </Routes>
     </BrowserRouter>
