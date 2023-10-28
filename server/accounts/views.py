@@ -8,7 +8,8 @@ from utils.unpet_user import UNPetUserManager
 from utils.firebase_manager import uploadUserIMG
 from .models import Organizacion, Persona
 from django.http.request import HttpRequest
-
+import os
+from django.http import HttpResponse
 class AdminRegister(APIView):
     permission_classes = (permissions.IsAuthenticated,)
     authentication_classes = (SessionAuthentication,)
@@ -39,7 +40,8 @@ class UserRegister(APIView):
         photo = request.FILES.get('photo_file')
 
         if 'image' not in photo.content_type.lower():
-            return Response(request=request, data={"data": "El archivo que envió no es de tipo imagen"}, status= status.HTTP_400_BAD_REQUEST)
+            resp={"error":"El archivo que envió no es de tipo imagen"}
+            return Response(request=request, data=resp, status= status.HTTP_400_BAD_REQUEST)
 
         photo2 = request.data.get('photo_file')
         print('LA FOTO ESTÁ AQUI:-->', type(photo), photo, type(photo2), photo2)
@@ -49,7 +51,8 @@ class UserRegister(APIView):
         user_model = get_user_model()
         ##
         if not username.strip():
-            return Response(request=request, data={"data": "Ingrese un username, campo obligatorio"}, status= status.HTTP_400_BAD_REQUEST)
+            resp={"error":"Ingrese un username, campo obligatorio"}
+            return Response(request=request, data=resp, status= status.HTTP_400_BAD_REQUEST)
         ##
         if user_model.objects.filter(email=user_email).exists():
             user_obj= get_user_model().objects.get(email=user_email)
@@ -78,7 +81,7 @@ class UserRegister(APIView):
                     user.save()
                 except Exception as e:
                     print('error en el login xy: ', e)
-                return Response(request=request, data={"data": "Usuario registrado con exito", "user": UserSerializer(user_obj).data}, status=status.HTTP_201_CREATED)
+                return Response(request=request, data={"data": "Usuario registrado con exito", "user": UserSerializer(user_obj).data, "login":True}, status=status.HTTP_201_CREATED)
         print('user_auth es None: ', user_auth, type(user_auth), user_obj, type(user_obj), rol_obj, type(rol_obj), 'id de user_obj: ', user_obj.id, 'id de rol_obj: ', rol_obj.id, user_obj.username, rol_obj.username)
         list_u = [ (u, u.id, u.username, u.password) for u in get_user_model().objects.all()]
         for u in list_u:
@@ -146,7 +149,8 @@ class UserLogin(APIView):
 
         if request.user.is_authenticated:
             print('login paso 0 post está authenticado')
-            return Response(request=request, data={"data": "Usuario ya registrado"}, status=status.HTTP_400_BAD_REQUEST)
+            resp={"error":"Usuario ya registrado"}
+            return Response(request=request, data=resp, status=status.HTTP_400_BAD_REQUEST)
         # print("paso 0", request.data.get("userID"))
         user_ID = request.data.get("userID")
         user_pswd = request.data.get("password")
@@ -158,7 +162,8 @@ class UserLogin(APIView):
         # print("paso 2 extrafields", extra_fields)
         if not user_ID or not user_pswd:
             print('login paso 2 userId y password no tienen nada ')
-            return Response(request=request, data={"data": "Ingrese un nombre de usuario o correo o numero de documento, campo obligatorio"}, status=status.HTTP_400_BAD_REQUEST)
+            resp={"error":"Ingrese un nombre de usuario o correo o numero de documento, campo obligatorio"}
+            return Response(request=request, data=resp, status=status.HTTP_400_BAD_REQUEST)
         ##
         # print("paso 3", user_ID.strip(), len(user_ID))
         print('login paso 3 authenticando')
@@ -172,9 +177,13 @@ class UserLogin(APIView):
             login(request, user_auth)
             user_ser= UserSerializer(user_auth).data
             # print(user_ser)
-            return Response(request=request, data={"data": "Usuario logeado con exito", "user": UserSerializer(user_auth).data}, status=status.HTTP_200_OK)
-        print('login error en el login', request, request.data, request.user)
-        return Response(request=request, data={"data": "Error en el login", "DATOS":{"user_auth": user_auth, "user_ID":user_ID, "user_pswd":user_pswd, "extra_fields":extra_fields}}, status=status.HTTP_400_BAD_REQUEST)
+            resp={"ok":"Usuario logeado con exito","user": UserSerializer(user_auth).data}
+            return Response(request=request, data=resp, status=status.HTTP_200_OK)
+        else:
+
+            print('login error en el login', request, request.data, request.user)
+            resp={"error":"Usuario y contraseña incorrectos","user": UserSerializer(user_auth).data}
+            return Response(request=request, data=resp, status=status.HTTP_400_BAD_REQUEST)
 
 class UserLogout(APIView):
     permission_classes = (permissions.AllowAny,)
@@ -198,7 +207,7 @@ class UserView(APIView):
         if not username: 
             return Response(request=request, data={"details": "Ingrese un nombre de usuario"}, status=status.HTTP_400_BAD_REQUEST)
         if not get_user_model().objects.filter(username=username).exists():
-            return Response(request=request, data={"details": "Este usuario no existe", "userFound":False}, status=status.HTTP_400_BAD_REQUEST)
+            return Response(request=request, data={"error": "Este usuario no existe", "userFound":False}, status=status.HTTP_400_BAD_REQUEST)
         user_model = get_user_model().objects.get(username=username)
 
         # print('si existe', user_model.toDict())
@@ -226,7 +235,32 @@ class ProfileView(APIView):
             return Response(request=request, data={'data': 'Datos del usuario actualizados con exito','oldUserData':ProfileSerializer(request.user).data, 'newUserData':current_user.data}, status=status.HTTP_200_OK)
         else:
             return Response(request=request, data={'data': 'Error al actualizar los datos del usuario'}.update(current_user.errors), status=status.HTTP_400_BAD_REQUEST)
-        
+    
 
 
 
+import os
+
+from django.http import HttpResponse
+from rest_framework import permissions, status
+from rest_framework.views import APIView
+
+
+import os
+
+class getMD(APIView):
+    permission_classes = (permissions.AllowAny,)
+    authentication_classes = ()
+
+    def get(self, request, filename):
+        if not filename:
+            return HttpResponse('Filename not provided', status=status.HTTP_400_BAD_REQUEST)
+        route = '../public/texts'
+        file_path = os.path.join(os.path.dirname(os.path.abspath(__file__)),route, filename)
+        print(file_path)
+        try:
+            with open(file_path, 'r', encoding='utf-8') as f:
+                contents = f.read()
+                return HttpResponse( content=contents,content_type='text/markdown')
+        except FileNotFoundError:
+            return HttpResponse(f'File {filename} not found', status=status.HTTP_404_NOT_FOUND)

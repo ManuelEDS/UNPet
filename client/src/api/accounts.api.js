@@ -7,17 +7,14 @@ const ACCOUNTS = axios.create({
 
 export const login = async (formData) => {
     try {
-        console.log(ACCOUNTS+'login/');
         const response = await ACCOUNTS.post('login/', formData);
-
-        if (response.status === 200) {
-            return response.data;
-        } else {
-            throw new Error(response.data.message);
-        }
+        return response;
     } catch (error) {
-        console.log(error.message);
-        throw new Error(error.message);
+        if (error.response && error.response.status === 400) {
+            return error.response;
+        } else {
+           // console.log(error.message);
+        }
     }
 };
 
@@ -66,4 +63,20 @@ export const getprofile = async () => {
     }
 };
 
+
+
+export const getMD = async (filename) => {
+    try {
+        const response = await ACCOUNTS.get('legal/'+filename);
+
+        if (response.status === 200) {
+            return response.data;
+        } else {
+            throw new Error(response.data.message);
+        }
+    } catch (error) {
+        console.log(error.message);
+        throw new Error(error.message);
+    }
+};
 

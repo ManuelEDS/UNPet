@@ -1,10 +1,13 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import { FeedPage } from './pages/FeedPage'
 import { PetFormPage } from './pages/PetFormPage'
-import { SignIn } from './pages/SignIn.jsx'
-import { SignUp } from './pages/SignUp.jsx'
-import { OrgSingUp } from './pages/OrgSingUp.jsx'
+import { Login } from './pages/Login.jsx'
+import { Register } from './pages/Register.jsx'
+import { RegisterOrg } from './pages/RegisterOrg.jsx'
 import { Password } from './pages/Password'
+import { HomePage } from './pages/HomePage'
+import {TermsCond} from './pages/TermsCond'
+import {PoliticsPriv} from  './pages/Politicspriv'
 
 function App() {
   return (
@@ -14,13 +17,16 @@ function App() {
         <Route path='/pets' element={<FeedPage />} />
         <Route path='/pet-create' element={<PetFormPage />} />
         <Route path='/pets/:id' element={<PetFormPage />} />
-        <Route path='/sign-in' element={<SignIn />} />
-        <Route path='/sign-up' element={<SignUp />} />
-        <Route path='/sign-up-org' element={<OrgSingUp />} />
+        <Route path='/sign-in' element={<Login />} />
+        <Route path='/register' element={<Register />} />
+        <Route path='/register-org' element={<RegisterOrg />} />
         <Route path='/password' element={<Password />} />
+        <Route path='/home' element={<HomePage />} />
+        <Route path='/legal/terms-and-conditions' element={<TermsCond />} />
+        <Route path='/legal/privacy-policies' element={<PoliticsPriv/>} />
+
       </Routes>
     </BrowserRouter>
-
   )
 }
 

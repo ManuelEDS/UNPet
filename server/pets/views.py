@@ -11,5 +11,7 @@ class PetsView(viewsets.ModelViewSet): # NOTA: CREAR MASCOTA EXLUSIVO DE CREAR P
     # lo de que si es exclusivo es que todas estas cosas son de Organizacion, no personas
     # permission_classes = (permissions.IsAuthenticated,)
     # authentication_classes = (SessionAuthentication,)
+    permission_classes = (permissions.IsAuthenticated,)
+    authentication_classes = (SessionAuthentication,)
     serializer_class = MascotaSerializer
     queryset = Mascota.objects.all()

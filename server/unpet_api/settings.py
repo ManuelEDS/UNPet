@@ -157,7 +157,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # CORS URL AUTORIZADAS
 # 1: frontend de unpet, localhost 5000 para hacer pruebas rapidas con flask, onrender: deploy del frontend
-CORS_ALLOWED_ORIGINS = ["https://meeting-bestsellers-extra-families.trycloudflare.com","http://localhost:5173","http://localhost:5000","http://127.0.0.1:5000", "http://localhost:5173", "https://unpet-der5.onrender.com"]
+CORS_ALLOWED_ORIGINS = ["https://meeting-bestsellers-extra-families.trycloudflare.com","http://localhost:5173","http://localhost:5000","http://127.0.0.1:5000", "http://127.0.0.1:5173", "https://unpet-der5.onrender.com"]
 CORS_ALLOW_CREDENTIALS = True
 
 AUTH_USER_MODEL = "accounts.User"
