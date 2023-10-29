@@ -3,6 +3,9 @@ import React from 'react';
 import Container from '@mui/material/Container';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { Card, CardContent, Link, Typography } from '@mui/material';
+import DevCard from '../components/DevCard';
+import Box from '@mui/material/Box';
+
 const posts = [
     {
         id: 1,
@@ -35,6 +38,8 @@ const posts = [
 
 
 export const HomePage = () => {
+    posts.map((post) => (console.log(post.id)));
+
     return (
         <Container maxWidth="sm">
             <Typography variant="h2" align="center" gutterBottom>
@@ -43,15 +48,15 @@ export const HomePage = () => {
             <Typography variant="body1" align="center" paragraph>
                 Donando nuevas oportunidades
             </Typography>
-            {posts.map(post => (
-                <>
+            {posts.map((post) => (
+
                 <Card key={post.id} className="post-container">
                     <CardContent>
                         <div className="post-header">
-                        <Container maxWidth="sm">
-                        <img src={post.authorImg} alt={post.author} className="author-img" />
-                        </Container>
-                            
+                            <Container maxWidth="sm">
+                                <img src={post.authorImg} alt={post.author} className="author-img" />
+                            </Container>
+
                             <Typography variant="subtitle1" gutterBottom>
                                 {post.author}
                             </Typography>
@@ -74,12 +79,23 @@ export const HomePage = () => {
                                     {post.likes}
                                 </Typography>
                             </div>
-                        </div>
+                        </div>Lorem ipsum dolor sit amet conse deserunt suscipit qui nisi architecto dolores, esse ratione voluptates omnis facere incidunt culpa.
                     </CardContent>
                 </Card>
-                <br />
-                </>
             ))}
+            <DevCard name={'Cesar rincon robayo rr desarrollo sociocultural'} skills={'Programador backend, Lorem ipsum dolor sit amet conse deserunt suscipit qui nisi architecto dolores, esse ratione voluptates omnis facere incidunt culpa.'} photo={posts[0].authorImg} fb={'facebook.com'} twt={'twitter.com'} inst={'instagram.com'}></DevCard>
+            <Container maxWidth="sm">
+            
+                <Box style={{ position: 'relative' }}>
+                    <DevCard name={'Cesar rincon robayo rr desarrollo sociocultural'} skills={'Programador backend, Lorem ipsum dolor sit amet conse deserunt suscipit qui nisi architecto dolores, esse ratione voluptates omnis facere incidunt culpa.'} photo={posts[0].authorImg} fb={'facebook.com'} twt={'twitter.com'} inst={'instagram.com'} gh='github.com'  />
+                </Box>
+                <Box style={{ position: 'relative' }}>
+                    <DevCard name={'Cesar rincon robayo rr desarrollo sociocultural'} skills={'Programador backend, Lorem ipsum dolor sit amet conse deserunt suscipit qui nisi architecto dolores, esse ratione voluptates omnis facere incidunt culpa.'} photo={posts[0].authorImg} fb={'facebook.com'} twt={'twitter.com'} inst={'instagram.com'} gh='github.com'  />
+                </Box>
+                <Box style={{ position: 'relative' }}>
+                    <DevCard name={'Cesar rincon robayo rr desarrollo sociocultural'} skills={'Programador backend, Lorem ipsum dolor sit amet conse deserunt suscipit qui nisi architecto dolores, esse ratione voluptates omnis facere incidunt culpa.'} photo={posts[0].authorImg} fb={'facebook.com'} twt={'twitter.com'} inst={'instagram.com'} gh='github.com'  />
+                </Box>
+            </Container>
         </Container>
     );
 };

@@ -67,6 +67,7 @@ export const getprofile = async () => {
 
 export const getMD = async (filename) => {
     try {
+        console.log('nopmbre de archivo: '+filename);
         const response = await ACCOUNTS.get('legal/'+filename);
 
         if (response.status === 200) {

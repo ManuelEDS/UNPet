@@ -1,34 +1,17 @@
 
-import {getMD} from '../api/accounts.api';
-import React, { useState, useEffect } from 'react';
+import { getMD } from '../api/accounts.api';
+import { useState, useEffect } from 'react';
 
+export function GetMDText(filename) {
+  const [markdownContent, setMarkdownContent] = useState('');
 
-async function getLegal(filePath) {
-    try {
-      const response = await getMD(filePath)
-      return response
-    } catch (error) {
-      console.error(`Error: ${error.message}`);
-      return null;
-    }
-  }
+  useEffect(() => {
+    getMD(`${filename}.md`).then((content) => {
+      setMarkdownContent(content);
+    });
+  }, [filename]);
 
-  
-
-  export function GetMDText() {
-    const filename = 'TermsCond'
-    const [markdownContent, setMarkdownContent] = useState('');
-    useEffect(() => {
-      getMD(filename+'.md').then((content) => {
-        setMarkdownContent(content);
-      });
-    }, []);
-    console.log('resultado: ', markdownContent);
-    return (
-    
-        markdownContent
-       
-    );
+  return markdownContent;
 }
 export default GetMDText;
 

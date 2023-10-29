@@ -47,6 +47,3 @@ Si tienes alguna pregunta o inquietud sobre esta Política de Privacidad, por fa
 - [Facebook](https://www.facebook.com/UNPet)
 - [Instagram](https://www.instagram.com/UNPet)
 - [Gmail](mailto:contacto@unpet.com)
-
-
-También puedes revisar nuestros [Términos y Condiciones](#enlace-a-terminos-y-condiciones)

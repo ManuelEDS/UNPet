@@ -66,7 +66,7 @@ const defaultTheme = createTheme();
                 required
                 fullWidth
                 id="email"
-                label="Correo Electrónico"
+                label="Correo Electrónico o nombre de usuario (username)"
                 name="userID"
                 autoComplete="email"
                 autoFocus
@@ -74,17 +74,16 @@ const defaultTheme = createTheme();
                 helperText={error ? 'Credenciales incorrectas' : ''}
               />
               <TextField
-                margin="normal"
-                required
-                fullWidth
-                name="password"
-                label="Contraseña"
-                type="password"
-                id="password"
-                autoComplete="current-password"
-                error={error}
-                helperText={error ? 'Credenciales incorrectas' : ''}
-              />
+                  required
+                  fullWidth
+                  name="password"
+                  label="Contraseña"
+                  type="password"
+                  id="password"
+                  autoComplete="new-password"
+                  error={error}
+                  helperText={error ? 'Credenciales incorrectas' : ''}
+                />
               <Button
                 type="submit"
                 fullWidth

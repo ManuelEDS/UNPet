@@ -10,12 +10,11 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import Box from '@mui/material/Box';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { FormControl } from '@mui/material';
-import React, { useState } from 'react';
+import  { useState } from 'react';
 import {register} from '../api/accounts.api'
 
 const defaultTheme = createTheme();
@@ -31,7 +30,7 @@ const sexoOptions = [
   { value: 'F', label: 'Femenino' },
   { value: 'O', label: 'Otro' },
 ];
-const localidades = [
+export const localidades = [
   { id: '1', name: 'Usaquén' },
   { id: '2', name: 'Chapinero' },
   { id: '3', name: 'Santa Fe' },
@@ -60,15 +59,44 @@ export function Register() {
   const [tipoDocumento, setTipoDocumento] = useState('');
   const [sexo, setSexo] = useState('');
   const [localidad, setLocalidad] = useState('');
+  const [errorUsername, setErrorUsername] = useState('');
+  const [errorEmail, setErrorEmail] = useState('');
+  const [errorPassword, setErrorPassword] = useState('');
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
-    console.log(register(data));
+    const usernameRegex = /^[a-zA-Z0-9_]+$/;
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/;
+
+    if (!usernameRegex.test(data.username)) {
+      setErrorUsername({message:'El nombre de usuario solo puede contener letras, números y guiones bajos.'});
+    } else {
+      setErrorUsername('');
+    }
+
+    if (!emailRegex.test(data.get('email'))) {
+      setErrorEmail({message:'Ingrese una dirección de correo electrónico válida.'});
+    } else {
+      setErrorEmail('');
+    }
+
+    if (!passwordRegex.test(data.get('password'))) {
+      setErrorPassword({message:'La contraseña debe tener al menos 8 caracteres, una letra mayúscula, una letra minúscula y un número.'});
+    } else {
+      setErrorPassword('');
+    }
+
+    if (usernameRegex.test(data.username) && emailRegex.test(data.get('email')) && passwordRegex.test(data.get('password'))) {
+      console.log({
+        email: data.get('email'),
+        password: data.get('password'),
+      });
+      console.log(register(data));
+    }
   };
+
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -205,6 +233,8 @@ export function Register() {
                   label="Correo electrónico"
                   name="email"
                   autoComplete="email"
+                  error={''!=errorEmail}
+                  helperText={errorEmail ? errorEmail.message : ''}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -215,7 +245,9 @@ export function Register() {
                   fullWidth
                   id="username"
                   label="Nombre de usuario"
-                  autoFocus
+                  
+                  error={''!=errorUsername}
+                  helperText={errorUsername ? errorUsername.message : ''}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -223,10 +255,12 @@ export function Register() {
                   required
                   fullWidth
                   name="password"
-                  label="Password"
+                  label="Contraseña"
                   type="password"
                   id="password"
                   autoComplete="new-password"
+                  error={''!=errorPassword}
+                  helperText={errorPassword ? errorPassword.message : ''}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -246,7 +280,7 @@ export function Register() {
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link to="/sign-in">
+                <Link to="/login">
                   Ya tienes una cuenta? Ingresa
                 </Link>
               </Grid>
