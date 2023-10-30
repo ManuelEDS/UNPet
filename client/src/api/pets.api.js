@@ -1,37 +1,78 @@
-import axios from 'axios'
+import axios from 'axios';
+import { BASE_URL } from './config'
+const PETS = axios.create({
+    baseURL: BASE_URL + 'pets/api/'
+})
 
-// const petApi = axios.create({
-//     baseURL: 'https://unpet.onrender.com/pets/api/v1/pets'
-// })
-
-const isDevelopment = process.env.NODE_ENV === 'development';
-
-const petApi = isDevelopment
-  ? axios.create({
-      baseURL: 'http://127.0.0.1:8000/pets/api/v1/pets'
-    })
-  : axios.create({
-      baseURL: 'https://unpet.onrender.com/pets/api/v1/pets'
-    });
-
-  // Resto del código para otros entornos
-
-
-
-export const getPet = (id) =>
-petApi.get(`/${id}/`)
-
-export const getAllPets = () =>
-petApi.get('/')
-
-export const createPet = (pet) => {
-    return petApi.post('/', pet)
+// Función para obtener una lista de mascotas
+async function getPets() {
+  try {
+    const response = await PETS.get('pets/');
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
 }
 
-export const deletePet = (id) => petApi.delete(`${id}`)
+// Función para crear una nueva mascota
+async function createPet(petData) {
+  try {
+    const response = await PETS.post('pets/', petData);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+}
 
-export const editPet = (id, pet) => petApi.put(`/${id}/`, pet)
+// Función para obtener los detalles de una mascota por ID
+async function getPetById(id) {
+  try {
+    const response = await PETS.get(`pets/${id}/`);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+}
 
-export const recoverPassword = (email) => petApi.get(`/recoverPassword/`)
+// Función para actualizar los detalles de una mascota por ID
+async function updatePet(id, petData) {
+  try {
+    const response = await PETS.put(`pets/${id}/`, petData);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+}
 
-export const setNewPassword = (email) => petApi.get(`/recoverPassword/`)
+// Función para eliminar una mascota por ID
+async function deletePet(id) {
+  try {
+    const response = await PETS.delete(`pets/${id}/`);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+// Función para obtener una lista de mascotas de una organización
+async function getOrganizationPets() {
+  try {
+    const response = await PETS.get('pets/organization/');
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export const recoverPassword = (email) => PETS.get('/recoverPassword/')
+
+export const setNewPassword = (email) => PETS.get('/recoverPassword/')
+
+export {
+  getPets,
+  createPet,
+  getPetById,
+  updatePet,
+  deletePet,
+  getOrganizationPets,
+};

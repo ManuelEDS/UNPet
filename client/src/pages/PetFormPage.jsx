@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { createPet, deletePet, editPet, getPet } from '../api/pets.api';
+import { createPet, deletePet, updatePet, getPetById } from '../api/pets.api';
 import { useNavigate, useParams } from 'react-router-dom';
 import { TextField, Button, Select, MenuItem, FormControl, InputLabel } from '@mui/material';
 
@@ -13,7 +13,7 @@ export function PetFormPage() {
     useEffect(() => {
         async function loadPet() {
             if (params.id) {
-                const { data } = await getPet(params.id);
+                const { data } = await getPetById(params.id);
                 setName(data.name);
                 setRace(data.race);
             }
@@ -26,7 +26,7 @@ export function PetFormPage() {
         const data = { name, race };
         if (params.id) {
             console.log(data);
-            await editPet(params.id, data);
+            await updatePet(params.id, data);
         } else {
             const res = await createPet(data);
             console.log(res);

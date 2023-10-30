@@ -168,7 +168,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 class Organizacion(models.Model):
     username = models.CharField(max_length=50, unique=True)
-    name = models.CharField(max_length=50)
+    name = models.CharField(max_length=50, default=username)
     email = models.EmailField(unique=True)
     direccion = models.CharField(max_length=100)  # Field name made lowercase.
     nit = models.CharField(max_length=20, unique=True, db_column="nit")

@@ -1,6 +1,7 @@
 /* Estilo para alineación a la izquierda */
 .left-align {
     text-align: left;
+    
   }
   
   /* Estilo para alineación a la derecha */
@@ -17,3 +18,4 @@
     font-size: 1.5rem; /* Tamaño de fuente más grande para los títulos h4 */
     font-weight: bold; /* Texto en negrita para los títulos h4 */
   }
+

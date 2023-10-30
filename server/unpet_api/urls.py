@@ -22,5 +22,7 @@ urlpatterns = [
     path('auth/', include('rest_framework.urls')),
     path('accounts/', include('accounts.urls')),
     path('pets/', include('pets.urls')),
+    path('posts/', include('posts.urls')),
+
     path("docs/", include_docs_urls(title="UNPet Api"))
 ]

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import {getAllPets} from '../api/pets.api'
+import {getPets} from '../api/pets.api'
 import {PetCard} from './PetCard'
 
 export function PetList() {
@@ -8,7 +8,7 @@ export function PetList() {
 
     useEffect(() => {     
         async function loadPets(){
-            const res = await getAllPets();
+            const res = await getPets();
             setPets(res.data)
         }
         loadPets();

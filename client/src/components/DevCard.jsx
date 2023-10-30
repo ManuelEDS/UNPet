@@ -5,9 +5,9 @@ import FacebookIcon from '@mui/icons-material/Facebook';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import GitHubIcon from '@mui/icons-material/GitHub';
-
-const DevCard = ({ name, skills, photo, fb = '#', twt = '#', inst = '#', gh='#' }) => {
-   // console.log('devacrd: '+name+' skills: '+skills+' photo: '+photo+' fb: '+fb+' twt: '+twt+' inst: '+inst+' gh: '+gh);
+import EmailIcon from '@mui/icons-material/Email';
+const DevCard = ({ name, skills, photo, fb = '#', mail = '#', inst = '#', gh = '#' }) => {
+    // console.log('devacrd: '+name+' skills: '+skills+' photo: '+photo+' fb: '+fb+' twt: '+twt+' inst: '+inst+' gh: '+gh);
     return (
         <Card sx={{ maxHeight: 'auto', maxWidth: 300, borderRadius: 5 }}>
             <CardMedia
@@ -15,7 +15,7 @@ const DevCard = ({ name, skills, photo, fb = '#', twt = '#', inst = '#', gh='#' 
                 image={photo}
                 alt={name}
             />
-            <CardContent>
+            <CardContent >
                 <Typography gutterBottom variant="h5" component="h2">
                     {name}
                 </Typography>
@@ -23,16 +23,16 @@ const DevCard = ({ name, skills, photo, fb = '#', twt = '#', inst = '#', gh='#' 
                     {skills}
                 </Typography>
                 <div style={{ display: 'flex', justifyContent: 'center' }}>
-                    <a href="https://www.facebook.com/" target="_blank" rel="noopener" style={{ margin: 'auto' }}>
+                    <a href={fb} target="_blank" rel="noopener" style={{ margin: 'auto' }}>
                         <FacebookIcon color="primary" />
                     </a>
-                    <a href="https://twitter.com/" target="_blank" rel="noopener" style={{ margin: 'auto' }}>
-                        <TwitterIcon color="primary" />
+                    <a href={'mailto:'+mail} target="_blank" rel="noopener" style={{ margin: 'auto' }}>
+                        <EmailIcon color="primary" />
                     </a>
-                    <a href="https://www.instagram.com/" target="_blank" rel="noopener" style={{ margin: 'auto' }}>
+                    <a href={inst} target="_blank" rel="noopener" style={{ margin: 'auto' }}>
                         <InstagramIcon color="primary" />
                     </a>
-                    <a href="https://www.github.com/" target="_blank" rel="noopener" style={{ margin: 'auto' }}>
+                    <a href={gh} target="_blank" rel="noopener" style={{ margin: 'auto' }}>
                         <GitHubIcon color="primary" />
                     </a>
                 </div>
