@@ -1,20 +1,13 @@
-import mysqlclient
-
-# Configura las credenciales de la base de datos
-db_host = "bmb72wbdmjin8klxpert-mysql.services.clever-cloud.com"
-db_name = "bmb72wbdmjin8klxpert"
-db_user = "uauvrvass9qcwgye"
-db_password = "QqXd66YOtJMliLEquS2y"
-db_port = 3306
+import mysql.connector
 
 try:
     # Intenta conectarse a la base de datos
-    connection = mysqlclient.connect(
-        host=db_host,
-        user=db_user,
-        password=db_password,
-        database=db_name,
-        port=db_port
+    connection = mysql.connector.connect(
+        host="bmb72wbdmjin8klxpert-mysql.services.clever-cloud.com",
+        user="uauvrvass9qcwgye",
+        password="Zx80kAeYM8J6lEiuh64W",
+        database="bmb72wbdmjin8klxpert",
+        port=3306
     )
 
     # Si la conexión tiene éxito, muestra un mensaje
@@ -33,9 +26,8 @@ try:
     print("Tablas de la base de datos:")
     for table in tables:
         print(table[0])
-
     # Cierra la conexión a la base de datos
     connection.close()
-except mysqlclient.Error as error:
+except mysql.connector.Error as error:
     # En caso de error, muestra un mensaje de error
     print(f"Error de conexión a la base de datos: {error}")

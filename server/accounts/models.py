@@ -225,8 +225,9 @@ class Persona(models.Model):
     )  # Field name made lowercase.
     telefono = models.CharField(max_length=20) # Field name made lowercase.
     urlfoto = models.CharField(
-        max_length=700, blank=True, null=True, db_column="url_foto"
+        max_length=2048, blank=True, null=True, db_column="url_foto"
     )  # Field name made lowercase.
+    
     idlocalidad = models.ForeignKey(
         Localidad, models.DO_NOTHING, db_column="id_localidad"
     )  # Field name made lowercase.
