@@ -206,6 +206,8 @@ class Organizacion(models.Model):
             "localidad":Loc,
             "date_joined":self.date_joined,
             }
+    def __str__(self):
+        return f"{self.name}"
     class Meta:
         db_table = "organizaciones"
 
@@ -265,6 +267,8 @@ class Persona(models.Model):
             "date_joined":self.date_joined,
             
             }
+    def __str__(self):
+        return f"{self.username}"
     class Meta:
         db_table = "personas"
 

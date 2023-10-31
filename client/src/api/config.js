@@ -1,5 +1,4 @@
 import axios from "axios";
-import process from "process";
 
 const debug = true
 
@@ -19,6 +18,9 @@ try {
 if (debug){
     URL = 'http://127.0.0.1:8000/'
 }
-
+/**
+ * La URL base del host.
+ * @type {string}
+ */
 export const BASE_URL = URL;
 

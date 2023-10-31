@@ -8,22 +8,33 @@ from django.db.models import Q
 from rest_framework import generics
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.authentication import SessionAuthentication
+from rest_framework.decorators import authentication_classes, permission_classes
+
+from rest_framework import  authentication
 
 class PublicacionSearch(generics.ListAPIView):
     serializer_class = PublicacionSerializer
-
+    pagination_class = PageNumberPagination()
+    pagination_class.page_size = 5  # Set page size to 5
     def get_queryset(self):
         query = self.request.query_params.get('q')
         queryset = Publicacion.objects.filter(
             Q(titulo__icontains=query) | Q(descripcion__icontains=query)
         )
         return queryset
+    
+class PublicacionRecentList(APIView):
+    def get(self, request):
+        paginator = PageNumberPagination()
+        paginator.page_size = 5  # Set page size to 5
+        publicaciones = Publicacion.objects.all().order_by('-fechapublicacion')
+        result_page = paginator.paginate_queryset(publicaciones, request)
+        if result_page is not None:
+            serializer = PublicacionSerializer(result_page, many=True)
+            return paginator.get_paginated_response(serializer.data)
+        return Response({}, status=status.HTTP_400_BAD_REQUEST)
 
-
-class PublicacionList(APIView):
-    authentication_classes = [SessionAuthentication]
-    permission_classes = [permissions.IsAuthenticated]
-
+class PublicacionTrendList(APIView):
     def get(self, request):
         paginator = PageNumberPagination()
         paginator.page_size = 5  # Set page size to 5
@@ -34,6 +45,8 @@ class PublicacionList(APIView):
             return paginator.get_paginated_response(serializer.data)
         return Response({}, status=status.HTTP_400_BAD_REQUEST)
     
+    @authentication_classes([authentication.SessionAuthentication])
+    @permission_classes([permissions.IsAuthenticated])
     def post(self, request):
         serializer = PublicacionSerializer(data=request.data)
         if serializer.is_valid():
@@ -42,39 +55,28 @@ class PublicacionList(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class PublicacionDetail(APIView):
-    authentication_classes = [SessionAuthentication]
-    permission_classes = [permissions.IsAuthenticated]
-
     def get(self, request, pk):
         publicacion = get_object_or_404(Publicacion, pk=pk)
         serializer = PublicacionSerializer(publicacion)
         return Response(serializer.data)
 
-class ComentarioList(APIView):
+
+class ComentarioListCreateView(generics.ListCreateAPIView):
+    queryset = Comentario.objects.all()
+    serializer_class = ComentarioSerializer
     authentication_classes = [SessionAuthentication]
     permission_classes = [permissions.IsAuthenticated]
 
-    def post(self, request, pk):
-        publicacion = get_object_or_404(Publicacion, pk=pk)
-        serializer = ComentarioSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save(publicacion=publicacion, autor=request.user)
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-class ComentarioDetail(APIView):
+class ComentarioDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Comentario.objects.all()
+    serializer_class = ComentarioSerializer
     authentication_classes = [SessionAuthentication]
     permission_classes = [permissions.IsAuthenticated]
 
-    def put(self, request, pk, comentario_pk):
-        comentario = get_object_or_404(Comentario, pk=comentario_pk, publicacion=pk, autor=request.user)
-        serializer = ComentarioSerializer(comentario, data=request.data, partial=True)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-    def delete(self, request, pk, comentario_pk):
-        comentario = get_object_or_404(Comentario, pk=comentario_pk, publicacion=pk, autor=request.user)
-        comentario.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
+class ComentarioRespuestasView(generics.ListAPIView):
+    serializer_class = ComentarioSerializer
+    authentication_classes = [SessionAuthentication]
+    permission_classes = [permissions.IsAuthenticated]
+    def get_queryset(self):
+        comentario = Comentario.objects.get(pk=self.kwargs['pk'])
+        return comentario.respuestas.all()
