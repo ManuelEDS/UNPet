@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from .models import Mascota
 
+
 class MascotaSerializer(serializers.ModelSerializer):
     """
     Serializer para mostrar y listar mascotas.
@@ -13,7 +14,10 @@ class MascotaSerializer(serializers.ModelSerializer):
     """
     class Meta:
         model = Mascota
-        fields = '__all__'
+        fields = ['id', 'nombre', 'especie', 'raza', 'sexo',
+                  'fechanacimiento', 'urlfoto', 'adoptada']
+        read_only_fields = ['id']
+
 
 class MascotaUpdateSerializer(serializers.ModelSerializer):
     """
@@ -38,4 +42,5 @@ class MascotaUpdateSerializer(serializers.ModelSerializer):
             instance.save()
             return instance
         else:
-            raise serializers.ValidationError("No tienes permisos para editar esta mascota.")
+            raise serializers.ValidationError(
+                "No tienes permisos para editar esta mascota.")

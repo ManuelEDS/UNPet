@@ -11,7 +11,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import {login, getUser, getprofile} from '../api/accounts.api'
+import {login, getUser, getProfile} from '../api/accounts.api'
 import { useNavigate } from "react-router-dom";
 import { useState } from 'react';
 

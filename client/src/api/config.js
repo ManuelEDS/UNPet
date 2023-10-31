@@ -3,7 +3,6 @@ import process from "process";
 
 const debug = true
 
-
 let URL = 'http://127.0.0.1:8000/';
 
 var d =''

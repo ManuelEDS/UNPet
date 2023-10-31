@@ -15,7 +15,7 @@ class PublicacionSearch(generics.ListAPIView):
     def get_queryset(self):
         query = self.request.query_params.get('q')
         queryset = Publicacion.objects.filter(
-            Q(titulo__icontains=query) | Q(contenido__icontains=query)
+            Q(titulo__icontains=query) | Q(descripcion__icontains=query)
         )
         return queryset
 
@@ -26,10 +26,13 @@ class PublicacionList(APIView):
 
     def get(self, request):
         paginator = PageNumberPagination()
-        publicaciones = Publicacion.objects.all().order_by('-likes', '-created_at')
+        paginator.page_size = 5  # Set page size to 5
+        publicaciones = Publicacion.objects.all().order_by('-likes', '-fechapublicacion')
         result_page = paginator.paginate_queryset(publicaciones, request)
-        serializer = PublicacionSerializer(result_page, many=True)
-        return paginator.get_paginated_response(serializer.data)
+        if result_page is not None:
+            serializer = PublicacionSerializer(result_page, many=True)
+            return paginator.get_paginated_response(serializer.data)
+        return Response({}, status=status.HTTP_400_BAD_REQUEST)
     
     def post(self, request):
         serializer = PublicacionSerializer(data=request.data)

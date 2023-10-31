@@ -12,7 +12,7 @@ class Publicacion(models.Model):
     fechapublicacion = models.DateTimeField(max_length=45)
     idorganizacion = models.ForeignKey('accounts.Organizacion', models.DO_NOTHING, related_name='publicaciones_organizacion', db_column='idorganizacion', blank=True, null=True)
     idpersona = models.ForeignKey('accounts.Persona', models.DO_NOTHING, related_name='publicaciones_integrante_organizacion', blank=True, null=True)
-
+    likes = models.IntegerField(default=0)
     # Relación con los comentarios
     comentarios = models.ManyToManyField('Comentario', related_name='publicaciones_comentarios')
 

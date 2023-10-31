@@ -67,8 +67,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    "accounts.middleware.UserInfoMiddleware",
-]
+    ]
 
 ROOT_URLCONF = "unpet_api.urls"
 
@@ -115,6 +114,14 @@ else:
         'PORT': os.environ.get('MYSQL_ADDON_PORT'),
     }
 }
+    
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')  # Tu dirección de correo de "no reply"
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')  # La contraseña de tu dirección de correo
+DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL')  # Otra vez, tu dirección de correo de "no reply"
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -171,12 +178,13 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # CORS URL AUTORIZADAS
 # 1: frontend de unpet, localhost 5000 para hacer pruebas rapidas con flask, onrender: deploy del frontend
 CORS_ALLOWED_ORIGINS = ["https://meeting-bestsellers-extra-families.trycloudflare.com","http://localhost:5173","http://localhost:5000","http://127.0.0.1:5000", "http://127.0.0.1:5173", "https://unpet-der5.onrender.com", "https://unpet-web.onrender.com", "http://localhost:3000" , "http://127.0.0.1:3000", "http://192.168.0.38:3000"]
+#CORS_ALLOWED_ORIGINS = ["http://localhost","http://localhost:5173","http://127.0.0.1",]
+
 CORS_ALLOW_CREDENTIALS = True
 
 AUTH_USER_MODEL = "accounts.User"
 
 AUTHENTICATION_BACKENDS = [
-    "accounts.backends.AccountsBackend",
     "django.contrib.auth.backends.ModelBackend",
 ]
 

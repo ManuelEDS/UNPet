@@ -16,7 +16,7 @@ class Mascota(models.Model):
     adoptada = models.BooleanField(default=False)
     
     # Relación con la publicación
-    publicacion = models.OneToOneField('posts.Publicacion', on_delete=models.SET_NULL, null=True, blank=True, related_name='mascota')
+    publicacion = models.ForeignKey('posts.Publicacion', on_delete=models.SET_NULL, null=True, blank=True, related_name='mascotas')
 
     def __str__(self):
         return self.nombre
