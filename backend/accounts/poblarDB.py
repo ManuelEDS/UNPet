@@ -4,8 +4,8 @@ def poblar_db(sender, **kwargs):
     agregar_localidades()
     agregar_personas()
     agregar_organizaciones()
-    agregar_publicaciones()
-    agregar_comentarios()
+    #agregar_publicaciones()
+    #agregar_comentarios()
 
 
 def agregar_grupos():

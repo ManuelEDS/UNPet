@@ -11,13 +11,16 @@ from .models import Organizacion, Persona
 from django.http.request import HttpRequest
 import os
 from django.http import HttpResponse
+from django.http import JsonResponse
 
 debug=True
+class get_csrf(APIView):
 
-def get_csrf(request):
-    response = Response({'detail': 'CSRF cookie set'})
-    response['X-CSRFToken'] = get_token(request)
-    return response
+    def get(self, request):
+        response = JsonResponse({'detail': 'CSRF cookie set'})
+        response['X-CSRFToken'] = get_token(request)
+        print('ESTE ES EL csrf: ', response['X-CSRFToken'])
+        return response
 
 class SessionView(APIView):
     authentication_classes = [SessionAuthentication]
@@ -226,7 +229,7 @@ class UserLogin(APIView):
         if user is not None:
             login(request, user)
             # Login successful, return user details
-            return Response({user.toDict()})
+            return Response(data={"msg":"login con exito!", "user":{**user.toDict()}})
         else:
             return Response({'error': 'Credenciales inválidas'},
                             status=status.HTTP_400_BAD_REQUEST)

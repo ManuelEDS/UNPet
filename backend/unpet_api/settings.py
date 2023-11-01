@@ -28,29 +28,28 @@ SECRET_KEY = os.environ.get(
 
 # SECURITY WARNING: don't run with debug turned on in production!
 
-
+DEBUG=True
 LOCAL_DB = True # DEBUG = True #para usar sqlite, FALSE para la db con las variables de entorno
 DOCKER_MODE=False
 RENDER_MODE = False
 if DOCKER_MODE: # Modo: despliegue en algun seguidor docker (plan B por si render falla)
-    ALLOWED_HOSTS = []
+    ALLOWED_HOSTS = ['http://localhost:81']
     CORS_ALLOWED_ORIGINS = []
     CSRF_TRUSTED_ORIGINS = ['http://localhost:81']
 elif RENDER_MODE: # Modo: despliegue en render
     CORS_ALLOW_CREDENTIALS = True
-    ALLOWED_HOSTS = ['https://unpet-web.onrender.com',]
+    ALLOWED_HOSTS = ['127.0.0.1','https://unpet-web.onrender.com',]
     CORS_ALLOWED_ORIGINS = ['https://unpet-web.onrender.com',]
 else: # Modo: desarrollo en localhost
     CORS_ALLOW_CREDENTIALS = True
-    ALLOWED_HOSTS = ['localhost', 'localhost:5173']
+    ALLOWED_HOSTS = ['localhost', 'localhost:5173', '127.0.0.1']
     CORS_ALLOWED_ORIGINS = ['http://localhost:5173']
     CSRF_TRUSTED_ORIGINS = ['http://localhost:5173', 'http://127.0.0.1:5173']
     
     
 
 # https://docs.djangoproject.com/en/3.0/ref/settings/#allowed-hosts
-
-ALLOWED_HOSTS = [] # poner el de render react url
+ # poner el de render react url
 
 # Application definition
 
@@ -69,10 +68,13 @@ apps = [
     "posts",
 ]
 
-INSTALLED_APPS = apps if DOCKER_MODE else apps + ['corsheaders']
+if not DOCKER_MODE:
+    apps.append('corsheaders')
 
+
+
+INSTALLED_APPS = apps
 middleware = [
-    
     "django.middleware.security.SecurityMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
@@ -81,9 +83,12 @@ middleware = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    ]
+]
 
-MIDDLEWARE = middleware if DOCKER_MODE else ['corsheaders.middleware.CorsMiddleware'] + [middleware]
+if not DOCKER_MODE:
+    middleware.insert(0, 'corsheaders.middleware.CorsMiddleware')
+
+MIDDLEWARE = middleware
 
 ROOT_URLCONF = "unpet_api.urls"
 
@@ -193,7 +198,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 CSRF_COOKIE_SAMESITE = 'Strict'
 SESSION_COOKIE_SAMESITE = 'Strict'
-CSRF_COOKIE_HTTPONLY = False
+CSRF_COOKIE_HTTPONLY = True
 SESSION_COOKIE_HTTPONLY = True
 
 

@@ -1,9 +1,11 @@
 import axios from 'axios';
-import { BASE_URL } from './config'
+import { BASE_URL, DEBUG, DOCKER_MODE, RENDER_MODE, UNPetAxios } from './config'
 
-const ACCOUNTS = axios.create({
-    baseURL: BASE_URL + 'accounts/api/',
-})
+
+const BASE_RUTA = '/accounts/api/'
+const ACCOUNTS = new UNPetAxios(BASE_RUTA)
+ACCOUNTS.init()
+
 
 /**
  * Función que realiza una petición POST al endpoint 'login/' del API de cuentas.
@@ -11,8 +13,22 @@ const ACCOUNTS = axios.create({
  * @returns {Promise} - Promesa que resuelve con la respuesta de la petición.
  */
 export const login = async (formData) => {
-    const response = await ACCOUNTS.post('login/', formData);
-    return response;
+    const body = {
+        userID: formData.get('userID'),
+        password: formData.get('password'),
+    };
+    console.log('login, body: ', body)
+    try {
+        const response = await ACCOUNTS.post('login/', body);
+        if (response.status === 200) {
+            return { isAuthenticated: true, error: "" };
+        } else {
+            throw new Error("Wrong username or password.");
+        }
+    } catch (error) {
+        console.log(error);
+        return { isAuthenticated: false, error: "server error." };
+    }
 };
 
 /**

@@ -10,6 +10,11 @@ ENV PYTHONUNBUFFERED 1
 
 # install dependencies
 RUN pip install --upgrade pip
+RUN apt-get update -y
+RUN apt-get install pkg-config -y
+RUN apt-get install -y python3-dev build-essential
+RUN apt-get install -y default-libmysqlclient-dev
+
 COPY ./requirements.txt .
 RUN pip install -r requirements.txt
 

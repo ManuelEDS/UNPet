@@ -34,11 +34,11 @@ const defaultTheme = createTheme();
 
       const resp = await login(data);
       //console.log(resp.data, resp);
-      if (resp.status === 200) {
+      if (resp.isAuthenticated) {
         navigate('/home');
       } else {
         setError(true);
-        console.log('Login failed: ', resp.data.error, resp.status);
+        console.log('Login failed: ', resp);
       }
     };
 
