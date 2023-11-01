@@ -2,6 +2,7 @@ from rest_framework.views import APIView
 from rest_framework.authentication import SessionAuthentication
 from .serializer import UserSerializer, ProfileSerializer, OrganizationSerializer
 from django.contrib.auth import get_user_model, authenticate, login, logout
+from django.middleware.csrf import get_token
 from rest_framework import permissions,status
 from rest_framework.response import Response
 from utils.unpet_user import UNPetUserManager
@@ -12,6 +13,19 @@ import os
 from django.http import HttpResponse
 
 debug=True
+
+def get_csrf(request):
+    response = Response({'detail': 'CSRF cookie set'})
+    response['X-CSRFToken'] = get_token(request)
+    return response
+
+class SessionView(APIView):
+    authentication_classes = [SessionAuthentication]
+    permission_classes = [permissions.AllowAny]
+    @staticmethod
+    def get(request, format=None):
+        return Response({'isAuthenticated': request.user.is_authenticated})
+
 
 class AdminRegister(APIView):
     permission_classes = (permissions.IsAuthenticated,)
@@ -210,36 +224,41 @@ class UserLogin(APIView):
         user = authenticate(username=user.username, password=password)
 
         if user is not None:
+            login(request, user)
             # Login successful, return user details
             return Response({user.toDict()})
         else:
             return Response({'error': 'Credenciales inválidas'},
                             status=status.HTTP_400_BAD_REQUEST)
 
+
 # class UserLogout(APIView):
-    permission_classes = (permissions.AllowAny,)
-    authentication_classes = ()
-    def post(self, request):
-        if debug:print('logout paso 0 ', request)
-        try:
-            if debug:print('logout paso 1 ')
-            logout(request)
-            if debug:print('logout paso 2 ')
-            return Response(status=status.HTTP_200_OK)
-        except Exception as e:
-            if debug:print('logout paso 2 except e:', e)
-            return Response(data={"data":"Algo salió mal con el cierre de sesión"},status=status.HTTP_400_BAD_REQUEST)
+#     permission_classes = (permissions.AllowAny,)
+#     authentication_classes = ()
+#     def post(self, request):
+#         if debug:print('logout paso 0 ', request)
+#         try:
+#             if debug:print('logout paso 1 ')
+#             logout(request)
+#             if debug:print('logout paso 2 ')
+#             return Response(status=status.HTTP_200_OK)
+#         except Exception as e:
+#             if debug:print('logout paso 2 except e:', e)
+#             return Response(data={"data":"Algo salió mal con el cierre de sesión"},status=status.HTTP_400_BAD_REQUEST)
 
 class UserLogout(APIView):
-    permission_classes = (permissions.IsAuthenticated,)
+    permission_classes = (permissions.AllowAny,)
     authentication_classes = (SessionAuthentication,)
 
     def post(self, request):
+        if not request.user.is_authenticated:
+            return Response({'detail': 'No has iniciado sesión.'}, status=400)
         try:
             logout(request)
             return Response(status=status.HTTP_200_OK)
         except Exception as e:
             return Response(data={"Algo salió mal en el cierre de sesión", e},status=status.HTTP_400_BAD_REQUEST)
+
 
 class UserView(APIView):
     permission_classes = (permissions.AllowAny,)

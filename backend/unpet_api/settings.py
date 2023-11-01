@@ -28,25 +28,38 @@ SECRET_KEY = os.environ.get(
 
 # SECURITY WARNING: don't run with debug turned on in production!
 
-# DEBUG = True
-DEBUG = "RENDER" not in os.environ
+
+LOCAL_DB = True # DEBUG = True #para usar sqlite, FALSE para la db con las variables de entorno
+DOCKER_MODE=False
+RENDER_MODE = False
+if DOCKER_MODE: # Modo: despliegue en algun seguidor docker (plan B por si render falla)
+    ALLOWED_HOSTS = []
+    CORS_ALLOWED_ORIGINS = []
+    CSRF_TRUSTED_ORIGINS = ['http://localhost:81']
+elif RENDER_MODE: # Modo: despliegue en render
+    CORS_ALLOW_CREDENTIALS = True
+    ALLOWED_HOSTS = ['https://unpet-web.onrender.com',]
+    CORS_ALLOWED_ORIGINS = ['https://unpet-web.onrender.com',]
+else: # Modo: desarrollo en localhost
+    CORS_ALLOW_CREDENTIALS = True
+    ALLOWED_HOSTS = ['localhost', 'localhost:5173']
+    CORS_ALLOWED_ORIGINS = ['http://localhost:5173']
+    CSRF_TRUSTED_ORIGINS = ['http://localhost:5173', 'http://127.0.0.1:5173']
+    
+    
 
 # https://docs.djangoproject.com/en/3.0/ref/settings/#allowed-hosts
-ALLOWED_HOSTS = []
 
-RENDER_EXTERNAL_HOSTNAME = os.environ.get("RENDER_EXTERNAL_HOSTNAME")
+ALLOWED_HOSTS = [] # poner el de render react url
 
-if RENDER_EXTERNAL_HOSTNAME:
-    ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
 # Application definition
 
-INSTALLED_APPS = [
+apps = [
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
-    "corsheaders",
     "django.contrib.staticfiles",
     "rest_framework",
     "coreapi",
@@ -56,18 +69,21 @@ INSTALLED_APPS = [
     "posts",
 ]
 
-MIDDLEWARE = [
+INSTALLED_APPS = apps if DOCKER_MODE else apps + ['corsheaders']
+
+middleware = [
     
     "django.middleware.security.SecurityMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
-    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     ]
+
+MIDDLEWARE = middleware if DOCKER_MODE else ['corsheaders.middleware.CorsMiddleware'] + [middleware]
 
 ROOT_URLCONF = "unpet_api.urls"
 
@@ -94,7 +110,7 @@ WSGI_APPLICATION = "unpet_api.wsgi.application"
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 # Configura la base de datos
-if DEBUG:
+if LOCAL_DB:
     # Modo de desarrollo, utiliza SQLite por defecto
     DATABASES = {
         'default': {
@@ -161,7 +177,7 @@ STATIC_URL = "static/"
 
 # DEBUG? ....
 
-if not DEBUG:
+if not RENDER_MODE:
     # Tell Django to copy statics to the `staticfiles` directory
     # in your application directory on Render.
     STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
@@ -175,12 +191,11 @@ if not DEBUG:
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-# CORS URL AUTORIZADAS
-# 1: frontend de unpet, localhost 5000 para hacer pruebas rapidas con flask, onrender: deploy del frontend
-CORS_ALLOWED_ORIGINS = ["https://meeting-bestsellers-extra-families.trycloudflare.com","http://localhost:5173","http://localhost:5000","http://127.0.0.1:5000", "http://127.0.0.1:5173", "https://unpet-der5.onrender.com", "https://unpet-web.onrender.com", "http://localhost:3000" , "http://127.0.0.1:3000", "http://192.168.0.38:3000"]
-#CORS_ALLOWED_ORIGINS = ["http://localhost","http://localhost:5173","http://127.0.0.1",]
+CSRF_COOKIE_SAMESITE = 'Strict'
+SESSION_COOKIE_SAMESITE = 'Strict'
+CSRF_COOKIE_HTTPONLY = False
+SESSION_COOKIE_HTTPONLY = True
 
-CORS_ALLOW_CREDENTIALS = True
 
 AUTH_USER_MODEL = "accounts.User"
 
@@ -189,8 +204,10 @@ AUTHENTICATION_BACKENDS = [
 ]
 
 REST_FRAMEWORK = {
+     'DEFAULT_RENDERER_CLASSES': [
+        'rest_framework.renderers.JSONRenderer',
+],
     "DEFAULT_SCHEMA_CLASS": "rest_framework.schemas.coreapi.AutoSchema",
-    "DEFAULT_PERMISSION_CLASSES": ["rest_framework.permissions.IsAuthenticated"],
     "DEFAULT_AUTHENTICATION_CLASSES": [
         "rest_framework.authentication.SessionAuthentication"
     ],
