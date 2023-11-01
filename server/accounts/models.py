@@ -159,7 +159,7 @@ class User(AbstractBaseUser, PermissionsMixin):
             "is_superuser":self.is_superuser,
             "is_staff":self.is_staff,
             "is_active":self.is_active,
-            "userType":self.get_groups()[0].name
+            "userType":self.get_rol_name()
             }
 
     class Meta:
@@ -185,6 +185,7 @@ class Organizacion(models.Model):
     date_joined = models.DateTimeField(
         auto_now=False, auto_now_add=True, db_column="fecha_ingreso"
     )
+    publicacionesCount = models.IntegerField(default=0, db_column="n_publicaciones")
 
     objects = UserManager()
     def toDict(self):
@@ -196,6 +197,24 @@ class Organizacion(models.Model):
             Loc, idLoc=self.idlocalidad.nombre, self.idlocalidad.idlocalidad
         return {
             "username":self.username,
+            "name":self.name,
+            "email":self.email,
+            "direccion":self.direccion,
+            "nit":self.nit,
+            "urlfoto":self.urlfoto,
+            "idlocalidad":idLoc,
+            "localidad":Loc,
+            }
+    def toDictDetailed(self):
+        # print('to dict organizacion:', self.idlocalidad.nombre, type(self.idlocalidad.nombre))
+        Loc=''
+        idLoc =''
+        if self.idlocalidad is not None:
+            print('')
+            Loc, idLoc=self.idlocalidad.nombre, self.idlocalidad.idlocalidad
+        return {
+            "username":self.username,
+            "name":self.name,
             "email":self.email,
             "direccion":self.direccion,
             "nit":self.nit,
