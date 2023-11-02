@@ -1,11 +1,11 @@
 import React from 'react';
-import { AppBar, Toolbar, IconButton, Typography, InputBase, Button } from '@mui/material';
+import { AppBar, Toolbar, IconButton, Typography, InputBase, InputAdornment } from '@mui/material';
 import { styled, alpha } from '@mui/material/styles';
 import MenuIcon from '@mui/icons-material/Menu';
-import { LoginButton, RegisterButton, LogoutButton } from './LoginButton.jsx';
+import { LoginButton, RegisterButton, LogoutButton } from './NavButtons.jsx';
 import { useContext } from 'react';
 import { UserContext } from '../../context/UserContext.jsx';
-import logo from '../../public/icons/android-chrome-192x192.png';
+import logo from '/icons/android-chrome-192x192.png';
 import SearchIcon from '@mui/icons-material/Search';
 
 const Search = styled('div')(({ theme }) => ({

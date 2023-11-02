@@ -17,9 +17,9 @@ export const PostCard = ({ post }) => (
 
 // CardContainer.jsx
 // CardContainer.jsx
-import { makeStyles } from '@material-ui/core/styles';
+import { styled } from '@material-ui/core/styles';
 
-const useStyles = makeStyles({
+const useStyles = styled({
   container: {
     display: 'flex',
     flexDirection: 'column',

@@ -5,7 +5,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import { Card, CardContent, Link, Typography } from '@mui/material';
 import DevCard from '../components/DevCard';
 import Box from '@mui/material/Box';
-
+import NavBar from '../components/NavBar/NavBar';
 const posts = [
     {
         id: 1,
@@ -96,6 +96,7 @@ export const HomePage = () => {
                     <DevCard name={'Cesar rincon robayo rr desarrollo sociocultural'} skills={'Programador backend, Lorem ipsum dolor sit amet conse deserunt suscipit qui nisi architecto dolores, esse ratione voluptates omnis facere incidunt culpa.'} photo={posts[0].authorImg} fb={'facebook.com'} twt={'twitter.com'} inst={'instagram.com'} gh='github.com'  />
                 </Box>
             </Container>
+            {/* <NavBar></NavBar> */}
         </Container>
     );
 };

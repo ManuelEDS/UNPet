@@ -1,4 +1,4 @@
-import { Card, CardContent, Typography, CardMedia, makeStyles, List, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
+import { Card, CardContent, Typography, CardMedia, styled, List, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
 import HomeIcon from '@material-ui/icons/Home';
 import TrendingUpIcon from '@mui/icons-material/TrendingUp';
@@ -6,7 +6,7 @@ import RecentActorsIcon from '@mui/icons-material/RecentActors';
 import PetsIcon from '@mui/icons-material/Pets';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = styled((theme) => ({
   sidebar: {
     position: 'fixed',
     height: '100%',

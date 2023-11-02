@@ -11,9 +11,12 @@ import {PoliticsPriv} from  './pages/Politicspriv'
 import { Donations } from './components/Donations'
 import WhoAreWePage from './pages/WhoAreWePage'
 import TextPosts from './pages/textPosts'
+import { UserContextProvider } from './context/UserContext'
+
 
 function App() {
   return (
+    <UserContextProvider>
     <BrowserRouter>
       <Routes>
         <Route path='/' element={<Navigate to="/pets" />} />
@@ -33,6 +36,8 @@ function App() {
 
       </Routes>
     </BrowserRouter>
+    </UserContextProvider>
+   
   )
 }
 

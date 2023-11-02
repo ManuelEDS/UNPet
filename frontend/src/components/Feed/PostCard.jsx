@@ -1,8 +1,8 @@
 // PostCard.jsx
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import { Card, CardContent, Typography, CardMedia, makeStyles } from '@mui/material';
+import { Card, CardContent, Typography, CardMedia, styled } from '@mui/material';
 
-const useStyles = makeStyles({
+const useStyles = styled({
   card: {
     width: '100%',
   },

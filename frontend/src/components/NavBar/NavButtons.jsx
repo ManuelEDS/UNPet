@@ -1,11 +1,11 @@
 
 import { UserContext } from '../../context/UserContext';
 import { useContext } from 'react';
-import { useHistory } from 'react-router-dom';
 import { Button } from '@mui/material';
-import { makeStyles } from '@mui/styles';
+import { styled } from '@mui/material/styles'; // Updated import statement
+import { useNavigate } from "react-router-dom";
 
-const loginButtonStyles = makeStyles({
+const loginButtonStyles = styled({
     button: {
         color: 'white',
         backgroundColor: '#3f51b5',
@@ -17,12 +17,12 @@ const loginButtonStyles = makeStyles({
 
 export function LoginButton() {
     const { user } = useContext(UserContext);
-    const history = useHistory();
+    const navigate = useNavigate();
     const classes = loginButtonStyles();
 
     const handleLogin = async () => {
         if (!user.isAuthenticated) {
-            history.push('/login');
+            navigate('/login');
         }
     };
 
@@ -37,7 +37,7 @@ export function LoginButton() {
     );
 }
 
-const registerButtonStyles = makeStyles({
+const registerButtonStyles = styled({
     button: {
         color: '#3f51b5',
         backgroundColor: 'white',
@@ -49,12 +49,13 @@ const registerButtonStyles = makeStyles({
 
 export function RegisterButton() {
     const { user } = useContext(UserContext);
-    const history = useHistory();
+    const navigate = useNavigate();
+
     const classes = registerButtonStyles();
 
     const handleRegister = async () => {
         if (!user.isAuthenticated) {
-            history.push('/register');
+            navigate('/register');
         }
     };
 
@@ -69,7 +70,7 @@ export function RegisterButton() {
     );
 }
 
-const logoutButtonStyles = makeStyles({
+const logoutButtonStyles = styled({
     button: {
         color: '#3f51b5',
         backgroundColor: 'white',
@@ -81,12 +82,12 @@ const logoutButtonStyles = makeStyles({
 
 export function LogoutButton() {
     const { user, setUser } = useContext(UserContext);
-    const history = useHistory();
+    const navigate = useNavigate();
     const classes = logoutButtonStyles();
 
     const handleLogout = async () => {
         setUser({ isAuthenticated: false });
-        history.push('/logout');
+        navigate('/logout');
     };
 
     return (

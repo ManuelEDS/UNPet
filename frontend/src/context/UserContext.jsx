@@ -3,8 +3,8 @@ import { UNPetAxios } from "../api/config";
 
 export const UserContext = createContext();
 
-const UserContextProvider = ({ children }) => {
-    const UserAxios = UNPetAxios();
+export const UserContextProvider = ({ children }) => {
+    const UserAxios = new UNPetAxios();
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [username, setUsername] = useState("Anonymous");
     const [urlfoto, setUrlfoto] = useState("");
@@ -13,6 +13,7 @@ const UserContextProvider = ({ children }) => {
         const checkAuth = async () => {
             try {
                 const response = await UserAxios.get("/accounts/api/session/");
+                console.log('tengo session?:-->',response, response.data);
                 setIsAuthenticated(true);
                 setUsername(response.data.username);
                 setUrlfoto(response.data.urlfoto || "/user-img-default.png");
@@ -32,4 +33,3 @@ const UserContextProvider = ({ children }) => {
     );
 };
 
-export default UserContextProvider;
