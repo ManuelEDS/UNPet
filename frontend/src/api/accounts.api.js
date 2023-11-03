@@ -87,13 +87,12 @@ export const getProfile = async () => {
  * @returns {Promise} - Promesa que resuelve con el contenido del archivo legal.
  * @throws {Error} - Error que se lanza si la petición no se realiza correctamente.
  */
-export const getMD = async (filename) => {
+export const getHTML = async (filename) => {
     try {
-        console.log('nombre de archivo: '+filename);
         const response = await ACCOUNTS.get('legal/'+filename);
 
         if (response.status === 200) {
-            return response.data;
+            return response.text();
         } else {
             throw new Error(response.data.message);
         }

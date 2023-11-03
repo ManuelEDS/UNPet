@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { createPet, deletePet, updatePet, getPetById } from '../api/pets.api';
 import { useNavigate, useParams } from 'react-router-dom';
-import { TextField, Button, Select, MenuItem, FormControl, InputLabel } from '@mui/material';
+import { FaTrash, FaCheck } from 'react-icons/fa';
 
 export function PetFormPage() {
     const [name, setName] = useState('');
@@ -45,31 +45,50 @@ export function PetFormPage() {
     return (
         <div>
             <form onSubmit={onSubmit}>
-                <TextField
-                    label="Nombre"
-                    variant="outlined"
-                    value={name}
-                    onChange={(event) => setName(event.target.value)}
-                />
-                {errors.name && <span>el nombre es requerido</span>}
-                <FormControl variant="outlined">
-                    <InputLabel id="race-label">Raza</InputLabel>
-                    <Select
-                        labelId="race-label"
+                <div className="mb-4">
+                    <label htmlFor="name" className="block text-gray-700 font-bold mb-2">Nombre</label>
+                    <input
+                        type="text"
+                        id="name"
+                        name="name"
+                        value={name}
+                        onChange={(event) => setName(event.target.value)}
+                        className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    />
+                    {errors.name && <span>el nombre es requerido</span>}
+                </div>
+                <div className="mb-4">
+                    <label htmlFor="race" className="block text-gray-700 font-bold mb-2">Raza</label>
+                    <select
                         id="race"
+                        name="race"
                         value={race}
                         onChange={(event) => setRace(event.target.value)}
-                        label="Raza"
+                        className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     >
-                        <MenuItem value="Gato">Gato</MenuItem>
-                        <MenuItem value="Perro">Perro</MenuItem>
-                    </Select>
-                </FormControl>
-                {errors.race && <span>la raza es requerida</span>}
-                <Button variant="contained" type="submit">Crear</Button>
+                        <option value="" disabled selected>Selecciona una raza</option>
+                        <option value="Gato">Gato</option>
+                        <option value="Perro">Perro</option>
+                    </select>
+                    {errors.race && <span>la raza es requerida</span>}
+                </div>
+                <button
+                    type="submit"
+                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded inline-flex items-center"
+                >
+                    Crear
+                    <FaCheck className="w-5 h-5 ml-2" />
+                </button>
             </form>
-            {params.id && <Button variant="contained" onClick={onDelete}>Delete</Button>}
+            {params.id && (
+                <button
+                    onClick={onDelete}
+                    className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mt-4 inline-flex items-center"
+                >
+                    Eliminar
+                    <FaTrash className="w-5 h-5 ml-2" />
+                </button>
+            )}
         </div>
     );
 }
-

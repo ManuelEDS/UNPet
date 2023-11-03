@@ -7,27 +7,25 @@ export const UserContextProvider = ({ children }) => {
     const UserAxios = new UNPetAxios();
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [username, setUsername] = useState("Anonymous");
-    const [urlfoto, setUrlfoto] = useState("");
+    const [urlfoto, setUrlfoto] = useState("/user-img-default.png");
 
     useEffect(() => {
         const checkAuth = async () => {
             try {
                 const response = await UserAxios.get("/accounts/api/session/");
                 console.log('tengo session?:-->',response, response.data);
-                setIsAuthenticated(true);
-                setUsername(response.data.username);
+                setIsAuthenticated(response.data.is_authenticated);
+                setUsername(response.data.username?response.data.username:"Anonymous");
                 setUrlfoto(response.data.urlfoto || "/user-img-default.png");
             } catch (error) {
-                setIsAuthenticated(false);
-                setUsername("");
-                setUrlfoto("/user-img-default.jpg");
+
             }
         };
         checkAuth();
     }, []);
 
     return (
-        <UserContext.Provider value={{ isAuthenticated, username, urlfoto }}>
+        <UserContext.Provider value={{user:{ isAuthenticated, username, urlfoto }}}>
             {children}
         </UserContext.Provider>
     );

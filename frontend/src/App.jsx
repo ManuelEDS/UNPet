@@ -12,12 +12,13 @@ import { Donations } from './components/Donations'
 import WhoAreWePage from './pages/WhoAreWePage'
 import TextPosts from './pages/textPosts'
 import { UserContextProvider } from './context/UserContext'
-
+import NavBar from './components/NavBar/NavBar'
 
 function App() {
   return (
     <UserContextProvider>
     <BrowserRouter>
+    <NavBar />
       <Routes>
         <Route path='/' element={<Navigate to="/pets" />} />
         <Route path='/pets' element={<FeedPage />} />

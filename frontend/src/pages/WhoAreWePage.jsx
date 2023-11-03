@@ -1,10 +1,5 @@
-import React from 'react';
 import DevCard from '../components/DevCard';
-import Ex1 from './ex1';
-import { Typography } from '@mui/material';
-import Container from '@mui/material/Container';
 
-import '../styles/WhoAreWePage.css';
 const developers = [
     {
         name: 'César Fabián Rincón Robayo',
@@ -12,9 +7,9 @@ const developers = [
         image: 'https://scontent.fbog3-1.fna.fbcdn.net/v/t39.30808-6/362633391_2315258502014590_7833701919667759161_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=5f2048&_nc_eui2=AeHIIYGAB--o-TBnC5sjpBKWYAgBV71zsnJgCAFXvXOycpainCjxnxAjp8qCPVWn-rmSH9tM8XkClpd9tZ8P9ec1&_nc_ohc=l3AraDEgZNgAX900wVY&_nc_ht=scontent.fbog3-1.fna&oh=00_AfAsJMj7NBqT9-GhrGzOPEQ1-HTkabyPolJaIvzh-1QnRg&oe=65431E93',
         bio: 'Lorem ipsum dolor sit amet.',
         facebook: 'https://www.facebook.com/cesarfabian.rinconrobayo/',
-        mail:'crinconro@unal.edu.co',
-        instagram:'https://www.instagram.com/cesar343rincon/?next=%2F#',
-        github:'https://github.com/CesarFRR/'
+        mail: 'crinconro@unal.edu.co',
+        instagram: 'https://www.instagram.com/cesar343rincon/?next=%2F#',
+        github: 'https://github.com/CesarFRR/'
     },
     {
         name: 'David Mateo Ballesteros',
@@ -42,70 +37,77 @@ const developers = [
     },
 ];
 
+
 function WhoAreWePage() {
     console.log(developers[0]);
-    return (<div>
-        <Container maxWidth="lg">
+    return (
+        <div className="container mx-auto px-4 lg:max-w-7xl">
 
-            <Container maxWidth="md">
-            
-                <Typography variant="h4" gutterBottom align="center">
+            <div className="container mx-auto px-4 md:max-w-3xl">
+
+                <h1 className="text-4xl text-center my-4">
                     ¿Quiénes somos?
-                </Typography>
+                </h1>
                 <br />
                 <br />
-                
 
-                <Typography variant="h5" gutterBottom className='h5-title'>
+
+                <h2 className="text-3xl my-4 h5-title">
                     UNPet: Tu Compañero de Adopción de Mascotas
-                </Typography>
-               
-                <Typography variant="body1" gutterBottom className="left-align">
-                    En UNPet, somos un grupo de apasionados desarrolladores estudiantes de la Universidad Nacional con un objetivo claro: hacer una diferencia en la vida de las mascotas y las personas que desean darles un hogar amoroso.
-                </Typography>
-                <br />
-                <Typography variant="h5" gutterBottom className="right-align">
-                    Nuestra Misión
-                </Typography>
-               
-                <Typography variant="body1" gutterBottom className="right-align">
-                    Nuestra misión en UNPet es simple pero poderosa: darle visibilidad a las fundaciones de adopción de mascotas y ayudar a los usuarios a encontrar la mascota perfecta que se adapte a su estilo de vida y necesidades. Creemos en el poder de la adopción responsable, y estamos comprometidos a conectar a personas cariñosas con las mascotas que necesitan un nuevo hogar.
-                </Typography>
-                <br />
-                <Typography variant="h5" gutterBottom className="left-align">
-                    Lo que nos impulsa
-                </Typography>
-               
-                <Typography variant="body1" gutterBottom className="left-align">
-                    En UNPet, estamos impulsados por el amor por los animales y el deseo de hacer del mundo un lugar mejor para ellos. Entendemos que las fundaciones de adopción de mascotas son la voz de los que no pueden hablar, y nuestro objetivo es amplificar esa voz. Creemos que cada mascota merece un hogar lleno de amor y cuidado, y estamos decididos a hacer que esto sea una realidad para tantas mascotas como sea posible.
-                </Typography>
-                <br />
-                <Typography variant="h5" gutterBottom className="right-align">
-                    Nuestro Compromiso
-                </Typography>
-                
-                <Typography variant="body1" gutterBottom className="right-align">
-                    Estamos comprometidos con la transparencia, la ética y la seguridad en todas nuestras interacciones. Trabajamos estrechamente con fundaciones y refugios de mascotas para garantizar que todos los perfiles de mascotas sean precisos y que los usuarios puedan confiar en la información que encuentren en nuestra plataforma.
-                </Typography>
-                <br />
-                <Typography variant="h5" gutterBottom className="left-align">
-                    Únete a la Comunidad UNPet
-                </Typography>
-                
-                <Typography variant="body1" gutterBottom className="left-align">
-                    Si compartes nuestra pasión por los animales y crees en la adopción responsable, te invitamos a unirte a nuestra comunidad. Ya seas una fundación de adopción, un amante de las mascotas en busca de un nuevo compañero peludo o simplemente alguien interesado en apoyar nuestra causa, esperamos que te sientas inspirado por lo que hacemos en UNPet.
-                </Typography>
-                <br />
-                <Typography variant="body1" gutterBottom className="left-align">
-                    Juntos, podemos marcar la diferencia en la vida de las mascotas y hacer que el mundo sea un lugar más cálido y amoroso para todos. ¡Bienvenido a UNPet!
-                </Typography>
-                <br />
-                <br />
-                <br />
-            </Container>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '60px', margin: '20px' }}>
-                {developers.map((developer, index) => (
+                </h2>
 
+                <p className="text-base my-4 left-align">
+                    En UNPet, somos un grupo de apasionados desarrolladores estudiantes de la Universidad Nacional con un objetivo claro: hacer una diferencia en la vida de las mascotas y las personas que desean darles un hogar amoroso.
+                </p>
+                <br />
+                <h2 className="text-3xl my-4 right-align">
+                    Nuestra Misión
+                </h2>
+
+                <p className="text-base my-4 right-align">
+                    Nuestra misión en UNPet es simple pero poderosa: darle visibilidad a las fundaciones de adopción de mascotas y ayudar a los usuarios a encontrar la mascota perfecta que se adapte a su estilo de vida y necesidades. Creemos en el poder de la adopción responsable, y estamos comprometidos a conectar a personas cariñosas con las mascotas que necesitan un nuevo hogar.
+                </p>
+                <br />
+
+                <h2 className="text-3xl my-4 right-align">
+                    Lo que nos impulsa
+                </h2>
+
+                <p className="text-base my-4 right-align">
+                    En UNPet, estamos impulsados por el amor por los animales y el deseo de hacer del mundo un lugar mejor para ellos. Entendemos que las fundaciones de adopción de mascotas son la voz de los que no pueden hablar, y nuestro objetivo es amplificar esa voz. Creemos que cada mascota merece un hogar lleno de amor y cuidado, y estamos decididos a hacer que esto sea una realidad para tantas mascotas como sea posible.
+                </p>
+                <br />
+
+
+
+                <h2 className="text-3xl my-4 right-align">
+                    Nuestro Compromiso
+                </h2>
+
+                <p className="text-base my-4 right-align">
+                    Estamos comprometidos con la transparencia, la ética y la seguridad en todas nuestras interacciones. Trabajamos estrechamente con fundaciones y refugios de mascotas para garantizar que todos los perfiles de mascotas sean precisos y que los usuarios puedan confiar en la información que encuentren en nuestra plataforma.
+                </p>
+                <br />
+
+
+                <h2 className="text-3xl my-4 right-align">
+                    Únete a la Comunidad UNPet
+                </h2>
+
+                <p className="text-base my-4 right-align">
+                    Si compartes nuestra pasión por los animales y crees en la adopción responsable, te invitamos a unirte a nuestra comunidad. Ya seas una fundación de adopción, un amante de las mascotas en busca de un nuevo compañero peludo o simplemente alguien interesado en apoyar nuestra causa, esperamos que te sientas inspirado por lo que hacemos en UNPet.
+                </p>
+                <br />
+
+                <p className="text-base my-4 right-align">
+                    Juntos, podemos marcar la diferencia en la vida de las mascotas y hacer que el mundo sea un lugar más cálido y amoroso para todos. ¡Bienvenido a UNPet!
+                </p>
+                <br />
+                <br />
+                <br />
+            </div>
+            <div className="grid grid-cols-1 gap-16 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-auto m-5">
+                {developers.map((developer, index) => (
                     <DevCard
                         key={index}
                         name={developer.name}
@@ -116,15 +118,16 @@ function WhoAreWePage() {
                         inst={developer.instagram}
                         gh={developer.github}
                     />
-
                 ))}
             </div>
-        </Container>
 
-
-    </div>
-        //<Ex1></Ex1>
+        </div>
     );
 }
 
 export default WhoAreWePage;
+
+
+
+
+

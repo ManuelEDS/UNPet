@@ -27,7 +27,11 @@ class SessionView(APIView):
     permission_classes = [permissions.AllowAny]
     @staticmethod
     def get(request, format=None):
-        return Response({'isAuthenticated': request.user.is_authenticated})
+        if request.user.isAuthenticated:
+            U= UNPetUserManager(id=request.user.id)
+            return Response({"data": { 'isAuthenticated': request.user.is_authenticated,'username': request.user.username, 'urlfoto':U.get_role_instance.urlfoto}})
+        
+        return Response({"data": { 'isAuthenticated': request.user.is_authenticated, }})
 
 
 class AdminRegister(APIView):
@@ -305,7 +309,7 @@ class ProfileView(APIView):
 import os
 from django.http import HttpResponse
 
-class getMD(APIView):
+class getHTML(APIView):
     permission_classes = (permissions.AllowAny,)
     authentication_classes = ()
 
@@ -318,7 +322,8 @@ class getMD(APIView):
         try:
             with open(file_path, 'r', encoding='utf-8') as f:
                 contents = f.read()
-                return HttpResponse( content=contents,content_type='text/markdown')
+                #print('archivo html:  ', contents, type(contents))
+                return HttpResponse( content=contents,content_type='text/html')
         except FileNotFoundError:
             return Response(f'File {filename} not found', status=status.HTTP_404_NOT_FOUND)
 

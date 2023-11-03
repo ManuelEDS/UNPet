@@ -1,49 +1,52 @@
-// PostCard.jsx
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import { Card, CardContent, Typography, CardMedia, styled } from '@mui/material';
-
-const useStyles = styled({
-  card: {
-    width: '100%',
-  },
-  media: {
-    height: 0,
-    paddingTop: '56.25%', // 16:9
-  },
-});
-
-
-
-
-export const PostCard = ({ post }) => {
-  const classes = useStyles();
+// PostCard.jsimport { Fragment } from 'react';
+import { FaHeart } from 'react-icons/fa';
+const PostCard = ({ post }) => {
   const { fotos, titulo, estado, descripcion, fechaPublicacion, likes } = post;
 
   // Formatear la fecha
   const fecha = new Date(fechaPublicacion).toLocaleDateString();
 
   return (
-    <Card className={classes.card}>
+    <div className="max-w-sm rounded overflow-hidden shadow-lg">
       {/* Mostrar la primera foto */}
-      {fotos[0] && <CardMedia className={classes.media} image={fotos[0]} />}
+      {fotos[0] && (
+        <img className="w-full" src={fotos[0]} alt="Foto de la mascota" />
+      )}
 
-      <CardContent>
-        <Typography variant="h5">{titulo}</Typography>
-        <Typography variant="subtitle1">{estado}</Typography>
-        <Typography variant="body2">{descripcion}</Typography>
-        <Typography variant="caption">{fecha}</Typography>
-        <Typography variant="caption">
-          <FavoriteIcon /> {likes}
-        </Typography>
-      </CardContent>
+      <div className="px-6 py-4">
+        <div className="font-bold text-xl mb-2">{titulo}</div>
+        <p className="text-gray-700 text-base">{descripcion}</p>
+      </div>
+
+      <div className="px-6 pt-4 pb-2">
+        <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">
+          {estado}
+        </span>
+        <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700">
+          {fecha}
+        </span>
+        <span className="inline-block float-right">
+        <FaHeart className="h-5 w-5 text-red-500 inline-block" />
+          <span className="text-gray-700 text-sm font-semibold ml-1">
+            {likes}
+          </span>
+        </span>
+      </div>
 
       {/* Mostrar las demás fotos */}
       {fotos.slice(1).map((foto, index) => (
-        <CardMedia key={index} className={classes.media} image={foto} />
+        <Fragment key={index}>
+          <div className="px-6 py-4">
+            <img className="w-full" src={foto} alt="Foto de la mascota" />
+          </div>
+        </Fragment>
       ))}
-    </Card>
+    </div>
   );
 };
+
+export default PostCard;
+
 
 
 

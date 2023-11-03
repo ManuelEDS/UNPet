@@ -1,11 +1,7 @@
-import React from 'react';
-//import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import { Card, CardContent, Link, Typography } from '@mui/material';
+import { Fragment } from 'react';
+import { FaHeart } from 'react-icons/fa';
 import DevCard from '../components/DevCard';
-import Box from '@mui/material/Box';
-import NavBar from '../components/NavBar/NavBar';
+
 const posts = [
     {
         id: 1,
@@ -16,89 +12,106 @@ const posts = [
         likes: 10,
         authorImg: 'https://dummyimage.com/600x400/d1d1d1/5b62c7.jpg&text=Juan%20Perez'
     },
-    {
-        id: 2,
-        title: 'Mi segundo post',
-        content: 'Este es mi segundo post en UNPet!',
-        author: 'Maria Rodriguez',
-        date: '2021-10-02',
-        likes: 5,
-        authorImg: 'https://dummyimage.com/600x400/d1d1d1/5b62c7.jpg&text=Maria%20Rodriguez'
-    },
-    {
-        id: 3,
-        title: 'Mi tercer post',
-        content: 'Este es mi tercer post en UNPet!',
-        author: 'Pedro Gomez',
-        date: '2021-10-03',
-        likes: 2,
-        authorImg: 'https://dummyimage.com/600x400/d1d1d1/5b62c7.jpg&text=Pedro%20Gomez'
-    }
-];
+]
 
 
 export const HomePage = () => {
-    posts.map((post) => (console.log(post.id)));
+    posts.map((post) => console.log(post.id));
 
     return (
-        <Container maxWidth="sm">
-            <Typography variant="h2" align="center" gutterBottom>
-                Bienvenido a UNPet!
-            </Typography>
-            <Typography variant="body1" align="center" paragraph>
-                Donando nuevas oportunidades
-            </Typography>
+        <div className="max-w-sm mx-auto">
+            <h2 className="text-3xl font-bold text-center mb-4">Bienvenido a UNPet!</h2>
+            <p className="text-center mb-8">Donando nuevas oportunidades</p>
             {posts.map((post) => (
-
-                <Card key={post.id} className="post-container">
-                    <CardContent>
-                        <div className="post-header">
-                            <Container maxWidth="sm">
-                                <img src={post.authorImg} alt={post.author} className="author-img" />
-                            </Container>
-
-                            <Typography variant="subtitle1" gutterBottom>
-                                {post.author}
-                            </Typography>
+                <div key={post.id} className="bg-white rounded-lg shadow-lg mb-8">
+                    <div className="p-4">
+                        <div className="flex items-center mb-4">
+                            <img src={post.authorImg} alt={post.author} className="w-10 h-10 rounded-full mr-2" />
+                            <p className="text-sm font-medium">{post.author}</p>
                         </div>
-                        <div className="post-body">
-                            <Typography variant="h5" gutterBottom>
-                                {post.title}
-                            </Typography>
-                            <Typography variant="body1" gutterBottom>
-                                {post.content}
-                            </Typography>
-                        </div>
-                        <div className="post-footer">
-                            <Typography variant="subtitle1" gutterBottom>
-                                {post.date}
-                            </Typography>
-                            <div className="likes-container">
-                                <FavoriteIcon className="like-icon" />
-                                <Typography variant="subtitle1" gutterBottom>
-                                    {post.likes}
-                                </Typography>
+                        <h3 className="text-lg font-medium mb-2">{post.title}</h3>
+                        <p className="text-gray-500 text-sm mb-4">{post.content}</p>
+                        <div className="flex items-center justify-between">
+                            <p className="text-gray-500 text-sm">{post.date}</p>
+                            <div className="flex items-center">
+                                <FaHeart className="w-5 h-5 text-red-500 mr-1" />
+                                <p className="text-gray-500 text-sm">{post.likes}</p>
                             </div>
-                        </div>Lorem ipsum dolor sit amet conse deserunt suscipit qui nisi architecto dolores, esse ratione voluptates omnis facere incidunt culpa.
-                    </CardContent>
-                </Card>
+                        </div>
+                    </div>
+                </div>
             ))}
-            <DevCard name={'Cesar rincon robayo rr desarrollo sociocultural'} skills={'Programador backend, Lorem ipsum dolor sit amet conse deserunt suscipit qui nisi architecto dolores, esse ratione voluptates omnis facere incidunt culpa.'} photo={posts[0].authorImg} fb={'facebook.com'} twt={'twitter.com'} inst={'instagram.com'}></DevCard>
-            <Container maxWidth="sm">
-            
-                <Box style={{ position: 'relative' }}>
-                    <DevCard name={'Cesar rincon robayo rr desarrollo sociocultural'} skills={'Programador backend, Lorem ipsum dolor sit amet conse deserunt suscipit qui nisi architecto dolores, esse ratione voluptates omnis facere incidunt culpa.'} photo={posts[0].authorImg} fb={'facebook.com'} twt={'twitter.com'} inst={'instagram.com'} gh='github.com'  />
-                </Box>
-                <Box style={{ position: 'relative' }}>
-                    <DevCard name={'Cesar rincon robayo rr desarrollo sociocultural'} skills={'Programador backend, Lorem ipsum dolor sit amet conse deserunt suscipit qui nisi architecto dolores, esse ratione voluptates omnis facere incidunt culpa.'} photo={posts[0].authorImg} fb={'facebook.com'} twt={'twitter.com'} inst={'instagram.com'} gh='github.com'  />
-                </Box>
-                <Box style={{ position: 'relative' }}>
-                    <DevCard name={'Cesar rincon robayo rr desarrollo sociocultural'} skills={'Programador backend, Lorem ipsum dolor sit amet conse deserunt suscipit qui nisi architecto dolores, esse ratione voluptates omnis facere incidunt culpa.'} photo={posts[0].authorImg} fb={'facebook.com'} twt={'twitter.com'} inst={'instagram.com'} gh='github.com'  />
-                </Box>
-            </Container>
-            {/* <NavBar></NavBar> */}
-        </Container>
+            <DevCard
+                name={'Cesar rincon robayo rr desarrollo sociocultural'}
+                skills={
+                    'Programador backend, Lorem ipsum dolor sit amet conse deserunt suscipit qui nisi architecto dolores, esse ratione voluptates omnis facere incidunt culpa.'
+                }
+                photo={posts[0].authorImg}
+                fb={'facebook.com'}
+                twt={'twitter.com'}
+                inst={'instagram.com'}
+            />
+            <div className="grid grid-cols-3 gap-4">
+                <DevCard
+                    name={'Cesar rincon robayo rr desarrollo sociocultural'}
+                    skills={
+                        'Programador backend, Lorem ipsum dolor sit amet conse deserunt suscipit qui nisi architecto dolores, esse ratione voluptates omnis facere incidunt culpa.'
+                    }
+                    photo={posts[0].authorImg}
+                    fb={'facebook.com'}
+                    twt={'twitter.com'}
+                    inst={'instagram.com'}
+                    gh="github.com"
+                />
+                <DevCard
+                    name={'Cesar rincon robayo rr desarrollo sociocultural'}
+                    skills={
+                        'Programador backend, Lorem ipsum dolor sit amet conse deserunt suscipit qui nisi architecto dolores, esse ratione voluptates omnis facere incidunt culpa.'
+                    }
+                    photo={posts[0].authorImg}
+                    fb={'facebook.com'}
+                    twt={'twitter.com'}
+                    inst={'instagram.com'}
+                    gh="github.com"
+                />
+                <DevCard
+                    name={'Cesar rincon robayo rr desarrollo sociocultural'}
+                    skills={
+                        'Programador backend, Lorem ipsum dolor sit amet conse deserunt suscipit qui nisi architecto dolores, esse ratione voluptates omnis facere incidunt culpa.'
+                    }
+                    photo={posts[0].authorImg}
+                    fb={'facebook.com'}
+                    twt={'twitter.com'}
+                    inst={'instagram.com'}
+                    gh="github.com"
+                />
+            </div>
+        </div>
     );
 };
 
 export default HomePage;
+
+
+
+
+
+// {
+//     id: 2,
+//     title: 'Mi segundo post',
+//     content: 'Este es mi segundo post en UNPet!',
+//     author: 'Maria Rodriguez',
+//     date: '2021-10-02',
+//     likes: 5,
+//     authorImg: 'https://dummyimage.com/600x400/d1d1d1/5b62c7.jpg&text=Maria%20Rodriguez'
+// },
+// {
+//     id: 3,
+//     title: 'Mi tercer post',
+//     content: 'Este es mi tercer post en UNPet!',
+//     author: 'Pedro Gomez',
+//     date: '2021-10-03',
+//     likes: 2,
+//     authorImg: 'https://dummyimage.com/600x400/d1d1d1/5b62c7.jpg&text=Pedro%20Gomez'
+// }
+// ];
