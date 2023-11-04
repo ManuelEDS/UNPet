@@ -1,4 +1,7 @@
 import axios from "axios";
+
+
+
 //===============================================//
 // --> SOLO UNA PUEDE SER TRUE <-- //
 export const DEBUG = true;
@@ -60,6 +63,7 @@ export class UNPetAxios {
     const csrfToken = response.headers.get("X-CSRFToken");
     return csrfToken;
   }
+
 
   fetchWithHeaders(url, options = {}) {
     const allOptions = {

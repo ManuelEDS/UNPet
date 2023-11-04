@@ -13,17 +13,19 @@ import WhoAreWePage from './pages/WhoAreWePage'
 import TextPosts from './pages/textPosts'
 import { UserContextProvider } from './context/UserContext'
 import NavBar from './components/NavBar/NavBar'
-
+import PrivateRoute from './components/accounts/PrivateRoute'
 function App() {
+ 
+
   return (
     <UserContextProvider>
     <BrowserRouter>
     <NavBar />
       <Routes>
+        <Route path='/pets' element={<PrivateRoute><FeedPage /></PrivateRoute>} />
         <Route path='/' element={<Navigate to="/pets" />} />
-        <Route path='/pets' element={<FeedPage />} />
-        <Route path='/pet-create' element={<PetFormPage />} />
-        <Route path='/pets/:id' element={<PetFormPage />} />
+        <Route path='/pet-create' element={<PrivateRoute><PetFormPage /></PrivateRoute>} />
+        <Route path='/pets/:id' element={<PrivateRoute><PetFormPage /></PrivateRoute>} />
         <Route path='/login' element={<Login />} />
         <Route path='/register' element={<Register />} />
         <Route path='/register-org' element={<RegisterOrg />} />

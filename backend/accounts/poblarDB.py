@@ -4,7 +4,7 @@ def poblar_db(sender, **kwargs):
     agregar_localidades()
     agregar_personas()
     agregar_organizaciones()
-    #agregar_publicaciones()
+    agregar_publicaciones()
     #agregar_comentarios()
 
 
@@ -570,276 +570,266 @@ def agregar_publicaciones():
     from posts.models import Publicacion
     from .models import Persona, Organizacion
 
-    publicaciones = [
-        {
-            "estado": "disponible",
-            "titulo": "Se dan en adopción estos hermosos gatitos",
-            "descripcion": "Cinco gatitos adorables en busca de un nuevo hogar.",
-            "fechapublicacion": "2023-09-30T14:30:00Z",
-            "idorganizacion": 24,  # ID de la organización que publica
-            "idpersona": 2,  # No asociado a un usuario individual
-            "likes": 10,
-        },
-        {
-            "estado": "vendido",
-            "titulo": "Cachorros de Golden Retriever en adopción",
-            "descripcion": "Tres cachorros de Golden Retriever ya encontraron un hogar.",
-            "fechapublicacion": "2023-09-28T10:15:00Z",
-            "idorganizacion": 28,  # ID de otra organización que publica
-            "idpersona": 2,  # No asociado a un usuario individual
-            "likes": 5,
-        },
-        {
-            "estado": "disponible",
-            "titulo": "Buscando un hogar para este perrito",
-            "descripcion": "Perrito de raza mixta en busca de una familia cariñosa.",
-            "fechapublicacion": "2023-09-25T16:45:00Z",
-            "idorganizacion": 26,  # No asociado a una organización
-            "idpersona": 1,  # ID de un usuario individual que publica
-            "likes": 20,
-        },
-        {
-            "estado": "disponible",
-            "titulo": "Dos gatos juguetones necesitan un nuevo hogar",
-            "descripcion": "Gatos hermanos que desean encontrar un hogar juntos.",
-            "fechapublicacion": "2023-09-22T09:00:00Z",
-            "idorganizacion": 25,  # No asociado a una organización
-            "idpersona": 2,  # ID de otro usuario individual que publica
-            "likes": 15,
-        },
-        {
-            "estado": "vendido",
-            "titulo": "Honorable",
-            "descripcion": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Proin risus. Praesent lectus.",
-            "fechapublicacion": "2022-03-17T04:41:05Z",
-            "idorganizacion": 27,
-            "idpersona": 9,
-            "likes": 2999
-        }, {
-            "estado": "disponible",
-            "titulo": "Rev",
-            "descripcion": "Donec diam neque, vestibulum eget, vulputate ut, ultrices vel, augue. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec pharetra, magna vestibulum aliquet ultrices, erat tortor sollicitudin mi, sit amet lobortis sapien sapien non mi. Integer ac neque.",
-            "fechapublicacion": "2023-06-22T11:20:34Z",
-            "idorganizacion": 26,
-            "idpersona": 14,
-            "likes": 913
-        }, {
-            "estado": "vendido",
-            "titulo": "Honorable",
-            "descripcion": "Maecenas leo odio, condimentum id, luctus nec, molestie sed, justo. Pellentesque viverra pede ac diam. Cras pellentesque volutpat dui.",
-            "fechapublicacion": "2022-02-14T10:58:26Z",
-            "idorganizacion": 27,
-            "idpersona": 12,
-            "likes": 1728
-        }, {
-            "estado": "disponible",
-            "titulo": "Mrs",
-            "descripcion": "Cras mi pede, malesuada in, imperdiet et, commodo vulputate, justo. In blandit ultrices enim. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.",
-            "fechapublicacion": "2020-11-06T18:22:32Z",
-            "idorganizacion": 25,
-            "idpersona": 19,
-            "likes": 2143
-        }, {
-            "estado": "disponible",
-            "titulo": "Rev",
-            "descripcion": "Vestibulum quam sapien, varius ut, blandit non, interdum in, ante. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Duis faucibus accumsan odio. Curabitur convallis.",
-            "fechapublicacion": "2023-08-11T15:10:23Z",
-            "idorganizacion": 24,
-            "idpersona": 13,
-            "likes": 1698
-        }, {
-            "estado": "vendido",
-            "titulo": "Dr",
-            "descripcion": "Etiam vel augue. Vestibulum rutrum rutrum neque. Aenean auctor gravida sem.",
-            "fechapublicacion": "2021-01-22T11:10:13Z",
-            "idorganizacion": 24,
-            "idpersona": 16,
-            "likes": 2123
-        }, {
-            "estado": "disponible",
-            "titulo": "Dr",
-            "descripcion": "Morbi non lectus. Aliquam sit amet diam in magna bibendum imperdiet. Nullam orci pede, venenatis non, sodales sed, tincidunt eu, felis.",
-            "fechapublicacion": "2022-01-13T16:59:02Z",
-            "idorganizacion": 26,
-            "idpersona": 1,
-            "likes": 1162
-        }, {
-            "estado": "vendido",
-            "titulo": "Dr",
-            "descripcion": "Sed sagittis. Nam congue, risus semper porta volutpat, quam pede lobortis ligula, sit amet eleifend pede libero quis orci. Nullam molestie nibh in lectus.",
-            "fechapublicacion": "2021-11-05T15:32:33Z",
-            "idorganizacion": 24,
-            "idpersona": 5,
-            "likes": 757
-        }, {
-            "estado": "disponible",
-            "titulo": "Mr",
-            "descripcion": "Proin leo odio, porttitor id, consequat in, consequat ut, nulla. Sed accumsan felis. Ut at dolor quis odio consequat varius.",
-            "fechapublicacion": "2021-03-24T22:08:08Z",
-            "idorganizacion": 25,
-            "idpersona": 15,
-            "likes": 2699
-        }, {
-            "estado": "vendido",
-            "titulo": "Ms",
-            "descripcion": "Nulla ut erat id mauris vulputate elementum. Nullam varius. Nulla facilisi.",
-            "fechapublicacion": "2022-02-18T05:54:20Z",
-            "idorganizacion": 29,
-            "idpersona": 19,
-            "likes": 2130
-        }, {
-            "estado": "vendido",
-            "titulo": "Mrs",
-            "descripcion": "In hac habitasse platea dictumst. Morbi vestibulum, velit id pretium iaculis, diam erat fermentum justo, nec condimentum neque sapien placerat ante. Nulla justo.",
-            "fechapublicacion": "2022-05-03T02:22:32Z",
-            "idorganizacion": 29,
-            "idpersona": 9,
-            "likes": 1443
-        }, {
-            "estado": "vendido",
-            "titulo": "Ms",
-            "descripcion": "Maecenas ut massa quis augue luctus tincidunt. Nulla mollis molestie lorem. Quisque ut erat.",
-            "fechapublicacion": "2021-04-21T10:28:11Z",
-            "idorganizacion": 29,
-            "idpersona": 2,
-            "likes": 2492
-        }, {
-            "estado": "vendido",
-            "titulo": "Mrs",
-            "descripcion": "Etiam vel augue. Vestibulum rutrum rutrum neque. Aenean auctor gravida sem.",
-            "fechapublicacion": "2021-02-28T14:27:46Z",
-            "idorganizacion": 25,
-            "idpersona": 10,
-            "likes": 223
-        }, {
-            "estado": "vendido",
-            "titulo": "Ms",
-            "descripcion": "Proin leo odio, porttitor id, consequat in, consequat ut, nulla. Sed accumsan felis. Ut at dolor quis odio consequat varius.",
-            "fechapublicacion": "2022-08-20T13:38:43Z",
-            "idorganizacion": 24,
-            "idpersona": 7,
-            "likes": 321
-        }, {
-            "estado": "vendido",
-            "titulo": "Mr",
-            "descripcion": "Morbi non lectus. Aliquam sit amet diam in magna bibendum imperdiet. Nullam orci pede, venenatis non, sodales sed, tincidunt eu, felis.",
-            "fechapublicacion": "2022-06-30T08:09:57Z",
-            "idorganizacion": 29,
-            "idpersona": 1,
-            "likes": 577
-        }, {
-            "estado": "disponible",
-            "titulo": "Mr",
-            "descripcion": "Suspendisse potenti. In eleifend quam a odio. In hac habitasse platea dictumst.",
-            "fechapublicacion": "2021-05-06T04:23:51Z",
-            "idorganizacion": 27,
-            "idpersona": 6,
-            "likes": 748
-        }, {
-            "estado": "disponible",
-            "titulo": "Mr",
-            "descripcion": "Aliquam quis turpis eget elit sodales scelerisque. Mauris sit amet eros. Suspendisse accumsan tortor quis turpis.",
-            "fechapublicacion": "2022-04-02T07:35:12Z",
-            "idorganizacion": 24,
-            "idpersona": 19,
-            "likes": 1150
-        }, {
-            "estado": "vendido",
-            "titulo": "Ms",
-            "descripcion": "Sed sagittis. Nam congue, risus semper porta volutpat, quam pede lobortis ligula, sit amet eleifend pede libero quis orci. Nullam molestie nibh in lectus.",
-            "fechapublicacion": "2022-10-21T13:25:23Z",
-            "idorganizacion": 27,
-            "idpersona": 8,
-            "likes": 1226
-        }, {
-            "estado": "vendido",
-            "titulo": "Dr",
-            "descripcion": "Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vivamus vestibulum sagittis sapien. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.",
-            "fechapublicacion": "2022-01-09T17:54:20Z",
-            "idorganizacion": 29,
-            "idpersona": 12,
-            "likes": 1311
-        }, {
-            "estado": "disponible",
-            "titulo": "Dr",
-            "descripcion": "Nullam sit amet turpis elementum ligula vehicula consequat. Morbi a ipsum. Integer a nibh.",
-            "fechapublicacion": "2023-04-15T06:22:55Z",
-            "idorganizacion": 29,
-            "idpersona": 13,
-            "likes": 972
-        }, {
-            "estado": "disponible",
-            "titulo": "Rev",
-            "descripcion": "Vestibulum ac est lacinia nisi venenatis tristique. Fusce congue, diam id ornare imperdiet, sapien urna pretium nisl, ut volutpat sapien arcu sed augue. Aliquam erat volutpat.",
-            "fechapublicacion": "2022-04-12T05:37:16Z",
-            "idorganizacion": 25,
-            "idpersona": 21,
-            "likes": 2732
-        }, {
-            "estado": "vendido",
-            "titulo": "Dr",
-            "descripcion": "Donec diam neque, vestibulum eget, vulputate ut, ultrices vel, augue. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec pharetra, magna vestibulum aliquet ultrices, erat tortor sollicitudin mi, sit amet lobortis sapien sapien non mi. Integer ac neque.",
-            "fechapublicacion": "2021-09-20T10:03:17Z",
-            "idorganizacion": 29,
-            "idpersona": 10,
-            "likes": 1748
-        }, {
-            "estado": "vendido",
-            "titulo": "Mr",
-            "descripcion": "Proin interdum mauris non ligula pellentesque ultrices. Phasellus id sapien in sapien iaculis congue. Vivamus metus arcu, adipiscing molestie, hendrerit at, vulputate vitae, nisl.",
-            "fechapublicacion": "2022-08-30T16:25:16Z",
-            "idorganizacion": 27,
-            "idpersona": 11,
-            "likes": 52
-        }, {
-            "estado": "disponible",
-            "titulo": "Rev",
-            "descripcion": "Nullam sit amet turpis elementum ligula vehicula consequat. Morbi a ipsum. Integer a nibh.",
-            "fechapublicacion": "2021-12-25T02:50:13Z",
-            "idorganizacion": 28,
-            "idpersona": 10,
-            "likes": 2238
-        }, {
-            "estado": "vendido",
-            "titulo": "Ms",
-            "descripcion": "Curabitur at ipsum ac tellus semper interdum. Mauris ullamcorper purus sit amet nulla. Quisque arcu libero, rutrum ac, lobortis vel, dapibus at, diam.",
-            "fechapublicacion": "2022-07-16T17:37:44Z",
-            "idorganizacion": 28,
-            "idpersona": 5,
-            "likes": 1750
-        }, {
-            "estado": "disponible",
-            "titulo": "Dr",
-            "descripcion": "Sed sagittis. Nam congue, risus semper porta volutpat, quam pede lobortis ligula, sit amet eleifend pede libero quis orci. Nullam molestie nibh in lectus.",
-            "fechapublicacion": "2023-01-27T12:30:23Z",
-            "idorganizacion": 27,
-            "idpersona": 9,
-            "likes": 932
-        }, {
-            "estado": "disponible",
-            "titulo": "Rev",
-            "descripcion": "Aenean lectus. Pellentesque eget nunc. Donec quis orci eget orci vehicula condimentum.",
-            "fechapublicacion": "2023-01-16T13:35:30Z",
-            "idorganizacion": 28,
-            "idpersona": 11,
-            "likes": 2227
-        }, {
-            "estado": "vendido",
-            "titulo": "Honorable",
-            "descripcion": "Cras non velit nec nisi vulputate nonummy. Maecenas tincidunt lacus at velit. Vivamus vel nulla eget eros elementum pellentesque.",
-            "fechapublicacion": "2022-09-29T14:22:18Z",
-            "idorganizacion": 24,
-            "idpersona": 20,
-            "likes": 2219
-        }, {
-            "estado": "disponible",
-            "titulo": "Dr",
-            "descripcion": "Donec diam neque, vestibulum eget, vulputate ut, ultrices vel, augue. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec pharetra, magna vestibulum aliquet ultrices, erat tortor sollicitudin mi, sit amet lobortis sapien sapien non mi. Integer ac neque.",
-            "fechapublicacion": "2023-03-01T22:56:33Z",
-            "idorganizacion": 24,
-            "idpersona": 11,
-            "likes": 2180
-        },
+    publicaciones = [{
+  "idorganizacion": 24,
+  "estado": "Disponibles",
+  "titulo": "Honorable",
+  "descripcion": "Suspendisse potenti. In eleifend quam a odio. In hac habitasse platea dictumst.",
+  "n_mascotas": 3,
+  "n_mascotas_adoptadas": 0
+}, {
+  "idorganizacion": 27,
+  "estado": "Adoptados",
+  "titulo": "Mrs",
+  "descripcion": "Curabitur at ipsum ac tellus semper interdum. Mauris ullamcorper purus sit amet nulla. Quisque arcu libero, rutrum ac, lobortis vel, dapibus at, diam.",
+  "n_mascotas": 3,
+  "n_mascotas_adoptadas": 0
+}, {
+  "idorganizacion": 25,
+  "estado": "Disponibles",
+  "titulo": "Rev",
+  "descripcion": "Nullam sit amet turpis elementum ligula vehicula consequat. Morbi a ipsum. Integer a nibh.",
+  "n_mascotas": 1,
+  "n_mascotas_adoptadas": 0
+}, {
+  "idorganizacion": 25,
+  "estado": "Disponibles",
+  "titulo": "Dr",
+  "descripcion": "Aenean fermentum. Donec ut mauris eget massa tempor convallis. Nulla neque libero, convallis eget, eleifend luctus, ultricies eu, nibh.",
+  "n_mascotas": 5,
+  "n_mascotas_adoptadas": 0
+}, {
+  "idorganizacion": 27,
+  "estado": "Disponibles",
+  "titulo": "Honorable",
+  "descripcion": "Duis bibendum, felis sed interdum venenatis, turpis enim blandit mi, in porttitor pede justo eu massa. Donec dapibus. Duis at velit eu est congue elementum.",
+  "n_mascotas": 1,
+  "n_mascotas_adoptadas": 0
+}, {
+  "idorganizacion": 26,
+  "estado": "Disponibles",
+  "titulo": "Rev",
+  "descripcion": "Proin eu mi. Nulla ac enim. In tempor, turpis nec euismod scelerisque, quam turpis adipiscing lorem, vitae mattis nibh ligula nec sem.",
+  "n_mascotas": 1,
+  "n_mascotas_adoptadas": 0
+}, {
+  "idorganizacion": 26,
+  "estado": "Adoptados",
+  "titulo": "Mr",
+  "descripcion": "Vestibulum ac est lacinia nisi venenatis tristique. Fusce congue, diam id ornare imperdiet, sapien urna pretium nisl, ut volutpat sapien arcu sed augue. Aliquam erat volutpat.",
+  "n_mascotas": 6,
+  "n_mascotas_adoptadas": 0
+}, {
+  "idorganizacion": 26,
+  "estado": "Adoptados",
+  "titulo": "Ms",
+  "descripcion": "Integer tincidunt ante vel ipsum. Praesent blandit lacinia erat. Vestibulum sed magna at nunc commodo placerat.",
+  "n_mascotas": 8,
+  "n_mascotas_adoptadas": 0
+}, {
+  "idorganizacion": 26,
+  "estado": "Adoptados",
+  "titulo": "Rev",
+  "descripcion": "Proin interdum mauris non ligula pellentesque ultrices. Phasellus id sapien in sapien iaculis congue. Vivamus metus arcu, adipiscing molestie, hendrerit at, vulputate vitae, nisl.",
+  "n_mascotas": 10,
+  "n_mascotas_adoptadas": 0
+}, {
+  "idorganizacion": 28,
+  "estado": "Adoptados",
+  "titulo": "Mr",
+  "descripcion": "Morbi non lectus. Aliquam sit amet diam in magna bibendum imperdiet. Nullam orci pede, venenatis non, sodales sed, tincidunt eu, felis.",
+  "n_mascotas": 4,
+  "n_mascotas_adoptadas": 0
+}, {
+  "idorganizacion": 25,
+  "estado": "Disponibles",
+  "titulo": "Honorable",
+  "descripcion": "Mauris enim leo, rhoncus sed, vestibulum sit amet, cursus id, turpis. Integer aliquet, massa id lobortis convallis, tortor risus dapibus augue, vel accumsan tellus nisi eu orci. Mauris lacinia sapien quis libero.",
+  "n_mascotas": 9,
+  "n_mascotas_adoptadas": 0
+}, {
+  "idorganizacion": 28,
+  "estado": "Adoptados",
+  "titulo": "Mrs",
+  "descripcion": "In hac habitasse platea dictumst. Morbi vestibulum, velit id pretium iaculis, diam erat fermentum justo, nec condimentum neque sapien placerat ante. Nulla justo.",
+  "n_mascotas": 7,
+  "n_mascotas_adoptadas": 0
+}, {
+  "idorganizacion": 27,
+  "estado": "Disponibles",
+  "titulo": "Dr",
+  "descripcion": "In congue. Etiam justo. Etiam pretium iaculis justo.",
+  "n_mascotas": 7,
+  "n_mascotas_adoptadas": 0
+}, {
+  "idorganizacion": 27,
+  "estado": "Adoptados",
+  "titulo": "Ms",
+  "descripcion": "Aliquam quis turpis eget elit sodales scelerisque. Mauris sit amet eros. Suspendisse accumsan tortor quis turpis.",
+  "n_mascotas": 1,
+  "n_mascotas_adoptadas": 0
+}, {
+  "idorganizacion": 27,
+  "estado": "Adoptados",
+  "titulo": "Rev",
+  "descripcion": "Duis bibendum. Morbi non quam nec dui luctus rutrum. Nulla tellus.",
+  "n_mascotas": 5,
+  "n_mascotas_adoptadas": 0
+}, {
+  "idorganizacion": 26,
+  "estado": "Disponibles",
+  "titulo": "Ms",
+  "descripcion": "Duis consequat dui nec nisi volutpat eleifend. Donec ut dolor. Morbi vel lectus in quam fringilla rhoncus.",
+  "n_mascotas": 5,
+  "n_mascotas_adoptadas": 0
+}, {
+  "idorganizacion": 25,
+  "estado": "Adoptados",
+  "titulo": "Dr",
+  "descripcion": "Integer ac leo. Pellentesque ultrices mattis odio. Donec vitae nisi.",
+  "n_mascotas": 2,
+  "n_mascotas_adoptadas": 0
+}, {
+  "idorganizacion": 24,
+  "estado": "Disponibles",
+  "titulo": "Dr",
+  "descripcion": "Vestibulum ac est lacinia nisi venenatis tristique. Fusce congue, diam id ornare imperdiet, sapien urna pretium nisl, ut volutpat sapien arcu sed augue. Aliquam erat volutpat.",
+  "n_mascotas": 7,
+  "n_mascotas_adoptadas": 0
+}, {
+  "idorganizacion": 24,
+  "estado": "Disponibles",
+  "titulo": "Honorable",
+  "descripcion": "Duis bibendum. Morbi non quam nec dui luctus rutrum. Nulla tellus.",
+  "n_mascotas": 10,
+  "n_mascotas_adoptadas": 0
+}, {
+  "idorganizacion": 26,
+  "estado": "Disponibles",
+  "titulo": "Rev",
+  "descripcion": "Aenean fermentum. Donec ut mauris eget massa tempor convallis. Nulla neque libero, convallis eget, eleifend luctus, ultricies eu, nibh.",
+  "n_mascotas": 10,
+  "n_mascotas_adoptadas": 0
+}, {
+  "idorganizacion": 25,
+  "estado": "Disponibles",
+  "titulo": "Mrs",
+  "descripcion": "Pellentesque at nulla. Suspendisse potenti. Cras in purus eu magna vulputate luctus.",
+  "n_mascotas": 4,
+  "n_mascotas_adoptadas": 0
+}, {
+  "idorganizacion": 25,
+  "estado": "Disponibles",
+  "titulo": "Mrs",
+  "descripcion": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Proin risus. Praesent lectus.",
+  "n_mascotas": 10,
+  "n_mascotas_adoptadas": 0
+}, {
+  "idorganizacion": 25,
+  "estado": "Adoptados",
+  "titulo": "Ms",
+  "descripcion": "Vestibulum ac est lacinia nisi venenatis tristique. Fusce congue, diam id ornare imperdiet, sapien urna pretium nisl, ut volutpat sapien arcu sed augue. Aliquam erat volutpat.",
+  "n_mascotas": 7,
+  "n_mascotas_adoptadas": 0
+}, {
+  "idorganizacion": 25,
+  "estado": "Adoptados",
+  "titulo": "Honorable",
+  "descripcion": "Integer ac leo. Pellentesque ultrices mattis odio. Donec vitae nisi.",
+  "n_mascotas": 5,
+  "n_mascotas_adoptadas": 0
+}, {
+  "idorganizacion": 25,
+  "estado": "Adoptados",
+  "titulo": "Rev",
+  "descripcion": "Morbi non lectus. Aliquam sit amet diam in magna bibendum imperdiet. Nullam orci pede, venenatis non, sodales sed, tincidunt eu, felis.",
+  "n_mascotas": 3,
+  "n_mascotas_adoptadas": 0
+}, {
+  "idorganizacion": 26,
+  "estado": "Disponibles",
+  "titulo": "Mrs",
+  "descripcion": "Sed ante. Vivamus tortor. Duis mattis egestas metus.",
+  "n_mascotas": 1,
+  "n_mascotas_adoptadas": 0
+}, {
+  "idorganizacion": 25,
+  "estado": "Adoptados",
+  "titulo": "Mr",
+  "descripcion": "Cras mi pede, malesuada in, imperdiet et, commodo vulputate, justo. In blandit ultrices enim. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.",
+  "n_mascotas": 1,
+  "n_mascotas_adoptadas": 0
+}, {
+  "idorganizacion": 26,
+  "estado": "Disponibles",
+  "titulo": "Mr",
+  "descripcion": "Integer ac leo. Pellentesque ultrices mattis odio. Donec vitae nisi.",
+  "n_mascotas": 8,
+  "n_mascotas_adoptadas": 0
+}, {
+  "idorganizacion": 25,
+  "estado": "Adoptados",
+  "titulo": "Ms",
+  "descripcion": "Quisque id justo sit amet sapien dignissim vestibulum. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nulla dapibus dolor vel est. Donec odio justo, sollicitudin ut, suscipit a, feugiat et, eros.",
+  "n_mascotas": 2,
+  "n_mascotas_adoptadas": 0
+}, {
+  "idorganizacion": 27,
+  "estado": "Disponibles",
+  "titulo": "Dr",
+  "descripcion": "Morbi porttitor lorem id ligula. Suspendisse ornare consequat lectus. In est risus, auctor sed, tristique in, tempus sit amet, sem.",
+  "n_mascotas": 7,
+  "n_mascotas_adoptadas": 0
+}, {
+  "idorganizacion": 28,
+  "estado": "Disponibles",
+  "titulo": "Dr",
+  "descripcion": "Praesent id massa id nisl venenatis lacinia. Aenean sit amet justo. Morbi ut odio.",
+  "n_mascotas": 6,
+  "n_mascotas_adoptadas": 0
+}, {
+  "idorganizacion": 24,
+  "estado": "Adoptados",
+  "titulo": "Dr",
+  "descripcion": "Nullam porttitor lacus at turpis. Donec posuere metus vitae ipsum. Aliquam non mauris.",
+  "n_mascotas": 9,
+  "n_mascotas_adoptadas": 0
+}, {
+  "idorganizacion": 28,
+  "estado": "Adoptados",
+  "titulo": "Ms",
+  "descripcion": "Pellentesque at nulla. Suspendisse potenti. Cras in purus eu magna vulputate luctus.",
+  "n_mascotas": 0,
+  "n_mascotas_adoptadas": 0
+}, {
+  "idorganizacion": 27,
+  "estado": "Disponibles",
+  "titulo": "Honorable",
+  "descripcion": "Phasellus sit amet erat. Nulla tempus. Vivamus in felis eu sapien cursus vestibulum.",
+  "n_mascotas": 2,
+  "n_mascotas_adoptadas": 0
+}, {
+  "idorganizacion": 26,
+  "estado": "Adoptados",
+  "titulo": "Ms",
+  "descripcion": "Fusce consequat. Nulla nisl. Nunc nisl.",
+  "n_mascotas": 1,
+  "n_mascotas_adoptadas": 0
+}, {
+  "idorganizacion": 26,
+  "estado": "Disponibles",
+  "titulo": "Dr",
+  "descripcion": "Nullam porttitor lacus at turpis. Donec posuere metus vitae ipsum. Aliquam non mauris.",
+  "n_mascotas": 9,
+  "n_mascotas_adoptadas": 0
+}, {
+  "idorganizacion": 26,
+  "estado": "Adoptados",
+  "titulo": "Dr",
+  "descripcion": "In hac habitasse platea dictumst. Morbi vestibulum, velit id pretium iaculis, diam erat fermentum justo, nec condimentum neque sapien placerat ante. Nulla justo.",
+  "n_mascotas": 7,
+  "n_mascotas_adoptadas": 0
+},
     ]
     print('vamos en posts: lista de ids de org:', [
           (org.id, org.username) for org in Organizacion.objects.all()])
@@ -849,17 +839,11 @@ def agregar_publicaciones():
         extra_fields = {
             key: value
             for key, value in data.items()
-            if key not in ["estado", "descripcion", "titulo", 'idorganizacion', 'idpersona', 'likes']
+            if key not in ['idorganizacion']
         }
-        pers = Persona.objects.get(id=data['idpersona'])
         org = Organizacion.objects.get(id=data['idorganizacion'])
         Publicacion.objects.create(
-            estado=data["estado"],
-            descripcion=data["descripcion"],
-            titulo=data["titulo"],
             idorganizacion=org,
-            idpersona=pers,
-            likes=data["likes"],
             **extra_fields
         )
 
@@ -875,41 +859,41 @@ def agregar_comentarios():
 
     comentarios = [
         {
-            "contenido": "Este es un comentario de prueba.",
+            "contenido": "Este es un comentario de prueba.1",
             "es_respuesta": False,
             "comentador": Persona.objects.get(id=2),
             "comentador_org": None,
             "comentario_padre": None,
         },
         {
-            "contenido": "Este es otro comentario de prueba.",
+            "contenido": "Este es otro comentario de prueba2.",
             "es_respuesta": False,
             "comentador": Persona.objects.get(id=3),
             "comentador_org": None,
             "comentario_padre": None,
         },
         {
-            "contenido": "Este es un comentario de respuesta.",
+            "contenido": "Este es un comentario de respuesta.1",
             "es_respuesta": True,
             "comentador": Persona.objects.get(id=4),
             "comentador_org": None,
             "comentario_padre": None,
         },
         {
-            "contenido": "Este es otro comentario de respuesta.",
+            "contenido": "Este es otro comentario de respuesta.2",
             "es_respuesta": True,
             "comentador": Persona.objects.get(id=5),
             "comentador_org": None,
             "comentario_padre": None,
         },
         {
-            "contenido": "Este es un comentario de una organización.",
+            "contenido": "Este es un comentario de una organización1.",
             "es_respuesta": False,
             "comentador_org": Organizacion.objects.get(id=24),
             "comentario_padre": None,
         },
         {
-            "contenido": "Este es otro comentario de una organización.",
+            "contenido": "Este es otro comentario de una organización2.",
             "es_respuesta": False,
             "comentador_org": Organizacion.objects.get(id=25),
             "comentario_padre": None,

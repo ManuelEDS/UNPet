@@ -16,5 +16,5 @@ urlpatterns = [
     path('api/posts/search/', PublicacionSearch.as_view(), name='publicacion-search'),
     path('api/posts/<int:pk>/comments/', ComentarioListCreateView.as_view(), name='comentario-list-create'),
     path('api/posts/<int:pk>/comments/<int:comment_pk>/', ComentarioDetailView.as_view(), name='comentario-detail'),
-    path('api/posts/<int:pk>/comments/<int:comment_pk>/respuestas/', ComentarioRespuestasView.as_view(), name='comentario-respuestas'),
+    path('api/posts/<int:pk>/comments/<int:comment_pk>/answers/', ComentarioRespuestasView.as_view(), name='comentario-respuestas'),
 ]

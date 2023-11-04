@@ -46,15 +46,3 @@ const PostCard = ({ post }) => {
 };
 
 export default PostCard;
-
-
-
-
-const post = {
-    fotos: ['https://dummyimage.com/600x500&text=mascota+foto', 'https://dummyimage.com/600x500&text=mascota+foto'],
-    titulo: 'Mi primer post',
-    estado: 'publicado',
-    descripcion: 'Este es el contenido de mi primer post.',
-    fechaPublicacion: "2023-09-30T14:30:00Z",
-    likes: 100
-  };
