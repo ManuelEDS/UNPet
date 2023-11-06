@@ -14,6 +14,7 @@ import TestPosts from './pages/testPosts'
 import { UserContextProvider } from './context/UserContext'
 import NavBar from './components/NavBar/NavBar'
 import PrivateRoute from './components/accounts/PrivateRoute'
+import Footer from './components/Footer'
 function App() {
  
 
@@ -39,6 +40,7 @@ function App() {
         
 
       </Routes>
+      <Footer/>
     </BrowserRouter>
     </UserContextProvider>
    
