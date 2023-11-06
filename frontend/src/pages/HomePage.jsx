@@ -1,6 +1,3 @@
-import { Fragment } from 'react';
-import { FaHeart, FaComment, FaPaw, FaShareAlt } from 'react-icons/fa';
-import DevCard from '../components/DevCard';
 import LeftBar from '../components/LeftBar';
 import Feed from '../components/Feed/Feed';
 import { useMediaQuery } from 'react-responsive';
@@ -57,10 +54,10 @@ const posts = [
         urlfoto: 'https://dummyimage.com/600x400/d1d1d1/5b62c7.jpg&text=Juan%20Perez'
     },
 ]
-const data={
+const data = {
     count: 5,
     next: 'siguiente',
-    previous:  'anterior',
+    previous: 'anterior',
     results: posts
 }
 console.log(data)
@@ -69,19 +66,19 @@ export const HomePage = () => {
 
 
     return (
-        <div className="flex justify-between fixed w-full overflow-y-auto	max-h-screen">
+        <div className="flex justify-between  w-full overflow-y-auto">
             <div className='sticky top-0'>
-            {isDesktopOrLaptop && <LeftBar />}
+                {isDesktopOrLaptop && <LeftBar />}
             </div>
 
             <div className="max-w-2xl mx-auto ">
                 <h2 className="text-3xl font-bold text-center mb-4">Bienvenido a UNPet!</h2>
                 <p className="text-center mb-8">Donando nuevas oportunidades</p>
                 <Feed posts={data}></Feed>
-        
+
             </div>
             <div className='sticky top-0'>
-            {isDesktopOrLaptop && <LeftBar />}
+                {isDesktopOrLaptop && <LeftBar />}
             </div>
         </div>
     );

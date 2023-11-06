@@ -106,7 +106,7 @@ function WhoAreWePage() {
                 <br />
                 <br />
             </div>
-            <div className="grid grid-cols-1 gap-16 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-auto m-5">
+            <div className="grid grid-cols-5 gap-16 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-auto m-5">
                 {developers.map((developer, index) => (
                     <DevCard
                         key={index}

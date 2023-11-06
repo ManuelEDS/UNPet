@@ -1,8 +1,8 @@
-import { FaGlobe, FaTwitter, FaInstagram } from 'react-icons/fa';
+import { FaFacebook, FaTwitter, FaInstagram } from 'react-icons/fa';
 
 export default function Footer() {
   return (
-    <footer className="bg-green-600 text-white py-4 px-6 bottom-0 w-full">
+    <footer className="bg-green-600 text-white py-4 px-6 bottom-0 w-full sticky" >
       <div className="max-w-7xl mx-auto text-center">
         <p className="text-sm">
           Síguenos en las redes sociales:
@@ -14,8 +14,8 @@ export default function Footer() {
           <a href="https://www.instagram.com/unpet2023/" target="_blank" rel="noopener noreferrer">
             <FaInstagram className="h-6 w-6" />
           </a>
-          <a href="https://www.unpet2023.com/" target="_blank" rel="noopener noreferrer" className="ml-4">
-            <FaGlobe className="h-6 w-6" />
+          <a href="https://www.facebook.com/profile.php?id=61552993962943" target="_blank" rel="noopener noreferrer" className="ml-4">
+            <FaFacebook className="h-6 w-6" />
           </a>
         </div>
       </div>
