@@ -2,7 +2,7 @@ import { FaGlobe, FaTwitter, FaInstagram } from 'react-icons/fa';
 
 export default function Footer() {
   return (
-    <footer className="bg-green-500 text-white py-4 px-6 fixed bottom-0 w-full">
+    <footer className="bg-green-600 text-white py-4 px-6 bottom-0 w-full">
       <div className="max-w-7xl mx-auto text-center">
         <p className="text-sm">
           Síguenos en las redes sociales:
