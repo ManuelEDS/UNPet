@@ -37,7 +37,7 @@ if (previous) {
  * @async
  * @returns {Promise<Object>} Objeto con los resultados de la paginación (results, next, previous).
  */
-export async function getPublicacionesRecientes() {
+export async function getPostsRecent() {
     const response = await POSTS.get('/recent/');
     return response.data;
 }
@@ -48,7 +48,7 @@ export async function getPublicacionesRecientes() {
  * @async
  * @returns {Promise<Object>} Objeto con los resultados de la paginación (results, next, previous).
  */
-export async function getPublicacionesTendencia() {
+export async function getPoststrend() {
     const response = await POSTS.get('/trend/');
     return response.data;
 }
@@ -60,24 +60,14 @@ export async function getPublicacionesTendencia() {
  * @param {number} id - El ID de la publicación a obtener.
  * @returns {Promise<Object>} Objeto con los datos de la publicación.
  */
-export async function getPublicacion(id) {
+export async function getPost(id) {
     const response = await POSTS.get(`/${id}`);
     return response.data;
 }
 
-/**
- * Busca publicaciones.
- * @function
- * @async
- * @param {string} query - La cadena de búsqueda.
- * @returns {Promise<Object>} Objeto con los resultados de la búsqueda y los datos de paginación (results, next, previous).
- */
-export async function searchPublicaciones(query) {
-    const response = await POSTS.get(`/search/?q=${query}`);
-    return response.data;
-}
 
-export async function createPublicacion(data) {
+
+export async function createPost(data) {
     if(data && data.post && data.pets){
     const response = await POSTS.post(`/create/`, data);
     return response.data;
@@ -93,7 +83,7 @@ export async function createPublicacion(data) {
  * @param {number} id - El ID de la publicación.
  * @returns {Promise<Array>} Lista de comentarios de la publicación.
  */
-export async function getComentarios(id) {
+export async function getComments(id) {
     const response = await POSTS.get(`/${id}/comments/`);
     return response.data;
 }
@@ -106,7 +96,7 @@ export async function getComentarios(id) {
  * @param {Object} data - Objeto con los datos del comentario (texto, autor).
  * @returns {Promise<Object>} Objeto con los datos del comentario creado.
  */
-export async function createComentario(id, data) {
+export async function createComment(id, data) {
     const response = await POSTS.post(`/${id}/comments/`, data);
     return response.data;
 }
