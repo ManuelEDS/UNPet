@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { FaHome, FaTrophy, FaUsers, FaPlusCircle } from 'react-icons/fa';
 
+
 export function Navigation() {
   return (
     <div className="fixed h-full w-48 bg-gray-100 p-4">
