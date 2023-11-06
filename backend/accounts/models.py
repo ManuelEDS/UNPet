@@ -68,7 +68,8 @@ class UserManager(BaseUserManager):
             nit=nit,
             **extra_fields,
         )
-
+        if org.name ==None:
+            org.name=username
         org.save(force_insert=True)
         return user, org
 
@@ -100,6 +101,9 @@ class Localidad(models.Model):
     idlocalidad = models.IntegerField(primary_key=True)  # Field name made lowercase.
     nombre = models.CharField(max_length=20)  # Field name made lowercase.
 
+    def __str__(self):
+        return f"{self.nombre}"
+    
     class Meta:
         db_table = "localidades"
 

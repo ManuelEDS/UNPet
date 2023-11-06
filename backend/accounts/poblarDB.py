@@ -830,11 +830,36 @@ def agregar_publicaciones():
   "n_mascotas": 7,
   "n_mascotas_adoptadas": 0
 },
+{
+  "idorganizacion": 24,
+  "estado": "Disponibles",
+  "titulo": "Se dan en adopción estos hermosos gatitos",
+  "descripcion": "In hac habitasse platea dictumst. Morbi vestibulum, velit id pretium iaculis, diam erat fermentum justo, nec condimentum neque sapien placerat ante. Nulla justo.",
+  "n_mascotas": 7,
+  "n_mascotas_adoptadas": 0
+},
+{
+  "idorganizacion": 24,
+  "estado": "Disponibles",
+  "titulo": "Estamos dando en adopción estos perros callejeros",
+  "descripcion": "Nullam porttitor lacus at turpis. Donec posuere metus vitae ipsum. Aliquam non mauris, felix, perro, labrador.",
+  "n_mascotas": 9,
+  "n_mascotas_adoptadas": 0
+},
+ {
+  "idorganizacion": 24,
+  "estado": "Adoptados",
+  "titulo": "Estamos dando en adopción estos perros raza labrador",
+  "descripcion": "Pellentesque at nulla. Suspendisse potenti. Cras in purus eu magna vulputate luctus.",
+  "n_mascotas": 9,
+  "n_mascotas_adoptadas": 9
+},
     ]
-    print('vamos en posts: lista de ids de org:', [
-          (org.id, org.username) for org in Organizacion.objects.all()])
-    print('vamos en posts: lista de ids de personas:', [
-          (org.id, org.username) for org in Persona.objects.all()])
+    # print('vamos en posts: lista de ids de org:', [
+    #       (org.id, org.username) for org in Organizacion.objects.all()])
+    # print('vamos en posts: lista de ids de personas:', [
+    #       (org.id, org.username) for org in Persona.objects.all()])
+    print('numero de publicaciones', len(publicaciones))
     for data in publicaciones:
         extra_fields = {
             key: value

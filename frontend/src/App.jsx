@@ -10,7 +10,7 @@ import {TermsCond} from './pages/TermsCond'
 import {PoliticsPriv} from  './pages/Politicspriv'
 import { Donations } from './components/Donations'
 import WhoAreWePage from './pages/WhoAreWePage'
-import TextPosts from './pages/textPosts'
+import TestPosts from './pages/testPosts'
 import { UserContextProvider } from './context/UserContext'
 import NavBar from './components/NavBar/NavBar'
 import PrivateRoute from './components/accounts/PrivateRoute'
@@ -35,7 +35,8 @@ function App() {
         <Route path='/legal/privacy-policies' element={<PoliticsPriv/>} />
         <Route path='/donations' element={<Donations />} />
         <Route path='/quienes-somos' element={<WhoAreWePage/>} />
-        <Route path='/posttest' element={<TextPosts/>} />
+        <Route path='/posttest' element={<TestPosts/>} />
+        
 
       </Routes>
     </BrowserRouter>

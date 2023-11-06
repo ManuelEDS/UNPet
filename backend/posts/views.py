@@ -4,12 +4,12 @@ from rest_framework import status, permissions
 from django.shortcuts import get_object_or_404
 from .models import Publicacion, Comentario
 from .serializer import PublicacionSerializer, ComentarioSerializer
-from django.db.models import Q
 from rest_framework import generics
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.authentication import SessionAuthentication
 from rest_framework.decorators import authentication_classes, permission_classes
 from rest_framework import  authentication
+from django.contrib.auth import get_user_model
 
 from django.db import transaction
 from pets.models import Mascota
@@ -40,26 +40,6 @@ class PublicacionView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-from rest_framework.renderers import JSONRenderer
-
-class PublicacionSearch(generics.ListAPIView):
-    serializer_class = PublicacionSerializer
-    pagination_class = PageNumberPagination
-    def get_queryset(self):
-        query = self.request.query_params.get('q')
-        return Publicacion.objects.filter(
-            Q(titulo__icontains=query) | Q(descripcion__icontains=query)
-        )
-    def list(self, request, *args, **kwargs):
-        queryset = self.filter_queryset(self.get_queryset())
-        page = self.paginate_queryset(queryset)
-        if page is not None:
-            serializer = self.get_serializer(page, many=True)
-            return self.get_paginated_response(serializer.data)
-
-        serializer = self.get_serializer(queryset, many=True)
-        return Response(serializer.data)
-    
 class PublicacionRecentList(APIView):
     def get(self, request):
         paginator = PageNumberPagination()

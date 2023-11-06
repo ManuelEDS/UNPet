@@ -23,6 +23,7 @@ urlpatterns = [
     path('accounts/', include('accounts.urls')),
     path('pets/', include('pets.urls')),
     path('posts/', include('posts.urls')),
+    path('search/', include('search.urls')),
 
-    path("docs/", include_docs_urls(title="UNPet Api"))
+    path("docs/", include_docs_urls(title="UNPet API Docs"))
 ]
