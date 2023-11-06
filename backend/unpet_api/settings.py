@@ -28,9 +28,9 @@ SECRET_KEY = os.environ.get(
 
 # SECURITY WARNING: don't run with debug turned on in production!
 
-DEBUG=True
-LOCAL_DB = True # DEBUG = True #para usar sqlite, FALSE para la db con las variables de entorno
-DOCKER_MODE=False
+DEBUG=False
+LOCAL_DB = False # DEBUG = True #para usar sqlite, FALSE para la db con las variables de entorno
+DOCKER_MODE=True
 RENDER_MODE = False
 if DOCKER_MODE: # Modo: despliegue en algun seguidor docker (plan B por si render falla)
     ALLOWED_HOSTS = ['http://localhost:81']
@@ -40,6 +40,8 @@ elif RENDER_MODE: # Modo: despliegue en render
     CORS_ALLOW_CREDENTIALS = True
     ALLOWED_HOSTS = ['127.0.0.1','https://unpet-web.onrender.com',]
     CORS_ALLOWED_ORIGINS = ['https://unpet-web.onrender.com',]
+    CSRF_TRUSTED_ORIGINS = ['https://unpet-web.onrender.com',]
+
 else: # Modo: desarrollo en localhost
     CORS_ALLOW_CREDENTIALS = True
     ALLOWED_HOSTS = ['localhost', 'localhost:5173', '127.0.0.1']
