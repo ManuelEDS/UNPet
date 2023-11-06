@@ -1,62 +1,41 @@
-import { Card, CardContent, Typography, CardMedia, styled, List, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
-import { Link as RouterLink } from 'react-router-dom';
-import HomeIcon from '@material-ui/icons/Home';
-import TrendingUpIcon from '@mui/icons-material/TrendingUp';
-import RecentActorsIcon from '@mui/icons-material/RecentActors';
-import PetsIcon from '@mui/icons-material/Pets';
-import AddCircleIcon from '@mui/icons-material/AddCircle';
-
-const useStyles = styled((theme) => ({
-  sidebar: {
-    position: 'fixed',
-    height: '100%',
-    width: '200px',
-    backgroundColor: '#f5f5f5',
-    padding: '1rem',
-    [theme.breakpoints.down('sm')]: {
-      position: 'static',
-      width: '100%',
-    },
-  },
-}));
+import { Link } from 'react-router-dom';
+import { FaHome, FaTrophy, FaUsers, FaPlusCircle } from 'react-icons/fa';
 
 export function Navigation() {
-  const classes = useStyles();
-
   return (
-    <div className={classes.sidebar}>
-      <List>
-        <ListItemButton component={RouterLink} to="/">
-          <ListItemIcon>
-            <HomeIcon />
-          </ListItemIcon>
-          <ListItemText primary="Inicio" />
-        </ListItemButton>
-        <ListItemButton component={RouterLink} to="/trending">
-          <ListItemIcon>
-            <TrendingUpIcon />
-          </ListItemIcon>
-          <ListItemText primary="Tendencias" />
-        </ListItemButton>
-        <ListItemButton component={RouterLink} to="/recent">
-          <ListItemIcon>
-            <RecentActorsIcon />
-          </ListItemIcon>
-          <ListItemText primary="Recientes" />
-        </ListItemButton>
-        <ListItemButton component={RouterLink} to="/pets">
-          <ListItemIcon>
-            <PetsIcon />
-          </ListItemIcon>
-          <ListItemText primary="Mascotas" />
-        </ListItemButton>
-        <ListItemButton component={RouterLink} to="/pet-create">
-          <ListItemIcon>
-            <AddCircleIcon />
-          </ListItemIcon>
-          <ListItemText primary="Crear Mascota" />
-        </ListItemButton>
-      </List>
+    <div className="fixed h-full w-48 bg-gray-100 p-4">
+      <ul className="space-y-4">
+        <li>
+          <Link to="/" className="flex items-center space-x-2 text-gray-700 hover:text-gray-900">
+            <FaHome className="h-6 w-6" />
+            <span>Inicio</span>
+          </Link>
+        </li>
+        <li>
+          <Link to="/trending" className="flex items-center space-x-2 text-gray-700 hover:text-gray-900">
+            <FaTrophy className="h-6 w-6" />
+            <span>Tendencias</span>
+          </Link>
+        </li>
+        <li>
+          <Link to="/recent" className="flex items-center space-x-2 text-gray-700 hover:text-gray-900">
+            <FaUsers className="h-6 w-6" />
+            <span>Recientes</span>
+          </Link>
+        </li>
+        <li>
+          <Link to="/pets" className="flex items-center space-x-2 text-gray-700 hover:text-gray-900">
+            <FaPlusCircle className="h-6 w-6" />
+            <span>Mascotas</span>
+          </Link>
+        </li>
+        <li>
+          <Link to="/pet-create" className="flex items-center space-x-2 text-gray-700 hover:text-gray-900">
+            <FaPlusCircle className="h-6 w-6" />
+            <span>Crear Mascota</span>
+          </Link>
+        </li>
+      </ul>
     </div>
   );
 }

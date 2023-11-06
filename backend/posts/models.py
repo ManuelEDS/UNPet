@@ -12,6 +12,8 @@ class Publicacion(models.Model):
     descripcion = models.CharField(max_length=45)
     fechapublicacion = models.DateTimeField(auto_now_add=True)
     likes = models.IntegerField(default=0)
+    n_mascotas = models.IntegerField(default=0)
+    n_mascotas_adoptadas = models.IntegerField(default=0)
 
     def __str__(self):
         return self.titulo

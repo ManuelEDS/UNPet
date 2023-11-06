@@ -1,4 +1,5 @@
-import { Card, CardContent, CardMedia, Typography } from '@mui/material';
+import { Fragment } from 'react';
+import { FaPencil, FaGlobe, FaBolt } from 'react-icons/fa';
 
 const cards = [
     {
@@ -23,24 +24,26 @@ const cards = [
 
 const Ex1 = () => {
     return (
-        <div style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap' }}>
+        <div className="flex flex-wrap justify-center">
             {cards.map((card) => (
-                <Card key={card.id} sx={{ maxWidth: 345, margin: '0.5rem', width: '100%', '@media (min-width: 600px)': { width: 'calc(33.33% - 1rem)' }, '@media (max-width: 600px)': { flexDirection: 'column' } }}>
-                    <CardMedia
-                        component="img"
-                        height="140"
-                        image={card.image}
-                        alt={card.title}
-                    />
-                    <CardContent>
-                        <Typography gutterBottom variant="h5" component="div">
-                            {card.title}
-                        </Typography>
-                        <Typography variant="body2" color="text.secondary">
-                            {card.description}
-                        </Typography>
-                    </CardContent>
-                </Card>
+                <div key={card.id} className="max-w-sm rounded overflow-hidden shadow-lg m-4">
+                    <img className="w-full" src={card.image} alt={card.title} />
+                    <div className="px-6 py-4">
+                        <div className="font-bold text-xl mb-2">{card.title}</div>
+                        <p className="text-gray-700 text-base">{card.description}</p>
+                    </div>
+                    <div className="px-6 pt-4 pb-2">
+                        <Fragment>
+                            <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#tailwindcss</span>
+                            <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#react-icons</span>
+                        </Fragment>
+                    </div>
+                    <div className="px-6 pt-4 pb-2">
+                        <FaPencil className="h-5 w-5 inline-block mr-2" />
+                        <FaGlobe className="h-5 w-5 inline-block mr-2" />
+                        <FaBolt className="h-5 w-5 inline-block" />
+                    </div>
+                </div>
             ))}
         </div>
     );

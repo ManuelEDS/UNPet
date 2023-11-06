@@ -1,6 +1,6 @@
 from rest_framework.views import APIView
 from rest_framework.authentication import SessionAuthentication
-from .serializer import UserSerializer, ProfileSerializer, OrganizationSerializer
+from .serializer import UserSerializer, ProfileSerializer, OrganizacionSerializer
 from django.contrib.auth import get_user_model, authenticate, login, logout
 from django.middleware.csrf import get_token
 from rest_framework import permissions,status
@@ -8,9 +8,7 @@ from rest_framework.response import Response
 from utils.unpet_user import UNPetUserManager
 from utils.firebase_manager import uploadUserIMG
 from .models import Organizacion, Persona
-from django.http.request import HttpRequest
 import os
-from django.http import HttpResponse
 from django.http import JsonResponse
 
 debug=True
@@ -27,7 +25,11 @@ class SessionView(APIView):
     permission_classes = [permissions.AllowAny]
     @staticmethod
     def get(request, format=None):
-        return Response({'isAuthenticated': request.user.is_authenticated})
+        if request.user.isAuthenticated:
+            U= UNPetUserManager(id=request.user.id)
+            return Response({"data": { 'isAuthenticated': request.user.is_authenticated,'username': request.user.username, 'urlfoto':U.get_role_instance.urlfoto}})
+        
+        return Response({"data": { 'isAuthenticated': request.user.is_authenticated, }})
 
 
 class AdminRegister(APIView):
@@ -228,7 +230,7 @@ class UserLogin(APIView):
 
         if user is not None:
             login(request, user)
-            # Login successful, return user details
+            # Login successful, return user detail
             return Response(data={"msg":"login con exito!", "user":{**user.toDict()}})
         else:
             return Response({'error': 'Credenciales inválidas'},
@@ -255,7 +257,7 @@ class UserLogout(APIView):
 
     def post(self, request):
         if not request.user.is_authenticated:
-            return Response({'detail': 'No has iniciado sesión.'}, status=400)
+            return Response(data={'detail': 'No has iniciado sesión.'}, status=400)
         try:
             logout(request)
             return Response(status=status.HTTP_200_OK)
@@ -268,9 +270,9 @@ class UserView(APIView):
     authentication_classes = (SessionAuthentication,)
     def get(self, request, username):
         if not username: 
-            return Response(data={"details": "Ingrese un nombre de usuario"}, status=status.HTTP_400_BAD_REQUEST)
+            return Response(data={"detail": "Ingrese un nombre de usuario"}, status=status.HTTP_400_BAD_REQUEST)
         if not get_user_model().objects.filter(username=username).exists():
-            return Response(data={"error": "Este usuario no existe", "userFound":False}, status=status.HTTP_400_BAD_REQUEST)
+            return Response(data={"detail": "Este usuario no existe", "userFound":False}, status=status.HTTP_400_BAD_REQUEST)
         user_model = get_user_model().objects.get(username=username)
 
         # if debug:print('si existe', user_model.toDict())
@@ -279,7 +281,7 @@ class UserView(APIView):
         # userB= UNPetUserManager(user_id=user_model.id)
         # if debug:print('por id se pudo', user_model.toDict())
         # if debug:print(userA, userB)
-        return Response(data={"data": "Usuario encontrado", "userFound":True, "user": user.toDict()}, status=status.HTTP_200_OK)
+        return Response(data={"detail": "Usuario encontrado", "user": user.toDict()}, status=status.HTTP_200_OK)
 
 class ProfileView(APIView):
     permission_classes = (permissions.IsAuthenticated,)
@@ -287,7 +289,7 @@ class ProfileView(APIView):
     def get(self, request):
         # Verifica si el usuario ha iniciado sesión
         user = UNPetUserManager(user_instance=request.user)
-        return Response(data={'data': 'datos del perfil', 'user': user.toDict()}, status=status.HTTP_401_UNAUTHORIZED)
+        return Response(data={'user': user.toDict()}, status=status.HTTP_401_UNAUTHORIZED)
     
     def put(self, request):
         current_user = ProfileSerializer(instance=request.user,data= request.data,partial=True)
@@ -295,9 +297,9 @@ class ProfileView(APIView):
             # Valida y actualiza los campos de la instancia
         if current_user.is_valid():
             current_user.save()
-            return Response(data={'data': 'Datos del usuario actualizados con exito','oldUserData':ProfileSerializer(request.user).data, 'newUserData':current_user.data}, status=status.HTTP_200_OK)
+            return Response(data={'detail':'Encontrado','oldUserData':ProfileSerializer(request.user).data, 'newUserData':current_user.data}, status=status.HTTP_200_OK)
         else:
-            return Response(data={'data': 'Error al actualizar los datos del usuario'}.update(current_user.errors), status=status.HTTP_400_BAD_REQUEST)
+            return Response(data={'detail':'No encontrado',}.update(current_user.errors), status=status.HTTP_400_BAD_REQUEST)
     
 
 
@@ -305,7 +307,7 @@ class ProfileView(APIView):
 import os
 from django.http import HttpResponse
 
-class getMD(APIView):
+class getHTML(APIView):
     permission_classes = (permissions.AllowAny,)
     authentication_classes = ()
 
@@ -318,7 +320,8 @@ class getMD(APIView):
         try:
             with open(file_path, 'r', encoding='utf-8') as f:
                 contents = f.read()
-                return HttpResponse( content=contents,content_type='text/markdown')
+                #print('archivo html:  ', contents, type(contents))
+                return HttpResponse( content=contents,content_type='text/html')
         except FileNotFoundError:
             return Response(f'File {filename} not found', status=status.HTTP_404_NOT_FOUND)
 

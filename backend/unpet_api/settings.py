@@ -66,6 +66,7 @@ apps = [
     "accounts",
     "pets",
     "posts",
+    "search",
 ]
 
 if not DOCKER_MODE:

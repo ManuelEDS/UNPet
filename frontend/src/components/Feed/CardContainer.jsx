@@ -1,39 +1,27 @@
 // PostCard.jsx
-import { Card, CardContent, IconButton } from '@material-ui/core';
-import FavoriteIcon from '@material-ui/icons/Favorite';
+import { FaHeart } from 'react-icons/fa';
 
 export const PostCard = ({ post }) => (
-  <Card>
-    <CardContent>
-      {/* Aquí va el contenido del post */}
-      <IconButton>
-        <FavoriteIcon />
-      </IconButton>
-      {/* Aquí van los demás elementos del post */}
-    </CardContent>
-  </Card>
+  <div className="bg-white shadow-md rounded-md p-4">
+    {/* Aquí va el contenido del post */}
+    <button className="text-gray-500 hover:text-red-500">
+      <FaHeart className="h-6 w-6" />
+    </button>
+    {/* Aquí van los demás elementos del post */}
+  </div>
 );
 
 
 // CardContainer.jsx
-// CardContainer.jsx
-import { styled } from '@material-ui/core/styles';
-
-const useStyles = styled({
-  container: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '1rem',
-  },
-});
+import { Fragment } from 'react';
 
 export const CardContainer = ({ children }) => {
-  const classes = useStyles();
-
   return (
-    <div className={classes.container}>
+    <Fragment>
       {/* Aquí se renderizan las cards */}
-      {children}
-    </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {children}
+      </div>
+    </Fragment>
   );
 };

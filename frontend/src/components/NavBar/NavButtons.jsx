@@ -1,24 +1,10 @@
-
 import { UserContext } from '../../context/UserContext';
 import { useContext } from 'react';
-import { Button } from '@mui/material';
-import { styled } from '@mui/material/styles'; // Updated import statement
 import { useNavigate } from "react-router-dom";
-
-const loginButtonStyles = styled({
-    button: {
-        color: 'white',
-        backgroundColor: '#3f51b5',
-        '&:hover': {
-            backgroundColor: '#2c387e',
-        },
-    },
-});
 
 export function LoginButton() {
     const { user } = useContext(UserContext);
     const navigate = useNavigate();
-    const classes = loginButtonStyles();
 
     const handleLogin = async () => {
         if (!user.isAuthenticated) {
@@ -27,31 +13,19 @@ export function LoginButton() {
     };
 
     return (
-        <Button
+        <button
             onClick={handleLogin}
             disabled={user.isAuthenticated}
-            className={classes.button}
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
         >
             Iniciar sesión
-        </Button>
+        </button>
     );
 }
-
-const registerButtonStyles = styled({
-    button: {
-        color: '#3f51b5',
-        backgroundColor: 'white',
-        '&:hover': {
-            backgroundColor: '#f5f5f5',
-        },
-    },
-});
 
 export function RegisterButton() {
     const { user } = useContext(UserContext);
     const navigate = useNavigate();
-
-    const classes = registerButtonStyles();
 
     const handleRegister = async () => {
         if (!user.isAuthenticated) {
@@ -60,30 +34,19 @@ export function RegisterButton() {
     };
 
     return (
-        <Button
+        <button
             onClick={handleRegister}
             disabled={user.isAuthenticated}
-            className={classes.button}
+            className="bg-white hover:bg-gray-100 text-blue-500 font-semibold py-2 px-4 border border-blue-500 rounded shadow"
         >
             Registrarse
-        </Button>
+        </button>
     );
 }
-
-const logoutButtonStyles = styled({
-    button: {
-        color: '#3f51b5',
-        backgroundColor: 'white',
-        '&:hover': {
-            backgroundColor: '#f5f5f5',
-        },
-    },
-});
 
 export function LogoutButton() {
     const { user, setUser } = useContext(UserContext);
     const navigate = useNavigate();
-    const classes = logoutButtonStyles();
 
     const handleLogout = async () => {
         setUser({ isAuthenticated: false });
@@ -91,12 +54,12 @@ export function LogoutButton() {
     };
 
     return (
-        <Button
+        <button
             onClick={handleLogout}
             disabled={!user.isAuthenticated}
-            className={classes.button}
+            className="bg-white hover:bg-gray-100 text-blue-500 font-semibold py-2 px-4 border border-blue-500 rounded shadow"
         >
             Cerrar sesión
-        </Button>
+        </button>
     );
 }

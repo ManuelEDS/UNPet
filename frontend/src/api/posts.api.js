@@ -1,14 +1,15 @@
+import { BASE_URL, DEBUG, DOCKER_MODE, RENDER_MODE, UNPetAxios } from './config'
+
+
 /**
  * API para manejar las publicaciones y comentarios de la aplicación UNPet.
  * @module postsAPI
  */
+BASE_RUTA='/posts/api/posts'
 
-import axios from 'axios';
-import { BASE_URL } from './config';
+const POSTS = new UNPetAxios(BASE_RUTA)
+POSTS.init()
 
-const POSTS = axios.create({
-    baseURL: BASE_URL + 'posts/api/posts'
-});
 
 
 /*NOTAS: ASI SE USAN LAS FUNCIONES QUE IMPLEMENTAN
@@ -76,6 +77,15 @@ export async function searchPublicaciones(query) {
     return response.data;
 }
 
+export async function createPublicacion(data) {
+    if(data && data.post && data.pets){
+    const response = await POSTS.post(`/create/`, data);
+    return response.data;
+    }else{
+        console.log("Error al crear la publicacion")
+    }
+}
+
 /**
  * Obtiene la lista de comentarios de una publicación.
  * @function
@@ -100,6 +110,8 @@ export async function createComentario(id, data) {
     const response = await POSTS.post(`/${id}/comments/`, data);
     return response.data;
 }
+
+
 
 /**
  * Obtiene un comentario específico.

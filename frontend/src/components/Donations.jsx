@@ -1,69 +1,83 @@
-// eslint-disable-next-line no-unused-vars
-import * as React from 'react';
-import CssBaseline from '@mui/material/CssBaseline';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import PaidIcon from '@mui/icons-material/Paid';
-
-// TODO remove, this demo shouldn't need to reset the theme.
-
-const defaultTheme = createTheme();
-
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-
+import { FaCreditCard } from 'react-icons/fa';
 export function Donations() {
   return (
-    <ThemeProvider theme={defaultTheme}>
-      <Container component="main" maxWidth="md">
-        <CssBaseline />
-        <Box
-          sx={{
-            marginTop: 8,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-          }}
-        >
-          <Card sx={{ margin: 'auto', marginTop: 8, boxShadow: 4 , width:700, height:'auto'}}>
-            <CardContent>
-              <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                <PaidIcon sx={{ fontSize: 80 }}>
-                </PaidIcon>
-                <Typography component="h1" variant="h4" sx={{ mt: 4, mb: 2, fontSize: 24, textAlign: 'center' }}>
-                  Ayúdanos a dar más oportunidades
-                </Typography>
-              </Box>
-              <Box sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-              }}>
-                <Grid container spacing={4}>
-                  <Grid item xs={12} sm={6}>
-                    <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                      <a href="https://paypal.me/UNPetDonaciones" target="_blank" rel="noopener noreferrer">
-                        <img src={'paypal.png?url'} alt="Paypal" width="200" height="200" />
-                      </a>
-                    </Box>
-                  </Grid>
-                  <Grid item xs={12} sm={6}>
-                    <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                      <img src={'nequi.png?url'} alt="Nequi" width="200" height="200" />
-                      <Typography variant="subtitle1" sx={{ mt: 2 }}>
-                        Nequi - Juan Ramirez
-                      </Typography>
-                    </Box>
-                  </Grid>
-                </Grid>
-              </Box>
-            </CardContent>
-          </Card>
-        </Box>
-      </Container>
-    </ThemeProvider>
+    <div className="bg-gray-100">
+      <div className="max-w-7xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:px-8">
+        <div className="max-w-lg mx-auto md:max-w-none md:grid md:grid-cols-2 md:gap-8">
+          <div>
+            <h2 className="text-2xl font-extrabold text-gray-900 sm:text-3xl">
+              Ayúdanos a dar más oportunidades
+            </h2>
+            <p className="mt-3 text-lg text-gray-500">
+              Tu donación nos ayuda a seguir trabajando por los derechos de los animales.
+            </p>
+            <dl className="mt-8 space-y-6">
+              <dt className="sr-only">Credit Card</dt>
+              <dd className="flex justify-between bg-white rounded-md p-6">
+              <FaCreditCard className="h-12 w-12 text-gray-400" aria-hidden="true" />           
+                   <div className="ml-4 flex flex-col justify-between">
+                  <div className="text-lg font-medium text-gray-900">Donar con tarjeta de crédito</div>
+                  <p className="mt-2 text-sm text-gray-500">
+                    Puedes hacer tu donación con tarjeta de crédito a través de nuestro sitio web.
+                  </p>
+                  <a href="#" className="mt-6 inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700">
+                    Donar ahora
+                  </a>
+                </div>
+              </dd>
+            </dl>
+          </div>
+          <div className="mt-12 sm:mt-16 md:mt-0">
+            <h2 className="text-2xl font-extrabold text-gray-900 sm:text-3xl">
+              Otras formas de donar
+            </h2>
+            <div className="mt-8">
+              <div className="flow-root">
+                <ul className="-my-5 divide-y divide-gray-200">
+                  <li className="py-4">
+                    <div className="flex items-center space-x-4">
+                      <div className="flex-shrink-0">
+                        <img className="h-8 w-8 rounded-full" src="https://tailwindui.com/img/logos/workcation-logo-indigo-600-mark-gray-800-and-indigo-600-text.svg" alt="" />
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <a href="#" className="focus:outline-none">
+                          <span className="absolute inset-0" aria-hidden="true" />
+                          <p className="text-sm font-medium text-gray-900 truncate">Donar con PayPal</p>
+                          <p className="text-sm text-gray-500 truncate">Puedes hacer tu donación con PayPal.</p>
+                        </a>
+                      </div>
+                      <div>
+                        <a href="#" className="flex-shrink-0 text-sm font-medium text-indigo-600 hover:text-indigo-500">
+                          Donar ahora
+                        </a>
+                      </div>
+                    </div>
+                  </li>
+                  <li className="py-4">
+                    <div className="flex items-center space-x-4">
+                      <div className="flex-shrink-0">
+                        <img className="h-8 w-8 rounded-full" src="https://tailwindui.com/img/logos/tuple-logo-indigo-600-mark-gray-800-and-indigo-600-text.svg" alt="" />
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <a href="#" className="focus:outline-none">
+                          <span className="absolute inset-0" aria-hidden="true" />
+                          <p className="text-sm font-medium text-gray-900 truncate">Donar con Nequi</p>
+                          <p className="text-sm text-gray-500 truncate">Puedes hacer tu donación con Nequi.</p>
+                        </a>
+                      </div>
+                      <div>
+                        <a href="#" className="flex-shrink-0 text-sm font-medium text-indigo-600 hover:text-indigo-500">
+                          Donar ahora
+                        </a>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }

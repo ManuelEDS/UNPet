@@ -1,83 +1,43 @@
-import React from 'react';
-import { AppBar, Toolbar, IconButton, Typography, InputBase, InputAdornment } from '@mui/material';
-import { styled, alpha } from '@mui/material/styles';
-import MenuIcon from '@mui/icons-material/Menu';
-import { LoginButton, RegisterButton, LogoutButton } from './NavButtons.jsx';
-import { useContext } from 'react';
+import { useState, useContext } from 'react';
 import { UserContext } from '../../context/UserContext.jsx';
 import logo from '/icons/android-chrome-192x192.png';
-import SearchIcon from '@mui/icons-material/Search';
-
-const Search = styled('div')(({ theme }) => ({
-    position: 'relative',
-    borderRadius: theme.shape.borderRadius,
-    backgroundColor: alpha(theme.palette.common.white, 0.15),
-    '&:hover': {
-        backgroundColor: alpha(theme.palette.common.white, 0.25),
-    },
-    marginLeft: 0,
-    width: '100%',
-    [theme.breakpoints.up('sm')]: {
-        marginLeft: theme.spacing(1),
-        width: 'auto',
-    },
-}));
-
-const SearchInput = styled(InputBase)(({ theme }) => ({
-    color: 'inherit',
-    '& .MuiInputBase-input': {
-        padding: theme.spacing(1, 1, 1, 0),
-        paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-        transition: theme.transitions.create('width'),
-        width: '100%',
-        [theme.breakpoints.up('sm')]: {
-            width: '12ch',
-            '&:focus': {
-                width: '20ch',
-            },
-        },
-    },
-}));
-
-
-
-const SearchIconWrapper = styled(SearchIcon)(({ theme }) => ({
-    color: theme.palette.common.white,
-}));
+import userDefault from '/user-img-default.png';
+import { LoginButton, RegisterButton, LogoutButton } from './NavButtons.jsx';
+import SearchBar from '../SearchBar.jsx';
+import UNPetMark from './UNPetMark.jsx';
+import UserIcon from './UserIcon.jsx';
+import { BiSearch } from 'react-icons/bi';
+import { useMediaQuery } from 'react-responsive';
 
 function NavBar() {
-    const { user } = useContext(UserContext);
-    return (
-        <AppBar position="static">
-            <Toolbar>
-                <IconButton edge="start" color="inherit" aria-label="menu">
-                    <MenuIcon />
-                </IconButton>
-                <Typography variant="h6" noWrap>
-                    <img src={logo} alt="UNPet logo" style={{ marginRight: '10px' }} />
-                    UNPet
-                </Typography>
-                <Search>
-                    <SearchInput
-                        placeholder="Buscar…"
-                        inputProps={{ 'aria-label': 'search' }}
-                        endAdornment={
-                            <InputAdornment position="end">
-                                <SearchIconWrapper />
-                            </InputAdornment>
-                        }
-                    />
-                </Search>
+  const { user, layout } = useContext(UserContext);
+  const {isMobile} = layout;
 
-                {user.isAuthenticated ? <LogoutButton /> :
-                    <>
-                        <LoginButton />
-                        <RegisterButton />
-                    </>
-                }
-            </Toolbar>
-        </AppBar>
-    );
+
+  const searchHandler = (searchText) => {
+    console.log('este es el texto a buscar: ',searchText);
+    console.log('es mobil?::--> ', layout.isMobile())
+  }
+
+  return (
+    <nav className="bg-gray-800">
+      <div className="mx-auto px-8">
+        <div className="flex items-center justify-between h-16">
+          <UNPetMark logo={logo}></UNPetMark>
+          <SearchBar onSearch={searchHandler}/>
+          
+            <UserIcon user={user}></UserIcon>
+          
+          {isMobile && (
+            <div>
+              <BiSearch/>
+              movile mode
+            </div>
+          )}
+        </div>
+      </div>
+    </nav>
+  );
 }
-
 export default NavBar;
+

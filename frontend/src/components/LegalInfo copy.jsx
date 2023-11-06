@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 
 export function Legal({ title, description = 'Inserte descripción aqui', imageUrl, descriptionMd = '', listUrls }) {
     const htmlText = GetHTMLText(descriptionMd);
-    
     return (
         <div className="max-w-7xl mx-auto mt-4">
             <div className="bg-white overflow-hidden shadow rounded-lg divide-y divide-gray-200" >
@@ -13,31 +12,20 @@ export function Legal({ title, description = 'Inserte descripción aqui', imageU
                     
               
                         {descriptionMd !== '' ? (
-                           <div className="mx-auto max-w-3xl" 
-                           dangerouslySetInnerHTML={{ __html: GetHTMLText(descriptionMd) }}
-                           style={{
-                              '& h1': {
-                                  fontSize: '2rem',
-                                  fontWeight: 'bold'
-                              },
-                              '& p': {
-                                  fontSize: '1rem',
-                                  color: '#4a4a4a'
-                              }
-                           }}
-                      />
+                            <div class="mx-auto  max-w-xl" 
+                            dangerouslySetInnerHTML={{ __html: GetHTMLText(descriptionMd) }} />
                         ) : (
                             <p>{description}</p>
                         )}
                 
                 </div>
                 {listUrls && (
-                    <div className="mx-auto text-center max-w-xl">
-                        <h3 className="text-lg leading-6 font-medium text-gray-900 m-5">También puedes ver</h3>
+                    <div className="px-4 py-5 sm:p-6">
+                        <h3 className="text-lg leading-6 font-medium text-gray-900">También puedes ver</h3>
                         <div className=" text-blue-500 m-4">
                             {listUrls.map((item, index) => (
                                 <div key={index}>
-                                    <Link to={item.url} className="mt-4 mb-2 text-lg">
+                                    <Link to={item.url} className="mt-4 mb-2 text-lg text-center ">
                                         {item.name}
                                     </Link>
                                 </div>
