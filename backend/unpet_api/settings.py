@@ -28,25 +28,26 @@ SECRET_KEY = os.environ.get(
 
 # SECURITY WARNING: don't run with debug turned on in production!
 
-DEBUG=True
-LOCAL_DB = True # DEBUG = True #para usar sqlite, FALSE para la db con las variables de entorno
-DOCKER_MODE=False
+DEBUG = True
+# DEBUG = True #para usar sqlite, FALSE para la db con las variables de entorno
+LOCAL_DB = True
+DOCKER_MODE = False
 RENDER_MODE = False
-if DOCKER_MODE: # Modo: despliegue en algun seguidor docker (plan B por si render falla)
+# Modo: despliegue en algun seguidor docker (plan B por si render falla)
+if DOCKER_MODE:
     ALLOWED_HOSTS = ['http://localhost:81']
     CORS_ALLOWED_ORIGINS = []
     CSRF_TRUSTED_ORIGINS = ['http://localhost:81']
-elif RENDER_MODE: # Modo: despliegue en render
+elif RENDER_MODE:  # Modo: despliegue en render
     CORS_ALLOW_CREDENTIALS = True
-    ALLOWED_HOSTS = ['127.0.0.1','https://unpet-web.onrender.com',]
+    ALLOWED_HOSTS = ['127.0.0.1', 'https://unpet-web.onrender.com',]
     CORS_ALLOWED_ORIGINS = ['https://unpet-web.onrender.com',]
-else: # Modo: desarrollo en localhost
+else:  # Modo: desarrollo en localhost
     CORS_ALLOW_CREDENTIALS = True
     ALLOWED_HOSTS = ['localhost', 'localhost:5173', '127.0.0.1']
-    CORS_ALLOWED_ORIGINS = ['http://localhost:5173']
+    CORS_ALLOWED_ORIGINS = ['http://localhost:5173', 'http://127.0.0.1:5173']
     CSRF_TRUSTED_ORIGINS = ['http://localhost:5173', 'http://127.0.0.1:5173']
-    
-    
+
 
 # https://docs.djangoproject.com/en/3.0/ref/settings/#allowed-hosts
  # poner el de render react url
@@ -71,7 +72,6 @@ apps = [
 
 if not DOCKER_MODE:
     apps.append('corsheaders')
-
 
 
 INSTALLED_APPS = apps
@@ -127,23 +127,26 @@ if LOCAL_DB:
 else:
     # Modo de producción, utiliza MySQL en Clever Cloud
     DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': os.environ.get('MYSQL_ADDON_DB'),
-        'USER': os.environ.get('MYSQL_ADDON_USER'),
-        'PASSWORD': os.environ.get('MYSQL_ADDON_PASSWORD'),
-        'HOST': os.environ.get('MYSQL_ADDON_HOST'),
-        'PORT': os.environ.get('MYSQL_ADDON_PORT'),
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': os.environ.get('MYSQL_ADDON_DB'),
+            'USER': os.environ.get('MYSQL_ADDON_USER'),
+            'PASSWORD': os.environ.get('MYSQL_ADDON_PASSWORD'),
+            'HOST': os.environ.get('MYSQL_ADDON_HOST'),
+            'PORT': os.environ.get('MYSQL_ADDON_PORT'),
+        }
     }
-}
-    
+
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')  # Tu dirección de correo de "no reply"
-EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')  # La contraseña de tu dirección de correo
-DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL')  # Otra vez, tu dirección de correo de "no reply"
+# Tu dirección de correo de "no reply"
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
+# La contraseña de tu dirección de correo
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
+# Otra vez, tu dirección de correo de "no reply"
+DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL')
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -210,12 +213,11 @@ AUTHENTICATION_BACKENDS = [
 ]
 
 REST_FRAMEWORK = {
-     'DEFAULT_RENDERER_CLASSES': [
+    'DEFAULT_RENDERER_CLASSES': [
         'rest_framework.renderers.JSONRenderer',
-],
+    ],
     "DEFAULT_SCHEMA_CLASS": "rest_framework.schemas.coreapi.AutoSchema",
     "DEFAULT_AUTHENTICATION_CLASSES": [
         "rest_framework.authentication.SessionAuthentication"
     ],
 }
-
