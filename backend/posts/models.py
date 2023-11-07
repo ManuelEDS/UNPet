@@ -5,7 +5,6 @@ from accounts.models import Organizacion
 from django.utils import timezone
 
 class Publicacion(models.Model):
-    id = models.IntegerField(primary_key=True, db_column='idpublicacion')
     idorganizacion = models.ForeignKey('accounts.Organizacion', models.DO_NOTHING, related_name='publicaciones_organizacion', db_column='idorganizacion', blank=True, null=True)
     estado = models.CharField(max_length=45)
     titulo = models.CharField(max_length=100)
