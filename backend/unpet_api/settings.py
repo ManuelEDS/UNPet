@@ -74,7 +74,8 @@ apps = [
 if not DOCKER_MODE:
     apps.append('corsheaders')
 
-
+if not RENDER_MODE:
+    apps.remove( "django.contrib.staticfiles")
 
 INSTALLED_APPS = apps
 middleware = [
