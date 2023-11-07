@@ -30,7 +30,7 @@ SECRET_KEY = os.environ.get(
 
 DEBUG = True
 # DEBUG = True #para usar sqlite, FALSE para la db con las variables de entorno
-LOCAL_DB = True
+LOCAL_DB = False
 DOCKER_MODE = False
 RENDER_MODE = False
 # Modo: despliegue en algun seguidor docker (plan B por si render falla)
@@ -129,11 +129,11 @@ else:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.mysql',
-            'NAME': os.environ.get('MYSQL_ADDON_DB'),
-            'USER': os.environ.get('MYSQL_ADDON_USER'),
-            'PASSWORD': os.environ.get('MYSQL_ADDON_PASSWORD'),
-            'HOST': os.environ.get('MYSQL_ADDON_HOST'),
-            'PORT': os.environ.get('MYSQL_ADDON_PORT'),
+            'NAME': 'bmb72wbdmjin8klxpert',
+            'USER': 'uauvrvass9qcwgye',
+            'PASSWORD':'Zx80kAeYM8J6lEiuh64W',
+            'HOST': 'bmb72wbdmjin8klxpert-mysql.services.clever-cloud.com',
+            'PORT': 3306,
         }
     }
 
