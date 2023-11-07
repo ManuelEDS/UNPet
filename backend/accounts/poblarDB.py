@@ -865,7 +865,12 @@ def agregar_publicaciones():
             for key, value in data.items()
             if key not in ['idorganizacion']
         }
-        org = Organizacion.objects.get(id=data['idorganizacion'])
+        org=None
+        try:
+          org = Organizacion.objects.get(id=data['idorganizacion'])
+        except Exception as e:
+          print('error: org es None, se salta este ingreso de post, error--> ', e)
+          continue
         Publicacion.objects.create(
             idorganizacion=org,
             **extra_fields
