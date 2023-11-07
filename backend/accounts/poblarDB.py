@@ -868,11 +868,12 @@ def agregar_publicaciones():
         org=None
         try:
           org = Organizacion.objects.get(id=data['idorganizacion'])
+          print('org es:', org)
         except Exception as e:
           print('error: org es None, se salta este ingreso de post, error--> ', e)
           continue
         Publicacion.objects.create(
-            idorganizacion=org,
+            idorganizacion=data['idorganizacion'],
             **extra_fields
         )
 
