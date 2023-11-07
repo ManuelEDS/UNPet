@@ -23,7 +23,7 @@ function App() {
     <NavBar />
       <Routes>
         <Route path='/pets' element={<PrivateRoute><FeedPage /></PrivateRoute>} />
-        <Route path='/' element={<Navigate to="/pets" />} />
+        <Route path='/' element={<Navigate to="/home" />} />
         <Route path='/pet-create' element={<PrivateRoute><PetFormPage /></PrivateRoute>} />
         <Route path='/pets/:id' element={<PrivateRoute><PetFormPage /></PrivateRoute>} />
         <Route path='/login' element={<Login />} />
