@@ -27,14 +27,14 @@ if (DEBUG) {
     ];
 
     for (let testURL of urls) {
-        try {
-            axios.get(testURL + "/accounts/api/test");
-            // If the request is successful, set the URL and break the loop
-            URL = testURL;
-            break;
-        } catch (error) {
-            console.log('ERROR, EL HOST ES:' + testURL, error);
-        }
+      try {
+        await fetch(testURL + "/accounts/api/test");
+        // If the request is successful, set the URL and break the loop
+        URL = testURL;
+        break;
+      } catch (error) {
+        console.log('ERROR, EL HOST ES:' + testURL, error);
+      }
     }
 }
 
