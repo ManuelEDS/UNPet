@@ -9,7 +9,7 @@ export const UserContextProvider = ({ children }) => {
     const UserAxios = new UNPetAxios();
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [username, setUsername] = useState("Anonymous");
-    const [urlfoto, setUrlfoto] = useState("/user-img-default.png");    
+    const [urlfoto, setUrlfoto] = useState("/user-img-default.png");
     const isMobileQuery = useMediaQuery({ query: '(max-width: 600px)' });
     const [isMobile, setIsMobile] = useState(isMobileQuery); // Usar useMediaQuery para el valor inicial
 

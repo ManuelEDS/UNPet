@@ -38,9 +38,12 @@ if DOCKER_MODE: # Modo: despliegue en algun seguidor docker (plan B por si rende
     CSRF_TRUSTED_ORIGINS = ['http://localhost:81']
 elif RENDER_MODE: # Modo: despliegue en render
     CORS_ALLOW_CREDENTIALS = True
-    ALLOWED_HOSTS = ['127.0.0.1','https://unpet-web.onrender.com',]
-    CORS_ALLOWED_ORIGINS = ['https://unpet-web.onrender.com',]
-    CSRF_TRUSTED_ORIGINS = ['https://unpet-web.onrender.com',]
+    ALLOWED_HOSTS = ['https://unpet-web.onrender.com']
+    CORS_ALLOWED_ORIGINS = ['https://unpet-web.onrender.com']
+    CSRF_TRUSTED_ORIGINS = ['https://unpet-web.onrender.com']
+    ALLOWED_HOSTS = ['https://unpet-web.onrender.com']
+    CORS_ALLOWED_ORIGINS = ['https://unpet-web.onrender.com']
+    CSRF_TRUSTED_ORIGINS = ['https://unpet-web.onrender.com']
 
 else: # Modo: desarrollo en localhost
     CORS_ALLOW_CREDENTIALS = True
@@ -48,7 +51,7 @@ else: # Modo: desarrollo en localhost
     CORS_ALLOWED_ORIGINS = ['http://localhost:5173']
     CSRF_TRUSTED_ORIGINS = ['http://localhost:5173', 'http://127.0.0.1:5173']
     
-    
+CORS_ALLOW_ALL_ORIGINS = True
 
 # https://docs.djangoproject.com/en/3.0/ref/settings/#allowed-hosts
  # poner el de render react url

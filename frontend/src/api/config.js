@@ -8,7 +8,8 @@ export const DEBUG = false;
 export const DOCKER_MODE = false;
 export const RENDER_MODE = true;
 //===============================================//
-export const CREDENTIALS = DOCKER_MODE ? 'same-origin' : 'include';
+
+export const CREDENTIALS =   'same-origin'
 let URL = "";
 
 if (DEBUG) {
