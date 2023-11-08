@@ -581,7 +581,7 @@ def agregar_publicaciones():
   "idorganizacion": 27,
   "estado": "Adoptados",
   "titulo": "Mrs",
-  "descripcion": "Curabitur at ipsum ac tellus semper interdum. Mauris ullamcorper purus sit amet nulla. Quisque arcu libero, rutrum ac, lobortis vel, dapibus at, diam.",
+  "descripcion": "Curabitur at ipsum ac tellus semper interque arcu libero, rutrum ac, lobortis vel, dapibus at, diam.",
   "n_mascotas": 3,
   "n_mascotas_adoptadas": 0
 }, {
@@ -595,63 +595,63 @@ def agregar_publicaciones():
   "idorganizacion": 25,
   "estado": "Disponibles",
   "titulo": "Dr",
-  "descripcion": "Aenean fermentum. Donec ut mauris eget massa tempor convallis. Nulla neque libero, convallis eget, eleifend luctus, ultricies eu, nibh.",
+  "descripcion": "Aenean fermentum. Donec ut mauris eget massa t eleifend luctus, ultricies eu, nibh.",
   "n_mascotas": 5,
   "n_mascotas_adoptadas": 0
 }, {
   "idorganizacion": 27,
   "estado": "Disponibles",
   "titulo": "Honorable",
-  "descripcion": "Duis bibendum, felis sed interdum venenatis, turpis enim blandit mi, in porttitor pede justo eu massa. Donec dapibus. Duis at velit eu est congue elementum.",
+  "descripcion": "Duis bibendum, felis sed interdum venenatis, tmassa.t eu est congue elementum.",
   "n_mascotas": 1,
   "n_mascotas_adoptadas": 0
 }, {
   "idorganizacion": 26,
   "estado": "Disponibles",
   "titulo": "Rev",
-  "descripcion": "Proin eu mi. Nulla ac enim. In tempor, turpis nec euismod scelerisque, quam turpis adipiscing lorem, vitae mattis nibh ligula nec sem.",
+  "descripcion": "Proin eu mi. Nulla ac enim. In tempor, turpis nec orem, vitae mattis nibh ligula nec sem.",
   "n_mascotas": 1,
   "n_mascotas_adoptadas": 0
 }, {
   "idorganizacion": 26,
   "estado": "Adoptados",
   "titulo": "Mr",
-  "descripcion": "Vestibulum ac est lacinia nisi venenatis tristique. Fusce congue, diam id ornare imperdiet, sapien urna pretium nisl, ut volutpat sapien arcu sed augue. Aliquam erat volutpat.",
+  "descripcion": "Vestibulum ac est lacinia nisi venenatis te. Aliquam erat volutpat.",
   "n_mascotas": 6,
   "n_mascotas_adoptadas": 0
 }, {
   "idorganizacion": 26,
   "estado": "Adoptados",
   "titulo": "Ms",
-  "descripcion": "Integer tincidunt ante vel ipsum. Praesent blandit lacinia erat. Vestibulum sed magna at nunc commodo placerat.",
+  "descripcion": "Integer tincidunt ante vel ipsum. Praesent odo placerat.",
   "n_mascotas": 8,
   "n_mascotas_adoptadas": 0
 }, {
   "idorganizacion": 26,
   "estado": "Adoptados",
   "titulo": "Rev",
-  "descripcion": "Proin interdum mauris non ligula pellentesque ultrices. Phasellus id sapien in sapien iaculis congue. Vivamus metus arcu, adipiscing molestie, hendrerit at, vulputate vitae, nisl.",
+  "descripcion": "Proin interdum mauris non ligula pellentesamus metus avulputate vitae, nisl.",
   "n_mascotas": 10,
   "n_mascotas_adoptadas": 0
 }, {
   "idorganizacion": 28,
   "estado": "Adoptados",
   "titulo": "Mr",
-  "descripcion": "Morbi non lectus. Aliquam sit amet diam in magna bibendum imperdiet. Nullam orci pede, venenatis non, sodales sed, tincidunt eu, felis.",
+  "descripcion": "Morbi non lectus. Aliquam sit amet diam in magnaes sed, tincidunt eu, felis.",
   "n_mascotas": 4,
   "n_mascotas_adoptadas": 0
 }, {
   "idorganizacion": 25,
   "estado": "Disponibles",
   "titulo": "Honorable",
-  "descripcion": "Mauris enim leo, rhoncus sed, vestibulum sit amet, cursus id, turpis. Integer aliquet, massa id lobortis convallis, tortor risus dapibus augue, vel accumsan tellus nisi eu orci. Mauris lacinia sapien quis libero.",
+  "descripcion": "Mauris enim leo, rhoncus sed, vestibulum sit amet, cursuuris lacinia sapien quis libero.",
   "n_mascotas": 9,
   "n_mascotas_adoptadas": 0
 }, {
   "idorganizacion": 28,
   "estado": "Adoptados",
   "titulo": "Mrs",
-  "descripcion": "In hac habitasse platea dictumst. Morbi vestibulum, velit id pretium iaculis, diam erat fermentum justo, nec condimentum neque sapien placerat ante. Nulla justo.",
+  "descripcion": "In hac habitasse platea dictumst. Morbi vestibulum, rmentum justo,  Nulla justo.",
   "n_mascotas": 7,
   "n_mascotas_adoptadas": 0
 }, {
@@ -693,7 +693,7 @@ def agregar_publicaciones():
   "idorganizacion": 24,
   "estado": "Disponibles",
   "titulo": "Dr",
-  "descripcion": "Vestibulum ac est lacinia nisi venenatis tristique. Fusce congue, diam id ornare imperdiet, sapien urna pretium nisl, ut volutpat sapien arcu sed augue. Aliquam erat volutpat.",
+  "descripcion": "Vestibulum ac est lacinia nisi venenatis trdiet, arcu sed augue. Aliquam erat volutpat.",
   "n_mascotas": 7,
   "n_mascotas_adoptadas": 0
 }, {
@@ -707,7 +707,7 @@ def agregar_publicaciones():
   "idorganizacion": 26,
   "estado": "Disponibles",
   "titulo": "Rev",
-  "descripcion": "Aenean fermentum. Donec ut mauris eget massa tempor convallis. Nulla neque libero, convallis eget, eleifend luctus, ultricies eu, nibh.",
+  "descripcion": "Aenean fermentum. Donec ut mauris ellis eget, eleifend luctus, ultricies eu, nibh.",
   "n_mascotas": 10,
   "n_mascotas_adoptadas": 0
 }, {
@@ -728,7 +728,7 @@ def agregar_publicaciones():
   "idorganizacion": 25,
   "estado": "Adoptados",
   "titulo": "Ms",
-  "descripcion": "Vestibulum ac est lacinia nisi venenatis tristique. Fusce congue, diam id ornare imperdiet, sapien urna pretium nisl, ut volutpat sapien arcu sed augue. Aliquam erat volutpat.",
+  "descripcion": "Vestibulum ac est lacinia nisi ven urna pretium cu sed augue. Aliquam erat volutpat.",
   "n_mascotas": 7,
   "n_mascotas_adoptadas": 0
 }, {
@@ -742,7 +742,7 @@ def agregar_publicaciones():
   "idorganizacion": 25,
   "estado": "Adoptados",
   "titulo": "Rev",
-  "descripcion": "Morbi non lectus. Aliquam sit amet diam in magna bibendum imperdiet. Nullam orci pede, venenatis non, sodales sed, tincidunt eu, felis.",
+  "descripcion": "Morbi non lectus. Aliquam sit amet diam ins non, sodales sed, tincidunt eu, felis.",
   "n_mascotas": 3,
   "n_mascotas_adoptadas": 0
 }, {
@@ -756,7 +756,7 @@ def agregar_publicaciones():
   "idorganizacion": 25,
   "estado": "Adoptados",
   "titulo": "Mr",
-  "descripcion": "Cras mi pede, malesuada in, imperdiet et, commodo vulputate, justo. In blandit ultrices enim. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.",
+  "descripcion": "Cras mi pede, malesuada in, imperdiet et, corem ipsum dolor sit amet, consectetuer adipiscing elit.",
   "n_mascotas": 1,
   "n_mascotas_adoptadas": 0
 }, {
@@ -770,14 +770,14 @@ def agregar_publicaciones():
   "idorganizacion": 25,
   "estado": "Adoptados",
   "titulo": "Ms",
-  "descripcion": "Quisque id justo sit amet sapien dignissim vestibulum. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nulla dapibus dolor vel est. Donec odio justo, sollicitudin ut, suscipit a, feugiat et, eros.",
+  "descripcion": "Quisque id justo sit amet sapien digscipit a, feugiat et, eros.",
   "n_mascotas": 2,
   "n_mascotas_adoptadas": 0
 }, {
   "idorganizacion": 27,
   "estado": "Disponibles",
   "titulo": "Dr",
-  "descripcion": "Morbi porttitor lorem id ligula. Suspendisse ornare consequat lectus. In est risus, auctor sed, tristique in, tempus sit amet, sem.",
+  "descripcion": "Morbi porttitor lorem id ligula. Suspendisse ornare, tempus sit amet, sem.",
   "n_mascotas": 7,
   "n_mascotas_adoptadas": 0
 }, {
@@ -826,7 +826,7 @@ def agregar_publicaciones():
   "idorganizacion": 26,
   "estado": "Adoptados",
   "titulo": "Dr",
-  "descripcion": "In hac habitasse platea dictumst. Morbi vestibulum, velit id pretium iaculis, diam erat fermentum justo, nec condimentum neque sapien placerat ante. Nulla justo.",
+  "descripcion": "In hac habitasse platea dictumst. Morbi vesti, nec condimentumat ante. Nulla justo.",
   "n_mascotas": 7,
   "n_mascotas_adoptadas": 0
 },
@@ -834,7 +834,7 @@ def agregar_publicaciones():
   "idorganizacion": 24,
   "estado": "Disponibles",
   "titulo": "Se dan en adopción estos hermosos gatitos",
-  "descripcion": "In hac habitasse platea dictumst. Morbi vestibulum, velit id pretium iaculis, diam erat fermentum justo, nec condimentum neque sapien placerat ante. Nulla justo.",
+  "descripcion": "In hac habitasse platea dictumst. Morbi vestibo, nec condimentum neqerat ante. Nulla justo.",
   "n_mascotas": 7,
   "n_mascotas_adoptadas": 0
 },
@@ -842,7 +842,7 @@ def agregar_publicaciones():
   "idorganizacion": 24,
   "estado": "Disponibles",
   "titulo": "Estamos dando en adopción estos perros callejeros",
-  "descripcion": "Nullam porttitor lacus at turpis. Donec posuere metus vitae ipsum. Aliquam non mauris, felix, perro, labrador.",
+  "descripcion": "Nullam porttitor lacus at turpis. Donec posuere metus vits, felix, perro, labrador.",
   "n_mascotas": 9,
   "n_mascotas_adoptadas": 0
 },

@@ -5,11 +5,10 @@ from accounts.models import Organizacion
 from django.utils import timezone
 
 class Publicacion(models.Model):
-    id = models.IntegerField(primary_key=True, db_column='idpublicacion')
     idorganizacion = models.ForeignKey('accounts.Organizacion', models.DO_NOTHING, related_name='publicaciones_organizacion', db_column='idorganizacion', blank=True, null=True)
     estado = models.CharField(max_length=45)
-    titulo = models.CharField(max_length=45)
-    descripcion = models.CharField(max_length=45)
+    titulo = models.CharField(max_length=70)
+    descripcion = models.CharField(max_length=300)
     fechapublicacion = models.DateTimeField(auto_now_add=True)
     likes = models.IntegerField(default=0)
     n_mascotas = models.IntegerField(default=0)
