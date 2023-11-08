@@ -8,7 +8,7 @@ class Publicacion(models.Model):
     idorganizacion = models.ForeignKey('accounts.Organizacion', models.DO_NOTHING, related_name='publicaciones_organizacion', db_column='idorganizacion', blank=True, null=True)
     estado = models.CharField(max_length=45)
     titulo = models.CharField(max_length=70)
-    descripcion = models.CharField(max_length=300)
+    descripcion = models.CharField(max_length=350)
     fechapublicacion = models.DateTimeField(auto_now_add=True)
     likes = models.IntegerField(default=0)
     n_mascotas = models.IntegerField(default=0)
