@@ -27,7 +27,7 @@ class SessionView(APIView):
     def get(request, format=None):
         if request.user.isAuthenticated:
             U= UNPetUserManager(id=request.user.id)
-            return Response({"data": { 'isAuthenticated': request.user.is_authenticated,'username': request.user.username, 'urlfoto':U.get_role_instance.urlfoto}})
+            return Response({"data": { 'isAuthenticated': request.user.is_authenticated,'username': request.user.username, 'urlfoto':U.get_role_instance.urlfoto}}, status= status.HTTP_200_OK)
         
         return Response({"data": { 'isAuthenticated': request.user.is_authenticated, }})
 

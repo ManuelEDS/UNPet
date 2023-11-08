@@ -46,6 +46,7 @@ export const UserContextProvider = ({ children }) => {
                 setUsername(response.data.username?response.data.username:"Anonymous");
                 setUrlfoto(response.data.urlfoto || "/user-img-default.png");
             } catch (error) {
+                console.log('error en tengo session: '+error);
             }
         };
         checkAuth();

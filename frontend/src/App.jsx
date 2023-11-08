@@ -23,15 +23,17 @@ function App() {
     <NavBar />
       <Routes>
         <Route path='/pets' element={<PrivateRoute><FeedPage /></PrivateRoute>} />
-        <Route path='/' element={<Navigate to="/pets" />} />
+        <Route path='/' element={<Navigate to="/home" />} />
+        <Route path='/home' element={<HomePage />} />
+        <Route path='/login' element={<Login />} />
+        <Route path='/legal/terms-and-conditions' element={<TermsCond />} />
+
         <Route path='/pet-create' element={<PrivateRoute><PetFormPage /></PrivateRoute>} />
         <Route path='/pets/:id' element={<PrivateRoute><PetFormPage /></PrivateRoute>} />
-        <Route path='/login' element={<Login />} />
         <Route path='/register' element={<Register />} />
         <Route path='/register-org' element={<RegisterOrg />} />
         <Route path='/password' element={<Password />} />
         <Route path='/home' element={<HomePage />} />
-        <Route path='/legal/terms-and-conditions' element={<TermsCond />} />
         <Route path='/legal/privacy-policies' element={<PoliticsPriv/>} />
         <Route path='/donations' element={<Donations />} />
         <Route path='/quienes-somos' element={<WhoAreWePage/>} />

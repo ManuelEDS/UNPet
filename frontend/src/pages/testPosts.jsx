@@ -1,10 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
-
+import { DOCKER_MODE } from '../api/config';
 const ScrollList = () => {
     const [items, setItems] = useState([]);
     const [hasMore, setHasMore] = useState(true);
-    const [nextPageUrl, setNextPageUrl] = useState('http://localhost:8000/posts/api/posts/recent/');
+    let url= 'http://localhost:8000/api/posts/api/posts/recent/'
+
+    if (DOCKER_MODE){
+        url = '/api/posts/api/posts/recent/'
+    }
+
+    const [nextPageUrl, setNextPageUrl] = useState(url);
 
     useEffect(() => {
         fetchItems();
@@ -18,7 +24,12 @@ const ScrollList = () => {
 
         try {
             const response = await fetch(nextPageUrl);
-            const { count, next, previous, results } = await response.json();
+            let { count, next, previous, results } = await response.json();
+            if (DOCKER_MODE){
+                next = next ? new URL(next).pathname : null;
+                prev = previous ? new URL(previous).pathname : null;
+            }
+            // Recorta el nombre del host y el puerto de las URLs
             setItems(prevItems => [...prevItems, ...results]);
             setHasMore(next !== null);
             setNextPageUrl(next);

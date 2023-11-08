@@ -5,36 +5,28 @@ import axios from "axios";
 //===============================================//
 // --> SOLO UNA PUEDE SER TRUE <-- //
 export const DEBUG = false;
-export const DOCKER_MODE = true;
-export const RENDER_MODE = false;
+export const DOCKER_MODE = false;
+export const RENDER_MODE = true;
 //===============================================//
 export const CREDENTIALS = DOCKER_MODE ? 'same-origin' : 'include';
-let URL = "";
+let URL = "/api";
 
 if (DEBUG) {
-    URL = "http://localhost:8000";
+    URL = "http://localhost:8000/api";
 } else if (DOCKER_MODE) {
-    URL = "";
+    URL ="/api";
 } else if (RENDER_MODE) {
-    URL = "https://unpet-api-rest.onrender.com";
-} else {
-    // Test each URL with a simple GET request to "accounts/api/test/"
-    const urls = [
-        "http://127.0.0.1:8000",
-        "",
-        "https://unpet-api-rest.onrender.com"
-    ];
+    URL = "https://unpet-api-rest.onrender.com/api";
+}
 
-    for (let testURL of urls) {
-        try {
-            axios.get(testURL + "accounts/api/test");
-            // If the request is successful, set the URL and break the loop
-            URL = testURL;
-            break;
-        } catch (error) {
-            console.log('ERROR, EL HOST ES:' + testURL, error);
-        }
-    }
+try {
+  console.log('conectando a: ' + URL + "/accounts/api/test");
+  axios.get(URL + "/accounts/api/test");
+  // If the request is successful, set the URL and break the loop
+  console.log('conexion exitossa!');
+ 
+} catch (error) {
+  console.log('ERROR, EL HOST ES:' + testURL, error);
 }
 
 /**
@@ -51,6 +43,10 @@ export class UNPetAxios {
     this.BASE_URL = BASE_URL
     this.BASE_URL_RUTA = BASE_URL + base_ruta
     this.CREDENTIALS = CREDENTIALS
+    if (base_ruta==undefined | base_ruta=='' | base_ruta==null) {
+      this.BASE_URL_RUTA=''
+    }
+    console.log('unpet axios: ' + this.BASE_URL +'\n'+ this.BASE_URL_RUTA);
     this.init()
   }
 
