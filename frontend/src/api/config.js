@@ -4,9 +4,9 @@ import axios from "axios";
 
 //===============================================//
 // --> SOLO UNA PUEDE SER TRUE <-- //
-export const DEBUG = false;
+export const DEBUG = true;
 export const DOCKER_MODE = false;
-export const RENDER_MODE = true;
+export const RENDER_MODE = false;
 //===============================================//
 export const CREDENTIALS = DOCKER_MODE ? 'same-origin' : 'include';
 let URL = "/api";
@@ -20,13 +20,13 @@ if (DEBUG) {
 }
 
 try {
-  console.log('conectando a: ' + URL + "/accounts/api/test");
+  //console.log('conectando a: ' + URL + "/accounts/api/test");
   axios.get(URL + "/accounts/api/test");
   // If the request is successful, set the URL and break the loop
-  console.log('conexion exitossa!');
+  //console.log('conexion exitossa!');
  
 } catch (error) {
-  console.log('ERROR, EL HOST ES:' + testURL, error);
+  //console.log('ERROR, EL HOST ES:' + testURL, error);
 }
 
 /**
@@ -39,14 +39,12 @@ export const BASE_URL = URL;
 
 
 export class UNPetAxios {
-  constructor(base_ruta) {
+  constructor(base_ruta='') {
     this.BASE_URL = BASE_URL
     this.BASE_URL_RUTA = BASE_URL + base_ruta
     this.CREDENTIALS = CREDENTIALS
-    if (base_ruta==undefined | base_ruta=='' | base_ruta==null) {
-      this.BASE_URL_RUTA=''
-    }
-    console.log('unpet axios: ' + this.BASE_URL +'\n'+ this.BASE_URL_RUTA);
+
+    ////console.log('unpet axios: ' + this.BASE_URL +'\n'+ this.BASE_URL_RUTA);
     this.init()
   }
 

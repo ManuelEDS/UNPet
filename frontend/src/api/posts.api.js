@@ -72,7 +72,7 @@ export async function createPost(data) {
     const response = await POSTS.post(`/create/`, data);
     return response.data;
     }else{
-        console.log("Error al crear la publicacion")
+        //console.log("Error al crear la publicacion")
     }
 }
 

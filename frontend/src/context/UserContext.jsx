@@ -41,10 +41,11 @@ export const UserContextProvider = ({ children }) => {
         const checkAuth = async () => {
             try {
                 const response = await UserAxios.get("/accounts/api/session/");
-                console.log('tengo session?:-->',response, response.data);
-                setIsAuthenticated(response.data.is_authenticated);
-                setUsername(response.data.username?response.data.username:"Anonymous");
-                setUrlfoto(response.data.urlfoto || "/user-img-default.png");
+                const data= response.json()
+                console.log('tengo session?:-->',response, data);
+                setIsAuthenticated(data.isAuthenticated);
+                setUsername(data.username?data.username:"Anonymous");
+                setUrlfoto(data.urlfoto || "/user-img-default.png");
             } catch (error) {
                 console.log('error en tengo session: '+error);
             }

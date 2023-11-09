@@ -4,19 +4,40 @@ import {register} from '../api/accounts.api'
 // import { Fragment } from 'react';
 import { FaCheckCircle } from 'react-icons/fa';
 
-
 const tiposDocumento = [
-  { value: 'CC', label: 'Cédula de Ciudadanía (CC)' },
-  { value: 'TI', label: 'Tarjeta de Identidad (TI)' },
+  { id: 'CC', nombre: 'Cédula de Ciudadanía (CC)' },
+  { id: 'TI', nombre: 'Tarjeta de Identidad (TI)' },
+  { id: 'CE', nombre: 'Cédula de Extranjería (CE)' },
+  { id: 'Pasaporte', nombre: 'Pasaporte' },
   // Agrega más tipos de documento según sea necesario
 ];
 const sexoOptions = [
-  { value: 'M', label: 'Masculino' },
-  { value: 'F', label: 'Femenino' },
+  { id: 'M', nombre: 'Masculino' },
+  { id: 'F', nombre: 'Femenino' },
+  { id: 'O', nombre: 'Otro' },
 ];
 export const localidades = [
-  { id: '1', name: 'Usaquén' },
-  { id: '2', name: 'Chapinero' },
+  { id: '1', nombre: 'Usaquén' },
+  { id: '2', nombre: 'Chapinero' },
+  { id: '3', nombre: 'Santa Fe' },
+  { id: '4', nombre: 'San Cristóbal' },
+  { id: '5', nombre: 'Usme' },
+  { id: '6', nombre: 'Tunjuelito' },
+  { id: '7', nombre: 'Bosa' },
+  { id: '8', nombre: 'Kennedy' },
+  { id: '9', nombre: 'Fontibón' },
+  { id: '10', nombre: 'Engativá' },
+  { id: '11', nombre: 'Suba' },
+  { id: '12', nombre: 'Barrios Unidos' },
+  { id: '13', nombre: 'Teusaquillo' },
+  { id: '14', nombre: 'Los Mártires' },
+  { id: '15', nombre: 'Antonio Nariño' },
+  { id: '16', nombre: 'Puente Aranda' },
+  { id: '17', nombre: 'La Candelaria' },
+  { id: '18', nombre: 'Rafael Uribe Uribe' },
+  { id: '19', nombre: 'Ciudad Bolívar' },
+  { id: '20', nombre: 'Sumapaz' },
+  // Agrega más localidades según sea necesario
 ];
 
 export function Register() {
@@ -28,14 +49,15 @@ export function Register() {
   const [errorEmail, setErrorEmail] = useState('');
   const [errorPassword, setErrorPassword] = useState('');
 
-  const handleSubmit = (event) => {
+  const  handleSubmit = async (event) => {
     event.preventDefault();
+    console.log('handlesubmit--->', event.currentTarget);
     const data = new FormData(event.currentTarget);
     const usernameRegex = /^[a-zA-Z0-9_]+$/;
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/;
-
-    if (!usernameRegex.test(data.username)) {
+    console.log('data', data);
+    if (!usernameRegex.test(data.get(username))) {
       setErrorUsername({message:'El nombre de usuario solo puede contener letras, números y guiones bajos.'});
     } else {
       setErrorUsername('');
@@ -53,13 +75,21 @@ export function Register() {
       setErrorPassword('');
     }
 
-    if (usernameRegex.test(data.username) && emailRegex.test(data.get('email')) && passwordRegex.test(data.get('password'))) {
+  
       console.log({
         email: data.get('email'),
         password: data.get('password'),
-      });
-      console.log(register(data));
-    }
+      })
+
+      const resp = await register(data);
+      //console.log(resp.data, resp);
+      if (resp.status==201) {
+        navigate('/home');
+      } else {
+        
+        console.log('Register failed: ', resp);
+      }
+    
   };
 
     return (
@@ -72,9 +102,9 @@ export function Register() {
               <FaCheckCircle className="h-12 w-12 text-green-500 mx-auto" />
                 <h1 className="text-2xl font-semibold text-gray-900 mt-6 text-center">Registrarse</h1>
               </div>
-              <form className="mt-8 space-y-6" action="#" method="POST">
+              <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
                 <input type="hidden" name="remember" value="true" />
-                <div className="rounded-md shadow-sm -space-y-px">
+                <div className="rounded-md shadow-sm space-y-4">
                   <div>
                     <label htmlFor="first_name" className="sr-only">
                       Nombres
@@ -88,6 +118,7 @@ export function Register() {
                       className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-cyan-500 focus:border-cyan-500 focus:z-10 sm:text-sm"
                       placeholder="Nombres"
                     />
+                    {errorUsername && <p>{errorUsername}</p>}
                   </div>
                   <div>
                     <label htmlFor="last_name" className="sr-only">
@@ -101,6 +132,7 @@ Apellidos                    </label>
                       className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-cyan-500 focus:border-cyan-500 focus:z-10 sm:text-sm"
                       placeholder="Apellidos"
                     />
+                    {errorUsername && <p>{errorUsername}</p>}
                   </div>
                   <div>
                     <label htmlFor="tipo_doc" className="sr-only">
@@ -112,11 +144,14 @@ Apellidos                    </label>
                       autoComplete="tipo_doc"
                       required
                       className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-cyan-500 focus:border-cyan-500 focus:z-10 sm:text-sm"
+                      value={tipoDocumento}
+                      onChange={(e) => setTipoDocumento(e.target.value)}
                     >
-                      <option value="">Tipo de Documento</option>
-                      <option value="1">Option 1</option>
-                      <option value="2">Option 2</option>
-                      <option value="3">Option 3</option>
+                      {tiposDocumento.map((item) => (
+                        <option key={item.id} value={item.id}>
+                          {item.nombre}
+                        </option>
+                      ))}
                     </select>
                   </div>
                   <div>
@@ -129,9 +164,11 @@ Apellidos                    </label>
                       type="text"
                       autoComplete="n_doc"
                       required
+                      
                       className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-cyan-500 focus:border-cyan-500 focus:z-10 sm:text-sm"
                       placeholder="Número de documento"
                     />
+                    {errorUsername && <p>{errorUsername}</p>}
                   </div>
                   <div>
                     <label htmlFor="sexo" className="sr-only">
@@ -143,11 +180,15 @@ Apellidos                    </label>
                       autoComplete="sexo"
                       required
                       className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-cyan-500 focus:border-cyan-500 focus:z-10 sm:text-sm"
+                      value={sexo}
+                      onChange={(e) => setSexo(e.target.value)}
                     >
                       <option value="">Sexo</option>
-                      <option value="1">Option 1</option>
-                      <option value="2">Option 2</option>
-                      <option value="3">Option 3</option>
+                      {sexoOptions.map((option) => (
+                        <option key={option.id} value={option.id}>
+                          {option.nombre}
+                        </option>
+                      ))}
                     </select>
                   </div>
                   <div>
@@ -163,6 +204,7 @@ Apellidos                    </label>
                       className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-cyan-500 focus:border-cyan-500 focus:z-10 sm:text-sm"
                       placeholder="Teléfono"
                     />
+                    {errorUsername && <p>{errorUsername}</p>}
                   </div>
                   <div>
                     <label htmlFor="idlocalidad" className="sr-only">
@@ -174,11 +216,15 @@ Apellidos                    </label>
                       autoComplete="idlocalidad"
                       required
                       className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-cyan-500 focus:border-cyan-500 focus:z-10 sm:text-sm"
+                      value={localidad}
+                      onChange={(e) => setLocalidad(e.target.value)}
                     >
                       <option value="">Localidad</option>
-                      <option value="1">Option 1</option>
-                      <option value="2">Option 2</option>
-                      <option value="3">Option 3</option>
+                      {localidades.map((localidad) => (
+                        <option key={localidad.id} value={localidad.id}>
+                          {localidad.nombre}
+                        </option>
+                      ))}
                     </select>
                   </div>
                   <div>
@@ -192,6 +238,7 @@ Apellidos                    </label>
                       accept="image/*"
                       className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-cyan-500 focus:border-cyan-500 focus:z-10 sm:text-sm"
                     />
+                    {errorUsername && <p>{errorUsername}</p>}
                   </div>
                   <div>
                     <label htmlFor="email" className="sr-only">
@@ -206,6 +253,7 @@ Apellidos                    </label>
                       className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-cyan-500 focus:border-cyan-500 focus:z-10 sm:text-sm"
                       placeholder="Correo electrónico"
                     />
+                    {errorUsername && <p>{errorUsername}</p>}
                   </div>
                   <div>
                     <label htmlFor="username" className="sr-only">
@@ -220,6 +268,7 @@ Apellidos                    </label>
                       className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-cyan-500 focus:border-cyan-500 focus:z-10 sm:text-sm"
                       placeholder="Nombre de usuario"
                     />
+                    {errorUsername && <p>{errorUsername}</p>}
                   </div>
                   <div>
                     <label htmlFor="password" className="sr-only">
@@ -237,49 +286,37 @@ Apellidos                    </label>
                   </div>
                 </div>
 
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center">
-                    <input
-                      id="terms"
-                      name="terms"
-                      type="checkbox"
-                      className="h-4 w-4 text-cyan-600 focus:ring-cyan-500 border-gray-300 rounded"
-                    />
-                    <label htmlFor="terms" className="ml-2 block text-sm text-gray-900">
-                      Estoy de acuerdo con los términos y condiciones del servicio
-                    </label>
-                  </div>
+                
 
-                  <div className="text-sm">
-                    <a href="#" className="font-medium text-cyan-600 hover:text-cyan-500">
-                      ¿Necesitas ayuda?
-                    </a>
-                  </div>
-                </div>
+                <div className="flex items-center">
+                <input
+                  id="terms"
+                  name="terms"
+                  type="checkbox"
+                  required
+                  className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+                />
+                {errorUsername && <p>{errorUsername}</p>}
+                <label htmlFor="terms" className="ml-2 block text-sm text-gray-900">
+                  Estoy de acuerdo con los{' '}
+                  <a href="/legal/terms-and-conditions" className="font-medium text-indigo-600 hover:text-indigo-500">
+                    términos y condiciones
+                  </a>{' '}
+                  del servicio
+                </label>
+              </div>
 
-                <div>
-                  <button
-                    type="submit"
-                    className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-cyan-600 hover:bg-cyan-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500"
-                  >
-                    <span className="absolute left-0 inset-y-0 flex items-center pl-3">
-                      <svg
-                        className="h-5 w-5 text-cyan-500 group-hover:text-cyan-400"
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 20 20"
-                        fill="currentColor"
-                        aria-hidden="true"
-                      >
-                        <path
-                          fillRule="evenodd"
-                          d="M3.293 6.707a1 1 0 010-1.414l7-7a1 1 0 011.414 0l7 7a1 1 0 010 1.414l-7 7a1 1 0 01-1.414 0l-7-7z"
-                          clipRule="evenodd"
-                        />
-                      </svg>
-                    </span>
-                    Registrarse
-                  </button>
-                </div>
+              <div>
+                <button
+                  type="submit"
+                  className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                >
+                  <span className="absolute left-0 inset-y-0 flex items-center pl-3">
+                  <FaCheckCircle className="h-5 w-5 text-indigo-500 group-hover:text-indigo-400" aria-hidden="true" />
+                  </span>
+                  Registrarse
+                </button>
+              </div>
               </form>
             </div>
           </div>

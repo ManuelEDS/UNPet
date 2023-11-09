@@ -21,15 +21,14 @@ class get_csrf(APIView):
         return response
 
 class SessionView(APIView):
-    authentication_classes = [SessionAuthentication]
-    permission_classes = [permissions.AllowAny]
-    @staticmethod
-    def get(request, format=None):
-        if request.user.isAuthenticated:
+
+    
+    def get(self, request):
+        if request.user.is_authenticated:
             U= UNPetUserManager(id=request.user.id)
-            return Response({"data": { 'isAuthenticated': request.user.is_authenticated,'username': request.user.username, 'urlfoto':U.get_role_instance.urlfoto}}, status= status.HTTP_200_OK)
+            return Response(data={'isAuthenticated': request.user.is_authenticated,'username': request.user.username, 'urlfoto':U.get_role_instance.urlfoto}, status= status.HTTP_200_OK)
         
-        return Response({"data": { 'isAuthenticated': request.user.is_authenticated, }})
+        return Response(data= { 'isAuthenticated': False, 'username': None, 'urlfoto': None})
 
 
 class AdminRegister(APIView):
@@ -231,7 +230,7 @@ class UserLogin(APIView):
         if user is not None:
             login(request, user)
             # Login successful, return user detail
-            return Response(data={"msg":"login con exito!", "user":{**user.toDict()}})
+            return Response(data={"msg":"login con exito!", "user":{**user.toDict()}}, status=status.HTTP_200_OK)
         else:
             return Response({'error': 'Credenciales inválidas'},
                             status=status.HTTP_400_BAD_REQUEST)

@@ -19,7 +19,7 @@ import { FaLock } from 'react-icons/fa';
 
       const resp = await login(data);
       //console.log(resp.data, resp);
-      if (resp.isAuthenticated) {
+      if (resp.status === 200) {
         navigate('/home');
       } else {
         setError(true);

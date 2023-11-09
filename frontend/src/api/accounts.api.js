@@ -17,7 +17,7 @@ export const login = async (formData) => {
         userID: formData.get('userID'),
         password: formData.get('password'),
     };
-    console.log('login, body: ', body)
+    //console.log('login, body: ', body)
     try {
         const response = await ACCOUNTS.post('login/', body);
         if (response.status === 200) {
@@ -26,7 +26,7 @@ export const login = async (formData) => {
             throw new Error("Wrong username or password.");
         }
     } catch (error) {
-        console.log(error);
+        //console.log(error);
         return { isAuthenticated: false, error: "server error." };
     }
 };
@@ -97,7 +97,7 @@ export const getHTML = async (filename) => {
             throw new Error(response.data.message);
         }
     } catch (error) {
-        console.log(error.message);
+        //console.log(error.message);
         throw new Error(error.message);
     }
 };
