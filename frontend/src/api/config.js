@@ -4,9 +4,9 @@ import axios from "axios";
 
 //===============================================//
 // --> SOLO UNA PUEDE SER TRUE <-- //
-export const DEBUG = true;
+export const DEBUG = false;
 export const DOCKER_MODE = false;
-export const RENDER_MODE = false;
+export const RENDER_MODE = true;
 //===============================================//
 export const CREDENTIALS = DOCKER_MODE ? 'same-origin' : 'include';
 let URL = "";
