@@ -28,21 +28,23 @@ SECRET_KEY = os.environ.get(
 
 # SECURITY WARNING: don't run with debug turned on in production!
 
-DEBUG = True
-# DEBUG = True #para usar sqlite, FALSE para la db con las variables de entorno
-LOCAL_DB = False
-DOCKER_MODE = False
-RENDER_MODE = False
-# Modo: despliegue en algun seguidor docker (plan B por si render falla)
-if DOCKER_MODE:
-    ALLOWED_HOSTS = ['http://localhost:81']
-    CORS_ALLOWED_ORIGINS = []
+DEBUG=False
+LOCAL_DB = False # DEBUG = True #para usar sqlite, FALSE para la db con las variables de entorno
+DOCKER_MODE=False
+RENDER_MODE = True
+if DOCKER_MODE: # Modo: despliegue en algun seguidor docker (plan B por si render falla)
+    ALLOWED_HOSTS = ['*']
+    CORS_ALLOWED_ORIGINS = ['http://localhost', 'http://127.0.0.1', 'http://0.0.0.0']
     CSRF_TRUSTED_ORIGINS = ['http://localhost:81']
-elif RENDER_MODE:  # Modo: despliegue en render
     CORS_ALLOW_CREDENTIALS = True
-    ALLOWED_HOSTS = ['127.0.0.1', 'https://unpet-web.onrender.com',]
-    CORS_ALLOWED_ORIGINS = ['https://unpet-web.onrender.com',]
-else:  # Modo: desarrollo en localhost
+elif RENDER_MODE: # Modo: despliegue en render
+    CORS_ALLOW_CREDENTIALS = True
+    ALLOWED_HOSTS = ['*']
+    CORS_ALLOWED_ORIGINS = ['https://main--stellar-pudding-90f1cd.netlify.app']
+    CSRF_TRUSTED_ORIGINS = ['https://main--stellar-pudding-90f1cd.netlify.app']
+    CORS_ALLOW_CREDENTIALS = True
+
+else: # Modo: desarrollo en localhost
     CORS_ALLOW_CREDENTIALS = True
     ALLOWED_HOSTS = ['localhost', 'localhost:5173', '127.0.0.1']
     CORS_ALLOWED_ORIGINS = ['http://localhost:5173', 'http://127.0.0.1:5173']
@@ -60,7 +62,6 @@ apps = [
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
-    "django.contrib.staticfiles",
     "rest_framework",
     "coreapi",
     "utils",
@@ -182,7 +183,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = "static/"
+#STATIC_URL = "static/"
 
 # DEBUG? ....
 
