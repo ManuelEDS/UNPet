@@ -37,7 +37,8 @@ function App() {
           <Route path='/' element={<Navigate to="/home" />} />
           <Route path='/pet-create' element={<PetFormPage />} />
           <Route path='/pets/:id' element={<PetFormPage />} />
-          <Route path='/login' element={<Login />} />
+          <Route path='/Login' element={<Login />} />
+          <Route path='/login' element={<Navigate to="/Login" />} />
           <Route path='/register' element={<Register />} />
           <Route path='/register-org' element={<RegisterOrg />} />
           <Route path='/password' element={<Password />} />
