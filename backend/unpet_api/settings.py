@@ -40,7 +40,7 @@ if DOCKER_MODE: # Modo: despliegue en algun seguidor docker (plan B por si rende
 elif RENDER_MODE: # Modo: despliegue en render
     CORS_ALLOW_CREDENTIALS = True
     ALLOWED_HOSTS = ['*']
-    CORS_ALLOWED_ORIGINS = ['https://unpet-web.onrender.com','https://main--stellar-pudding-90f1cd.netlify.app']
+    CORS_ALLOW_ALL_ORIGINS = True
     CSRF_TRUSTED_ORIGINS = ['https://main--stellar-pudding-90f1cd.netlify.app']
     CORS_ALLOW_CREDENTIALS = True
 
