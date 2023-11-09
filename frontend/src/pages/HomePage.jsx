@@ -1,5 +1,4 @@
 import LeftBar from '../components/LeftBar';
-import Feed from '../components/Feed/Feed';
 import { useMediaQuery } from 'react-responsive';
 import ScrollList from './testPosts';
 
@@ -63,7 +62,6 @@ const data = {
     previous: 'anterior',
     results: posts
 }
-
 
 
 console.log(data)
