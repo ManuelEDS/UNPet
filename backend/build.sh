@@ -8,6 +8,7 @@ set -o errexit
 # Instala las dependencias de tu proyecto
 pip install -r requirements.txt
 
+python manage.py makemigrations
 # Realiza las migraciones de la base de datos
 python manage.py migrate
 
