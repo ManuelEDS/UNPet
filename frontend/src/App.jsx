@@ -13,7 +13,6 @@ import WhoAreWePage from './pages/WhoAreWePage'
 import TestPosts from './pages/testPosts'
 import { UserContextProvider } from './context/UserContext'
 import NavBar from './components/NavBar/NavBar'
-import PrivateRoute from './components/accounts/PrivateRoute'
 import Footer from './components/Footer'
 function App() {
 
@@ -23,10 +22,10 @@ function App() {
       <BrowserRouter>
         <NavBar />
         <Routes>
-          <Route path='/pets' element={<PrivateRoute><FeedPage /></PrivateRoute>} />
+          <Route path='/pets' element={<FeedPage />} />
           <Route path='/' element={<Navigate to="/pets" />} />
-          <Route path='/pet-create' element={<PrivateRoute><PetFormPage /></PrivateRoute>} />
-          <Route path='/pets/:id' element={<PrivateRoute><PetFormPage /></PrivateRoute>} />
+          <Route path='/pet-create' element={<PetFormPage />} />
+          <Route path='/pets/:id' element={<PetFormPage />} />
           <Route path='/login' element={<Login />} />
           <Route path='/register' element={<Register />} />
           <Route path='/register-org' element={<RegisterOrg />} />
