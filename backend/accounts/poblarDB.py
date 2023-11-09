@@ -571,292 +571,290 @@ def agregar_publicaciones():
     from .models import Persona, Organizacion
 
     publicaciones = [{
-        "idorganizacion": 24,
-        "estado": "Disponibles",
-        "titulo": "Honorable",
-        "descripcion": "Suspendisse potenti. In eleifend quam a odio. In hac habitasse platea dictumst.",
-        "n_mascotas": 3,
-        "n_mascotas_adoptadas": 0
-    }, {
-        "idorganizacion": 27,
-        "estado": "Adoptados",
-        "titulo": "Mrs",
-        "descripcion": "Curabitur at ipsum ac tellus semper interdum. Mauris ullamcorper purus sit amet nulla. Quisque arcu libero, rut",
-        "n_mascotas": 3,
-        "n_mascotas_adoptadas": 0
-    }, {
-        "idorganizacion": 25,
-        "estado": "Disponibles",
-        "titulo": "Rev",
-        "descripcion": "Nullam sit amet turpis elementum ligula vehicula consequat. Morbi a ipsum. Integer a nibh.",
-        "n_mascotas": 1,
-        "n_mascotas_adoptadas": 0
-    }, {
-        "idorganizacion": 25,
-        "estado": "Disponibles",
-        "titulo": "Dr",
-        "descripcion": "Aenean fermentum. Donec ut mauris eget massa tempor convallis. Nulla neque libero, convallis eget, eleifend luctus, ultricies eu, nibh.",
-        "n_mascotas": 5,
-        "n_mascotas_adoptadas": 0
-    }, {
-        "idorganizacion": 27,
-        "estado": "Disponibles",
-        "titulo": "Honorable",
-        "descripcion": "Duis bibendum, felis sed interdum venenatis, turpis enim blandit mi, in porttitor pede justo eu massa. Donec dapelementum.",
-        "n_mascotas": 1,
-        "n_mascotas_adoptadas": 0
-    }, {
-        "idorganizacion": 26,
-        "estado": "Disponibles",
-        "titulo": "Rev",
-        "descripcion": "Proin eu mi. Nulla ac enim. In tempor, turpis nec euismod scelerisque, quam tura nec sem.",
-        "n_mascotas": 1,
-        "n_mascotas_adoptadas": 0
-    }, {
-        "idorganizacion": 26,
-        "estado": "Adoptados",
-        "titulo": "Mr",
-        "descripcion": "Vestibulum ac est lacinia nisi venenatis tristique. Fuscpien urna pretium nisl, ut volutpat sapienaugue. Aliquam erat volutpat.",
-        "n_mascotas": 6,
-        "n_mascotas_adoptadas": 0
-    }, {
-        "idorganizacion": 26,
-        "estado": "Adoptados",
-        "titulo": "Ms",
-        "descripcion": "Integer tincidunt ante vel ipsum. Praesent blandit lacinia erat. Vestibulum sed magna at nunc commodo placerat.",
-        "n_mascotas": 8,
-        "n_mascotas_adoptadas": 0
-    }, {
-        "idorganizacion": 26,
-        "estado": "Adoptados",
-        "titulo": "Rev",
-        "descripcion": "Proin interdum mauris non ligula pellentesque ultrices. Phing molestie, hendrerit at, vulputate vitae, nisl.",
-        "n_mascotas": 10,
-        "n_mascotas_adoptadas": 0
-    }, {
-        "idorganizacion": 28,
-        "estado": "Adoptados",
-        "titulo": "Mr",
-        "descripcion": "Morbi non lectus. Aliquam sit amet diam in magna bibendum imps sed, tincidunt eu, felis.",
-        "n_mascotas": 4,
-        "n_mascotas_adoptadas": 0
-    }, {
-        "idorganizacion": 25,
-        "estado": "Disponibles",
-        "titulo": "Honorable",
-        "descripcion": "Mauris enim leo, rhoncus sed, vestibulum sit amet, curs augue, vel accumsan tellus nisi eu orci. Mauris lacinia sapien quis libero.",
-        "n_mascotas": 9,
-        "n_mascotas_adoptadas": 0
-    }, {
-        "idorganizacion": 28,
-        "estado": "Adoptados",
-        "titulo": "Mrs",
-        "descripcion": "In hac habitasse platea dictumst. Morbi vestibulum, velneque sapien placerat ante. Nulla justo.",
-        "n_mascotas": 7,
-        "n_mascotas_adoptadas": 0
-    }, {
-        "idorganizacion": 27,
-        "estado": "Disponibles",
-        "titulo": "Dr",
-        "descripcion": "In congue. Etiam justo. Etiam pretium iaculis justo.",
-        "n_mascotas": 7,
-        "n_mascotas_adoptadas": 0
-    }, {
-        "idorganizacion": 27,
-        "estado": "Adoptados",
-        "titulo": "Ms",
-        "descripcion": "Aliquam quis turpis eget elit sodales scelerisque. Mauris sit amet eros. Suspendisse accumsan tortor quis turpis.",
-        "n_mascotas": 1,
-        "n_mascotas_adoptadas": 0
-    }, {
-        "idorganizacion": 27,
-        "estado": "Adoptados",
-        "titulo": "Rev",
-        "descripcion": "Duis bibendum. Morbi non quam nec dui luctus rutrum. Nulla tellus.",
-        "n_mascotas": 5,
-        "n_mascotas_adoptadas": 0
-    }, {
-        "idorganizacion": 26,
-        "estado": "Disponibles",
-        "titulo": "Ms",
-        "descripcion": "Duis consequat dui nec nisi volutpat eleifend. Donec ut dolor. Morbi vel lectus in quam fringilla rhoncus.",
-        "n_mascotas": 5,
-        "n_mascotas_adoptadas": 0
-    }, {
-        "idorganizacion": 25,
-        "estado": "Adoptados",
-        "titulo": "Dr",
-        "descripcion": "Integer ac leo. Pellentesque ultrices mattis odio. Donec vitae nisi.",
-        "n_mascotas": 2,
-        "n_mascotas_adoptadas": 0
-    }, {
-        "idorganizacion": 24,
-        "estado": "Disponibles",
-        "titulo": "Dr",
-        "descripcion": "Vestibulum ac est lacinia nisi venenatis tristiquretium nisl, ut volutpat sapid augue. Aliquam erat volutpat.",
-        "n_mascotas": 7,
-        "n_mascotas_adoptadas": 0
-    }, {
-        "idorganizacion": 24,
-        "estado": "Disponibles",
-        "titulo": "Honorable",
-        "descripcion": "Duis bibendum. Morbi non quam nec dui luctus rutrum. Nulla tellus.",
-        "n_mascotas": 10,
-        "n_mascotas_adoptadas": 0
-    }, {
-        "idorganizacion": 26,
-        "estado": "Disponibles",
-        "titulo": "Rev",
-        "descripcion": "Aenean fermentum. Donec ut mauris eget massa temptus, ultricies eu, nibh.",
-        "n_mascotas": 10,
-        "n_mascotas_adoptadas": 0
-    }, {
-        "idorganizacion": 25,
-        "estado": "Disponibles",
-        "titulo": "Mrs",
-        "descripcion": "Pellentesque at nulla. Suspendisse potenti. Cras in purus eu magna vulputate luctus.",
-        "n_mascotas": 4,
-        "n_mascotas_adoptadas": 0
-    }, {
-        "idorganizacion": 25,
-        "estado": "Disponibles",
-        "titulo": "Mrs",
-        "descripcion": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Proin risus. Praesent lectus.",
-        "n_mascotas": 10,
-        "n_mascotas_adoptadas": 0
-    }, {
-        "idorganizacion": 25,
-        "estado": "Adoptados",
-        "titulo": "Ms",
-        "descripcion": "Vestibulum ac est lacinia nisi venenatis tristique. Fuscelutpat sapien arcu sed augue. Aliquam erat volutpat.",
-        "n_mascotas": 7,
-        "n_mascotas_adoptadas": 0
-    }, {
-        "idorganizacion": 25,
-        "estado": "Adoptados",
-        "titulo": "Honorable",
-        "descripcion": "Integer ac leo. Pellentesque ultrices mattis odio. Donec vitae nisi.",
-        "n_mascotas": 5,
-        "n_mascotas_adoptadas": 0
-    }, {
-        "idorganizacion": 25,
-        "estado": "Adoptados",
-        "titulo": "Rev",
-        "descripcion": "Morbi non lectus. Aliquam sit amet diam in magna bibendunatis non, sodales sed, tincidunt eu, felis.",
-        "n_mascotas": 3,
-        "n_mascotas_adoptadas": 0
-    }, {
-        "idorganizacion": 26,
-        "estado": "Disponibles",
-        "titulo": "Mrs",
-        "descripcion": "Sed ante. Vivamus tortor. Duis mattis egestas metus.",
-        "n_mascotas": 1,
-        "n_mascotas_adoptadas": 0
-    }, {
-        "idorganizacion": 25,
-        "estado": "Adoptados",
-        "titulo": "Mr",
-        "descripcion": "Cras mi pede, malesuada in, imperdiet et, commodo vulp. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.",
-        "n_mascotas": 1,
-        "n_mascotas_adoptadas": 0
-    }, {
-        "idorganizacion": 26,
-        "estado": "Disponibles",
-        "titulo": "Mr",
-        "descripcion": "Integer ac leo. Pellentesque ultrices mattis odio. Donec vitae nisi.",
-        "n_mascotas": 8,
-        "n_mascotas_adoptadas": 0
-    }, {
-        "idorganizacion": 25,
-        "estado": "Adoptados",
-        "titulo": "Ms",
-        "descripcion": "Quisque id justo sit amet sapien dignissim vestibulum sollicitudin ut, suscipit a, feugiat et, eros.",
-        "n_mascotas": 2,
-        "n_mascotas_adoptadas": 0
-    }, {
-        "idorganizacion": 27,
-        "estado": "Disponibles",
-        "titulo": "Dr",
-        "descripcion": "Morbi porttitor lorem id ligula. Suspendisse ornare consequat lectus. In est risus, auctor sed, tristique in, tempus sit amet, sem.",
-        "n_mascotas": 7,
-        "n_mascotas_adoptadas": 0
-    }, {
-        "idorganizacion": 28,
-        "estado": "Disponibles",
-        "titulo": "Dr",
-        "descripcion": "Praesent id massa id nisl venenatis lacinia. Aenean sit amet justo. Morbi ut odio.",
-        "n_mascotas": 6,
-        "n_mascotas_adoptadas": 0
-    }, {
-        "idorganizacion": 24,
-        "estado": "Adoptados",
-        "titulo": "Dr",
-        "descripcion": "Nullam porttitor lacus at turpis. Donec posuere metus vitae ipsum. Aliquam non mauris.",
-        "n_mascotas": 9,
-        "n_mascotas_adoptadas": 0
-    }, {
-        "idorganizacion": 28,
-        "estado": "Adoptados",
-        "titulo": "Ms",
-        "descripcion": "Pellentesque at nulla. Suspendisse potenti. Cras in purus eu magna vulputate luctus.",
-        "n_mascotas": 0,
-        "n_mascotas_adoptadas": 0
-    }, {
-        "idorganizacion": 27,
-        "estado": "Disponibles",
-        "titulo": "Honorable",
-        "descripcion": "Phasellus sit amet erat. Nulla tempus. Vivamus in felis eu sapien cursus vestibulum.",
-        "n_mascotas": 2,
-        "n_mascotas_adoptadas": 0
-    }, {
-        "idorganizacion": 26,
-        "estado": "Adoptados",
-        "titulo": "Ms",
-        "descripcion": "Fusce consequat. Nulla nisl. Nunc nisl.",
-        "n_mascotas": 1,
-        "n_mascotas_adoptadas": 0
-    }, {
-        "idorganizacion": 26,
-        "estado": "Disponibles",
-        "titulo": "Dr",
-        "descripcion": "Nullam porttitor lacus at turpis. Donec posuere metus vitae ipsum. Aliquam non mauris.",
-        "n_mascotas": 9,
-        "n_mascotas_adoptadas": 0
-    }, {
-        "idorganizacion": 26,
-        "estado": "Adoptados",
-        "titulo": "Dr",
-        "descripcion": "In hac habitasse platea dictumst. Morbi vestibulum, velit idmentum neque sapien placerat ante. Nulla justo.",
-        "n_mascotas": 7,
-        "n_mascotas_adoptadas": 0
-    },
-        {
-        "idorganizacion": 24,
-        "estado": "Disponibles",
-        "titulo": "Se dan en adopción estos hermosos gatitos",
-        "descripcion": "In hac habitasse platea dictumst. Morbi vestibulum, ondimentum neque sapien placerat ante. Nulla justo.",
-        "n_mascotas": 7,
-        "n_mascotas_adoptadas": 0
-    },
-        {
-        "idorganizacion": 24,
-        "estado": "Disponibles",
-        "titulo": "Estamos dando en adopción estos perros callejeros",
-        "descripcion": "Nullam porttitor lacus at turpis. Donec posuere metus vitae ipsum. Aliquam non mauris, felix, perro, labrador.",
-        "n_mascotas": 9,
-        "n_mascotas_adoptadas": 0
-    },
-        {
-        "idorganizacion": 24,
-        "estado": "Adoptados",
-        "titulo": "Estamos dando en adopción estos perros raza labrador",
-        "descripcion": "Pellentesque at nulla. Suspendisse potenti. Cras in purus eu magna vulputate luctus.",
-        "n_mascotas": 9,
-        "n_mascotas_adoptadas": 9
-    },
-    ]
-    print('vamos en posts: lista de ids de org:', [
-          f'({org.id}, {org.username})\n' for org in Organizacion.objects.all()])
+  "idorganizacion": 24,
+  "estado": "Disponibles",
+  "titulo": "Honorable",
+  "descripcion": "Suspendisse potenti. In eleifend quam a odio. In hac habitasse platea dictumst.",
+  "n_mascotas": 3,
+  "n_mascotas_adoptadas": 0
+}, {
+  "idorganizacion": 27,
+  "estado": "Adoptados",
+  "titulo": "Mrs",
+  "descripcion": "Curabitur at ipsum ac tellus semper interdum. Mauris ullamcorper purus sit amet nulla. Quisque arcu libero, rut",
+  "n_mascotas": 3,
+  "n_mascotas_adoptadas": 0
+}, {
+  "idorganizacion": 25,
+  "estado": "Disponibles",
+  "titulo": "Rev",
+  "descripcion": "Nullam sit amet turpis elementum ligula vehicula consequat. Morbi a ipsum. Integer a nibh.",
+  "n_mascotas": 1,
+  "n_mascotas_adoptadas": 0
+}, {
+  "idorganizacion": 25,
+  "estado": "Disponibles",
+  "titulo": "Dr",
+  "descripcion": "Aenean fermentum. Donec ut mauris eget massa tempor convallis. Nulla neque libero, convallis eget, eleifend luctus, ultricies eu, nibh.",
+  "n_mascotas": 5,
+  "n_mascotas_adoptadas": 0
+}, {
+  "idorganizacion": 27,
+  "estado": "Disponibles",
+  "titulo": "Honorable",
+  "descripcion": "Duis bibendum, felis sed interdum venenatis, turpis enim blandit mi, in porttitor pede justo eu massa. Donec dapelementum.",
+  "n_mascotas": 1,
+  "n_mascotas_adoptadas": 0
+}, {
+  "idorganizacion": 26,
+  "estado": "Disponibles",
+  "titulo": "Rev",
+  "descripcion": "Proin eu mi. Nulla ac enim. In tempor, turpis nec euismod scelerisque, quam tura nec sem.",
+  "n_mascotas": 1,
+  "n_mascotas_adoptadas": 0
+}, {
+  "idorganizacion": 26,
+  "estado": "Adoptados",
+  "titulo": "Mr",
+  "descripcion": "Vestibulum ac est lacinia nisi venenatis tristique. Fuscpien urna pretium nisl, ut volutpat sapienaugue. Aliquam erat volutpat.",
+  "n_mascotas": 6,
+  "n_mascotas_adoptadas": 0
+}, {
+  "idorganizacion": 26,
+  "estado": "Adoptados",
+  "titulo": "Ms",
+  "descripcion": "Integer tincidunt ante vel ipsum. Praesent blandit lacinia erat. Vestibulum sed magna at nunc commodo placerat.",
+  "n_mascotas": 8,
+  "n_mascotas_adoptadas": 0
+}, {
+  "idorganizacion": 26,
+  "estado": "Adoptados",
+  "titulo": "Rev",
+  "descripcion": "Proin interdum mauris non ligula pellentesque ultrices. Phing molestie, hendrerit at, vulputate vitae, nisl.",
+  "n_mascotas": 10,
+  "n_mascotas_adoptadas": 0
+}, {
+  "idorganizacion": 28,
+  "estado": "Adoptados",
+  "titulo": "Mr",
+  "descripcion": "Morbi non lectus. Aliquam sit amet diam in magna bibendum imps sed, tincidunt eu, felis.",
+  "n_mascotas": 4,
+  "n_mascotas_adoptadas": 0
+}, {
+  "idorganizacion": 25,
+  "estado": "Disponibles",
+  "titulo": "Honorable",
+  "descripcion": "Mauris enim leo, rhoncus sed, vestibulum sit amet, curs augue, vel accumsan tellus nisi eu orci. Mauris lacinia sapien quis libero.",
+  "n_mascotas": 9,
+  "n_mascotas_adoptadas": 0
+}, {
+  "idorganizacion": 28,
+  "estado": "Adoptados",
+  "titulo": "Mrs",
+  "descripcion": "In hac habitasse platea dictumst. Morbi vestibulum, velneque sapien placerat ante. Nulla justo.",
+  "n_mascotas": 7,
+  "n_mascotas_adoptadas": 0
+}, {
+  "idorganizacion": 27,
+  "estado": "Disponibles",
+  "titulo": "Dr",
+  "descripcion": "In congue. Etiam justo. Etiam pretium iaculis justo.",
+  "n_mascotas": 7,
+  "n_mascotas_adoptadas": 0
+}, {
+  "idorganizacion": 27,
+  "estado": "Adoptados",
+  "titulo": "Ms",
+  "descripcion": "Aliquam quis turpis eget elit sodales scelerisque. Mauris sit amet eros. Suspendisse accumsan tortor quis turpis.",
+  "n_mascotas": 1,
+  "n_mascotas_adoptadas": 0
+}, {
+  "idorganizacion": 27,
+  "estado": "Adoptados",
+  "titulo": "Rev",
+  "descripcion": "Duis bibendum. Morbi non quam nec dui luctus rutrum. Nulla tellus.",
+  "n_mascotas": 5,
+  "n_mascotas_adoptadas": 0
+}, {
+  "idorganizacion": 26,
+  "estado": "Disponibles",
+  "titulo": "Ms",
+  "descripcion": "Duis consequat dui nec nisi volutpat eleifend. Donec ut dolor. Morbi vel lectus in quam fringilla rhoncus.",
+  "n_mascotas": 5,
+  "n_mascotas_adoptadas": 0
+}, {
+  "idorganizacion": 25,
+  "estado": "Adoptados",
+  "titulo": "Dr",
+  "descripcion": "Integer ac leo. Pellentesque ultrices mattis odio. Donec vitae nisi.",
+  "n_mascotas": 2,
+  "n_mascotas_adoptadas": 0
+}, {
+  "idorganizacion": 24,
+  "estado": "Disponibles",
+  "titulo": "Dr",
+  "descripcion": "Vestibulum ac est lacinia nisi venenatis tristiquretium nisl, ut volutpat sapid augue. Aliquam erat volutpat.",
+  "n_mascotas": 7,
+  "n_mascotas_adoptadas": 0
+}, {
+  "idorganizacion": 24,
+  "estado": "Disponibles",
+  "titulo": "Honorable",
+  "descripcion": "Duis bibendum. Morbi non quam nec dui luctus rutrum. Nulla tellus.",
+  "n_mascotas": 10,
+  "n_mascotas_adoptadas": 0
+}, {
+  "idorganizacion": 26,
+  "estado": "Disponibles",
+  "titulo": "Rev",
+  "descripcion": "Aenean fermentum. Donec ut mauris eget massa temptus, ultricies eu, nibh.",
+  "n_mascotas": 10,
+  "n_mascotas_adoptadas": 0
+}, {
+  "idorganizacion": 25,
+  "estado": "Disponibles",
+  "titulo": "Mrs",
+  "descripcion": "Pellentesque at nulla. Suspendisse potenti. Cras in purus eu magna vulputate luctus.",
+  "n_mascotas": 4,
+  "n_mascotas_adoptadas": 0
+}, {
+  "idorganizacion": 25,
+  "estado": "Disponibles",
+  "titulo": "Mrs",
+  "descripcion": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Proin risus. Praesent lectus.",
+  "n_mascotas": 10,
+  "n_mascotas_adoptadas": 0
+}, {
+  "idorganizacion": 25,
+  "estado": "Adoptados",
+  "titulo": "Ms",
+  "descripcion": "Vestibulum ac est lacinia nisi venenatis tristique. Fuscelutpat sapien arcu sed augue. Aliquam erat volutpat.",
+  "n_mascotas": 7,
+  "n_mascotas_adoptadas": 0
+}, {
+  "idorganizacion": 25,
+  "estado": "Adoptados",
+  "titulo": "Honorable",
+  "descripcion": "Integer ac leo. Pellentesque ultrices mattis odio. Donec vitae nisi.",
+  "n_mascotas": 5,
+  "n_mascotas_adoptadas": 0
+}, {
+  "idorganizacion": 25,
+  "estado": "Adoptados",
+  "titulo": "Rev",
+  "descripcion": "Morbi non lectus. Aliquam sit amet diam in magna bibendunatis non, sodales sed, tincidunt eu, felis.",
+  "n_mascotas": 3,
+  "n_mascotas_adoptadas": 0
+}, {
+  "idorganizacion": 26,
+  "estado": "Disponibles",
+  "titulo": "Mrs",
+  "descripcion": "Sed ante. Vivamus tortor. Duis mattis egestas metus.",
+  "n_mascotas": 1,
+  "n_mascotas_adoptadas": 0
+}, {
+  "idorganizacion": 25,
+  "estado": "Adoptados",
+  "titulo": "Mr",
+  "descripcion": "Cras mi pede, malesuada in, imperdiet et, commodo vulp. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.",
+  "n_mascotas": 1,
+  "n_mascotas_adoptadas": 0
+}, {
+  "idorganizacion": 26,
+  "estado": "Disponibles",
+  "titulo": "Mr",
+  "descripcion": "Integer ac leo. Pellentesque ultrices mattis odio. Donec vitae nisi.",
+  "n_mascotas": 8,
+  "n_mascotas_adoptadas": 0
+}, {
+  "idorganizacion": 25,
+  "estado": "Adoptados",
+  "titulo": "Ms",
+  "descripcion": "Quisque id justo sit amet sapien dignissim vestibulum sollicitudin ut, suscipit a, feugiat et, eros.",
+  "n_mascotas": 2,
+  "n_mascotas_adoptadas": 0
+}, {
+  "idorganizacion": 27,
+  "estado": "Disponibles",
+  "titulo": "Dr",
+  "descripcion": "Morbi porttitor lorem id ligula. Suspendisse ornare consequat lectus. In est risus, auctor sed, tristique in, tempus sit amet, sem.",
+  "n_mascotas": 7,
+  "n_mascotas_adoptadas": 0
+}, {
+  "idorganizacion": 28,
+  "estado": "Disponibles",
+  "titulo": "Dr",
+  "descripcion": "Praesent id massa id nisl venenatis lacinia. Aenean sit amet justo. Morbi ut odio.",
+  "n_mascotas": 6,
+  "n_mascotas_adoptadas": 0
+}, {
+  "idorganizacion": 24,
+  "estado": "Adoptados",
+  "titulo": "Dr",
+  "descripcion": "Nullam porttitor lacus at turpis. Donec posuere metus vitae ipsum. Aliquam non mauris.",
+  "n_mascotas": 9,
+  "n_mascotas_adoptadas": 0
+}, {
+  "idorganizacion": 28,
+  "estado": "Adoptados",
+  "titulo": "Ms",
+  "descripcion": "Pellentesque at nulla. Suspendisse potenti. Cras in purus eu magna vulputate luctus.",
+  "n_mascotas": 0,
+  "n_mascotas_adoptadas": 0
+}, {
+  "idorganizacion": 27,
+  "estado": "Disponibles",
+  "titulo": "Honorable",
+  "descripcion": "Phasellus sit amet erat. Nulla tempus. Vivamus in felis eu sapien cursus vestibulum.",
+  "n_mascotas": 2,
+  "n_mascotas_adoptadas": 0
+}, {
+  "idorganizacion": 26,
+  "estado": "Adoptados",
+  "titulo": "Ms",
+  "descripcion": "Fusce consequat. Nulla nisl. Nunc nisl.",
+  "n_mascotas": 1,
+  "n_mascotas_adoptadas": 0
+}, {
+  "idorganizacion": 26,
+  "estado": "Disponibles",
+  "titulo": "Dr",
+  "descripcion": "Nullam porttitor lacus at turpis. Donec posuere metus vitae ipsum. Aliquam non mauris.",
+  "n_mascotas": 9,
+  "n_mascotas_adoptadas": 0
+}, {
+  "idorganizacion": 26,
+  "estado": "Adoptados",
+  "titulo": "Dr",
+  "descripcion": "In hac habitasse platea dictumst. Morbi vestibulum, velit idmentum neque sapien placerat ante. Nulla justo.",
+  "n_mascotas": 7,
+  "n_mascotas_adoptadas": 0
+},
+{
+  "idorganizacion": 24,
+  "estado": "Disponibles",
+  "titulo": "Se dan en adopción estos hermosos gatitos",
+  "descripcion": "In hac habitasse platea dictumst. Morbi vestibulum, ondimentum neque sapien placerat ante. Nulla justo.",
+  "n_mascotas": 7,
+  "n_mascotas_adoptadas": 0
+},
+{
+  "idorganizacion": 24,
+  "estado": "Disponibles",
+  "titulo": "Estamos dando en adopción estos perros callejeros",
+  "descripcion": "Nullam porttitor lacus at turpis. Donec posuere metus vitae ipsum. Aliquam non mauris, felix, perro, labrador.",
+  "n_mascotas": 9,
+  "n_mascotas_adoptadas": 0
+},
+ {
+  "idorganizacion": 24,
+  "estado": "Adoptados",
+  "titulo": "Estamos dando en adopción estos perros raza labrador",
+  "descripcion": "Pellentesque at nulla. Suspendisse potenti. Cras in purus eu magna vulputate luctus.",
+  "n_mascotas": 9,
+  "n_mascotas_adoptadas": 9
+}]
+    print('vamos en posts: lista de ids de org:', [ f'({org.id}, {org.username})\n' for org in Organizacion.objects.all()])
     # print('vamos en posts: lista de ids de personas:', [
     #       (org.id, org.username) for org in Persona.objects.all()])
     print('numero de publicaciones', len(publicaciones))
@@ -866,10 +864,17 @@ def agregar_publicaciones():
             for key, value in data.items()
             if key not in ['idorganizacion']
         }
-        org = Organizacion.objects.get(id=data['idorganizacion'])
+        org=None
+        try:
+          org = Organizacion.objects.get(id=data['idorganizacion'])
+          print('org es:', org)
+          data['idorganizacion']=org
+          print('data es:', data.items(), '\n', type(data["idorganizacion"]))
+        except Exception as e:
+          print('error: org es None, se salta este ingreso de post, error--> ', e)
+          continue
         Publicacion.objects.create(
-            idorganizacion=org,
-            **extra_fields
+            **data
         )
 
     print("\nPublicaciones ficticias agregadas correctamente.")

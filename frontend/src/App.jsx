@@ -14,6 +14,17 @@ import TestPosts from './pages/testPosts'
 import { UserContextProvider } from './context/UserContext'
 import NavBar from './components/NavBar/NavBar'
 import Footer from './components/Footer'
+import PrivateRoute from './components/accounts/PrivateRoute'
+
+function NotFoundPage() {
+  return (
+    <div>
+      <h2>404 - Página no encontrada</h2>
+      <p>Unpet 2023</p>
+    </div>
+  );
+}
+
 function App() {
 
 
