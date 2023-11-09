@@ -42,7 +42,7 @@ const ScrollList = () => {
             dataLength={items.length}
             next={fetchItems}
             hasMore={hasMore}
-            loader={<h4>Cargando...</h4>}
+            loader={<h4>😺🐶Encontrando los mejores compañeros... 😺🐶</h4>}
             endMessage={<h4>Todos los elementos han sido cargados</h4>}
         >
             <div className="grid grid-cols-1 gap-4">
