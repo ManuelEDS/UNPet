@@ -70,12 +70,10 @@ export const HomePage = () => {
             <div className='sticky top-0'>
                 {isDesktopOrLaptop && <LeftBar />}
             </div>
-
             <div className="max-w-2xl mx-auto ">
                 <h2 className="text-3xl font-bold text-center mb-4">Bienvenido a UNPet!</h2>
                 <p className="text-center mb-8">Donando nuevas oportunidades</p>
                 <Feed posts={data}></Feed>
-
             </div>
         </div>
     );
