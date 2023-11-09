@@ -4,36 +4,44 @@ const developers = [
     {
         name: 'César Fabián Rincón Robayo',
         role: 'Backend Developer',
-        image: 'https://scontent.fbog3-1.fna.fbcdn.net/v/t39.30808-6/362633391_2315258502014590_7833701919667759161_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=5f2048&_nc_eui2=AeHIIYGAB--o-TBnC5sjpBKWYAgBV71zsnJgCAFXvXOycpainCjxnxAjp8qCPVWn-rmSH9tM8XkClpd9tZ8P9ec1&_nc_ohc=l3AraDEgZNgAX900wVY&_nc_ht=scontent.fbog3-1.fna&oh=00_AfAsJMj7NBqT9-GhrGzOPEQ1-HTkabyPolJaIvzh-1QnRg&oe=65431E93',
-        bio: 'Lorem ipsum dolor sit amet.',
+        image: 'https://i.imgur.com/BdurSVm.png',
+        bio: 'Estudiante de ingeniería de sistemas y computación, se ha encargado del Backend del proyecto',
         facebook: 'https://www.facebook.com/cesarfabian.rinconrobayo/',
         mail: 'crinconro@unal.edu.co',
         instagram: 'https://www.instagram.com/cesar343rincon/?next=%2F#',
-        github: 'https://github.com/CesarFRR/'
+        github: 'https://github.com/CesarFRR'
     },
     {
         name: 'David Mateo Ballesteros',
         role: 'Frontend Developer',
-        image: 'https://scontent.fbog3-2.fna.fbcdn.net/v/t39.30808-6/273025259_3117086298621112_6950800873385306315_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=5f2048&_nc_eui2=AeH19zdV0s7mOLtajQ1GJEaZsxCKRrm4jyCzEIpGubiPIBIeQhR04dxvbR1SLRJxUjYyeMa55syLW8i3HrA0Adkj&_nc_ohc=rmkOXqr1Os8AX8WqohZ&_nc_ht=scontent.fbog3-2.fna&oh=00_AfBk1oHLkze8QWDIo0QVnYkGmnjAAEnzkUy85foIi5UxZw&oe=654302F7',
-        bio: 'Lorem ipsum dolor sit amet.'
+        image: 'https://i.imgur.com/KaSvaMB.jpg',
+        bio: 'Estudiante de ingeniería de sistemas y computación de la Universidad Nacional',
+        mail: 'dballesterosb@unal.edu.co',
+        github: 'https://github.com/FascistWeeb'
     },
     {
         name: 'Juan David Ramírez Torres',
         role: 'Full Stack Developer',
         image: 'https://media.licdn.com/dms/image/C4E03AQFUXpq4V-LFdg/profile-displayphoto-shrink_800_800/0/1660250201603?e=1704326400&v=beta&t=rcue-vwOFf0qpJTiXjHP8QgZSanrz0zQMOpa2N9y6as',
-        bio: 'Lorem ipsum dolor sit amet.'
+        bio: 'Estudiante de ingeniería de sistemas y computación, ha aportado principalmente al Frontend',
+        mail: 'jdramirezt@unal.edu.co',
+        github: 'https://github.com/jdavidrt'
     },
     {
         name: 'Manuel Eduardo Diaz Sabogal',
         role: 'Database Analyst',
-        image: 'https://dummyimage.com/600x400/d1d1d1/5b62c7.jpg&text=Bob%20Smith',
-        bio: 'Lorem ipsum dolor sit amet.'
+        image: 'https://i.imgur.com/UZtkbQ7.png',
+        bio: 'Estudiante de ingeniería de sistemas',
+        mail: 'mdiazsa@unal.edu.co',
+        github: 'https://github.com/ManuelEDS'
     },
     {
         name: 'Carlos Javier Camacho Cely',
         role: 'Frontend Developer',
-        image: 'https://dummyimage.com/600x400/d1d1d1/5b62c7.jpg&text=Bob%20Smith',
-        bio: 'Lorem ipsum dolor sit amet.'
+        image: 'https://i.imgur.com/dbPlyEy.jpg',
+        bio: 'Estudiante de ingeniería de sistemas',
+        mail: 'cacamacho@unal.edu.co',
+        github: 'https://github.com/ManuelEDS'
     },
 ];
 
