@@ -77,9 +77,6 @@ export const HomePage = () => {
                 <Feed posts={data}></Feed>
 
             </div>
-            <div className='sticky top-0'>
-                {isDesktopOrLaptop && <LeftBar />}
-            </div>
         </div>
     );
 };
