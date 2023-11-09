@@ -1,5 +1,4 @@
-import axios from 'axios';
-import { BASE_URL, DEBUG, DOCKER_MODE, RENDER_MODE, UNPetAxios } from './config'
+import { UNPetAxios } from './config'
 
 
 const BASE_RUTA = '/accounts/api/'

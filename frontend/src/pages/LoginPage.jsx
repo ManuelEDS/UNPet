@@ -18,6 +18,7 @@ export function Login() {
       });
       try {
         const resp = await login(data);
+        console.log('Login successful: ', resp.json());
         navigate('/home');
 
       } catch (error) {
