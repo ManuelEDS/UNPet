@@ -1,6 +1,9 @@
 import LeftBar from '../components/LeftBar';
 import Feed from '../components/Feed/Feed';
 import { useMediaQuery } from 'react-responsive';
+import ScrollList from './testPosts';
+
+
 
 const posts = [
     {
@@ -60,6 +63,9 @@ const data = {
     previous: 'anterior',
     results: posts
 }
+
+
+
 console.log(data)
 export const HomePage = () => {
     const isDesktopOrLaptop = useMediaQuery({ minDeviceWidth: 800 });
@@ -71,9 +77,9 @@ export const HomePage = () => {
                 {isDesktopOrLaptop && <LeftBar />}
             </div>
             <div className="max-w-2xl mx-auto ">
-                <h2 className="text-3xl font-bold text-center mb-4">Bienvenido a UNPet!</h2>
-                <p className="text-center mb-8">Donando nuevas oportunidades</p>
-                <Feed posts={data}></Feed>
+                <h2 className="text-3xl font-bold text-center mb-4">¡Bienvenido a UNPet!</h2>
+                <p className="text-center mb-8">Entregando nuevas oportunidades</p>
+                <ScrollList></ScrollList>
             </div>
         </div>
     );
