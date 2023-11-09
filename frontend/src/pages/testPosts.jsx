@@ -5,7 +5,7 @@ import { FaHeart, FaComment, FaPaw, FaShareAlt } from 'react-icons/fa';
 const ScrollList = () => {
     const [items, setItems] = useState([]);
     const [hasMore, setHasMore] = useState(true);
-    const [nextPageUrl, setNextPageUrl] = useState('http://localhost:8000/posts/api/posts/recent/');
+    const [nextPageUrl, setNextPageUrl] = useState('https://unpet-api-rest.onrender.com/posts/api/posts/recent/');
 
     useEffect(() => {
         fetchItems();

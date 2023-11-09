@@ -43,7 +43,7 @@ function LeftBar() {
                         <IconContext.Provider value={{ className: 'h-5 w-5 inline-block mr-2' }}>
                             <FaCog />
                         </IconContext.Provider>
-                        Mi Perfil
+                        Mi perfil
                     </a>
                 </li>
             </ul>
