@@ -1,6 +1,9 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FaCheckCircle, FaLock } from 'react-icons/fa';
+import {orgRegister} from '../api/accounts.api'
+import { useNavigate } from "react-router-dom"
+
 
 export const localidades = [
   { id: '1', name: 'Usaquén' },
@@ -27,24 +30,27 @@ export const localidades = [
 ];
 
 export function RegisterOrg() {
+  const navigate = useNavigate();
   const [localidad, setLocalidad] = useState('');
-  const [errorNit, setErrorNit] = useState('');
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async(event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    const nitRegex = /^\d{1,3}\.\d{3}\.\d{3}-\d{1}$/;
+    //const nitRegex = /^\d{1,3}\.\d{3}\.\d{3}-\d{1}$/;
 
-    if (!nitRegex.test(data.nit)) {
-      setErrorNit({ message: 'El NIT no cumple con el formato válido.' });
-    } else {
-      setErrorNit('');
-    }
     console.log({
       email: data.get('email'),
       password: data.get('password'),
     });
+ try {
+      const resp = await orgRegister(data);
+      console.log('Login successful: ', resp.json());
+      navigate('/home');
 
+    } catch (error) {
+      
+      console.log('Login failed: ', error);
+    }
   };
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
@@ -85,14 +91,10 @@ export function RegisterOrg() {
                     type="number"
                     autoComplete="family-name"
                     required
-                    className={`appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm ${errorNit ? 'border-red-500' : ''}`}
+                    className={`appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm`}
                     min="0"
                   />
-                  {errorNit && (
-                    <p className="mt-2 text-sm text-red-600" id="email-error">
-                      {errorNit.message}
-                    </p>
-                  )}
+                  
                 </div>
               </div>
 

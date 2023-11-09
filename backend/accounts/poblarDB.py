@@ -5,7 +5,7 @@ def poblar_db(sender, **kwargs):
     agregar_personas()
     agregar_organizaciones()
     agregar_publicaciones()
-    #agregar_comentarios()
+    # agregar_comentarios()
 
 
 def agregar_grupos():
@@ -853,8 +853,7 @@ def agregar_publicaciones():
   "descripcion": "Pellentesque at nulla. Suspendisse potenti. Cras in purus eu magna vulputate luctus.",
   "n_mascotas": 9,
   "n_mascotas_adoptadas": 9
-},
-    ]
+}]
     print('vamos en posts: lista de ids de org:', [ f'({org.id}, {org.username})\n' for org in Organizacion.objects.all()])
     # print('vamos en posts: lista de ids de personas:', [
     #       (org.id, org.username) for org in Persona.objects.all()])
@@ -887,48 +886,25 @@ def agregar_comentarios():
     from django.contrib.auth import get_user_model
 
     User = get_user_model()
+    # id organizaciones: [24 - 29] | is personas: [1 - 23]
 
-    comentarios = [
-        {
-            "contenido": "Este es un comentario de prueba.1",
-            "es_respuesta": False,
-            "comentador": Persona.objects.get(id=2),
-            "comentador_org": None,
+# autor_persona = models.ForeignKey(
+#         'accounts.Persona', on_delete=models.CASCADE, related_name='comentarios', blank=True, null=True)
+#     autor_organizacion = models.ForeignKey(
+#         'accounts.Organizacion', on_delete=models.CASCADE, related_name='comentarios', blank=True, null=True)
+#     contenido = models.CharField(max_length=300)
+#     publicacion = models.ForeignKey(
+#         Publicacion, on_delete=models.CASCADE, related_name='comentarios', blank=True, null=True)
+#     comentario_padre = models.ForeignKey(
+#         'self', on_delete=models.CASCADE, related_name='respuestas', blank=True, null=True)
+#     fechapublicacion = models.DateTimeField(auto_now_add=True)
+    comentarios = [    # id organizaciones: [24 - 29] | id personas: [1 - 23] | id publicaciones [1 - 40]
+
+        {"autor_persona": Persona.objects.get(id=1),
+            "contenido": "Esta publicacion me gustó",
+            "publicacion": Publicacion.objects.get(id=40),
             "comentario_padre": None,
-        },
-        {
-            "contenido": "Este es otro comentario de prueba2.",
-            "es_respuesta": False,
-            "comentador": Persona.objects.get(id=3),
-            "comentador_org": None,
-            "comentario_padre": None,
-        },
-        {
-            "contenido": "Este es un comentario de respuesta.1",
-            "es_respuesta": True,
-            "comentador": Persona.objects.get(id=4),
-            "comentador_org": None,
-            "comentario_padre": None,
-        },
-        {
-            "contenido": "Este es otro comentario de respuesta.2",
-            "es_respuesta": True,
-            "comentador": Persona.objects.get(id=5),
-            "comentador_org": None,
-            "comentario_padre": None,
-        },
-        {
-            "contenido": "Este es un comentario de una organización1.",
-            "es_respuesta": False,
-            "comentador_org": Organizacion.objects.get(id=24),
-            "comentario_padre": None,
-        },
-        {
-            "contenido": "Este es otro comentario de una organización2.",
-            "es_respuesta": False,
-            "comentador_org": Organizacion.objects.get(id=25),
-            "comentario_padre": None,
-        },
+         },
     ]
 
     for comentario_data in comentarios:
