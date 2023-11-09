@@ -55,40 +55,19 @@ export function Register() {
     const data = new FormData(event.currentTarget);
     const usernameRegex = /^[a-zA-Z0-9_]+$/;
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/;
     console.log('data', data);
-    if (!usernameRegex.test(data.get(username))) {
-      setErrorUsername({message:'El nombre de usuario solo puede contener letras, números y guiones bajos.'});
-    } else {
-      setErrorUsername('');
-    }
 
-    if (!emailRegex.test(data.get('email'))) {
-      setErrorEmail({message:'Ingrese una dirección de correo electrónico válida.'});
-    } else {
-      setErrorEmail('');
-    }
 
-    if (!passwordRegex.test(data.get('password'))) {
-      setErrorPassword({message:'La contraseña debe tener al menos 8 caracteres, una letra mayúscula, una letra minúscula y un número.'});
-    } else {
-      setErrorPassword('');
-    }
-
-  
-      console.log({
-        email: data.get('email'),
-        password: data.get('password'),
-      })
-
+    try {
       const resp = await register(data);
-      //console.log(resp.data, resp);
-      if (resp.status==201) {
-        navigate('/home');
-      } else {
-        
-        console.log('Register failed: ', resp);
-      }
+    //console.log(resp.data, resp);
+    
+      navigate('/home');
+      
+    } catch (error) {
+      setError(true);
+      console.log('Register failed: ', error);
+    }
     
   };
 

@@ -16,15 +16,17 @@ import { FaLock } from 'react-icons/fa';
         userID: data.get('userID'),
         password: data.get('password'),
       });
-
-      const resp = await login(data);
+      try {
+        const resp = await login(data);
       //console.log(resp.data, resp);
-      if (resp.status === 200) {
+      
         navigate('/home');
-      } else {
+        
+      } catch (error) {
         setError(true);
         console.log('Login failed: ', resp);
       }
+    
     };
 
     return (

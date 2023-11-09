@@ -30,20 +30,24 @@ export function RegisterOrg() {
   const [localidad, setLocalidad] = useState('');
   const [errorNit, setErrorNit] = useState('');
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     const nitRegex = /^\d{1,3}\.\d{3}\.\d{3}-\d{1}$/;
 
-    if (!nitRegex.test(data.nit)) {
-      setErrorNit({ message: 'El NIT no cumple con el formato válido.' });
-    } else {
-      setErrorNit('');
+    
+    
+
+    try {
+      const resp = await register(data);
+    //console.log(resp.data, resp);
+    
+      navigate('/home');
+      
+    } catch (error) {
+      setError(true);
+      console.log('Login failed: ', error);
     }
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
 
   };
   return (

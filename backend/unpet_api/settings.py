@@ -30,8 +30,8 @@ SECRET_KEY = os.environ.get(
 
 DEBUG=False
 LOCAL_DB = False # DEBUG = True #para usar sqlite, FALSE para la db con las variables de entorno
-DOCKER_MODE=True
-RENDER_MODE = False
+DOCKER_MODE=False
+RENDER_MODE = True
 if DOCKER_MODE: # Modo: despliegue en algun seguidor docker (plan B por si render falla)
     ALLOWED_HOSTS = ['*']
     CORS_ALLOWED_ORIGINS = ['http://localhost', 'http://127.0.0.1', 'http://0.0.0.0']
@@ -40,8 +40,8 @@ if DOCKER_MODE: # Modo: despliegue en algun seguidor docker (plan B por si rende
 elif RENDER_MODE: # Modo: despliegue en render
     CORS_ALLOW_CREDENTIALS = True
     ALLOWED_HOSTS = ['*']
-    CORS_ALLOWED_ORIGINS = ['https://unpet-web.onrender.com']
-    CSRF_TRUSTED_ORIGINS = ['https://unpet-web.onrender.com']
+    CORS_ALLOWED_ORIGINS = ['https://main--stellar-pudding-90f1cd.netlify.app']
+    CSRF_TRUSTED_ORIGINS = ['https://main--stellar-pudding-90f1cd.netlify.app']
     CORS_ALLOW_CREDENTIALS = True
 
 else: # Modo: desarrollo en localhost
