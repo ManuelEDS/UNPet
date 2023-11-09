@@ -28,7 +28,7 @@ export function Login() {
   };
 
   return (
-    <div className="bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+    <div className="max-h-screen bg-gray-50 flex flex-col justify-center py-36 sm:px-6 lg:px-8 h-full">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <img
           className="mx-auto h-12 w-auto"
