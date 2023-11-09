@@ -34,7 +34,7 @@ function App() {
         <NavBar />
         <Routes>
           <Route path='/pets' element={<FeedPage />} />
-          <Route path='/' element={<Navigate to="/pets" />} />
+          <Route path='/' element={<Navigate to="/home" />} />
           <Route path='/pet-create' element={<PetFormPage />} />
           <Route path='/pets/:id' element={<PetFormPage />} />
           <Route path='/login' element={<Login />} />
