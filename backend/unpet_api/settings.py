@@ -47,10 +47,9 @@ elif RENDER_MODE: # Modo: despliegue en render
 else: # Modo: desarrollo en localhost
     CORS_ALLOW_CREDENTIALS = True
     ALLOWED_HOSTS = ['localhost', 'localhost:5173', '127.0.0.1']
-    CORS_ALLOWED_ORIGINS = ['http://localhost:5173']
+    CORS_ALLOWED_ORIGINS = ['http://localhost:5173', 'http://127.0.0.1:5173']
     CSRF_TRUSTED_ORIGINS = ['http://localhost:5173', 'http://127.0.0.1:5173']
-    
-    
+
 
 # https://docs.djangoproject.com/en/3.0/ref/settings/#allowed-hosts
  # poner el de render react url
@@ -74,7 +73,6 @@ apps = [
 
 if not DOCKER_MODE:
     apps.append('corsheaders')
-
 
 
 INSTALLED_APPS = apps
@@ -130,23 +128,26 @@ if LOCAL_DB:
 else:
     # Modo de producción, utiliza MySQL en Clever Cloud
     DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': os.environ.get('MYSQL_ADDON_DB'),
-        'USER': os.environ.get('MYSQL_ADDON_USER'),
-        'PASSWORD': os.environ.get('MYSQL_ADDON_PASSWORD'),
-        'HOST': os.environ.get('MYSQL_ADDON_HOST'),
-        'PORT': os.environ.get('MYSQL_ADDON_PORT'),
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': 'bmb72wbdmjin8klxpert',
+            'USER': 'uauvrvass9qcwgye',
+            'PASSWORD':'Zx80kAeYM8J6lEiuh64W',
+            'HOST': 'bmb72wbdmjin8klxpert-mysql.services.clever-cloud.com',
+            'PORT': 3306,
+        }
     }
-}
-    
+
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')  # Tu dirección de correo de "no reply"
-EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')  # La contraseña de tu dirección de correo
-DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL')  # Otra vez, tu dirección de correo de "no reply"
+# Tu dirección de correo de "no reply"
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
+# La contraseña de tu dirección de correo
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
+# Otra vez, tu dirección de correo de "no reply"
+DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL')
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -213,12 +214,11 @@ AUTHENTICATION_BACKENDS = [
 ]
 
 REST_FRAMEWORK = {
-     'DEFAULT_RENDERER_CLASSES': [
+    'DEFAULT_RENDERER_CLASSES': [
         'rest_framework.renderers.JSONRenderer',
-],
+    ],
     "DEFAULT_SCHEMA_CLASS": "rest_framework.schemas.coreapi.AutoSchema",
     "DEFAULT_AUTHENTICATION_CLASSES": [
         "rest_framework.authentication.SessionAuthentication"
     ],
 }
-

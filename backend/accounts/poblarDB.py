@@ -582,6 +582,7 @@ def agregar_publicaciones():
   "estado": "Adoptados",
   "titulo": "Mrs",
   "descripcion": "Curabitur at ipsum ac tellus semper interque arcu libero, rutrum ac, lobortis vel, dapibus at, diam.",
+  "descripcion": "Curabitur at ipsum ac tellus semper interdum. Mauris ullamcorper purus sit amet nulla. Quisque arcu libero, rut",
   "n_mascotas": 3,
   "n_mascotas_adoptadas": 0
 }, {
@@ -602,21 +603,21 @@ def agregar_publicaciones():
   "idorganizacion": 27,
   "estado": "Disponibles",
   "titulo": "Honorable",
-  "descripcion": "Duis bibendum, felis sed interdum venenatis, tmassa.t eu est congue elementum.",
+  "descripcion": "Duis bibendum, felis sed interdum venenatis, turpis enim blandit mi, in porttitor pede justo eu massa. Donec dapelementum.",
   "n_mascotas": 1,
   "n_mascotas_adoptadas": 0
 }, {
   "idorganizacion": 26,
   "estado": "Disponibles",
   "titulo": "Rev",
-  "descripcion": "Proin eu mi. Nulla ac enim. In tempor, turpis nec orem, vitae mattis nibh ligula nec sem.",
+  "descripcion": "Proin eu mi. Nulla ac enim. In tempor, turpis nec euismod scelerisque, quam tura nec sem.",
   "n_mascotas": 1,
   "n_mascotas_adoptadas": 0
 }, {
   "idorganizacion": 26,
   "estado": "Adoptados",
   "titulo": "Mr",
-  "descripcion": "Vestibulum ac est lacinia nisi venenatis te. Aliquam erat volutpat.",
+  "descripcion": "Vestibulum ac est lacinia nisi venenatis tristique. Fuscpien urna pretium nisl, ut volutpat sapienaugue. Aliquam erat volutpat.",
   "n_mascotas": 6,
   "n_mascotas_adoptadas": 0
 }, {
@@ -855,8 +856,7 @@ def agregar_publicaciones():
   "n_mascotas_adoptadas": 9
 },
     ]
-    # print('vamos en posts: lista de ids de org:', [
-    #       (org.id, org.username) for org in Organizacion.objects.all()])
+    print('vamos en posts: lista de ids de org:', [ f'({org.id}, {org.username})\n' for org in Organizacion.objects.all()])
     # print('vamos en posts: lista de ids de personas:', [
     #       (org.id, org.username) for org in Persona.objects.all()])
     print('numero de publicaciones', len(publicaciones))
