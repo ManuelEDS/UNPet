@@ -4,9 +4,11 @@ from accounts.models import Organizacion
 # Create your models here.
 from django.utils import timezone
 
+
 class Publicacion(models.Model):
     id = models.IntegerField(primary_key=True, db_column='idpublicacion')
-    idorganizacion = models.ForeignKey('accounts.Organizacion', models.DO_NOTHING, related_name='publicaciones_organizacion', db_column='idorganizacion', blank=True, null=True)
+    idorganizacion = models.ForeignKey('accounts.Organizacion', models.DO_NOTHING,
+                                       related_name='publicaciones_organizacion', db_column='idorganizacion', blank=True, null=True)
     estado = models.CharField(max_length=45)
     titulo = models.CharField(max_length=45)
     descripcion = models.CharField(max_length=45)
@@ -22,14 +24,19 @@ class Publicacion(models.Model):
         db_table = 'publicaciones'
 
 
+# id organizaciones: [24 - 29] | is personas: [1 - 23]
 class Comentario(models.Model):
-    autor_persona = models.ForeignKey('accounts.Persona', on_delete=models.CASCADE, related_name='comentarios', blank=True, null=True)
-    autor_organizacion = models.ForeignKey('accounts.Organizacion', on_delete=models.CASCADE, related_name='comentarios', blank=True, null=True)
+    autor_persona = models.ForeignKey(
+        'accounts.Persona', on_delete=models.CASCADE, related_name='comentarios', blank=True, null=True)
+    autor_organizacion = models.ForeignKey(
+        'accounts.Organizacion', on_delete=models.CASCADE, related_name='comentarios', blank=True, null=True)
     contenido = models.CharField(max_length=300)
-    publicacion = models.ForeignKey(Publicacion, on_delete=models.CASCADE, related_name='comentarios', blank=True, null=True)
-    comentario_padre = models.ForeignKey('self', on_delete=models.CASCADE, related_name='respuestas', blank=True, null=True)
+    publicacion = models.ForeignKey(
+        Publicacion, on_delete=models.CASCADE, related_name='comentarios', blank=True, null=True)
+    comentario_padre = models.ForeignKey(
+        'self', on_delete=models.CASCADE, related_name='respuestas', blank=True, null=True)
     fechapublicacion = models.DateTimeField(auto_now_add=True)
-    
+
     def get_autor(self):
         if self.autor_persona:
             return self.autor_persona
@@ -37,12 +44,12 @@ class Comentario(models.Model):
             return self.autor_organizacion
         else:
             return None
-        
+
     def __str__(self):
         if self.comentario_padre:
             return f'{self.get_autor().username}: @{self.comentario_padre.get_autor().username} "{self.contenido}"'
         else:
             return f'{self.get_autor().username}: "{self.contenido}"'
-            
+
     class Meta:
         db_table = 'comentarios'
