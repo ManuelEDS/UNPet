@@ -12,7 +12,7 @@ export const CREDENTIALS = DOCKER_MODE ? 'same-origin' : 'include';
 let URL = "";
 
 if (DEBUG) {
-    URL = "http://localhost:8000";
+    URL = "http://localhost:8000/api";
 } else if (DOCKER_MODE) {
     URL = "";
 } else if (RENDER_MODE) {
