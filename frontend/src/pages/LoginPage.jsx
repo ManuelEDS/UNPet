@@ -9,23 +9,23 @@ export function Login() {
   const navigate = useNavigate();
   const [error, setError] = useState(false);
 
-    const handleSubmit = async (event) => {
-      event.preventDefault();
-      const data = new FormData(event.currentTarget);
-      console.log({
-        userID: data.get('userID'),
-        password: data.get('password'),
-      });
-      try {
-        const resp = await login(data);
-        console.log('Login successful: ', resp.json());
-        navigate('/home');
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const data = new FormData(event.currentTarget);
+    console.log({
+      userID: data.get('userID'),
+      password: data.get('password'),
+    });
+    try {
+      const resp = await login(data);
+      console.log('Login successful: ', resp.json());
+      navigate('/home');
 
-      } catch (error) {
-        setError(true);
-        console.log('Login failed: ', error);
-      }
-    };
+    } catch (error) {
+      setError(true);
+      console.log('Login failed: ', error);
+    }
+  };
 
   return (
     <div className="max-h-screen bg-gray-50 flex flex-col justify-center py-36 sm:px-6 lg:px-8 h-full">
@@ -123,7 +123,7 @@ export function Login() {
                   to="/password"
                   className="font-medium text-indigo-600 hover:text-indigo-500"
                 >
-                  Olvidaste tu contraseña?
+                  ¿Olvidaste tu contraseña?
                 </Link>
               </div>
             </div>

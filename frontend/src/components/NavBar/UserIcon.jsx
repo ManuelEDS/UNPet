@@ -27,11 +27,7 @@ function UserIcon({ user: userdata }) {
                     </div>
                 </div>
             }
-
-
         </>
-
-
     );
 }
 
