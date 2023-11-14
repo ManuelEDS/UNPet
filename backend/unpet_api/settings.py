@@ -39,12 +39,10 @@ if DOCKER_MODE: # Modo: despliegue en algun seguidor docker (plan B por si rende
     CORS_ALLOW_CREDENTIALS = True
 elif RENDER_MODE: # Modo: despliegue en render
     CORS_ALLOW_CREDENTIALS = True
-    ALLOWED_HOSTS = ['https://unpet-web.onrender.com']
+    ALLOWED_HOSTS = ['*']
     CORS_ALLOWED_ORIGINS = ['https://unpet-web.onrender.com']
     CSRF_TRUSTED_ORIGINS = ['https://unpet-web.onrender.com']
-    ALLOWED_HOSTS = ['https://unpet-web.onrender.com']
-    CORS_ALLOWED_ORIGINS = ['https://unpet-web.onrender.com']
-    CSRF_TRUSTED_ORIGINS = ['https://unpet-web.onrender.com']
+    CORS_ALLOW_ALL_ORIGINS = True
 
 else: # Modo: desarrollo en localhost
     CORS_ALLOW_CREDENTIALS = True
@@ -52,7 +50,7 @@ else: # Modo: desarrollo en localhost
     CORS_ALLOWED_ORIGINS = ['http://localhost:5173', 'http://127.0.0.1:5173']
     CSRF_TRUSTED_ORIGINS = ['http://localhost:5173', 'http://127.0.0.1:5173']
    
-CORS_ALLOW_ALL_ORIGINS = True
+
 
 # https://docs.djangoproject.com/en/3.0/ref/settings/#allowed-hosts
  # poner el de render react url
@@ -77,8 +75,8 @@ apps = [
 if not DOCKER_MODE:
     apps.append('corsheaders')
 
-if not RENDER_MODE:
-    apps.remove( "django.contrib.staticfiles")
+#if not RENDER_MODE:
+#apps.remove( "django.contrib.staticfiles")
 
 INSTALLED_APPS = apps
 middleware = [
@@ -147,12 +145,18 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-# Tu dirección de correo de "no reply"
-EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
-# La contraseña de tu dirección de correo
-EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
-# Otra vez, tu dirección de correo de "no reply"
-DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL')
+if DEBUG:
+    EMAIL_HOST_USER = 'unpet2023.robot@gmail.com'
+    EMAIL_HOST_PASSWORD='porlosanimales2023'
+    DEFAULT_FROM_EMAIL ='unpet2023.robot@gmail.com'
+else:
+        # Tu dirección de correo de "no reply"
+    EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
+    # La contraseña de tu dirección de correo
+    EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
+    # Otra vez, tu dirección de correo de "no reply"
+    DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL')
+
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators

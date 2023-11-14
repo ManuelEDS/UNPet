@@ -1,4 +1,3 @@
-
 import { FaPaw } from 'react-icons/fa';
 
 function CreatePostButton() {
@@ -20,6 +19,3 @@ function CreatePostButton() {
 }
 
 export default CreatePostButton;
-
-
-

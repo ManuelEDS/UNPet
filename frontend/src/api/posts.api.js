@@ -5,7 +5,7 @@ import { BASE_URL, DEBUG, DOCKER_MODE, RENDER_MODE, UNPetAxios } from './config'
  * API para manejar las publicaciones y comentarios de la aplicación UNPet.
  * @module postsAPI
  */
-BASE_RUTA='/posts/api/posts';
+const BASE_RUTA='/posts/api/posts';
 
 const POSTS = new UNPetAxios(BASE_RUTA)
 POSTS.init()
@@ -69,8 +69,8 @@ export async function getPost(id) {
 
 export async function createPost(data) {
     if(data && data.post && data.pets){
-    const response = await POSTS.post(`/create/`, data);
-    return response.data;
+    const response = await POSTS.post(`/trend/`, data);
+    return response.data.json();
     }else{
         console.log("Error al crear la publicacion")
     }

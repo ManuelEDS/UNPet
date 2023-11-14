@@ -39,7 +39,7 @@ function LeftBar() {
                     </a>
                 </li>
                 <li className="text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-md py-2 px-5 flex items-center justify-start">
-                    <a href="#" className='py-2 px-3 flex items-center'>
+                    <a href="/profile" className='py-2 px-3 flex items-center'>
                         <IconContext.Provider value={{ className: 'h-5 w-5 inline-block mr-2' }}>
                             <FaCog />
                         </IconContext.Provider>

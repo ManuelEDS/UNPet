@@ -12,6 +12,65 @@ import os
 from django.http import JsonResponse
 
 debug=True
+
+from django.contrib.auth.tokens import default_token_generator
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.utils.encoding import force_bytes
+from django.core.mail import send_mail
+from django.conf import settings
+
+User = get_user_model()
+
+
+class PasswordResetRequestView(APIView):
+
+    def post(self, request):
+        try:
+            email = request.data.get('email')
+            user = User.objects.get(email=email)
+            token = default_token_generator.make_token(user)
+            uid = urlsafe_base64_encode(force_bytes(user.pk))
+            # send email with uid and token
+            mail_subject = 'Restablecer su contraseña'
+            domain = 'unpet-web.onrender.com'  # replace with your domain
+            reset_link = f'http://{domain}/password-reset-confirm/{uid}/{token}/'
+            message = f'Hola {user.username},\n\nHas solicitado restablecer tu contraseña. Por favor, ve a la siguiente página y elige una nueva contraseña:\n\n{reset_link}\n\nSi no has solicitado esto, por favor, ignora este correo electrónico.\n\n¡Gracias!'
+
+            send_mail(mail_subject, message, settings.DEFAULT_FROM_EMAIL, [email])
+            return Response(status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response(status=status.HTTP_400_BAD_REQUEST) # email does not exist
+        
+class PasswordResetConfirmView(APIView):
+    def post(self, request, uidb64, token):
+        try:
+            uid = force_bytes(urlsafe_base64_decode(uidb64))
+            user = User.objects.get(pk=uid)
+            if default_token_generator.check_token(user, token):
+                # reset password
+                new_password = request.data.get('new_password')
+                user.set_password(new_password)
+                user.save()
+                return Response(status=status.HTTP_200_OK)
+            else:
+                return Response(status=status.HTTP_400_BAD_REQUEST)
+        except Exception as e:
+            return Response(status=status.HTTP_400_BAD_REQUEST) # invalid link
+
+class ChangePasswordView(APIView):
+    def post(self, request):
+        try:
+            new_password = request.data.get('new_password')
+            confirm_password = request.data.get('confirm_password')
+            if new_password != confirm_password:
+                return Response({"error": "Las contraseñas no coinciden"}, status=status.HTTP_400_BAD_REQUEST)
+            user = request.user
+            user.set_password(new_password)
+            user.save()
+            return Response(status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+
 class get_csrf(APIView):
 
     def get(self, request):
@@ -23,13 +82,13 @@ class get_csrf(APIView):
 class SessionView(APIView):
     authentication_classes = [SessionAuthentication]
     permission_classes = [permissions.AllowAny]
-    @staticmethod
-    def get(request, format=None):
-        if request.user.isAuthenticated:
+
+    def get(self, request):
+        if request.user.is_authenticated:
             U= UNPetUserManager(id=request.user.id)
-            return Response({"data": { 'isAuthenticated': request.user.is_authenticated,'username': request.user.username, 'urlfoto':U.get_role_instance.urlfoto}})
+            return Response(data={ 'isAuthenticated': request.user.is_authenticated,'username': request.user.username, 'urlfoto':U.get_role_instance.urlfoto})
         
-        return Response({"data": { 'isAuthenticated': request.user.is_authenticated, }})
+        return Response( data={ 'isAuthenticated': False, 'username': None, 'urlfoto':None})
 
 
 class AdminRegister(APIView):
