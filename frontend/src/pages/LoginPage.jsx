@@ -18,7 +18,7 @@ export function Login() {
     });
     try {
       const resp = await login(data);
-      console.log('Login successful: ', resp.json());
+      console.log('Login successful: ', resp);
       navigate('/home');
 
     } catch (error) {

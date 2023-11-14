@@ -3,24 +3,35 @@ import { Link } from 'react-router-dom'
 import Footer from '../components/Footer';
 import { useState } from 'react';
 import { FaLock, FaEnvelope } from 'react-icons/fa';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
-export function Password() {
+
+export function PasswordReset() {
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-
+  const navigate = useNavigate();
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log({
-      email,
-      password,
-    });
+
+    axios.post('https://unpet-api-rest.onrender.com/api/password-reset/', {
+      email: email  // reemplaza esto con el correo electrónico del usuario
+    })
+      .then(response => {
+        console.log(response.data);
+        navigate('/home');
+
+      })
+      .catch(error => {
+        console.error(error);
+      });
+
   };
 
   return (
     <div className="max-h-screen flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-          Recuperar contraseña
+          Recuperar contraseña (Se enviará un correo electrónico)
         </h2>
       </div>
 
@@ -45,28 +56,6 @@ export function Password() {
                   onChange={(e) => setEmail(e.target.value)}
                   className="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-10 sm:text-sm border-gray-300 rounded-md"
                   placeholder="Correo Electrónico"
-                />
-              </div>
-            </div>
-
-            <div>
-              <label htmlFor="password" className="sr-only">
-                Contraseña
-              </label>
-              <div className="relative rounded-md shadow-sm">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <FaLock className="h-5 w-5 text-gray-400" aria-hidden="true" />
-                </div>
-                <input
-                  id="password"
-                  name="password"
-                  type="password"
-                  autoComplete="current-password"
-                  required
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  className="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-10 sm:text-sm border-gray-300 rounded-md"
-                  placeholder="Contraseña"
                 />
               </div>
             </div>

@@ -17,13 +17,13 @@ if (DEBUG) {
 } else if (DOCKER_MODE) {
     URL = "";
 } else if (RENDER_MODE) {
-    URL = "https://unpet-api-rest.onrender.com";
+    URL = "https://unpet-api-rest.onrender.com/api";
 } else {
     // Test each URL with a simple GET request to "accounts/api/test/"
     const urls = [
         "http://127.0.0.1:8000/api",
         "",
-        "https://unpet-api-rest.onrender.com"
+        "https://unpet-api-rest.onrender.com/api"
     ];
 
     for (let testURL of urls) {

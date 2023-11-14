@@ -18,12 +18,12 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework.documentation import include_docs_urls
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('auth/', include('rest_framework.urls')),
-    path('accounts/', include('accounts.urls')),
-    path('pets/', include('pets.urls')),
-    path('posts/', include('posts.urls')),
-    path('search/', include('search.urls')),
+    path('api/admin/', admin.site.urls),
+    path('api/auth/', include('rest_framework.urls')),
+    path('api/accounts/', include('accounts.urls')),
+    path('api/pets/', include('pets.urls')),
+    path('api/posts/', include('posts.urls')),
+    path('api/search/', include('search.urls')),
 
     path("docs/", include_docs_urls(title="UNPet API Docs"))
 ]

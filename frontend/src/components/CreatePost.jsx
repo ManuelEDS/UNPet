@@ -2,7 +2,7 @@
 import { Link } from 'react-router-dom'
 import { useNavigate } from "react-router-dom";
 import { useState } from 'react';
-import { login } from '../api/accounts.api';
+import { createPost } from '../api/posts.api';
 import { FaPaw } from 'react-icons/fa';
 
 export function CreatePost() {
@@ -12,12 +12,9 @@ export function CreatePost() {
     const handleSubmit = async (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
-        console.log({
-            userID: data.get('userID'),
-            password: data.get('password'),
-        });
+        
         try {
-            const resp = await login(data);
+            const resp = await createPost(data);
             console.log('Login successful: ', resp.json());
             navigate('/home');
 
