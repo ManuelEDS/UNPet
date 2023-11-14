@@ -14,9 +14,11 @@ import { UserContextProvider } from './context/UserContext'
 import NavBar from './components/NavBar/NavBar'
 import Footer from './components/Footer'
 import { CreatePost } from './components/CreatePost'
-import  PasswordChange  from './pages/PasswordChange'
+import { Profile } from './components/Profile'
+import PasswordChange from './pages/PasswordChange'
 import { PasswordReset } from './pages/PasswordReset'
 import PasswordResetConfirm from './pages/PasswordResetConfirm'
+
 function NotFoundPage() {
   return (
     <div>
@@ -45,7 +47,7 @@ function App() {
           <Route path='/password-reset' element={<PasswordReset />} />
           <Route path='/password-reset-confirm' element={<PasswordResetConfirm />} />
           <Route path='/password-change' element={<PasswordChange />} />
-          
+
           <Route path='/home' element={<HomePage />} />
           <Route path='/legal/terms-and-conditions' element={<TermsCond />} />
           <Route path='/legal/privacy-policies' element={<PoliticsPriv />} />
@@ -53,6 +55,7 @@ function App() {
           <Route path='/quienes-somos' element={<WhoAreWePage />} />
           <Route path='/posttest' element={<TestPosts />} />
           <Route path='/create-post' element={<CreatePost />} />
+          <Route path='/profile' element={<Profile />} />
 
         </Routes>
         <Footer />
