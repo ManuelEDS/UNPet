@@ -70,7 +70,7 @@ def agregar_organizaciones():
             "nit": "123456785-15",
             "descripcion": "Organización 1",
             "telefono": "1234567890",
-            "urlfoto": "https://example.com/org1.jpg",
+            "urlfoto": "https://static.vecteezy.com/system/resources/thumbnails/020/565/987/small/team-of-businesspeople-build-a-new-company-photo.jpg",
             "idlocalidad": 4,
             "password": "contraseñaorganizacion1",
         },
