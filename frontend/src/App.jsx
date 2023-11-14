@@ -16,6 +16,7 @@ import NavBar from './components/NavBar/NavBar'
 import Footer from './components/Footer'
 import PrivateRoute from './components/accounts/PrivateRoute'
 import { CreatePost } from './components/CreatePost'
+import { Profile } from './components/Profile'
 
 function NotFoundPage() {
   return (
@@ -50,6 +51,7 @@ function App() {
           <Route path='/quienes-somos' element={<WhoAreWePage />} />
           <Route path='/posttest' element={<TestPosts />} />
           <Route path='/create-post' element={<CreatePost />} />
+          <Route path='/profile' element={<Profile />} />
 
         </Routes>
         <Footer />
