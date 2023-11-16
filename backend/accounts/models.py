@@ -181,7 +181,7 @@ class Organizacion(models.Model):
     )  # Field name made lowercase.
     telefono = models.CharField(max_length=20)  # Field name made lowercase.
     urlfoto = models.CharField(
-        max_length=700, blank=True, null=True
+        max_length=900, blank=True, null=True
     )  # Field name made lowercase.
     idlocalidad = models.ForeignKey(
         Localidad, models.DO_NOTHING, db_column="idlocalidad"

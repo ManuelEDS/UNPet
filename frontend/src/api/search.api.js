@@ -5,7 +5,7 @@ import { BASE_URL, DEBUG, DOCKER_MODE, RENDER_MODE, UNPetAxios } from './config'
  * API para manejar las publicaciones y comentarios de la aplicación UNPet.
  * @module postsAPI
  */
-BASE_RUTA='/search/api/'
+const BASE_RUTA='/search/api/'
 
 const SEARCH = new UNPetAxios(BASE_RUTA)
 SEARCH.init()

@@ -33,25 +33,24 @@ LOCAL_DB = False # DEBUG = True #para usar sqlite, FALSE para la db con las vari
 DOCKER_MODE=False
 RENDER_MODE = True
 if DOCKER_MODE: # Modo: despliegue en algun seguidor docker (plan B por si render falla)
-    ALLOWED_HOSTS = ['http://localhost:81']
-    CORS_ALLOWED_ORIGINS = []
+    ALLOWED_HOSTS = ['*']
+    CORS_ALLOWED_ORIGINS = ['http://localhost', 'http://127.0.0.1', 'http://0.0.0.0']
     CSRF_TRUSTED_ORIGINS = ['http://localhost:81']
+    CORS_ALLOW_CREDENTIALS = True
 elif RENDER_MODE: # Modo: despliegue en render
     CORS_ALLOW_CREDENTIALS = True
-    ALLOWED_HOSTS = ['https://unpet-web.onrender.com']
+    ALLOWED_HOSTS = ['*']
     CORS_ALLOWED_ORIGINS = ['https://unpet-web.onrender.com']
     CSRF_TRUSTED_ORIGINS = ['https://unpet-web.onrender.com']
-    ALLOWED_HOSTS = ['https://unpet-web.onrender.com']
-    CORS_ALLOWED_ORIGINS = ['https://unpet-web.onrender.com']
-    CSRF_TRUSTED_ORIGINS = ['https://unpet-web.onrender.com']
+    CORS_ALLOW_ALL_ORIGINS = True
 
 else: # Modo: desarrollo en localhost
     CORS_ALLOW_CREDENTIALS = True
     ALLOWED_HOSTS = ['localhost', 'localhost:5173', '127.0.0.1']
-    CORS_ALLOWED_ORIGINS = ['http://localhost:5173']
+    CORS_ALLOWED_ORIGINS = ['http://localhost:5173', 'http://127.0.0.1:5173']
     CSRF_TRUSTED_ORIGINS = ['http://localhost:5173', 'http://127.0.0.1:5173']
-    
-CORS_ALLOW_ALL_ORIGINS = True
+   
+
 
 # https://docs.djangoproject.com/en/3.0/ref/settings/#allowed-hosts
  # poner el de render react url
@@ -76,8 +75,8 @@ apps = [
 if not DOCKER_MODE:
     apps.append('corsheaders')
 
-if not RENDER_MODE:
-    apps.remove( "django.contrib.staticfiles")
+#if not RENDER_MODE:
+#apps.remove( "django.contrib.staticfiles")
 
 INSTALLED_APPS = apps
 middleware = [
@@ -132,23 +131,32 @@ if LOCAL_DB:
 else:
     # Modo de producción, utiliza MySQL en Clever Cloud
     DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': os.environ.get('MYSQL_ADDON_DB'),
-        'USER': os.environ.get('MYSQL_ADDON_USER'),
-        'PASSWORD': os.environ.get('MYSQL_ADDON_PASSWORD'),
-        'HOST': os.environ.get('MYSQL_ADDON_HOST'),
-        'PORT': os.environ.get('MYSQL_ADDON_PORT'),
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': 'bmb72wbdmjin8klxpert',
+            'USER': 'uauvrvass9qcwgye',
+            'PASSWORD':'Zx80kAeYM8J6lEiuh64W',
+            'HOST': 'bmb72wbdmjin8klxpert-mysql.services.clever-cloud.com',
+            'PORT': 3306,
+        }
     }
-}
-    
+
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')  # Tu dirección de correo de "no reply"
-EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')  # La contraseña de tu dirección de correo
-DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL')  # Otra vez, tu dirección de correo de "no reply"
+if DEBUG:
+    EMAIL_HOST_USER = 'unpet2023.robot@gmail.com'
+    EMAIL_HOST_PASSWORD='porlosanimales2023'
+    DEFAULT_FROM_EMAIL ='unpet2023.robot@gmail.com'
+else:
+        # Tu dirección de correo de "no reply"
+    EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
+    # La contraseña de tu dirección de correo
+    EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
+    # Otra vez, tu dirección de correo de "no reply"
+    DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL')
+
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -184,7 +192,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = "static/"
+#STATIC_URL = "static/"
 
 # DEBUG? ....
 
@@ -215,12 +223,11 @@ AUTHENTICATION_BACKENDS = [
 ]
 
 REST_FRAMEWORK = {
-     'DEFAULT_RENDERER_CLASSES': [
+    'DEFAULT_RENDERER_CLASSES': [
         'rest_framework.renderers.JSONRenderer',
-],
+    ],
     "DEFAULT_SCHEMA_CLASS": "rest_framework.schemas.coreapi.AutoSchema",
     "DEFAULT_AUTHENTICATION_CLASSES": [
         "rest_framework.authentication.SessionAuthentication"
     ],
 }
-

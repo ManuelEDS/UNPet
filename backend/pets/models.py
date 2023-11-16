@@ -4,7 +4,6 @@ from django.db import models
 
 
 class Mascota(models.Model):
-    id = models.IntegerField(primary_key=True)
     nombre = models.CharField(max_length=45)
     especie = models.CharField(max_length=45)
     raza = models.CharField(max_length=45)
