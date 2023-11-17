@@ -4,7 +4,7 @@ import { IconContext } from 'react-icons';
 
 function LeftBar() {
     return (
-        <div className="left-bar" style={{ height: "100%", width: '270px' }}>
+        <div className="left-bar sticky top-0" style={{ height: "100%", width: '270px' }}>
             <ul className="space-y-5 py-5 pt-10" style={{ display: 'flex', flexDirection: 'column' }}>
                 <li className="text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-md py-2 px-5 flex items-center justify-start">
                     <a href="#" className='py-2 px-3 flex items-center'>

@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { FaHeart, FaComment, FaPaw, FaShareAlt } from 'react-icons/fa';
-import { UNPetAxios } from '../api/config';
+import { UNPetAxios } from '../../api/config';
 
-const ScrollList = ({urlBase }) => {
+const ScrollList = ({urlBase, onItemSelect = () => {} }) => {
     const unPetAxios = new UNPetAxios();
     const [items, setItems] = useState([]);
     const [hasMore, setHasMore] = useState(true);
@@ -47,10 +47,12 @@ const ScrollList = ({urlBase }) => {
             loader={<h4>😺🐶Encontrando los mejores compañeros... 😺🐶</h4>}
             endMessage={<h4>Todos los elementos han sido cargados</h4>}
         >
-            <div className="grid grid-cols-1 gap-4">
+            <div className="">
                 {items.map((item, index) => (
+                    
                     <div key={index}>
-                        <div key={item.id} className="bg-white rounded-lg shadow-lg mb-8">
+                        {item.userType?<div>es un usuario</div>:<div>es un post</div>}
+                        <div key={item.id} className="bg-white rounded-lg shadow-lg mb-8" onClick={onItemSelect}>
                             <div className="p-4">
                                 <div className="flex items-center mb-4">
                                     <a href="#">

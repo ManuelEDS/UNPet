@@ -27,12 +27,17 @@ export const UserContextProvider = ({ children }) => {
         const checkAuth = async () => {
             try {
                 const response = await UserAxios.get("/api/session/");
-                console.log('tengo session?:-->',response, response.data);
-                let data = response.data.json();
-                setIsAuthenticated(data.is_authenticated);
-
-                setUsername(data.username ? data.username : "Anonymous");
-                setUrlfoto(data.urlfoto || "/user-img-default.png");
+                const data = await response.json();
+                console.log('tengo session?:-->',response, data);
+                if (data) {
+                    
+                    setIsAuthenticated(data.isAuthenticated);
+    
+                    setUsername(data.username ? data.username : "Anonymous");
+                    setUrlfoto(data.urlfoto || "/user-img-default.png");
+                } else {
+                    console.log('La respuesta no tiene datos');
+                }
             } catch (error) {
                 console.log(error);
             }

@@ -573,17 +573,17 @@ def agregar_publicaciones():
     publicaciones = [{
   "idorganizacion": 24,
   "estado": "Disponibles",
-  "titulo": "Honorable",
-  "descripcion": "Suspendisse potenti. In eleifend quam a odio. In hac habitasse platea dictumst.",
-  "n_mascotas": 3,
+  "titulo": "Se da en adopción este hermoso gato de dos meses de edad",
+  "descripcion": "Su nombre es Tom y es un gato muy juguetón y cariñoso.",
+  "n_mascotas": 1,
   "n_mascotas_adoptadas": 0
 }, {
   "idorganizacion": 27,
   "estado": "Adoptados",
-  "titulo": "Mrs",
-  "descripcion": "Curabitur at ipsum ac tellus semper interdum. Mauris ullamcorper purus sit amet nulla. Quisque arcu libero, rut",
-  "n_mascotas": 3,
-  "n_mascotas_adoptadas": 0
+  "titulo": "Perro en adopción raza Golden Retriever",
+  "descripcion": "Este perrito golden retriever está esperando que lo adoptes para que sea parte de tu familia.",
+  "n_mascotas": 1,
+  "n_mascotas_adoptadas": 1
 }, {
   "idorganizacion": 25,
   "estado": "Disponibles",

@@ -16,7 +16,7 @@ export function PetList() {
       
     return (
       <div>
-        {pets.map(pet => (
+        {pets?.map(pet => (
             <PetCard key={pet.id} pet={pet} />
         ))}
       </div>

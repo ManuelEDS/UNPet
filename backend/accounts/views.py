@@ -71,6 +71,8 @@ class ChangePasswordView(APIView):
         except Exception as e:
             return Response(status=status.HTTP_400_BAD_REQUEST)
 
+from django.http import JsonResponse
+
 class get_csrf(APIView):
 
     def get(self, request):
@@ -84,12 +86,16 @@ class SessionView(APIView):
     permission_classes = [permissions.AllowAny]
 
     def get(self, request):
-        if request.user.is_authenticated:
-            U= UNPetUserManager(id=request.user.id)
-            return Response(data={ 'isAuthenticated': request.user.is_authenticated,'username': request.user.username, 'urlfoto':U.get_role_instance.urlfoto})
-        
-        return Response( data={ 'isAuthenticated': False, 'username': None, 'urlfoto':None})
+        isAuthenticated = request.user.is_authenticated
+        username = None
+        urlfoto = None
 
+        if isAuthenticated:
+            U = UNPetUserManager(id=request.user.id)
+            username = request.user.username
+            urlfoto = U.get_role_instance.urlfoto
+
+        return JsonResponse(data={'isAuthenticated': isAuthenticated, 'username': username, 'urlfoto': urlfoto})
 
 class AdminRegister(APIView):
     permission_classes = (permissions.IsAuthenticated,)

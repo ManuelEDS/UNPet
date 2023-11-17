@@ -4,9 +4,9 @@ import axios from "axios";
 
 //===============================================//
 // --> SOLO UNA PUEDE SER TRUE <-- //
-export const DEBUG = false;
+export const DEBUG = true;
 export const DOCKER_MODE = false;
-export const RENDER_MODE = true;
+export const RENDER_MODE = false;
 //===============================================//
 
 export const CREDENTIALS =   'same-origin'
@@ -48,7 +48,7 @@ export const BASE_URL = URL;
 
 
 export class UNPetAxios {
-  constructor(base_ruta) {
+  constructor(base_ruta='') {
     this.BASE_URL = BASE_URL
     this.BASE_URL_RUTA = BASE_URL + base_ruta
     this.CREDENTIALS = CREDENTIALS

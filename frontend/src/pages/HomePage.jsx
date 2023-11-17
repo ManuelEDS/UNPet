@@ -1,6 +1,6 @@
 import LeftBar from '../components/LeftBar';
 import { useMediaQuery } from 'react-responsive';
-import ScrollList from './testPosts';
+import ScrollList from '../components/Feed/Feed';
 
 
 
@@ -71,13 +71,13 @@ export const HomePage = () => {
 
     return (
         <div className="flex justify-between  w-full overflow-y-auto">
-            <div className='sticky top-0'>
+            <div className=''>
                 {isDesktopOrLaptop && <LeftBar />}
             </div>
             <div className="max-w-2xl mx-auto ">
                 <h2 className="text-3xl font-bold text-center mb-4 py-4">¡Bienvenido a UNPet!</h2>
                 <p className="text-center mb-8">Entregando nuevas oportunidades</p>
-                <ScrollList></ScrollList>
+                <ScrollList urlBase={'/posts/api/posts/recent/'}></ScrollList>
             </div>
         </div>
     );

@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { BASE_URL } from './config'
 const PETS = axios.create({
-    baseURL: BASE_URL + 'pets/api/'
+    baseURL: BASE_URL + '/pets/api/'
 })
 
 /**
