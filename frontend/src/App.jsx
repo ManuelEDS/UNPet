@@ -33,37 +33,37 @@ function App() {
 
   return (
     <div className="bg-gray-100 min-h-screen">
-       <UserContextProvider>
-      <BrowserRouter>
-        <NavBar />
-        <Routes>
-          <Route path='/pets' element={<FeedPage />} />
-          <Route path='/' element={<Navigate to="/home" />} />
-          <Route path='/pet-create' element={<PetFormPage />} />
-          <Route path='/pets/:id' element={<PetFormPage />} />
-          <Route path='/Login' element={<Login />} />
-          <Route path='/login' element={<Navigate to="/Login" />} />
-          <Route path='/register' element={<Register />} />
-          <Route path='/register-org' element={<RegisterOrg />} />
-          <Route path='/password-reset' element={<PasswordReset />} />
-          <Route path='/password-reset-confirm' element={<PasswordResetConfirm />} />
-          <Route path='/password-change' element={<PasswordChange />} />
+      <UserContextProvider>
+        <BrowserRouter>
+          <NavBar />
+          <Routes>
+            <Route path='/pets' element={<FeedPage />} />
+            <Route path='/' element={<Navigate to="/home" />} />
+            <Route path='/pet-create' element={<PetFormPage />} />
+            <Route path='/pets/:id' element={<PetFormPage />} />
+            <Route path='/Login' element={<Login />} />
+            <Route path='/login' element={<Navigate to="/Login" />} />
+            <Route path='/register' element={<Register />} />
+            <Route path='/register-org' element={<RegisterOrg />} />
+            <Route path='/password-reset' element={<PasswordReset />} />
+            <Route path='/password-reset-confirm' element={<PasswordResetConfirm />} />
+            <Route path='/password-change' element={<PasswordChange />} />
 
-          <Route path='/home' element={<HomePage />} />
-          <Route path='/legal/terms-and-conditions' element={<TermsCond />} />
-          <Route path='/legal/privacy-policies' element={<PoliticsPriv />} />
-          <Route path='/donations' element={<Donations />} />
-          <Route path='/quienes-somos' element={<WhoAreWePage />} />
-          <Route path='/posttest' element={<TestPosts />} />
-          <Route path='/create-post' element={<CreatePost />} />
-          <Route path='/profile' element={<Profile />} />
-          <Route path='/imageslider' element={<ImageSlider />} />
-        </Routes>
-        <Footer />
-      </BrowserRouter>
-    </UserContextProvider>
+            <Route path='/home' element={<HomePage searchText={NavBar.searchText} />} />
+            <Route path='/legal/terms-and-conditions' element={<TermsCond />} />
+            <Route path='/legal/privacy-policies' element={<PoliticsPriv />} />
+            <Route path='/donations' element={<Donations />} />
+            <Route path='/quienes-somos' element={<WhoAreWePage />} />
+            <Route path='/posttest' element={<TestPosts />} />
+            <Route path='/create-post' element={<CreatePost />} />
+            <Route path='/profile' element={<Profile />} />
+            <Route path='/imageslider' element={<ImageSlider />} />
+          </Routes>
+          <Footer />
+        </BrowserRouter>
+      </UserContextProvider>
     </div>
-   
+
 
   )
 }

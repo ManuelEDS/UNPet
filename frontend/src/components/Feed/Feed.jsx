@@ -1,24 +1,19 @@
 import { useState, useEffect } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import { FaHeart, FaComment, FaPaw, FaShareAlt } from 'react-icons/fa';
 import { UNPetAxios } from '../../api/config';
-import ImageSlider from '../../components/imageslider';
+import { UserContext } from '../../context/UserContext.jsx';
+import { useContext } from 'react';
 import PostCard from './PostCard';
-const ScrollList = ({urlBase, onItemSelect = () => {} }) => {
+const ScrollList = ({ urlBase, onItemSelect = () => { } }) => {
+    const { search } = useContext(UserContext);
     const unPetAxios = new UNPetAxios();
     const [items, setItems] = useState([]);
     const [hasMore, setHasMore] = useState(true);
     const [nextPageUrl, setNextPageUrl] = useState(removeAPIUrl(urlBase));
 
-    useEffect(() => {
-        fetchItems();
-
-    }, []);
-
-    function getRandomInt(max) {
-        return Math.floor(Math.random() * max);
+    if (search.searchText != "") {
+        setNextPageUrl("/search/api/general/?q=" + search.searchText)
     }
-
 
     const fetchItems = async () => {
         if (nextPageUrl === null) {
@@ -28,7 +23,7 @@ const ScrollList = ({urlBase, onItemSelect = () => {} }) => {
 
         try {
             const response = await unPetAxios.get(nextPageUrl);
-            const { count, next, previous, results } = await response.json();
+            const { next, results } = await response.json();
             setItems(prevItems => [...prevItems, ...results]);
             setHasMore(next !== null);
             setNextPageUrl(removeAPIUrl(next));
@@ -36,6 +31,12 @@ const ScrollList = ({urlBase, onItemSelect = () => {} }) => {
             console.error(error);
         }
     };
+
+    useEffect(() => {
+        fetchItems();
+    }, []);
+
+    console.log(nextPageUrl)
     return (
         <InfiniteScroll
             dataLength={items.length}
@@ -46,10 +47,10 @@ const ScrollList = ({urlBase, onItemSelect = () => {} }) => {
         >
             <div className="">
                 {items.map((item, index) => (
-                    
-                    <div key={index}  onClick={() => onItemSelect(item.id)}>
-                        {item.userType?<div>es un usuario</div>:item.raza?<div>es una mascota</div>:<PostCard post={item} onItemSelect={() => onItemSelect(item.id)} />}
-                       
+
+                    <div key={index} onClick={() => onItemSelect(item.id)}>
+                        {item.userType ? <div>es un usuario</div> : item.raza ? <div>es una mascota</div> : <PostCard post={item} onItemSelect={() => onItemSelect(item.id)} />}
+
                     </div>
                 ))}
             </div>

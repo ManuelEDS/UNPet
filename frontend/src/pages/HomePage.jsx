@@ -68,7 +68,6 @@ console.log(data)
 export const HomePage = () => {
     const isDesktopOrLaptop = useMediaQuery({ minDeviceWidth: 800 });
 
-
     return (
         <div className="flex justify-between  w-full overflow-y-auto">
             <div className=''>

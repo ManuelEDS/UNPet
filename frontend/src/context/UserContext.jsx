@@ -13,8 +13,10 @@ import PropTypes from 'prop-types';
 
 export const UserContextProvider = ({ children }) => {
     const UserAxios = new UNPetAxios('/accounts');
-  
+    const [searchText, setSearchText] = useState("");
+
     const [isAuthenticated, setIsAuthenticated] = useState(false);
+
     const [username, setUsername] = useState("Anonymous");
     const [urlfoto, setUrlfoto] = useState("/user-img-default.png");
     //const isMobileQuery = useMediaQuery({ query: '(max-width: 600px)' });
@@ -28,11 +30,11 @@ export const UserContextProvider = ({ children }) => {
             try {
                 const response = await UserAxios.get("/api/session/");
                 const data = await response.json();
-                console.log('tengo session?:-->',response, data);
+                console.log('tengo session?:-->', response, data);
                 if (data) {
-                    
+
                     setIsAuthenticated(data.isAuthenticated);
-    
+
                     setUsername(data.username ? data.username : "Anonymous");
                     setUrlfoto(data.urlfoto || "/user-img-default.png");
                 } else {
@@ -46,13 +48,13 @@ export const UserContextProvider = ({ children }) => {
     }, []);
 
     return (
-        <UserContext.Provider value={{ user: { isAuthenticated, username, urlfoto } }}>
+        <UserContext.Provider value={{ user: { isAuthenticated, username, urlfoto }, search: { searchText, setSearchText } }}>
             {children}
         </UserContext.Provider>
     );
 };
 
 UserContextProvider.propTypes = {
-  children: PropTypes.node.isRequired,
+    children: PropTypes.node.isRequired,
 };
 
