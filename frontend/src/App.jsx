@@ -18,7 +18,7 @@ import { Profile } from './components/Profile'
 import PasswordChange from './pages/PasswordChange'
 import { PasswordReset } from './pages/PasswordReset'
 import PasswordResetConfirm from './pages/PasswordResetConfirm'
-
+import ImageSlider from './components/imageslider'
 function NotFoundPage() {
   return (
     <div>
@@ -32,7 +32,8 @@ function App() {
 
 
   return (
-    <UserContextProvider>
+    <div className="bg-gray-100 min-h-screen">
+       <UserContextProvider>
       <BrowserRouter>
         <NavBar />
         <Routes>
@@ -56,11 +57,13 @@ function App() {
           <Route path='/posttest' element={<TestPosts />} />
           <Route path='/create-post' element={<CreatePost />} />
           <Route path='/profile' element={<Profile />} />
-
+          <Route path='/imageslider' element={<ImageSlider />} />
         </Routes>
         <Footer />
       </BrowserRouter>
     </UserContextProvider>
+    </div>
+   
 
   )
 }

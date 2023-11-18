@@ -17,11 +17,11 @@ export const UserContextProvider = ({ children }) => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [username, setUsername] = useState("Anonymous");
     const [urlfoto, setUrlfoto] = useState("/user-img-default.png");
-    const isMobileQuery = useMediaQuery({ query: '(max-width: 600px)' });
-    const [isMobile, setIsMobile] = useState(isMobileQuery); // Usar useMediaQuery para el valor inicial
-    useEffect(() => {
-        setIsMobile(isMobileQuery);
-    }, [isMobileQuery]);
+    //const isMobileQuery = useMediaQuery({ query: '(max-width: 600px)' });
+    //const [isMobile, setIsMobile] = useState(isMobileQuery); // Usar useMediaQuery para el valor inicial
+    // useEffect(() => {
+    //     setIsMobile(isMobileQuery);
+    // }, [isMobileQuery]);
 
     useEffect(() => {
         const checkAuth = async () => {
@@ -46,7 +46,7 @@ export const UserContextProvider = ({ children }) => {
     }, []);
 
     return (
-        <UserContext.Provider value={{ user: { isAuthenticated, username, urlfoto }, layout: { isMobile } }}>
+        <UserContext.Provider value={{ user: { isAuthenticated, username, urlfoto } }}>
             {children}
         </UserContext.Provider>
     );

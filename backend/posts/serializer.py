@@ -22,14 +22,22 @@ class ComentarioSerializer(serializers.ModelSerializer):
 
 class PublicacionSerializer(serializers.ModelSerializer):
     mascotas = serializers.SerializerMethodField()
+    nombreorganizacion = serializers.SerializerMethodField()
+    urlfoto_organizacion = serializers.SerializerMethodField()
 
     class Meta:
         model = Publicacion
-        fields = ['id', 'idorganizacion', 'estado','titulo', 'descripcion','fechapublicacion', 'likes','mascotas', 'n_mascotas', 'n_mascotas_adoptadas', ]
-        read_only_fields = ['id','idorganizacion', 'fechapublicacion']
+        fields = ['id', 'idorganizacion', 'estado', 'titulo', 'descripcion', 'fechapublicacion', 'likes', 'mascotas', 'n_mascotas', 'n_mascotas_adoptadas', 'nombreorganizacion', 'urlfoto_organizacion']
+        read_only_fields = ['id', 'idorganizacion', 'fechapublicacion']
 
     def get_mascotas(self, obj):
-        return [mascota.urlfoto for mascota in obj.mascotas.all()]
+        return [{"id": mascota.id, "urlfoto": mascota.urlfoto} for mascota in obj.mascotas.all()]
+
+    def get_nombreorganizacion(self, obj):
+        return str(obj.idorganizacion)
+
+    def get_urlfoto_organizacion(self, obj):
+        return obj.idorganizacion.urlfoto
 
 
 

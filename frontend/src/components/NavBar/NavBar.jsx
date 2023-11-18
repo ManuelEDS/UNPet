@@ -6,15 +6,16 @@ import UNPetMark from './UNPetMark.jsx';
 import UserIcon from './UserIcon.jsx';
 import { BiSearch } from 'react-icons/bi';
 import CreatePostButton from './CreatePostButton.jsx';
-
+import {searchGeneral} from '../../api/search.api';
 function NavBar() {
-  const { user, layout } = useContext(UserContext);
-  const { isMobile } = layout;
+  const { user } = useContext(UserContext);
 
 
   const searchHandler = (searchText) => {
-    console.log('este es el texto a buscar: ', searchText);
-    console.log('es mobil?::--> ', layout.isMobile())
+    const trimmedSearchText = searchText.trim();
+    const formattedSearchText = encodeURIComponent(trimmedSearchText);
+    console.log('este es el texto a buscar: ', formattedSearchText);
+    console.log('resultados: ', searchGeneral(formattedSearchText));
   }
 
   return (
@@ -25,11 +26,7 @@ function NavBar() {
           <SearchBar onSearch={searchHandler} />
           <CreatePostButton />
           <UserIcon user={user}></UserIcon>
-          {isMobile && (
-            <div>
-              <BiSearch />
-            </div>
-          )}
+         
         </div>
       </div>
     </nav>

@@ -28,10 +28,10 @@ SECRET_KEY = os.environ.get(
 
 # SECURITY WARNING: don't run with debug turned on in production!
 
-DEBUG=True
-LOCAL_DB = True # DEBUG = True #para usar sqlite, FALSE para la db con las variables de entorno
+DEBUG=False
+LOCAL_DB = False # DEBUG = True #para usar sqlite, FALSE para la db con las variables de entorno
 DOCKER_MODE=False
-RENDER_MODE = False
+RENDER_MODE = True
 if DOCKER_MODE: # Modo: despliegue en algun seguidor docker (plan B por si render falla)
     ALLOWED_HOSTS = ['*']
     CORS_ALLOWED_ORIGINS = ['http://localhost', 'http://127.0.0.1', 'http://0.0.0.0']
@@ -46,8 +46,8 @@ elif RENDER_MODE: # Modo: despliegue en render
 
 else: # Modo: desarrollo en localhost
     CORS_ALLOW_CREDENTIALS = True
-    ALLOWED_HOSTS = ['localhost', 'localhost:5173', '127.0.0.1']
-    CORS_ALLOWED_ORIGINS = ['http://localhost:5173', 'http://127.0.0.1:5173']
+    ALLOWED_HOSTS = ['*']
+    CORS_ALLOWED_ORIGINS = ['http://localhost', 'http://127.0.0.1', 'http://localhost:5173', 'http://127.0.0.1:5173']
     CSRF_TRUSTED_ORIGINS = ['http://localhost:5173', 'http://127.0.0.1:5173']
    
 

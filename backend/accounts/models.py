@@ -172,7 +172,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 class Organizacion(models.Model):
     username = models.CharField(max_length=50, unique=True)
-    name = models.CharField(max_length=50, default=username)
+    name = models.CharField(max_length=50, blank=True)
     email = models.EmailField(unique=True)
     direccion = models.CharField(max_length=100)  # Field name made lowercase.
     nit = models.CharField(max_length=20, unique=True, db_column="nit")
@@ -192,6 +192,12 @@ class Organizacion(models.Model):
     publicacionesCount = models.IntegerField(default=0, db_column="n_publicaciones")
 
     objects = UserManager()
+
+    def save(self, *args, **kwargs):
+        if not self.name:
+            self.name = self.username
+        super().save(*args, **kwargs)
+
     def toDict(self):
         # print('to dict organizacion:', self.idlocalidad.nombre, type(self.idlocalidad.nombre))
         Loc=''
@@ -230,7 +236,10 @@ class Organizacion(models.Model):
             "date_joined":self.date_joined,
             }
     def __str__(self):
-        return f"{self.name}"
+        name = self.name if self.name else ""
+        if name == self.username:
+            return f"{name}"
+        return f"{name} ({self.username})"
     class Meta:
         db_table = "organizaciones"
 

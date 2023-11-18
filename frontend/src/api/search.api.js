@@ -5,7 +5,7 @@ import { BASE_URL, DEBUG, DOCKER_MODE, RENDER_MODE, UNPetAxios } from './config'
  * API para manejar las publicaciones y comentarios de la aplicación UNPet.
  * @module postsAPI
  */
-const BASE_RUTA='/search/api/'
+const BASE_RUTA='/search/api'
 
 const SEARCH = new UNPetAxios(BASE_RUTA)
 SEARCH.init()
@@ -47,7 +47,7 @@ export async function searchPublicaciones(query) {
  * @param {string} query - La cadena de búsqueda.
  * @returns {Promise<Object>} Objeto con los resultados de la búsqueda y los datos de paginación (results, next, previous).
  */
-export async function searchPublicaciones(query) {
+export async function searchUsers(query) {
     const response = await SEARCH.get(`/users/?q=${query}`);
     return response.data;
 }

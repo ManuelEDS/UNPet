@@ -59,6 +59,7 @@ function SearchBar({ onSearch }) {
     const searchTextFormated = [...atWords, ...otherWords].join(' ');
 
     onSearch(searchTextFormated);
+    
   };
   // const highlightTags = (text) => {
   //   const regex = /@(\w+)(?!\S)/g;

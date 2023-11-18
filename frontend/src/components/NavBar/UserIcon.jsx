@@ -4,7 +4,7 @@ import { useContext } from 'react';
 
 function UserIcon({ user: userdata }) {
     const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
-    const { user, layout } = useContext(UserContext);
+    const { user } = useContext(UserContext);
 
 
     return (

@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { FaHeart, FaComment, FaPaw, FaShareAlt } from 'react-icons/fa';
 import { UNPetAxios } from '../api/config';
-
+import ImageSlider from '../components/imageslider'
 const ScrollList = ({urlBase }) => {
     const unPetAxios = new UNPetAxios();
     const [items, setItems] = useState([]);
@@ -18,8 +18,7 @@ const ScrollList = ({urlBase }) => {
         return Math.floor(Math.random() * max);
     }
 
-    const imagenes = ["https://i.imgur.com/2CoV1nA.jpg", "https://i.imgur.com/8mtgT8C.png", "https://i.imgur.com/6TeLmcc.png"
-    ]
+
 
     const fetchItems = async () => {
         if (nextPageUrl === null) {
@@ -50,11 +49,11 @@ const ScrollList = ({urlBase }) => {
             <div className="grid grid-cols-1 gap-4">
                 {items.map((item, index) => (
                     <div key={index}>
-                        <div key={item.id} className="bg-white rounded-lg shadow-lg mb-8">
+                        <div className="bg-white rounded-lg shadow-lg mb-8">
                             <div className="p-4">
                                 <div className="flex items-center mb-4">
                                     <a href="#">
-                                        <img src={"https://dummyimage.com/600x400/d1d1d1/5b62c7.jpg&text=Juan%20Perez"} alt={item.username} className="w-10 h-10 rounded-full mr-2" />
+                                        <img src={item.urlfoto_organizacion} alt={item.nombreorganizacion} className="w-10 h-10 rounded-full mr-2" />
                                     </a>
                                     <div>
                                         <a href="#">
@@ -65,7 +64,7 @@ const ScrollList = ({urlBase }) => {
                                 </div>
                                 <h3 className="text-lg font-medium mb-2">{item.titulo}</h3>
                                 <p className="text-gray-500 text-sm mb-4">{item.descripcion}</p>
-                                <img className="w-full" src={imagenes[(index % 3)]} alt={item.titulo} />
+                                <ImageSlider className="w-full" images={item.mascotas} />
                                 <div className="flex items-center justify-between m-3">
                                     <div className="flex items-center justify-between w-full mt-3">
                                         <a href="#" className="flex items-center ml-4">
