@@ -3,7 +3,7 @@
 from django.db import migrations, models
 import django.db.models.deletion
 
-
+# clase migration funcinalidad de movimiento de datos a base de datos por defecto 
 class Migration(migrations.Migration):
 
     initial = True
