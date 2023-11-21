@@ -4,9 +4,9 @@ import { RiErrorWarningLine } from 'react-icons/ri';
 import { useState } from 'react';
 import { MdTitle } from 'react-icons/md';
 
-const Modal = ({ type='',title='', onClose = () => {}, onAccept = () => {} , children}) => {
-    const [isOpen, setIsOpen] = useState(true);
-    
+const Modal = ({ type = '', title = '', onClose = () => { }, onAccept = () => { }, children, open }) => {
+    const [isOpen, setIsOpen] = useState(open);
+
     let icon;
     switch (type) {
         case 'error':
@@ -33,7 +33,7 @@ const Modal = ({ type='',title='', onClose = () => {}, onAccept = () => {} , chi
         setIsOpen(false);
         onAccept();
     }
- 
+
 
     return (
         <>
@@ -51,7 +51,7 @@ const Modal = ({ type='',title='', onClose = () => {}, onAccept = () => {} , chi
                                 <div className="sm:flex sm:items-start">
                                     {icon && <div className="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">{icon}</div>}
                                     <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
-                                        {title!='' && <h2 className="text-lg leading-6 font-medium text-gray-900">{title}</h2>}
+                                        {title != '' && <h2 className="text-lg leading-6 font-medium text-gray-900">{title}</h2>}
                                         <h3 className="text-lg leading-6 font-medium text-gray-900">{children}</h3>
                                     </div>
                                 </div>
