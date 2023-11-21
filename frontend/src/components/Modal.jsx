@@ -1,8 +1,7 @@
 
 import { FaExclamationCircle, FaCheckCircle, FaInfoCircle, FaTimes } from 'react-icons/fa';
 import { RiErrorWarningLine } from 'react-icons/ri';
-import { useState } from 'react';
-import { MdTitle } from 'react-icons/md';
+import { useState, useEffect } from 'react';
 
 const Modal = ({ type = '', title = '', onClose = () => { }, onAccept = () => { }, children, open }) => {
     const [isOpen, setIsOpen] = useState(open);
@@ -33,6 +32,9 @@ const Modal = ({ type = '', title = '', onClose = () => { }, onAccept = () => { 
         setIsOpen(false);
         onAccept();
     }
+
+    useEffect(() => {
+    }, [open]);
 
 
     return (

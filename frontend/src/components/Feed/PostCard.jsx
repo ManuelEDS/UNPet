@@ -2,6 +2,7 @@
 import ImageSlider from '../../components/imageslider';
 import { FaHeart, FaComment, FaPaw, FaShareAlt } from 'react-icons/fa';
 import Modal from '../Modal';
+import { useEffect } from 'react';
 
 const PostCard = ({ post, onItemSelect = () => { } }) => {
   // Formatear la fecha
@@ -22,7 +23,7 @@ const PostCard = ({ post, onItemSelect = () => { } }) => {
 
   if (paw != null) {
     paw.addEventListener("click", function () {
-      console.log(paw)
+      console.log(open)
       open = true;
     });
   }
