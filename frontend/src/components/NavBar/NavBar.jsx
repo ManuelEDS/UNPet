@@ -12,11 +12,12 @@ function NavBar() {
 
   const searchHandler = (searchText) => {
     const trimmedSearchText = searchText.trim();
-    const formattedSearchText = encodeURIComponent(trimmedSearchText);
+    const singleSpacedText = trimmedSearchText.replace(/\s+/g, ' ');
+    const formattedSearchText = encodeURIComponent(singleSpacedText);
     search.setSearchText(formattedSearchText);
     console.log('este es el texto a buscar: ', formattedSearchText);
     console.log('resultados: ', searchGeneral(formattedSearchText));
-  }
+}
   return (
     <nav className="bg-gray-800">
       <div className="mx-auto px-8">
