@@ -2,18 +2,12 @@ import { useState, useEffect } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { UNPetAxios } from '../../api/config';
 import { UserContext } from '../../context/UserContext.jsx';
-import { useContext } from 'react';
 import PostCard from './PostCard';
-const ScrollList = ({ urlBase, onItemSelect = () => { } }) => {
-    const { search } = useContext(UserContext);
+const ScrollList = ({urlBase, onItemSelect = () => {} , dataItems}) => {
     const unPetAxios = new UNPetAxios();
     const [items, setItems] = useState([]);
     const [hasMore, setHasMore] = useState(true);
     const [nextPageUrl, setNextPageUrl] = useState(removeAPIUrl(urlBase));
-
-    if (search.searchText != "") {
-        setNextPageUrl("/search/api/general/?q=" + search.searchText)
-    }
 
     const fetchItems = async () => {
         if (nextPageUrl === null) {
@@ -22,8 +16,16 @@ const ScrollList = ({ urlBase, onItemSelect = () => { } }) => {
         }
 
         try {
-            const response = await unPetAxios.get(nextPageUrl);
-            const { next, results } = await response.json();
+            let response;
+            if (dataItems) {
+                setItems([])
+                response = dataItems;
+            } else {
+                const res = await unPetAxios.get(nextPageUrl);
+                response = await res.json();
+            }
+
+            const { count, next, previous, results } = response;
             setItems(prevItems => [...prevItems, ...results]);
             setHasMore(next !== null);
             setNextPageUrl(removeAPIUrl(next));
@@ -33,10 +35,10 @@ const ScrollList = ({ urlBase, onItemSelect = () => { } }) => {
     };
 
     useEffect(() => {
+        setNextPageUrl(removeAPIUrl(urlBase));
         fetchItems();
-    }, []);
+    }, [urlBase, dataItems]);
 
-    console.log(nextPageUrl)
     return (
         <InfiniteScroll
             dataLength={items.length}
@@ -47,10 +49,10 @@ const ScrollList = ({ urlBase, onItemSelect = () => { } }) => {
         >
             <div className="">
                 {items.map((item, index) => (
-
-                    <div key={index} onClick={() => onItemSelect(item.id)}>
-                        {item.userType ? <div>es un usuario</div> : item.raza ? <div>es una mascota</div> : <PostCard post={item} onItemSelect={() => onItemSelect(item.id)} />}
-
+                    
+                    <div key={index}  onClick={() => onItemSelect(item.id)}>
+                        {item.userType?<div>es un usuario</div>:item.raza?<div>es una mascota</div>:<PostCard post={item} onItemSelect={() => onItemSelect(item.id)} />}
+                       
                     </div>
                 ))}
             </div>
@@ -70,3 +72,4 @@ function removeAPIUrl(url) {
     return nuevaUrl;
 }
 export default ScrollList;
+
