@@ -45,7 +45,8 @@ const PostCard = ({ post, onItemSelect = () => { } }) => {
         </div>
         <h3 className="text-lg font-medium mb-2">{post.titulo}</h3>
         <p className="text-gray-500 text-sm mb-4">{post.descripcion}</p>
-        <ImageSlider className="w-full" images={post.mascotas} />
+        <div className="w-full z-0"><ImageSlider className="w-full z-0" images={post.mascotas} /></div>
+
         <div className="flex items-center justify-between m-3">
           <div className="flex items-center justify-between w-full mt-3">
             <a className="flex items-center ml-4">
