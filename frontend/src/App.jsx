@@ -7,6 +7,7 @@ import { RegisterOrg } from './pages/RegisterOrg.jsx'
 import { HomePage } from './pages/HomePage'
 import { TermsCond } from './pages/TermsCond'
 import { PoliticsPriv } from './pages/Politicspriv'
+import {Preguntas} from './pages/Preguntas'
 import { Donations } from './components/Donations'
 import WhoAreWePage from './pages/WhoAreWePage'
 import TestPosts from './pages/testPosts'
@@ -47,7 +48,7 @@ function App() {
           <Route path='/password-reset' element={<PasswordReset />} />
           <Route path='/password-reset-confirm' element={<PasswordResetConfirm />} />
           <Route path='/password-change' element={<PasswordChange />} />
-
+          <Route path='/preguntas-frecuentes' element={<Preguntas />} />
           <Route path='/home' element={<HomePage />} />
           <Route path='/legal/terms-and-conditions' element={<TermsCond />} />
           <Route path='/legal/privacy-policies' element={<PoliticsPriv />} />
