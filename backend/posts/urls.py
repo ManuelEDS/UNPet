@@ -6,6 +6,7 @@ from .views import (
     ComentarioListCreateView,
     ComentarioDetailView,
     ComentarioRespuestasView,
+    PublicacionesOrg
 )
 
 urlpatterns = [
@@ -15,4 +16,6 @@ urlpatterns = [
     path('api/posts/<int:pk>/comments/', ComentarioListCreateView.as_view(), name='comentario-list-create'),
     path('api/posts/<int:pk>/comments/<int:comment_pk>/', ComentarioDetailView.as_view(), name='comentario-detail'),
     path('api/posts/<int:pk>/comments/<int:comment_pk>/answers/', ComentarioRespuestasView.as_view(), name='comentario-respuestas'),
+    path('api/posts/<str:org_username>/posts/', PublicacionesOrg.as_view(), name='publicaciones_org'),
+
 ]

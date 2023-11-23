@@ -4,21 +4,7 @@ import { register } from '../api/accounts.api'
 import { Link } from 'react-router-dom'
 // import { Fragment } from 'react';
 import { FaCheckCircle, FaLock } from 'react-icons/fa';
-
-
-const tiposDocumento = [
-  { value: 'CC', label: 'Cédula de Ciudadanía (CC)' },
-  { value: 'TI', label: 'Tarjeta de Identidad (TI)' },
-  // Agrega más tipos de documento según sea necesario
-];
-const sexoOptions = [
-  { value: 'M', label: 'Masculino' },
-  { value: 'F', label: 'Femenino' },
-];
-export const localidades = [
-  { id: '1', name: 'Usaquén' },
-  { id: '2', name: 'Chapinero' },
-];
+import { localidades } from './RegisterOrg';
 
 export function Register() {
 
@@ -130,9 +116,9 @@ export function Register() {
                     className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                   >
                     <option value="">Sexo</option>
-                    <option value="1">Masculino</option>
-                    <option value="2">Femenino</option>
-                    <option value="3">Binario</option>
+                    <option value="M">Masculino</option>
+                    <option value="F">Femenino</option>
+                    <option value="O">No binario</option>
                   </select>
                 </div>
                 <div>
@@ -150,37 +136,28 @@ export function Register() {
                   />
                 </div>
                 <div>
-                  <label htmlFor="idlocalidad" className="block text-sm font-medium text-gray-700 py-2">
-                    Localidad
-                  </label>
+                <label htmlFor="idlocalidad" className="block text-sm font-medium text-gray-700">
+                  Localidad
+                </label>
+                <div className="mt-1">
                   <select
                     id="idlocalidad"
                     name="idlocalidad"
-                    autoComplete="idlocalidad"
+                    autoComplete="family-name"
                     required
                     className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                    value={localidad}
+                    onChange={(e) => setLocalidad(e.target.value)}
                   >
-                    <option value="">Localidad</option>
-                    <option value="1">Usaquén</option>
-                    <option value="2">Teusaquillo</option>
-                    <option value="2">Barrios Unidos</option>
-                    <option value="2">Kennedy</option>
-                    <option value="2">San Cristóbal</option>
-                    <option value="2">Santa Fé</option>
-                    <option value="2">Bosa</option>
-                    <option value="2">Suba</option>
-                    <option value="2">Fontibón</option>
-                    <option value="2">Engativá</option>
-                    <option value="2">Antonio Nariño</option>
-                    <option value="2">Engativa</option>
-                    <option value="2">Puente Aranda</option>
-                    <option value="2">Los Mártires</option>
-                    <option value="2">La Candelaria</option>
-                    <option value="2">Ciudad Bolivar</option>
-                    <option value="2">Rafael Uribe Uribe</option>
-                    <option value="3">Tunjuelito</option>
+                    <option value="">Seleccione una localidad</option>
+                    {localidades.map((loc) => (
+                      <option key={'k-loc' + loc.id} value={loc.id}>
+                        {loc.name}
+                      </option>
+                    ))}
                   </select>
                 </div>
+              </div>
                 <div>
                   <label htmlFor="photo_file" className="block text-sm font-medium text-gray-700 py-2">
                     Photo file

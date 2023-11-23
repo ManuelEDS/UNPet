@@ -76,11 +76,17 @@ from django.http import JsonResponse
 class get_csrf(APIView):
 
     def get(self, request):
-        response = JsonResponse({'detail': 'CSRF cookie set'})
-        response['X-CSRFToken'] = get_token(request)
-        print('ESTE ES EL csrf: ', response['X-CSRFToken'])
+        csrf_token = get_token(request)
+        return Response({'csrfToken': csrf_token})
         return response
-
+# class CSRFTokenView(APIView):
+#     def get(self, request):
+#         csrf_token = get_token(request)
+#         return Response({'csrfToken': csrf_token})
+# def get_csrf(request):
+#     response = JsonResponse({'detail': 'CSRF cookie set'})
+#     response['X-CSRFToken'] = get_token(request)
+#     return response
 class SessionView(APIView):
     authentication_classes = [SessionAuthentication]
     permission_classes = [permissions.AllowAny]
@@ -89,13 +95,15 @@ class SessionView(APIView):
         isAuthenticated = request.user.is_authenticated
         username = None
         urlfoto = None
+        userType = 'Anonymous'
 
         if isAuthenticated:
-            U = UNPetUserManager(id=request.user.id)
+            U = UNPetUserManager(user_id=request.user.id)
             username = request.user.username
             urlfoto = U.get_role_instance.urlfoto
+            userType= U.get_role_instance.__class__.__name__
 
-        return JsonResponse(data={'isAuthenticated': isAuthenticated, 'username': username, 'urlfoto': urlfoto})
+        return JsonResponse(data={'isAuthenticated': isAuthenticated, 'username': username, 'urlfoto': urlfoto, 'userType': userType})
 
 class AdminRegister(APIView):
     permission_classes = (permissions.IsAuthenticated,)
@@ -317,10 +325,10 @@ class UserLogin(APIView):
 #             return Response(data={"data":"Algo salió mal con el cierre de sesión"},status=status.HTTP_400_BAD_REQUEST)
 
 class UserLogout(APIView):
-    permission_classes = (permissions.AllowAny,)
-    authentication_classes = (SessionAuthentication,)
+   
 
     def post(self, request):
+        print('logout paso 0 ', request)
         if not request.user.is_authenticated:
             return Response(data={'detail': 'No has iniciado sesión.'}, status=400)
         try:

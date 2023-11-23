@@ -8,7 +8,8 @@ import CreatePostButton from './CreatePostButton.jsx';
 import { searchGeneral } from '../../api/search.api';
 function NavBar() {
   const { user, search } = useContext(UserContext);
-
+  console.log('user: ', user
+  );
 
   const searchHandler = (searchText) => {
     const trimmedSearchText = searchText.trim();
@@ -24,7 +25,6 @@ function NavBar() {
         <div className="flex items-center justify-between h-16">
           <UNPetMark logo={logo}></UNPetMark>
           <SearchBar onSearch={searchHandler} />
-          <CreatePostButton />
           <UserIcon user={user}></UserIcon>
         </div>
       </div>

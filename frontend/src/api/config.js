@@ -4,12 +4,11 @@ import axios from "axios";
 
 //===============================================//
 // --> SOLO UNA PUEDE SER TRUE <-- //
-export const DEBUG = false;
+export const DEBUG = true;
 export const DOCKER_MODE = false;
-export const RENDER_MODE = true;
+export const RENDER_MODE = false;
 //===============================================//
 
-export const CREDENTIALS =   'same-origin'
 let URL = "";
 
 if (DEBUG) {
@@ -38,14 +37,26 @@ if (DEBUG) {
     }
 }
 
+
+
 /**
  * La URL base del host.
  * @type {string}
  */
 export const BASE_URL = URL;
+export const CREDENTIALS = 'include';
 
+let csrfToken;
 
-
+fetch(BASE_URL + "/accounts/api/csrf/")
+  .then(response => response.json())
+  .then(data => {
+    csrfToken = data.csrfToken;
+    console.log('CSRF TOKEN real: ', csrfToken);
+  })
+  .catch(error => {
+    console.error('Error al obtener el token CSRF:', error);
+  });
 
 export class UNPetAxios {
   constructor(base_ruta='') {
@@ -56,12 +67,13 @@ export class UNPetAxios {
   }
 
   async init() {
-    this.csrfToken = await this.getCSRFToken();
+    this.csrfToken = csrfToken
   }
 
   async getCSRFToken() {
     const response = await fetch(this.BASE_URL + "/accounts/api/csrf/", { credentials: this.CREDENTIALS });
     const csrfToken = response.headers.get("X-CSRFToken");
+    console.log('CSRF TOKEN: ', csrfToken);
     return csrfToken;
   }
 

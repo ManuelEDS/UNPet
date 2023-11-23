@@ -19,6 +19,8 @@ import PasswordChange from './pages/PasswordChange'
 import { PasswordReset } from './pages/PasswordReset'
 import PasswordResetConfirm from './pages/PasswordResetConfirm'
 import ImageSlider from './components/imageslider'
+import {FAQ} from './pages/FAQPage'
+import { UserPage } from './pages/UserPage'
 function NotFoundPage() {
   return (
     <div>
@@ -58,6 +60,9 @@ function App() {
             <Route path='/create-post' element={<CreatePost />} />
             <Route path='/profile' element={<Profile />} />
             <Route path='/imageslider' element={<ImageSlider />} />
+            <Route path='/faq' element={<FAQ />} />
+            <Route path='/user/:username' element={<UserPage/>} />
+
           </Routes>
           <Footer />
         </BrowserRouter>

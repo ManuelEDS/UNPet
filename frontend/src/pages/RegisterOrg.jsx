@@ -36,7 +36,7 @@ export function RegisterOrg() {
   const handleSubmit = async(event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    //const nitRegex = /^\d{1,3}\.\d{3}\.\d{3}-\d{1}$/;
+    const nitRegex = /^\d{1,3}\.\d{3}\.\d{3}-\d{1}$/;
 
     console.log({
       email: data.get('email'),

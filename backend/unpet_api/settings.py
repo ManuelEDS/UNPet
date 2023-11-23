@@ -28,10 +28,10 @@ SECRET_KEY = os.environ.get(
 
 # SECURITY WARNING: don't run with debug turned on in production!
 
-DEBUG=False
-LOCAL_DB = False # DEBUG = True #para usar sqlite, FALSE para la db con las variables de entorno
+DEBUG=True
+LOCAL_DB = True # DEBUG = True #para usar sqlite, FALSE para la db con las variables de entorno
 DOCKER_MODE=False
-RENDER_MODE = True
+RENDER_MODE = False
 
 if DOCKER_MODE: # Modo: despliegue en algun seguidor docker (plan B por si render falla)
     ALLOWED_HOSTS = ['*']
@@ -51,7 +51,8 @@ else: # Modo: desarrollo en localhost
     CORS_ALLOWED_ORIGINS = ['http://localhost', 'http://127.0.0.1', 'http://localhost:5173', 'http://127.0.0.1:5173']
     CSRF_TRUSTED_ORIGINS = ['http://localhost:5173', 'http://127.0.0.1:5173']
    
-
+CORS_ORIGIN_WHITELIST = [
+    'http://localhost:8000',]
 
 # https://docs.djangoproject.com/en/3.0/ref/settings/#allowed-hosts
  # poner el de render react url
@@ -213,8 +214,8 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 CSRF_COOKIE_SAMESITE = 'Strict'
 SESSION_COOKIE_SAMESITE = 'Strict'
-CSRF_COOKIE_HTTPONLY = True
-SESSION_COOKIE_HTTPONLY = True
+CSRF_COOKIE_HTTPONLY = False
+SESSION_COOKIE_HTTPONLY = False
 
 
 AUTH_USER_MODEL = "accounts.User"

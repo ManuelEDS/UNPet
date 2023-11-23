@@ -1,4 +1,3 @@
-
 def poblar_db(sender, **kwargs):
     agregar_grupos()
     agregar_localidades()
@@ -22,6 +21,7 @@ def agregar_grupos():
 
 def agregar_localidades():
     from .models import Localidad
+
     # Define una lista de localidades de Bogotá
     localidades_bogota = [
         {"idlocalidad": 1, "nombre": "Usaquén"},
@@ -204,10 +204,11 @@ def agregar_personas():
             "idlocalidad": 12,
             "first_name": "Fiann",
             "last_name": "Pattenden",
-            "date_joined": "error: invalid date \"2023-09-29T10:00:00Z\"",
+            "date_joined": 'error: invalid date "2023-09-29T10:00:00Z"',
             "sexo": "F",
-            "password": "google.cn"
-        }, {
+            "password": "google.cn",
+        },
+        {
             "username": "rpatemore22",
             "email": "rpatemore22@time.com",
             "tipo_doc": "TI",
@@ -218,10 +219,11 @@ def agregar_personas():
             "idlocalidad": 19,
             "first_name": "Ronni",
             "last_name": "Patemore",
-            "date_joined": "error: invalid date \"2023-09-29T10:00:00Z\"",
+            "date_joined": 'error: invalid date "2023-09-29T10:00:00Z"',
             "sexo": "F",
-            "password": "illinois.edu"
-        }, {
+            "password": "illinois.edu",
+        },
+        {
             "username": "ecropton23",
             "email": "ecropton23@mysql.com",
             "tipo_doc": "TI",
@@ -232,10 +234,11 @@ def agregar_personas():
             "idlocalidad": 12,
             "first_name": "Erhard",
             "last_name": "Cropton",
-            "date_joined": "error: invalid date \"2023-09-29T10:00:00Z\"",
+            "date_joined": 'error: invalid date "2023-09-29T10:00:00Z"',
             "sexo": "M",
-            "password": "marketwatch.com"
-        }, {
+            "password": "marketwatch.com",
+        },
+        {
             "username": "iwallworth24",
             "email": "iwallworth24@hud.gov",
             "tipo_doc": "CC",
@@ -246,10 +249,11 @@ def agregar_personas():
             "idlocalidad": 10,
             "first_name": "Isaiah",
             "last_name": "Wallworth",
-            "date_joined": "error: invalid date \"2023-09-29T10:00:00Z\"",
+            "date_joined": 'error: invalid date "2023-09-29T10:00:00Z"',
             "sexo": "M",
-            "password": "google.ru"
-        }, {
+            "password": "google.ru",
+        },
+        {
             "username": "hfaulconbridge25",
             "email": "hfaulconbridge25@amazon.com",
             "tipo_doc": "TI",
@@ -260,10 +264,11 @@ def agregar_personas():
             "idlocalidad": 8,
             "first_name": "Harley",
             "last_name": "Faulconbridge",
-            "date_joined": "error: invalid date \"2023-09-29T10:00:00Z\"",
+            "date_joined": 'error: invalid date "2023-09-29T10:00:00Z"',
             "sexo": "M",
-            "password": "shop-pro.jp"
-        }, {
+            "password": "shop-pro.jp",
+        },
+        {
             "username": "fgrestie26",
             "email": "fgrestie26@ning.com",
             "tipo_doc": "CC",
@@ -274,10 +279,11 @@ def agregar_personas():
             "idlocalidad": 8,
             "first_name": "Frants",
             "last_name": "Grestie",
-            "date_joined": "error: invalid date \"2023-09-29T10:00:00Z\"",
+            "date_joined": 'error: invalid date "2023-09-29T10:00:00Z"',
             "sexo": "M",
-            "password": "360.cn"
-        }, {
+            "password": "360.cn",
+        },
+        {
             "username": "ecrowcum27",
             "email": "ecrowcum27@nationalgeographic.com",
             "tipo_doc": "CC",
@@ -288,10 +294,11 @@ def agregar_personas():
             "idlocalidad": 15,
             "first_name": "Edwina",
             "last_name": "Crowcum",
-            "date_joined": "error: invalid date \"2023-09-29T10:00:00Z\"",
+            "date_joined": 'error: invalid date "2023-09-29T10:00:00Z"',
             "sexo": "F",
-            "password": "exblog.jp"
-        }, {
+            "password": "exblog.jp",
+        },
+        {
             "username": "rbutchard28",
             "email": "rbutchard28@lulu.com",
             "tipo_doc": "CC",
@@ -302,10 +309,11 @@ def agregar_personas():
             "idlocalidad": 10,
             "first_name": "Rodolfo",
             "last_name": "Butchard",
-            "date_joined": "error: invalid date \"2023-09-29T10:00:00Z\"",
+            "date_joined": 'error: invalid date "2023-09-29T10:00:00Z"',
             "sexo": "M",
-            "password": "free.fr"
-        }, {
+            "password": "free.fr",
+        },
+        {
             "username": "zreuther29",
             "email": "zreuther29@ovh.net",
             "tipo_doc": "TI",
@@ -316,10 +324,11 @@ def agregar_personas():
             "idlocalidad": 5,
             "first_name": "Zola",
             "last_name": "Reuther",
-            "date_joined": "error: invalid date \"2023-09-29T10:00:00Z\"",
+            "date_joined": 'error: invalid date "2023-09-29T10:00:00Z"',
             "sexo": "F",
-            "password": "epa.gov"
-        }, {
+            "password": "epa.gov",
+        },
+        {
             "username": "svalenta2a",
             "email": "svalenta2a@japanpost.jp",
             "tipo_doc": "TI",
@@ -330,10 +339,11 @@ def agregar_personas():
             "idlocalidad": 13,
             "first_name": "Silva",
             "last_name": "Valenta",
-            "date_joined": "error: invalid date \"2023-09-29T10:00:00Z\"",
+            "date_joined": 'error: invalid date "2023-09-29T10:00:00Z"',
             "sexo": "F",
-            "password": "comcast.net"
-        }, {
+            "password": "comcast.net",
+        },
+        {
             "username": "mfortman2b",
             "email": "mfortman2b@sina.com.cn",
             "tipo_doc": "TI",
@@ -344,10 +354,11 @@ def agregar_personas():
             "idlocalidad": 17,
             "first_name": "Marys",
             "last_name": "Fortman",
-            "date_joined": "error: invalid date \"2023-09-29T10:00:00Z\"",
+            "date_joined": 'error: invalid date "2023-09-29T10:00:00Z"',
             "sexo": "F",
-            "password": "stanford.edu"
-        }, {
+            "password": "stanford.edu",
+        },
+        {
             "username": "bduer2c",
             "email": "bduer2c@people.com.cn",
             "tipo_doc": "TI",
@@ -358,10 +369,11 @@ def agregar_personas():
             "idlocalidad": 11,
             "first_name": "Bobinette",
             "last_name": "Duer",
-            "date_joined": "error: invalid date \"2023-09-29T10:00:00Z\"",
+            "date_joined": 'error: invalid date "2023-09-29T10:00:00Z"',
             "sexo": "F",
-            "password": "mediafire.com"
-        }, {
+            "password": "mediafire.com",
+        },
+        {
             "username": "hpaulino2d",
             "email": "hpaulino2d@t-online.de",
             "tipo_doc": "TI",
@@ -372,10 +384,11 @@ def agregar_personas():
             "idlocalidad": 9,
             "first_name": "Hodge",
             "last_name": "Paulino",
-            "date_joined": "error: invalid date \"2023-09-29T10:00:00Z\"",
+            "date_joined": 'error: invalid date "2023-09-29T10:00:00Z"',
             "sexo": "M",
-            "password": "theatlantic.com"
-        }, {
+            "password": "theatlantic.com",
+        },
+        {
             "username": "rfladgate2e",
             "email": "rfladgate2e@github.io",
             "tipo_doc": "CC",
@@ -386,10 +399,11 @@ def agregar_personas():
             "idlocalidad": 11,
             "first_name": "Raynard",
             "last_name": "Fladgate",
-            "date_joined": "error: invalid date \"2023-09-29T10:00:00Z\"",
+            "date_joined": 'error: invalid date "2023-09-29T10:00:00Z"',
             "sexo": "M",
-            "password": "free.fr"
-        }, {
+            "password": "free.fr",
+        },
+        {
             "username": "fhillatt2f",
             "email": "fhillatt2f@zdnet.com",
             "tipo_doc": "TI",
@@ -400,10 +414,11 @@ def agregar_personas():
             "idlocalidad": 19,
             "first_name": "Fleming",
             "last_name": "Hillatt",
-            "date_joined": "error: invalid date \"2023-09-29T10:00:00Z\"",
+            "date_joined": 'error: invalid date "2023-09-29T10:00:00Z"',
             "sexo": "M",
-            "password": "addthis.com"
-        }, {
+            "password": "addthis.com",
+        },
+        {
             "username": "tsullivan2g",
             "email": "tsullivan2g@fema.gov",
             "tipo_doc": "TI",
@@ -414,10 +429,11 @@ def agregar_personas():
             "idlocalidad": 6,
             "first_name": "Tris",
             "last_name": "Sullivan",
-            "date_joined": "error: invalid date \"2023-09-29T10:00:00Z\"",
+            "date_joined": 'error: invalid date "2023-09-29T10:00:00Z"',
             "sexo": "M",
-            "password": "facebook.com"
-        }, {
+            "password": "facebook.com",
+        },
+        {
             "username": "dpucknell2h",
             "email": "dpucknell2h@cpanel.net",
             "tipo_doc": "CC",
@@ -428,10 +444,11 @@ def agregar_personas():
             "idlocalidad": 1,
             "first_name": "Dorie",
             "last_name": "Pucknell",
-            "date_joined": "error: invalid date \"2023-09-29T10:00:00Z\"",
+            "date_joined": 'error: invalid date "2023-09-29T10:00:00Z"',
             "sexo": "F",
-            "password": "deviantart.com"
-        }, {
+            "password": "deviantart.com",
+        },
+        {
             "username": "lduffin2i",
             "email": "lduffin2i@upenn.edu",
             "tipo_doc": "TI",
@@ -442,10 +459,11 @@ def agregar_personas():
             "idlocalidad": 19,
             "first_name": "Leonora",
             "last_name": "Duffin",
-            "date_joined": "error: invalid date \"2023-09-29T10:00:00Z\"",
+            "date_joined": 'error: invalid date "2023-09-29T10:00:00Z"',
             "sexo": "F",
-            "password": "jigsy.com"
-        }, {
+            "password": "jigsy.com",
+        },
+        {
             "username": "wkelsow2j",
             "email": "wkelsow2j@istockphoto.com",
             "tipo_doc": "TI",
@@ -456,10 +474,11 @@ def agregar_personas():
             "idlocalidad": 7,
             "first_name": "Westbrooke",
             "last_name": "Kelsow",
-            "date_joined": "error: invalid date \"2023-09-29T10:00:00Z\"",
+            "date_joined": 'error: invalid date "2023-09-29T10:00:00Z"',
             "sexo": "M",
-            "password": "ask.com"
-        }, {
+            "password": "ask.com",
+        },
+        {
             "username": "imart2k",
             "email": "imart2k@nifty.com",
             "tipo_doc": "CC",
@@ -470,10 +489,11 @@ def agregar_personas():
             "idlocalidad": 15,
             "first_name": "Isaak",
             "last_name": "Mart",
-            "date_joined": "error: invalid date \"2023-09-29T10:00:00Z\"",
+            "date_joined": 'error: invalid date "2023-09-29T10:00:00Z"',
             "sexo": "M",
-            "password": "kickstarter.com"
-        }, {
+            "password": "kickstarter.com",
+        },
+        {
             "username": "amcrill2l",
             "email": "amcrill2l@engadget.com",
             "tipo_doc": "CC",
@@ -484,10 +504,11 @@ def agregar_personas():
             "idlocalidad": 11,
             "first_name": "Ashli",
             "last_name": "McRill",
-            "date_joined": "error: invalid date \"2023-09-29T10:00:00Z\"",
+            "date_joined": 'error: invalid date "2023-09-29T10:00:00Z"',
             "sexo": "F",
-            "password": "merriam-webster.com"
-        }, ]
+            "password": "merriam-webster.com",
+        },
+    ]
 
     # Para crear usuarios a partir de la lista
     for data in personas_data:
@@ -505,115 +526,151 @@ def agregar_personas():
     print("\nPersonas ficticias agregadas correctamente.")
 
 
-def agregar_pulicaciones():
-    from posts.models import Publicacion
-    from .models import Persona, Organizacion
-    # localidad_bogota = Localidad.objects.get(idlocalidad=2)
-    # from random import Random as r
-
-    publicaciones = [
-        {
-            "id": 1,
-            "estado": "disponible",
-            "titulo": "Se dan en adopción estos hermosos gatitos",
-            "descripcion": "Cinco gatitos adorables en busca de un nuevo hogar.",
-            "fechapublicacion": "2023-09-30T14:30:00Z",
-            "idorganizacion": 24,  # ID de la organización que publica
-            "idpersona": 2,  # No asociado a un usuario individual
-        },
-        {
-            "id": 2,
-            "estado": "vendido",
-            "titulo": "Cachorros de Golden Retriever en adopción",
-            "descripcion": "Tres cachorros de Golden Retriever ya encontraron un hogar.",
-            "fechapublicacion": "2023-09-28T10:15:00Z",
-            "idorganizacion": 25,  # ID de otra organización que publica
-            "idpersona": 2,  # No asociado a un usuario individual
-        },
-        {
-            "id": 3,
-            "estado": "disponible",
-            "titulo": "Buscando un hogar para este perrito",
-            "descripcion": "Perrito de raza mixta en busca de una familia cariñosa.",
-            "fechapublicacion": "2023-09-25T16:45:00Z",
-            "idorganizacion": 25,  # No asociado a una organización
-            "idpersona": 1,  # ID de un usuario individual que publica
-        },
-        {
-            "id": 4,
-            "estado": "disponible",
-            "titulo": "Dos gatos juguetones necesitan un nuevo hogar",
-            "descripcion": "Gatos hermanos que desean encontrar un hogar juntos.",
-            "fechapublicacion": "2023-09-22T09:00:00Z",
-            "idorganizacion": 28,  # No asociado a una organización
-            "idpersona": 2,  # ID de otro usuario individual que publica
-        },
-    ]
-    # Agrega más diccionarios según sea necesario
-
-    # Para crear usuarios a partir de la lista
-    for data in publicaciones:
-        extra_fields = {
-            key: value
-            for key, value in data.items()
-            if key not in ["id", "estado", "descripcion", "titulo", 'idorganizacion', 'idpersona']
-        }
-        pers = Persona.objects.get(id=data['idpersona'])
-        org = Organizacion.objects.get(id=data['idorganizacion'])
-        Publicacion(
-            id=data["id"],
-            estado=data["estado"],
-            descripcion=data["descripcion"],
-            titulo=data["titulo"],
-            idorganizacion=org,
-            idpersona=pers,
-            **extra_fields
-        )
-
-    print("\nPublicaciones ficticias agregadas correctamente.")
-
-
 def agregar_publicaciones():
     from posts.models import Publicacion
     from .models import Persona, Organizacion
 
-    publicaciones = [{
-        "idorganizacion": 24,
-        "estado": "Disponibles",
-        "titulo": "Se da en adopción este hermoso gato de dos meses de edad",
-        "descripcion": "Su nombre es Tom y es un gato muy juguetón y cariñoso.",
-        "n_mascotas": 1,
-        "n_mascotas_adoptadas": 0
-    }, {
-        "idorganizacion": 27,
-        "estado": "Adoptados",
-        "titulo": "Gatos en adopción esperando que los adoptes",
-        "descripcion": "Estos gatos esperan a su nuevo dueño el cual puede ser tú.",
-        "n_mascotas": 2,
-        "n_mascotas_adoptadas": 1
-    },]
+    publicaciones = [
+        {
+            "idorganizacion": 24,
+            "estado": "Disponibles",
+            "titulo": "Se da en adopción este hermoso gato de dos meses de edad",
+            "descripcion": "Su nombre es Tom y es un gato muy juguetón y cariñoso.",
+            "n_mascotas": 1,
+            "n_mascotas_adoptadas": 0,
+        },
+        {
+            "idorganizacion": 27,
+            "estado": "Adoptados",
+            "titulo": "Gatos en adopción esperando que los adoptes",
+            "descripcion": "Estos gatos esperan a su nuevo dueño el cual puede ser tú.",
+            "n_mascotas": 2,
+            "n_mascotas_adoptadas": 1,
+        },
+        
+        {
+            "idorganizacion": 26,
+            "estado": "Disponibles",
+            "titulo": "Mr",
+            "descripcion": "Integer ac leo. Pellentesque ultrices mattis odio. Donec vitae nisi.",
+            "n_mascotas": 8,
+            "n_mascotas_adoptadas": 0,
+        },
+        {
+            "idorganizacion": 25,
+            "estado": "Adoptados",
+            "titulo": "Ms",
+            "descripcion": "Quisque id justo sit amet sapien dignissim vestibulum sollicitudin ut, suscipit a, feugiat et, eros.",
+            "n_mascotas": 2,
+            "n_mascotas_adoptadas": 0,
+        },
+        {
+            "idorganizacion": 27,
+            "estado": "Disponibles",
+            "titulo": "Dr",
+            "descripcion": "Morbi porttitor lorem id ligula. Suspendisse ornare consequat lectus. In est risus, auctor sed, tristique in, tempus sit amet, sem.",
+            "n_mascotas": 7,
+            "n_mascotas_adoptadas": 0,
+        },
+        {
+            "idorganizacion": 28,
+            "estado": "Disponibles",
+            "titulo": "Dr",
+            "descripcion": "Praesent id massa id nisl venenatis lacinia. Aenean sit amet justo. Morbi ut odio.",
+            "n_mascotas": 6,
+            "n_mascotas_adoptadas": 0,
+        },
+        {
+            "idorganizacion": 24,
+            "estado": "Adoptados",
+            "titulo": "Dr",
+            "descripcion": "Nullam porttitor lacus at turpis. Donec posuere metus vitae ipsum. Aliquam non mauris.",
+            "n_mascotas": 9,
+            "n_mascotas_adoptadas": 0,
+        },
+        {
+            "idorganizacion": 28,
+            "estado": "Adoptados",
+            "titulo": "Ms",
+            "descripcion": "Pellentesque at nulla. Suspendisse potenti. Cras in purus eu magna vulputate luctus.",
+            "n_mascotas": 0,
+            "n_mascotas_adoptadas": 0,
+        },
+        {
+            "idorganizacion": 27,
+            "estado": "Disponibles",
+            "titulo": "Honorable",
+            "descripcion": "Phasellus sit amet erat. Nulla tempus. Vivamus in felis eu sapien cursus vestibulum.",
+            "n_mascotas": 2,
+            "n_mascotas_adoptadas": 0,
+        },
+        {
+            "idorganizacion": 26,
+            "estado": "Adoptados",
+            "titulo": "Ms",
+            "descripcion": "Fusce consequat. Nulla nisl. Nunc nisl.",
+            "n_mascotas": 1,
+            "n_mascotas_adoptadas": 0,
+        },
+        {
+            "idorganizacion": 26,
+            "estado": "Disponibles",
+            "titulo": "Dr",
+            "descripcion": "Nullam porttitor lacus at turpis. Donec posuere metus vitae ipsum. Aliquam non mauris.",
+            "n_mascotas": 9,
+            "n_mascotas_adoptadas": 0,
+        },
+        {
+            "idorganizacion": 26,
+            "estado": "Adoptados",
+            "titulo": "Dr",
+            "descripcion": "In hac habitasse platea dictumst. Morbi vestibulum, velit idmentum neque sapien placerat ante. Nulla justo.",
+            "n_mascotas": 7,
+            "n_mascotas_adoptadas": 0,
+        },
+        {
+            "idorganizacion": 24,
+            "estado": "Disponibles",
+            "titulo": "Se dan en adopción estos hermosos gatitos",
+            "descripcion": "In hac habitasse platea dictumst. Morbi vestibulum, ondimentum neque sapien placerat ante. Nulla justo.",
+            "n_mascotas": 7,
+            "n_mascotas_adoptadas": 0,
+        },
+        {
+            "idorganizacion": 24,
+            "estado": "Disponibles",
+            "titulo": "Estamos dando en adopción estos perros callejeros",
+            "descripcion": "Nullam porttitor lacus at turpis. Donec posuere metus vitae ipsum. Aliquam non mauris, felix, perro, labrador.",
+            "n_mascotas": 9,
+            "n_mascotas_adoptadas": 0,
+        },
+        {
+            "idorganizacion": 24,
+            "estado": "Adoptados",
+            "titulo": "Estamos dando en adopción estos perros raza labrador",
+            "descripcion": "Pellentesque at nulla. Suspendisse potenti. Cras in purus eu magna vulputate luctus.",
+            "n_mascotas": 9,
+            "n_mascotas_adoptadas": 9,
+        }
+    ]
     # print('vamos en posts: lista de ids de org:', [ f'({org.id}, {org.username})\n' for org in Organizacion.objects.all()])
     # print('vamos en posts: lista de ids de personas:', [
     #       (org.id, org.username) for org in Persona.objects.all()])
-    print('numero de publicaciones', len(publicaciones))
+    print("numero de publicaciones", len(publicaciones))
     for data in publicaciones:
         extra_fields = {
-            key: value
-            for key, value in data.items()
-            if key not in ['idorganizacion']
+            key: value for key, value in data.items() if key not in ["idorganizacion"]
         }
         org = None
         try:
-            org = Organizacion.objects.get(id=data['idorganizacion'])
+            org = Organizacion.objects.get(id=data["idorganizacion"])
             # print('org es:', org)
-            data['idorganizacion'] = org
+            data["idorganizacion"] = org
             # print('data es:', data.items(), '\n', type(data["idorganizacion"]))
         except Exception as e:
-            print('error: org es None, se salta este ingreso de post, error--> ', e)
+            print("error: org es None, se salta este ingreso de post, error--> ", e)
             continue
-        Publicacion.objects.create(
-            **data
-        )
+        Publicacion.objects.create(**data)
 
     print("\nPublicaciones ficticias agregadas correctamente.")
 
@@ -622,63 +679,71 @@ def agregar_mascotas():
     from pets.models import Mascota
     from posts.models import Publicacion
     from accounts.models import Organizacion
-    pets = [{
-        "nombre": "Fido",
-        "especie": "Gato",
-        "raza": "",
-        "sexo": "Macho",
-        "fechanacimiento": "2015-07-01",
-        "urlfoto": "https://images.unsplash.com/photo-1572582683267-2874e6c5678d?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=700&ixid=MnwxfDB8MXxyYW5kb218MHx8Z2F0b3x8fHx8fDE3MDAzNTUwNDA&ixlib=rb-4.0.3&q=80&w=900",
-        "idorganizacion": 24,
-        "adoptada": False,
-        "publicacion": 1
-    },
-    {
-        "nombre": "nikky",
-        "especie": "Hembra",
-        "raza": "",
-        "sexo": "Macho",
-        "fechanacimiento": "2018-07-01",
-        "urlfoto": "https://previews.123rf.com/images/serkucher/serkucher1708/serkucher170800338/84265017-gato-joven-y-gatito-concepto-gatito-peque%C3%B1o-sobre-un-fondo-de-madera.jpg",
-        "idorganizacion": 24,
-        "adoptada": False,
-        "publicacion": 2
-    },
-    {
-        "nombre": "Chita",
-        "especie": "Gato",
-        "raza": "",
-        "sexo": "Hembra",
-        "fechanacimiento": "2015-07-01",
-        "urlfoto": "https://images.unsplash.com/photo-1580784355694-0d5295dcc007?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=700&ixid=MnwxfDB8MXxyYW5kb218MHx8Y2F0fHx8fHx8MTcwMDIzNzk4NA&ixlib=rb-4.0.3&q=80&w=900",
-        "idorganizacion": 24,
-        "adoptada": False,
-        "publicacion": 2
-    },]
 
-    print('vamos en pets: ')
+    pets = [
+        {
+            "nombre": "Fido",
+            "especie": "Gato",
+            "raza": "",
+            "sexo": "Macho",
+            "fechanacimiento": "2015-07-01",
+            "urlfoto": "https://images.unsplash.com/photo-1572582683267-2874e6c5678d?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=700&ixid=MnwxfDB8MXxyYW5kb218MHx8Z2F0b3x8fHx8fDE3MDAzNTUwNDA&ixlib=rb-4.0.3&q=80&w=900",
+            "idorganizacion": 24,
+            "adoptada": False,
+            "publicacion": 1,
+        },
+        {
+            "nombre": "nikky",
+            "especie": "Hembra",
+            "raza": "",
+            "sexo": "Macho",
+            "fechanacimiento": "2018-07-01",
+            "urlfoto": "https://previews.123rf.com/images/serkucher/serkucher1708/serkucher170800338/84265017-gato-joven-y-gatito-concepto-gatito-peque%C3%B1o-sobre-un-fondo-de-madera.jpg",
+            "idorganizacion": 24,
+            "adoptada": False,
+            "publicacion": 2,
+        },
+        {
+            "nombre": "Chita",
+            "especie": "Gato",
+            "raza": "",
+            "sexo": "Hembra",
+            "fechanacimiento": "2015-07-01",
+            "urlfoto": "https://images.unsplash.com/photo-1580784355694-0d5295dcc007?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=700&ixid=MnwxfDB8MXxyYW5kb218MHx8Y2F0fHx8fHx8MTcwMDIzNzk4NA&ixlib=rb-4.0.3&q=80&w=900",
+            "idorganizacion": 24,
+            "adoptada": False,
+            "publicacion": 2,
+        },
+    ]
+
+    print("vamos en pets: ")
     # print('vamos en posts: lista de ids de personas:', [
     #       (org.id, org.username) for org in Persona.objects.all()])
-    print('numero de pets', len(pets))
-    
+    print("numero de pets", len(pets))
+
     for data in pets:
         org = None
-        post=None
+        post = None
         try:
             # id organizaciones: [24 - 29] | is personas: [1 - 23]
-            org = Organizacion.objects.get(id=data['idorganizacion'])
+            org = Organizacion.objects.get(id=data["idorganizacion"])
 
-            post = Publicacion.objects.get(id=data['publicacion']) if data['publicacion'] is not None else None
-            print('org es:', org)
-            data['idorganizacion'] = org
+            post = (
+                Publicacion.objects.get(id=data["publicacion"])
+                if data["publicacion"] is not None
+                else None
+            )
+            print("org es:", org)
+            data["idorganizacion"] = org
             data["publicacion"] = post
 
         except Exception as e:
-            print('error: org o post es None, se salta este ingreso de post|org, error--> ', e)
+            print(
+                "error: org o post es None, se salta este ingreso de post|org, error--> ",
+                e,
+            )
             continue
-        Mascota.objects.create(
-            **data
-        )
+        Mascota.objects.create(**data)
 
     print("\Mascotas ficticias agregadas correctamente.")
 
@@ -691,23 +756,23 @@ def agregar_comentarios():
     User = get_user_model()
     # id organizaciones: [24 - 29] | is personas: [1 - 23]
 
-# autor_persona = models.ForeignKey(
-#         'accounts.Persona', on_delete=models.CASCADE, related_name='comentarios', blank=True, null=True)
-#     autor_organizacion = models.ForeignKey(
-#         'accounts.Organizacion', on_delete=models.CASCADE, related_name='comentarios', blank=True, null=True)
-#     contenido = models.CharField(max_length=300)
-#     publicacion = models.ForeignKey(
-#         Publicacion, on_delete=models.CASCADE, related_name='comentarios', blank=True, null=True)
-#     comentario_padre = models.ForeignKey(
-#         'self', on_delete=models.CASCADE, related_name='respuestas', blank=True, null=True)
-#     fechapublicacion = models.DateTimeField(auto_now_add=True)
-    comentarios = [    # id organizaciones: [24 - 29] | id personas: [1 - 23] | id publicaciones [1 - 40]
-
-        {"autor_persona": Persona.objects.get(id=1),
+    # autor_persona = models.ForeignKey(
+    #         'accounts.Persona', on_delete=models.CASCADE, related_name='comentarios', blank=True, null=True)
+    #     autor_organizacion = models.ForeignKey(
+    #         'accounts.Organizacion', on_delete=models.CASCADE, related_name='comentarios', blank=True, null=True)
+    #     contenido = models.CharField(max_length=300)
+    #     publicacion = models.ForeignKey(
+    #         Publicacion, on_delete=models.CASCADE, related_name='comentarios', blank=True, null=True)
+    #     comentario_padre = models.ForeignKey(
+    #         'self', on_delete=models.CASCADE, related_name='respuestas', blank=True, null=True)
+    #     fechapublicacion = models.DateTimeField(auto_now_add=True)
+    comentarios = [  # id organizaciones: [24 - 29] | id personas: [1 - 23] | id publicaciones [1 - 40]
+        {
+            "autor_persona": Persona.objects.get(id=1),
             "contenido": "Esta publicacion me gustó",
             "publicacion": Publicacion.objects.get(id=40),
             "comentario_padre": None,
-         },
+        },
     ]
 
     for comentario_data in comentarios:
@@ -718,6 +783,7 @@ def agregar_comentarios():
         publicaciones_ids = comentario_data.get("publicaciones")
         if publicaciones_ids:
             comentario.publicaciones.set(
-                Publicacion.objects.filter(id__in=publicaciones_ids))
+                Publicacion.objects.filter(id__in=publicaciones_ids)
+            )
 
     print("\nComentarios ficticios agregados correctamente.")

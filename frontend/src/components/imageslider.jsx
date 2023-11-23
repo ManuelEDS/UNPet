@@ -7,7 +7,8 @@ import { useState } from 'react';
 // eslint-disable-next-line react/prop-types
 function ImageSlider({ images, currentSlide, setCurrentSlide }) {
     const [slide, setSlide] = useState(currentSlide || 0);
-
+    console.log('images', images);
+    const length = images.length;
     const handleBeforeSliding = (previousSlide, nextSlide) => {
         console.debug(
             "onBeforeSliding(previousSlide, nextSlide): ",
@@ -29,32 +30,43 @@ function ImageSlider({ images, currentSlide, setCurrentSlide }) {
     };
 
     return (
-        <HeroSlider
-            height={"100vh"}
-            autoplay
-            controller={{
-                initialSlide: slide,
-                slidingDuration: 500,
-                slidingDelay: 100,
-                onSliding: (nextSlide) =>
-                    console.debug("onSliding(nextSlide): ", nextSlide),
-                onBeforeSliding: handleBeforeSliding,
-                onAfterSliding: handleAfterSliding
-            }}
-        >
-            {images.map((item, index) => (
-                <Slide
+        <>
+            {length > 1 ?
+            <HeroSlider
+                height={"100vh"}
+                autoplay
+
+                controller={{
+                    initialSlide: slide,
+                    onSliding: (nextSlide) =>
+                        console.debug("onSliding(nextSlide): ", nextSlide),
+                    onBeforeSliding: handleBeforeSliding,
+                    onAfterSliding: handleAfterSliding
+                }}
+                style={{ maxHeight: '600px' }}
+            >
+                {images.map((item, index) => (
+                    <a href="#"><Slide
                     key={index}
                     background={{
                         backgroundImageSrc: item.urlfoto
                     }}
-                />
-            ))}
-            <MenuNav />
-        </HeroSlider>
+                /></a>
+                    
+                ))}
+
+                <MenuNav />
+            </HeroSlider>:
+            <a href="#">
+                 <img src={images[0].urlfoto} alt="" />
+            </a>
+          
+            }
+
+        </>
     );
 }
 
 export default ImageSlider;
-    
+
 

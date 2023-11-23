@@ -68,16 +68,19 @@ export const logout = async () => {
  */
 export const getUser = async (username) => {
     const response = await ACCOUNTS.get(`user/${username}/`);
-    return response;
+    const data = await response.json();
+    console.log(data);
+    return data;
 };
-
 /**
  * Función que realiza una petición GET al endpoint 'profile/' del API de cuentas.
  * @returns {Promise} - Promesa que resuelve con la respuesta de la petición.
  */
 export const getProfile = async () => {
     const response = await ACCOUNTS.get('profile/');
-    return response;
+    const data = await response.json();
+    console.log(data);
+    return data;
 };
 
 /**

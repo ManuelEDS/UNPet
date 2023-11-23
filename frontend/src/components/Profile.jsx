@@ -1,12 +1,16 @@
 // eslint-disable-next-line no-unused-vars
 import { Link } from 'react-router-dom'
 import { useNavigate } from "react-router-dom";
-import { useState } from 'react';
+import { useState, useContext } from 'react';
+import {UserContext} from '../context/UserContext'
 import { login } from '../api/accounts.api';
 import { FaLock } from 'react-icons/fa';
 
 export function Profile() {
+    const { user } = useContext(UserContext);
+
     const navigate = useNavigate();
+
     const [error, setError] = useState(false);
 
     const handleSubmit = async (event) => {
@@ -28,15 +32,16 @@ export function Profile() {
     };
 
     return (
+        
         <div className="max-h-screen bg-gray-50 flex flex-col justify-center py-36 sm:px-6 lg:px-8 h-full">
             <div className="sm:mx-auto sm:w-full sm:max-w-md">
                 <img
                     className="mx-auto h-40 w-auto"
-                    src="https://i.imgur.com/iIaOUiL.png"
-                    alt="User"
+                    src={user.urlfoto}
+                    alt={user.username}
                 />
                 <h3 className="mt-4 text-center text-2xl font-extrabold text-gray-900">
-                    Centro de Adopciones de Bogotá
+                    {user.username}
                 </h3>
             </div>
             <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">

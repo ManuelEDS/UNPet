@@ -12,7 +12,7 @@ function CreatePostButton() {
                 <span className="absolute left-0 flex items-center pl-3">
                     <FaPaw className="h-5 w-5 text-indigo-500 group-hover:text-indigo-400" aria-hidden="true" />
                 </span>
-                <p className="relative left-3">Crear Post</p>
+                <p className="relative left-3">Crear publicación</p>
             </button>
         </a>
     );

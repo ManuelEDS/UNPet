@@ -10,7 +10,7 @@ from rest_framework.authentication import SessionAuthentication
 from rest_framework.decorators import authentication_classes, permission_classes
 from rest_framework import  authentication
 from django.contrib.auth import get_user_model
-
+from accounts.models import Organizacion
 from django.db import transaction
 from pets.models import Mascota
 
@@ -50,7 +50,18 @@ class PublicacionRecentList(APIView):
             serializer = PublicacionSerializer(result_page, many=True)
             return paginator.get_paginated_response(serializer.data)
         return Response({}, status=status.HTTP_400_BAD_REQUEST)
+        
+class PublicacionesOrg(APIView):
+  def get(self, request, org_username):
+        paginator = PageNumberPagination()
+        paginator.page_size = 5  # Set page size to 5
+        organizacion = get_object_or_404(Organizacion, username=org_username)
+        publicaciones = Publicacion.objects.filter(idorganizacion=organizacion).order_by('-fechapublicacion')
+        result_page = paginator.paginate_queryset(publicaciones, request)
+        serializer = PublicacionSerializer(result_page, many=True)
+        return paginator.get_paginated_response(serializer.data)
 
+        
 class PublicacionTrendList(APIView):
     def get(self, request):
         paginator = PageNumberPagination()

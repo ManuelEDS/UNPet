@@ -4,8 +4,11 @@ import { useNavigate } from "react-router-dom";
 import { useState } from 'react';
 import { login } from '../api/accounts.api';
 import { FaLock } from 'react-icons/fa';
-
+import { useContext } from 'react';
+import { UserContext } from '../context/UserContext.jsx';
+    
 export function Login() {
+  const { user } = useContext(UserContext);
   const navigate = useNavigate();
   const [error, setError] = useState(false);
 
@@ -19,6 +22,7 @@ export function Login() {
     try {
       const resp = await login(data);
       console.log('Login successful: ', resp);
+      user.checkAuth()
       navigate('/home');
 
     } catch (error) {
