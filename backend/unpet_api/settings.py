@@ -37,22 +37,19 @@ if DOCKER_MODE: # Modo: despliegue en algun seguidor docker (plan B por si rende
     ALLOWED_HOSTS = ['*']
     CORS_ALLOWED_ORIGINS = ['http://localhost', 'http://127.0.0.1', 'http://0.0.0.0']
     CSRF_TRUSTED_ORIGINS = ['http://localhost:81']
-    CORS_ALLOW_CREDENTIALS = True
 elif RENDER_MODE: # Modo: despliegue en render
-    CORS_ALLOW_CREDENTIALS = True
     ALLOWED_HOSTS = ['*']
     CORS_ALLOWED_ORIGINS = ['https://unpet-web.onrender.com']
     CSRF_TRUSTED_ORIGINS = ['https://unpet-web.onrender.com']
     CORS_ALLOW_ALL_ORIGINS = True
 
 else: # Modo: desarrollo en localhost
-    CORS_ALLOW_CREDENTIALS = True
     ALLOWED_HOSTS = ['*']
     CORS_ALLOWED_ORIGINS = ['http://localhost', 'http://127.0.0.1', 'http://localhost:5173', 'http://127.0.0.1:5173']
     CSRF_TRUSTED_ORIGINS = ['http://localhost:5173', 'http://127.0.0.1:5173']
    
-CORS_ORIGIN_WHITELIST = [
-    'http://localhost:8000',]
+CORS_EXPOSE_HEADERS = ['Content-Type', 'X-CSRFToken']
+CORS_ALLOW_CREDENTIALS = True
 
 # https://docs.djangoproject.com/en/3.0/ref/settings/#allowed-hosts
  # poner el de render react url
@@ -212,10 +209,10 @@ if not RENDER_MODE:
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-CSRF_COOKIE_SAMESITE = 'Strict'
-SESSION_COOKIE_SAMESITE = 'Strict'
-CSRF_COOKIE_HTTPONLY = False
-SESSION_COOKIE_HTTPONLY = False
+CSRF_COOKIE_SAMESITE = 'Lax'
+SESSION_COOKIE_SAMESITE = 'Lax'
+CSRF_COOKIE_HTTPONLY = True
+SESSION_COOKIE_HTTPONLY = True
 
 
 AUTH_USER_MODEL = "accounts.User"

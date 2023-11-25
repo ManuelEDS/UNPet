@@ -15,7 +15,7 @@ export function CreatePost() {
         
         try {
             const resp = await createPost(data);
-            console.log('Login successful: ', resp.json());
+            console.log('Login successful: ', resp);
             navigate('/home');
 
         } catch (error) {

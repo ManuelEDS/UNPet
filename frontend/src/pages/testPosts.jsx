@@ -28,7 +28,7 @@ const ScrollList = ({urlBase }) => {
 
         try {
             const response = await unPetAxios.get(nextPageUrl);
-            const { count, next, previous, results } = await response.json();
+            const { count, next, previous, results } = response
             setItems(prevItems => [...prevItems, ...results]);
             setHasMore(next !== null);
             setNextPageUrl(removeAPIUrl(next));

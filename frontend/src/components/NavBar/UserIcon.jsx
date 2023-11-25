@@ -10,8 +10,19 @@ function UserIcon({ user: userdata }) {
     const { user } = useContext(UserContext);
     const userMenuRef = useRef(null);
 
+    const handleLogout = async () => {
+        setIsUserMenuOpen(false);
 
+        const response = await logout();
 
+        if (response.isAuthenticated === false) {
+            console.log('logout exitoso');
+            window.location.reload(); // Refresh the page
+        } else {
+            console.log('error en logout:', response.data, response.data.error);
+        }
+    };
+    
     const handleClickOutside = (event) => {
         if (userMenuRef.current && !userMenuRef.current.contains(event.target)) {
             setIsUserMenuOpen(false);
@@ -39,7 +50,7 @@ function UserIcon({ user: userdata }) {
                     
                     {user.isAuthenticated ?
                         <>
-                            <li className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 cursor-pointer" onClick={() => { setIsUserMenuOpen(false); logout(); navigate('/home') }}>
+                            <li className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 cursor-pointer" onClick={ handleLogout}>
                                 Cerrar sesión
                             </li>
                             {userdata.usertype == 'Organizacion' && <li className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 cursor-pointer" onClick={() => { setIsUserMenuOpen(false); navigate('/create-post') }}>

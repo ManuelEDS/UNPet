@@ -115,6 +115,9 @@ class front_test(APIView):
     permission_classes = (permissions.AllowAny,)
     def get(self, request):
         return Response(data={"data": "test ok"}, status= status.HTTP_200_OK)
+    def post(self, request):
+        request.user
+        return Response(data={"data": "test ok"}, status= status.HTTP_200_OK)
 
 
 class UserRegister(APIView):
@@ -325,18 +328,13 @@ class UserLogin(APIView):
 #             return Response(data={"data":"Algo salió mal con el cierre de sesión"},status=status.HTTP_400_BAD_REQUEST)
 
 class UserLogout(APIView):
-   
-
-    def post(self, request):
-        print('logout paso 0 ', request)
+    def get(self, request):
         if not request.user.is_authenticated:
-            return Response(data={'detail': 'No has iniciado sesión.'}, status=400)
-        try:
-            logout(request)
-            return Response(status=status.HTTP_200_OK)
-        except Exception as e:
-            return Response(data={"Algo salió mal en el cierre de sesión", e},status=status.HTTP_400_BAD_REQUEST)
+            return Response({'detail': 'You\'re not logged in.'}, status=400)
 
+        logout(request)
+        return Response({'detail': 'Successfully logged out.'})
+    
 
 class UserView(APIView):
     permission_classes = (permissions.AllowAny,)

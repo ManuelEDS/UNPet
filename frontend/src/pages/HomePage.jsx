@@ -17,7 +17,7 @@ export const HomePage = () => {
             if (searchText !== "") {
                 try {
                     const response = await unPetAxios.get('/search/api/general/?q=' + searchText);
-                    const data = await response.json();
+                    const data = response
                     setDataItems(data);
                 } catch (error) {
                     console.error(error);

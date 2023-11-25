@@ -1,12 +1,16 @@
-
+// eslint-disable-next-line no-unused-vars
+import { Link } from 'react-router-dom'
+import { useNavigate } from "react-router-dom";
+import { createPost } from '../../api/posts.api';
 import { useEffect, useState, useRef, useContext } from 'react';
 import { useParams } from 'react-router-dom';
-import { getPost } from '../api/posts.api';
-import ImageSlider from '../components/imageslider';
+import { getPost } from '../../api/posts.api';
+import ImageSlider from '../imageslider';
 import { FaHeart, FaComment, FaPaw, FaShareAlt, FaCopy } from 'react-icons/fa';
-import { UserContext } from '../context/UserContext';
-import { Coment } from '../components/Feed/Coments';
-export const PostPage = () => {
+import { UserContext } from '../../context/UserContext';
+import { Coment } from '../Feed/Coments';
+
+export const CreatePost = () => {
     const { id } = useParams();
     const [post, setPost] = useState(null);
     const [username, setUsername] = useState(null);
@@ -19,7 +23,7 @@ export const PostPage = () => {
         const fetchData = async () => {
             try {
                 console.log('peticion a : ', 'http://localhost:8000/api/posts/api/posts/' + id);
-                const data = await getPost(id)
+                const data = await getPost(1)
                 
                 console.log('data: ', data);
                 setUsername(data.post.nombreorganizacion.match(/\(([^)]+)\)$/)[1])
@@ -80,23 +84,7 @@ export const PostPage = () => {
                                 )}
                             </div>
                             <div className="flex items-center justify-between m-3">
-                                <div className="flex items-center justify-between w-full mt-3">
-                                    <a className="flex items-center ml-4">
-                                        <FaHeart id={"heart" + post.id} className="w-5 h-5 text-gray-500 mr-1" />
-                                        <p className="text-gray-500 text-sm">{post.likes}</p>
-                                    </a>
-                                    <a href="/login" className="flex items-center">
-                                        <FaComment className="w-5 h-5 text-gray-500 mr-1" />
-                                        <span className="text-gray-500 text-sm mr-1">{post.comments}</span>
-                                    </a>
-                                    <a href='#' className="flex items-center" >
-                                        <FaPaw id={"paw" + post.id} className="w-5 h-5 text-gray-500 mr-2" />
-                                        <span className="text-gray-500 text-sm mr-1">Adoptar</span>
-                                    </a>
-                                    <button className="flex items-center  mr-4" onClick={()=>setShowModal(true)}>
-                                        <FaShareAlt className="w-5 h-5 text-gray-500 mr-1" />
-                                    </button>
-                                </div>
+                                
                             </div>
                         </div>
                     </div>
@@ -113,27 +101,23 @@ export const PostPage = () => {
                 </div>
             )}
 
-            {showModal && 
-                
-                    <div className="fixed inset-0 flex items-center justify-center z-50" >
-                        <div className="bg-white rounded-lg shadow-lg p-4">
-                            <p className="text-center mb-4">Comparte este link con tus amigos:</p>
-                            <div className="flex items-center justify-between">
-                                <input type="text" value={window.location.href} readOnly className="w-full bg-gray-100 border border-gray-300 rounded p-2" />
-                                <button className={`ml-2 bg-blue-500 text-white rounded p-2 ${copied ? 'text-green-500' : ''}`} onClick={handleCopyLink}>
-                                    <FaCopy className="ml-1" />
-                                </button>
-                                <button className='ml-2 bg-blue-500 rounded p-2   flex items-center ' onClick={()=>{setShowModal(false); setCopied(false)}}>
-                                    Cerrar
-                                </button>
-                            </div>
-                            
-                        </div>
-                    </div>
-                
-                
-            }
+        
         </>
     );
 };
 
+
+
+
+
+
+
+// <p className="mt-2 text-center text-sm text-gray-600">
+//                     Recuerda nuestros{' '}
+//                     <Link
+//                         to="/legal/terms-and-conditions"
+//                         className="font-medium text-indigo-600 hover:text-indigo-500"
+//                     >
+//                         Términos del servicio
+//                     </Link>
+//                 </p>

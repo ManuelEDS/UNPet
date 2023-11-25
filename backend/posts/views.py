@@ -88,7 +88,7 @@ class PublicacionDetail(APIView):
     def get(self, request, pk):
         publicacion = get_object_or_404(Publicacion, pk=pk)
         serializer = PublicacionSerializer(publicacion)
-        return Response(serializer.data)
+        return Response({"post":serializer.data})
 
 
 class ComentarioListCreateView(generics.ListCreateAPIView):

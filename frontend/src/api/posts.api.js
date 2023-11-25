@@ -62,7 +62,9 @@ export async function getPoststrend() {
  */
 export async function getPost(id) {
     const response = await POSTS.get(`/${id}`);
-    return response.data;
+    const data = response
+    console.log(data);
+    return data;
 }
 
 
@@ -70,7 +72,7 @@ export async function getPost(id) {
 export async function createPost(data) {
     if(data && data.post && data.pets){
     const response = await POSTS.post(`/trend/`, data);
-    return response.data.json();
+    return response.data;
     }else{
         console.log("Error al crear la publicacion")
     }

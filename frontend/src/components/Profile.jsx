@@ -1,17 +1,33 @@
 // eslint-disable-next-line no-unused-vars
 import { Link } from 'react-router-dom'
 import { useNavigate } from "react-router-dom";
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import {UserContext} from '../context/UserContext'
 import { login } from '../api/accounts.api';
 import { FaLock } from 'react-icons/fa';
-
+import {getProfile, updateProfile} from '../api/accounts.api'
 export function Profile() {
     const { user } = useContext(UserContext);
-
+    const [profile, setProfile] = useState(null);
     const navigate = useNavigate();
 
     const [error, setError] = useState(false);
+    useEffect(() => {
+        const fetchProfile = async () => {
+            try {
+                console.log('peticion a : ', 'get profile ');
+                const data = await getProfile()
+                setProfile(data)
+                console.log('data: ', data);
+                
+            } catch (error) {
+                console.error('Error fetching user:', error);
+            }
+        };
+        fetchProfile();
+        
+        
+    }, [profile, user]);
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -21,13 +37,12 @@ export function Profile() {
             password: data.get('password'),
         });
         try {
-            const resp = await login(data);
-            console.log('Login successful: ', resp.json());
-            navigate('/home');
+            const resp = await updateProfile(data);
+            console.log('profile update successful, status: ', resp.status);
 
         } catch (error) {
             setError(true);
-            console.log('Login failed: ', error);
+            console.log('profile update failed: ', error);
         }
     };
 

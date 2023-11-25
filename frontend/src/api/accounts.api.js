@@ -56,8 +56,16 @@ export const orgRegister = async (formData) => {
  * @returns {Promise} - Promesa que resuelve con la respuesta de la petición.
  */
 export const logout = async () => {
-    const response = await ACCOUNTS.post('logout/');
-    return response;
+   
+    try {
+        const response = await ACCOUNTS.get('logout/');
+
+        return { isAuthenticated: false, error: "" };
+    } catch (error) {
+        console.log(error);
+        return { isAuthenticated: true, error: error };
+        
+    }
 };
 
 
@@ -68,7 +76,7 @@ export const logout = async () => {
  */
 export const getUser = async (username) => {
     const response = await ACCOUNTS.get(`user/${username}/`);
-    const data = await response.json();
+    const data = response.data
     console.log(data);
     return data;
 };
@@ -78,10 +86,15 @@ export const getUser = async (username) => {
  */
 export const getProfile = async () => {
     const response = await ACCOUNTS.get('profile/');
-    const data = await response.json();
+    const data = response
     console.log(data);
     return data;
 };
+
+export const updateProfile = async (formData) => {
+    const response = await ACCOUNTS.put('profile/', formData);
+    return response;
+}
 
 /**
  * Función que realiza una petición GET al endpoint 'legal/:filename.md' del API de cuentas para obtener un archivo legal.

@@ -13,14 +13,16 @@ import TestPosts from './pages/testPosts'
 import { UserContextProvider } from './context/UserContext'
 import NavBar from './components/NavBar/NavBar'
 import Footer from './components/Footer'
-import { CreatePost } from './components/CreatePost'
+import { CreatePost } from './components/org/CreatePost.jsx'
 import { Profile } from './components/Profile'
 import PasswordChange from './pages/PasswordChange'
 import { PasswordReset } from './pages/PasswordReset'
 import PasswordResetConfirm from './pages/PasswordResetConfirm'
-import ImageSlider from './components/imageslider'
-import {FAQ} from './pages/FAQPage'
+import { FAQ } from './pages/FAQPage'
 import { UserPage } from './pages/UserPage'
+import { PostPage } from './pages/PostPage'
+import { useParams } from 'react-router-dom';
+// import {PostContextProvider } from './context/PostContext';
 function NotFoundPage() {
   return (
     <div>
@@ -34,7 +36,7 @@ function App() {
 
 
   return (
-    <div className="bg-gray-100 min-h-screen">
+    <div className="bg-gray-200 min-h-screen">
       <UserContextProvider>
         <BrowserRouter>
           <NavBar />
@@ -59,9 +61,12 @@ function App() {
             <Route path='/posttest' element={<TestPosts />} />
             <Route path='/create-post' element={<CreatePost />} />
             <Route path='/profile' element={<Profile />} />
-            <Route path='/imageslider' element={<ImageSlider />} />
             <Route path='/faq' element={<FAQ />} />
-            <Route path='/user/:username' element={<UserPage/>} />
+            <Route path='/user/:username' element={<UserPage />} />
+
+            <Route path='/post/:id' element={
+                <PostPage />
+            } />
 
           </Routes>
           <Footer />

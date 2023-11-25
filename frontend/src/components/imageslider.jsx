@@ -5,7 +5,7 @@ import { useState } from 'react';
 
 
 // eslint-disable-next-line react/prop-types
-function ImageSlider({ images, currentSlide, setCurrentSlide }) {
+function ImageSlider({ images, currentSlide, setCurrentSlide , postid}) {
     const [slide, setSlide] = useState(currentSlide || 0);
     console.log('images', images);
     const length = images.length;
@@ -30,7 +30,7 @@ function ImageSlider({ images, currentSlide, setCurrentSlide }) {
     };
 
     return (
-        <>
+        <div>
             {length > 1 ?
             <HeroSlider
                 height={"100vh"}
@@ -43,11 +43,11 @@ function ImageSlider({ images, currentSlide, setCurrentSlide }) {
                     onBeforeSliding: handleBeforeSliding,
                     onAfterSliding: handleAfterSliding
                 }}
-                style={{ maxHeight: '600px' }}
+                style={{ maxHeight: '600px', minWidth: '600px'}}
             >
                 {images.map((item, index) => (
-                    <a href="#"><Slide
-                    key={index}
+                    <a  href={`/post/${postid}`}  key={index} ><Slide
+                   
                     background={{
                         backgroundImageSrc: item.urlfoto
                     }}
@@ -57,13 +57,13 @@ function ImageSlider({ images, currentSlide, setCurrentSlide }) {
 
                 <MenuNav />
             </HeroSlider>:
-            <a href="#">
+            <a href={`/post/${postid}`} className="w-full">
                  <img src={images[0].urlfoto} alt="" />
             </a>
           
             }
 
-        </>
+        </div >
     );
 }
 

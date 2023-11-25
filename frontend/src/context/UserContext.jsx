@@ -16,7 +16,7 @@ export const UserContextProvider = ({ children }) => {
     const checkAuth = async () => {
         try {
             const response = await UserAxios.get("/api/session/");
-            const data = await response.json();
+            const data = response.data
             if (data) {
                 setIsAuthenticated(data.isAuthenticated);
                 setUsername(data.username ? data.username : "Anonymous");

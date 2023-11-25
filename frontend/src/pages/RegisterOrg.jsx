@@ -44,7 +44,7 @@ export function RegisterOrg() {
     });
  try {
       const resp = await orgRegister(data);
-      console.log('Login successful: ', resp.json());
+      console.log('Login successful: ', resp)
       navigate('/home');
 
     } catch (error) {
