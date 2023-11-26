@@ -62,7 +62,7 @@ export async function getPoststrend() {
  */
 export async function getPost(id) {
     const response = await POSTS.get(`/${id}`);
-    const data = response
+    const data = response.data
     console.log(data);
     return data;
 }

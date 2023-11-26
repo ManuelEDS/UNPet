@@ -1,5 +1,6 @@
 
-import { FaHome, FaHashtag, FaQuestion, FaCog, FaUserCircle, FaChevronRight, FaChevronDown, FaExclamation } from 'react-icons/fa';
+import { FaHome, FaHashtag, FaQuestion, FaCog, FaUserCircle, FaChevronRight, FaChevronDown, FaExclamation, FaAddressBook  } from 'react-icons/fa';
+import { VscLaw } from 'react-icons/vsc';
 import { IconContext } from 'react-icons';
 import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../context/UserContext';
@@ -66,11 +67,28 @@ function LeftBar() {
                         <li className="text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-md py-2 px-5 flex items-center justify-start">
                             <a href="/legal/terms-and-conditions" className='py-2 px-3 flex items-center'>
                                 <IconContext.Provider value={{ className: 'h-5 w-5 inline-block mr-2' }}>
-                                    <FaQuestion />
+                                    <VscLaw />
                                 </IconContext.Provider>
                                 Términos del servicio
                             </a>
                         </li>
+                        <li className="text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-md py-2 px-5 flex items-center justify-start">
+                            <a href="/legal/privacy-policies" className='py-2 px-3 flex items-center'>
+                                <IconContext.Provider value={{ className: 'h-5 w-5 inline-block mr-2' }}>
+                                    <FaAddressBook />
+                                </IconContext.Provider>
+                                Políticas de privacidad
+                            </a>
+                        </li>
+                        <li className="text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-md py-2 px-5 flex items-center justify-start">
+                            <a href="/legal/faq" className='py-2 px-3 flex items-center'>
+                                <IconContext.Provider value={{ className: 'h-5 w-5 inline-block mr-2' }}>
+                                    <FaQuestion />
+                                </IconContext.Provider>
+                                Preguntas frecuentes
+                            </a>
+                        </li>
+                      
                     </ul>
                 )}
             </ul>

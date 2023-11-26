@@ -56,12 +56,12 @@ function App() {
             <Route path='/home' element={<HomePage searchText={NavBar.searchText} />} />
             <Route path='/legal/terms-and-conditions' element={<TermsCond />} />
             <Route path='/legal/privacy-policies' element={<PoliticsPriv />} />
+            <Route path='/legal/faq' element={<FAQ />} />
             <Route path='/donations' element={<Donations />} />
             <Route path='/quienes-somos' element={<WhoAreWePage />} />
             <Route path='/posttest' element={<TestPosts />} />
             <Route path='/create-post' element={<CreatePost />} />
             <Route path='/profile' element={<Profile />} />
-            <Route path='/faq' element={<FAQ />} />
             <Route path='/user/:username' element={<UserPage />} />
 
             <Route path='/post/:id' element={

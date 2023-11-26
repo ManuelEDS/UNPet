@@ -14,6 +14,8 @@ from accounts.models import Organizacion
 from django.db import transaction
 from pets.models import Mascota
 from .models import Publicacion, Like
+from django.http import Http404
+
 
 class LikePublicacion(APIView):
     def post(self, request, pk):
@@ -146,12 +148,35 @@ class ComentarioListCreateView(generics.ListCreateAPIView):
     serializer_class = ComentarioSerializer
     # authentication_classes = [SessionAuthentication]
     # permission_classes = [permissions.IsAuthenticated]
-
+    def get_queryset(self):
+            """
+            This view should return a list of all the comments
+            for the post as determined by the post's PK.
+            """
+            pk = self.kwargs['pk']
+            return Comentario.objects.filter(publicacion=pk)
+    
 class ComentarioDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Comentario.objects.all()
     serializer_class = ComentarioSerializer
     # authentication_classes = [SessionAuthentication]
     # permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, request, *args, **kwargs):
+        try:
+            return self.retrieve(request, *args, **kwargs)
+        except Http404:
+            return Response([])
+
+    def get_queryset(self):
+        """
+        This view should return a list of all the comments
+        for the post as determined by the post's PK.
+        """
+        pk = self.kwargs['pk']
+        comment_pk = self.kwargs['comment_pk']
+        data= Comentario.objects.filter(id=comment_pk, publicacion=pk)
+        return [] if not data else data
 
 class ComentarioRespuestasView(generics.ListAPIView):
     serializer_class = ComentarioSerializer
