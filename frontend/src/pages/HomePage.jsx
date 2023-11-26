@@ -36,7 +36,7 @@ export const HomePage = () => {
                 <h2 className="text-3xl font-bold text-center mb-4 py-4">¡Bienvenido a UNPet!</h2>
                 <p className="text-center mb-8">Entregando nuevas oportunidades</p>
                
-                    {user.isAuthenticated && <CreatePostButton></CreatePostButton>}
+                    {user.isAuthenticated && user.userType=='Organizacion' && <CreatePostButton></CreatePostButton>}
                         
                    
                    
