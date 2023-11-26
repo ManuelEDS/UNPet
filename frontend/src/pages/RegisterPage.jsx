@@ -1,37 +1,107 @@
 
 import { useState } from 'react';
 import { register } from '../api/accounts.api'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 // import { Fragment } from 'react';
 import { FaCheckCircle, FaLock } from 'react-icons/fa';
 import { localidades } from './RegisterOrg';
+import { UserContext } from '../context/UserContext';
+import { useContext, useEffect } from 'react';
+
 
 export function Register() {
-
-  const [tipoDocumento, setTipoDocumento] = useState('');
-  const [sexo, setSexo] = useState('');
+  const { user } = useContext(UserContext);
+  const navigate = useNavigate();
   const [localidad, setLocalidad] = useState('');
   const [errorUsername, setErrorUsername] = useState('');
+  const [error, setError] = useState(false);
+  const [errorTerms, setErrorTerms] = useState(false);
   const [errorEmail, setErrorEmail] = useState('');
   const [errorPassword, setErrorPassword] = useState('');
+  const [errorID, setErrorID] = useState(false);
+  const {errorPhone, setErrorPhone} = useState(false);
+  const [errorFile, setErrorFile] = useState(false);
+  const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const regexUsername = /^(?!.*\.\.)(?!.*\.$)[a-zA-Z0-9][\w.]{0,29}$/
+  const regexPassword = /^(?=.*[0-9])(?=.*[a-zA-Z])[0-9a-zA-Z]{8,}$/;
+  const regexID = /^[a-zA-Z0-9]{8,10}$/;
+  const regexPhone = /^[0-9]{7,10}$/;
+  // Función para verificar la contraseña
+  const checkPassword = (contraseña) => {
+    return regexPassword.test(contraseña);
+  };
 
+  // Función para verificar el formato del correo electrónico
+  const checkEmail = (correo) => {
+    return regexEmail.test(correo);
+  };
+  const checkUsername = (username) => {
+    return regexUsername.test(username);
+  }
+  // Función para verificar el número de teléfono
+  const checkPhone = (phone) => {
+    return regexPhone.test(phone);
+  };
+
+  // Función para verificar el formato del ID
+  const checkID = (id) => {
+    return regexID.test(id);
+  };
+  const checkFile = (file) => {
+    if (file && file.type.includes('image')) {
+      return true;
+    }
+    return false;
+  }
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    const usernameRegex = /^[a-zA-Z0-9_]+$/;
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/;
-
+    console.log('este es el form data', Object.fromEntries(data));
+    const termsIsChecked = data.get('terms');
+    const imgFile = data.get('photo_file');
+    console.log('este es el img file', imgFile);
+    if (!termsIsChecked) {
+      setErrorTerms(true);
+      return;
+    }
+    // if(!checkEmail(data.get('email'))) {
+    //   setErrorEmail(true);
+    //   return;
+    // }
+    // if(!checkUsername(data.get('username'))) {
+    //   setErrorUsername(true);
+    //   return;
+    // }
+    // if(!checkPassword(data.get('password'))) {
+    //   setErrorPassword(true);
+    //   return;
+    // }
+    // if(!checkID(data.get('n_doc'))) {
+    //   setErrorID(true);
+    //   return;
+    // }
+    // if(!checkPhone(data.get('telefono'))) {
+    //   setErrorPhone(true);
+    //   return;
+    // }
+    // if(!checkFile(imgFile)) {
+    //   setErrorFile(true);
+    //   return;
+    // }
     try {
       const resp = await register(data);
+      user.checkAuth() // Refresh the page
       navigate('/home');
-
     } catch (error) {
       setError(true);
       console.log('Login failed: ', error);
     }
-
   };
+  useEffect(() => {
+    if(user.isAuthenticated){
+      navigate('/home');
+    }
+}, []);
 
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
@@ -43,8 +113,9 @@ export function Register() {
               <FaCheckCircle className="h-12 w-12 text-green-500 mx-auto" />
               <h1 className="text-2xl font-semibold text-gray-900 mt-6 text-center">Registrarse</h1>
             </div>
-            <form className="space-y-6" action="#" method="POST">
-              <input type="hidden" name="remember" value="true" />
+            
+            <form className="space-y-6" method="POST" encType="multipart/form-data" onSubmit={handleSubmit}>
+
               <div className="rounded-md shadow-sm -space-y-px">
                 <div>
                   <label htmlFor="first_name" className="block text-sm font-medium text-gray-700 py-2 py-2">
@@ -103,6 +174,9 @@ export function Register() {
                     className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                     placeholder="Número de documento"
                   />
+                  {errorID && <p className="mt-2 text-sm text-red-600">
+                  El numero de documento no es válido</p>
+                  }
                 </div>
                 <div>
                   <label htmlFor="sexo" className="block text-sm font-medium text-gray-700 py-2">
@@ -134,6 +208,11 @@ export function Register() {
                     className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                     placeholder="Teléfono"
                   />
+                  {errorPhone &&
+                  
+                  <p className="mt-2 text-sm text-red-600">
+                  El numero de telefono no es válido</p>
+                  }
                 </div>
                 <div>
                 <label htmlFor="idlocalidad" className="block text-sm font-medium text-gray-700">
@@ -160,7 +239,7 @@ export function Register() {
               </div>
                 <div>
                   <label htmlFor="photo_file" className="block text-sm font-medium text-gray-700 py-2">
-                    Photo file
+                    Foto de perfil
                   </label>
                   <input
                     id="photo_file"
@@ -169,6 +248,11 @@ export function Register() {
                     accept="image/*"
                     className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                   />
+                  {errorFile &&
+                  
+                  <p className="mt-2 text-sm text-red-600">
+                  El archivo no es de tipo imagen</p>
+                  }
                 </div>
                 <div>
                   <label htmlFor="email" className="block text-sm font-medium text-gray-700 py-2">
@@ -183,6 +267,11 @@ export function Register() {
                     className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-cyan-500 focus:border-cyan-500 focus:z-10 sm:text-sm"
                     placeholder="Correo electrónico"
                   />
+                  {errorEmail &&
+                  
+                  <p className="mt-2 text-sm text-red-600">
+                  El coreo electrónico no es válido</p>
+                  }
                 </div>
                 <div>
                   <label htmlFor="username" className="block text-sm font-medium text-gray-700 py-2">
@@ -197,6 +286,12 @@ export function Register() {
                     className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-cyan-500 focus:border-cyan-500 focus:z-10 sm:text-sm"
                     placeholder="Nombre de usuario"
                   />
+                  
+                  {errorUsername &&
+                  
+                  <p className="mt-2 text-sm text-red-600">
+                  El username no es válido</p>
+                  }
                 </div>
                 <div>
                   <label htmlFor="password" className="block text-sm font-medium text-gray-700 py-2">
@@ -211,6 +306,11 @@ export function Register() {
                     className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-cyan-500 focus:border-cyan-500 focus:z-10 sm:text-sm"
                     placeholder="Contraseña"
                   />
+                  {errorPassword &&
+                  
+                  <p className="mt-2 text-sm text-red-600">
+                  La contraseña debe ser de almenos 8 caracteres, con numeros y letras</p>
+                  }
                 </div>
               </div>
 
@@ -230,6 +330,11 @@ export function Register() {
                       términos y condiciones del servicio
                     </Link>
                   </label>
+                  {errorTerms &&
+                  
+                  <p className="mt-2 text-sm text-red-600">
+                  Debes aceptar los terminos y condiciones</p>
+                  }
                 </div>
               </div>
 

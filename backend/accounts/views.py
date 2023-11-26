@@ -133,17 +133,23 @@ class UserRegister(APIView):
         username = request.data.get('username')
         user_pswd = request.data.get('password')
 
+        if 'terms' in request.data:
+            del request.data['terms']
+
         for r in request.data:
             if debug:print(r, type(r))
         if debug:print(dict(request.data))
         photo = request.FILES.get('photo_file')
 
-        if 'image' not in photo.content_type.lower():
-            resp={"error":"El archivo que envió no es de tipo imagen"}
-            return Response(data=resp, status= status.HTTP_400_BAD_REQUEST)
-
         photo2 = request.data.get('photo_file')
+        
         if debug:print('LA FOTO ESTÁ AQUI:-->', type(photo), photo, type(photo2), photo2)
+        photo = request.data.get('photo_file') if photo is None else photo
+        # if 'image' not in photo.content_type.lower():
+        #     resp={"error":"El archivo que envió no es de tipo imagen"}
+        #     return Response(data=resp, status= status.HTTP_400_BAD_REQUEST)
+
+        
 
 
         extra_fields = {key: value for key, value in request.data.items() if key not in  ['email', 'username', 'password']}
@@ -151,22 +157,27 @@ class UserRegister(APIView):
         ##
         if not username.strip():
             resp={"error":"Ingrese un username, campo obligatorio"}
+            print('username falta')
             return Response(data=resp, status= status.HTTP_400_BAD_REQUEST)
         ##
+
         if user_model.objects.filter(email=user_email).exists():
-            user_obj= get_user_model().objects.get(email=user_email)
-            return Response(data={"data": "El usuario con ese correo ya existe, es el siguiente...", "user": UserSerializer(user_obj).data}, status= status.HTTP_400_BAD_REQUEST)
+            user_same_email= get_user_model().objects.get(email=user_email)
+            print('El usuario con ese correo ya existe, es el siguiente.', UserSerializer(user_same_email).data, 'datos actuales: ', user_email, username, user_pswd)
+            return Response(data={"data": "El usuario con ese correo ya existe, es el siguiente...", "user": UserSerializer(user_same_email).data}, status= status.HTTP_400_BAD_REQUEST)
         ##
         if user_model.objects.filter(username=username).exists():
-            user_obj= get_user_model().objects.get(username=username)
-            return Response(data={"data": "El usuario con ese nombre de usuario ya existe, es el siguiente...", "user": UserSerializer(user_obj).data}, status= status.HTTP_400_BAD_REQUEST)
+            user_same_username= get_user_model().objects.get(username=username)
+            print('El usuario con ese username ya existe, es el siguiente:', UserSerializer(user_same_username).data)
+
+            return Response(data={"data": "El usuario con ese nombre de usuario ya existe, es el siguiente...", "user": UserSerializer(user_same_username).data}, status= status.HTTP_400_BAD_REQUEST)
 
         user_obj, rol_obj = user_model.objects.create_Persona(email=user_email,username= username, password=user_pswd, **extra_fields)
-        list_u = [ (u, u.id, u.username, u.password) for u in get_user_model().objects.all()]
-        for u in list_u:
-            if debug:print('usuario-->',u)
-        
-        user_auth = authenticate(request, userID=user_obj.username, password=user_pswd, **extra_fields)
+        # list_u = [ (u, u.id, u.username, u.password) for u in get_user_model().objects.all()]
+        # for u in list_u:
+        #     if debug:print('usuario-->',u)
+        print('autenticando: ', user_obj.username, username, user_pswd)
+        user_auth = authenticate(request, userID=username, password=user_pswd)
         ##
         if user_auth:
             login(request, user_auth)
@@ -184,11 +195,14 @@ class UserRegister(APIView):
                 return Response(data={"data": "Usuario registrado con exito", "user": UserSerializer(user_obj).data, "login":True}, status=status.HTTP_201_CREATED)
         if debug:print('user_auth es None: ', user_auth, type(user_auth), user_obj, type(user_obj), rol_obj, type(rol_obj), 'id de user_obj: ', user_obj.id, 'id de rol_obj: ', rol_obj.id, user_obj.username, rol_obj.username)
         list_u = [ (u, u.id, u.username, u.password) for u in get_user_model().objects.all()]
-        for u in list_u:
-            if debug:print(u)
-        list_p = [ (p, p.id, p.username) for p in Persona.objects.all()]
-        for p in list_p:
-            if debug:print(p)
+        # for u in list_u:
+        #     if debug:print(u)
+        # list_p = [ (p, p.id, p.username) for p in Persona.objects.all()]
+        # for p in list_p:
+        #     if debug:print(p)
+
+        print('ERROR FINAL: NO SE PUDO HACER NADA:',    user_obj, type(user_obj), rol_obj, type(rol_obj), 'id de user_obj: ', user_obj.id, 'id de rol_obj: ', rol_obj.id, user_obj.username, rol_obj.username)
+
         return Response(status=status.HTTP_400_BAD_REQUEST)
     
 
@@ -201,8 +215,14 @@ class OrganizationRegister(APIView):
         org_nit = request.data.get('nit')
         photo = request.FILES.get('photo_file')
 
-        if 'image' not in photo.content_type.lower():
-            return Response(data={"data": "El archivo que envió no es de tipo imagen"}, status= status.HTTP_400_BAD_REQUEST)
+        photo2 = request.data.get('photo_file')
+        if 'terms' in request.data:
+            del request.data['terms']
+        if debug:print('LA FOTO ESTÁ AQUI:-->', type(photo), photo, type(photo2), photo2)
+        photo = request.data.get('photo_file') if photo is None else photo
+
+        # if 'image' not in photo.content_type.lower():
+        #     return Response(data={"data": "El archivo que envió no es de tipo imagen"}, status= status.HTTP_400_BAD_REQUEST)
         
         extra_fields = {key: value for key, value in request.data.items() if key not in  ['email', 'username', 'password']}
         user_model = get_user_model()
@@ -302,7 +322,7 @@ class UserLogin(APIView):
             return Response({'error': 'Usuario no encontrado'},
                             status=status.HTTP_404_NOT_FOUND)
 
-        user = authenticate(username=user.username, password=password)
+        user = authenticate(userID=user.username, password=password)
 
         if user is not None:
             login(request, user)

@@ -218,6 +218,7 @@ SESSION_COOKIE_HTTPONLY = True
 AUTH_USER_MODEL = "accounts.User"
 
 AUTHENTICATION_BACKENDS = [
+    "accounts.backends.AccountsBackend",
     "django.contrib.auth.backends.ModelBackend",
 ]
 

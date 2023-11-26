@@ -98,17 +98,20 @@ export class UNPetAxios {
         
         console.log('inicializando axios, csrfToken y csrfToken2: ', csrfToken, this.csrfToken2);
     }
-    async fetchWithHeaders(url, options = {}) {
+    async fetchWithHeaders(url, options = {}, moreHeaders) {
         if (this.csrfToken2 === null && csrfToken === null) {
             this.csrfToken2 = await getCSRF();
         }
-        console.log('UNPETAXIOS, csrfToken y csrfToken2: ', csrfToken, this.csrfToken2);
-    
+        //console.log('UNPETAXIOS, csrfToken y csrfToken2: ', csrfToken, this.csrfToken2);
+        console.log('UNPETAXIOS, options: ', options, 'moreHeaders: ', moreHeaders);
         axios.defaults.headers.common['X-CSRFToken'] = this.csrfToken2 || csrfToken;
+        let contenttype = moreHeaders ? moreHeaders["Content-Type"] : "application/json";
+        console.log('UNPETAXIOS, contenttype: ', contenttype);
         const allOptions = {
                 headers: {
-                        "Content-Type": "application/json",
+                        "Content-Type": contenttype,
                         "X-CSRFToken": axios.defaults.headers.common['X-CSRFToken'],
+                        ...moreHeaders,
                 },
                 withCredentials: true, // axios usa withCredentials en lugar de credentials
                 ...options,
@@ -121,12 +124,13 @@ export class UNPetAxios {
         return this.fetchWithHeaders(url, options);
     }
 
-    post(url, body = {}, options = {}) {
+    post(url, body = {}, options = {}, headers = {}) {
+        console.log('UNPETAXIOS, post, body: ', body, 'headers: ', headers);
         return this.fetchWithHeaders(url, {
             method: "post",
             data: body, // axios usa 'data' en lugar de 'body'
             ...options,
-        });
+        }, headers);
     }
     
     put(url, body = {}, options = {}) {

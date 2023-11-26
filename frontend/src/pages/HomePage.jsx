@@ -4,7 +4,7 @@ import ScrollList from '../components/Feed/Feed';
 import { UserContext } from '../context/UserContext';
 import { useState, useContext, useEffect } from 'react';
 import { UNPetAxios } from '../api/config';
-
+import CreatePostButton from '../components/NavBar/CreatePostButton';
 export const HomePage = () => {
     const isDesktopOrLaptop = useMediaQuery({ minDeviceWidth: 800 });
     const { user, search } = useContext(UserContext);
@@ -35,7 +35,13 @@ export const HomePage = () => {
             <div className="max-w-2xl mx-auto ">
                 <h2 className="text-3xl font-bold text-center mb-4 py-4">¡Bienvenido a UNPet!</h2>
                 <p className="text-center mb-8">Entregando nuevas oportunidades</p>
-                <ScrollList urlBase={'/posts/api/posts/trend/'} dataItems={dataItems}></ScrollList> 
+               
+                    {user.isAuthenticated && <CreatePostButton></CreatePostButton>}
+                        
+                   
+                   
+                
+                <ScrollList urlBase={'/posts/api/posts/trend/'} dataItems={dataItems}></ScrollList>
             </div>
         </div>
     );

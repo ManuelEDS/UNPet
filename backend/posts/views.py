@@ -13,8 +13,58 @@ from django.contrib.auth import get_user_model
 from accounts.models import Organizacion
 from django.db import transaction
 from pets.models import Mascota
+from .models import Publicacion, Like
 
-class PublicacionView(APIView):
+class LikePublicacion(APIView):
+    def post(self, request, pk):
+        publicacion = Publicacion.objects.get(pk=pk)
+        like = Like.objects.create(
+            user=request.user,
+            content_object=publicacion
+        )
+        publicacion.likes += 1
+        publicacion.save()
+        return Response(status=status.HTTP_201_CREATED)
+
+
+class LikedPublicaciones(APIView):
+    def get(self, request):
+        user = request.user
+        liked_publicaciones = self.get_liked_publicaciones(user)
+        serializer = PublicacionSerializer(liked_publicaciones, many=True)
+        return Response(serializer.data)
+    
+    def get_liked_publicaciones(user):
+        user_likes = Like.objects.filter(user=user)
+        liked_publicaciones = [like.content_object for like in user_likes if isinstance(like.content_object, Publicacion)]
+        return liked_publicaciones
+
+
+class LikeComentario(APIView):
+    def post(self, request, pk, comment_pk):
+        comentario = Comentario.objects.get(pk=comment_pk)
+        like = Like.objects.create(
+            user=request.user,
+            content_object=comentario
+        )
+        comentario.likes += 1
+        comentario.save()
+        return Response(status=status.HTTP_201_CREATED)
+    
+
+class LikedComentarios(APIView):
+    def get(self, request):
+        user = request.user
+        liked_comentarios = self.get_liked_comentarios(user)
+        serializer = ComentarioSerializer(liked_comentarios, many=True)
+        return Response(serializer.data)
+    
+    def get_liked_comentarios(user):
+        user_likes = Comentario.objects.filter(user=user)
+        liked_publicaciones = [like.content_object for like in user_likes if isinstance(like.content_object, Publicacion)]
+        return liked_publicaciones
+
+class PublicacionView(APIView): #CREAR PUBLICACION CON MASCOTAS 
     def post(self, request, format=None):
         post_data = request.data.get('post')
         pets_data = request.data.get('pets')

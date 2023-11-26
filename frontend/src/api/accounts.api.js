@@ -12,13 +12,10 @@ ACCOUNTS.init()
  * @returns {Promise} - Promesa que resuelve con la respuesta de la petición.
  */
 export const login = async (formData) => {
-    const body = {
-        userID: formData.get('userID'),
-        password: formData.get('password'),
-    };
-    console.log('login, body: ', body)
+    
+    console.log('login, body: ', formData)
     try {
-        const response = await ACCOUNTS.post('login/', body);
+        const response = await ACCOUNTS.post('login/', formData);
         if (response.status === 200) {
             return { isAuthenticated: true, error: "" };
         } else {
@@ -36,8 +33,17 @@ export const login = async (formData) => {
  * @returns {Promise} - Promesa que resuelve con la respuesta de la petición.
  */
 export const register = async (formData) => {
-    const response = await ACCOUNTS.post('register/', formData);
-    return response;
+    try {
+        const response = await ACCOUNTS.post('register/', formData, {}, {"Content-Type": 'multipart/form-data'});
+        if (response.status === 200) {
+            return { isAuthenticated: true, error: "" };
+        } else {
+            throw new Error("error de usuario.");
+        }
+    } catch (error) {
+        console.log(error);
+        return { isAuthenticated: false, error: error };
+    }
 };
 
 /**
@@ -46,8 +52,17 @@ export const register = async (formData) => {
  * @returns {Promise} - Promesa que resuelve con la respuesta de la petición.
  */
 export const orgRegister = async (formData) => {
-    const response = await ACCOUNTS.post('org_register/', formData);
-    return response;
+    try {
+        const response = await ACCOUNTS.post('org_register/', formData, {}, {"Content-Type": 'multipart/form-data'});
+        if (response.status === 200) {
+            return { isAuthenticated: true, error: "" };
+        } else {
+            throw new Error("error de usuario.");
+        }
+    } catch (error) {
+        console.log(error);
+        return { isAuthenticated: false, error: error };
+    }
 };
 
 
