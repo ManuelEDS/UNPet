@@ -49,6 +49,7 @@ else: # Modo: desarrollo en localhost
    
 CORS_EXPOSE_HEADERS = ['Content-Type', 'X-CSRFToken']
 CORS_ALLOW_CREDENTIALS = True
+CORS_ORIGIN_WHITELIST = ['https://unpet-web.onrender.com']
 
 # https://docs.djangoproject.com/en/3.0/ref/settings/#allowed-hosts
  # poner el de render react url
@@ -208,15 +209,19 @@ if not RENDER_MODE:
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-CSRF_COOKIE_SAMESITE = 'Lax'
-SESSION_COOKIE_SAMESITE = 'Lax'
+
 CSRF_COOKIE_HTTPONLY = True
 SESSION_COOKIE_HTTPONLY = True
 
 if RENDER_MODE:
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
-    
+    CSRF_COOKIE_SAMESITE = 'None'
+    SESSION_COOKIE_SAMESITE = 'None'
+else:
+    CSRF_COOKIE_SAMESITE = 'Lax'
+    SESSION_COOKIE_SAMESITE = 'Lax'
+
 AUTH_USER_MODEL = "accounts.User"
 
 AUTHENTICATION_BACKENDS = [
