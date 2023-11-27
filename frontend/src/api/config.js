@@ -105,16 +105,28 @@ export class UNPetAxios {
         //console.log('UNPETAXIOS, csrfToken y csrfToken2: ', csrfToken, this.csrfToken2);
         console.log('UNPETAXIOS, options: ', options, 'moreHeaders: ', moreHeaders);
         axios.defaults.headers.common['X-CSRFToken'] = this.csrfToken2 || csrfToken;
+        if (axios.defaults.headers.common['X-CSRFToken'] == null | axios.defaults.headers.common['X-CSRFToken'] == undefined) {
+            const csrfCookie = document.cookie.split(';').find(cookie => cookie.trim().startsWith('csrftoken='));
+            console.log('UNPETAXIOS, csrfCookie 0: ', csrfCookie);
+            if (csrfCookie) {
+                const csrfTokenFromCookie = csrfCookie.split('=')[1];
+                console.log('UNPETAXIOS, csrfTokenFromCookie: ', csrfTokenFromCookie);
+                axios.defaults.headers.common['X-CSRFToken'] = csrfTokenFromCookie;
+                this.csrfToken2 = csrfTokenFromCookie;
+            }
+        }else{
+            console.log('UNPETAXIOS, axios.defaults.headers.common[\'X-CSRFToken\'] no es null: ', axios.defaults.headers.common['X-CSRFToken']);
+        }
         let contenttype = moreHeaders ? moreHeaders["Content-Type"] : "application/json";
         console.log('UNPETAXIOS, contenttype: ', contenttype);
         const allOptions = {
-                headers: {
-                        "Content-Type": contenttype,
-                        "X-CSRFToken": axios.defaults.headers.common['X-CSRFToken'],
-                        ...moreHeaders,
-                },
-                withCredentials: true, // axios usa withCredentials en lugar de credentials
-                ...options,
+            headers: {
+                "Content-Type": contenttype,
+                "X-CSRFToken": axios.defaults.headers.common['X-CSRFToken'],
+                ...moreHeaders,
+            },
+            withCredentials: true, // axios usa withCredentials en lugar de credentials
+            ...options,
         };
         console.log('JUSTO ANTES DEL FETCH: fetchWithHeaders, allOptions: ', allOptions, 'URL: ', this.BASE_URL_RUTA + url);
         return axios(this.BASE_URL_RUTA + url, allOptions); // reemplaza fetch con axios

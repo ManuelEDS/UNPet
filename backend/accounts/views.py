@@ -322,7 +322,7 @@ class UserLogin(APIView):
             return Response({'error': 'Usuario no encontrado'},
                             status=status.HTTP_404_NOT_FOUND)
 
-        user = authenticate(userID=user.username, password=password)
+        user = authenticate(userID=userID, password=password)
 
         if user is not None:
             login(request, user)

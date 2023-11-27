@@ -22,6 +22,7 @@ import { FAQ } from './pages/FAQPage'
 import { UserPage } from './pages/UserPage'
 import { PostPage } from './pages/PostPage'
 import { useParams } from 'react-router-dom';
+import {PetList} from './pages/test-PET_LIST.jsx'
 // import {PostContextProvider } from './context/PostContext';
 function NotFoundPage() {
   return (
@@ -63,6 +64,7 @@ function App() {
             <Route path='/create-post' element={<CreatePost />} />
             <Route path='/profile' element={<Profile />} />
             <Route path='/user/:username' element={<UserPage />} />
+            <Route path='/pets-list' element={<PetList />} />
 
             <Route path='/post/:id' element={
                 <PostPage />

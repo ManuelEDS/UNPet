@@ -659,6 +659,7 @@ def agregar_publicaciones():
     #       (org.id, org.username) for org in Persona.objects.all()])
     print("numero de publicaciones", len(publicaciones))
     for data in publicaciones:
+        
         extra_fields = {
             key: value for key, value in data.items() if key not in ["idorganizacion"]
         }

@@ -60,8 +60,8 @@ function ImageSlider({ images, currentSlide, setCurrentSlide , postid,  setCurre
                                 backgroundImageSrc: item.urlfoto
                             }}
                         />
-                        {item.adoptada && (
-                            <div className="absolute top-2 left-2 bg-green-500 text-white px-2 py-1 rounded">
+                        {images[slide-1] && images[slide-1]?.adoptada && (
+                            <div className="absolute top-2 left-2 bg-green-500 text-white px-2 py-1 rounded z-10">
                                 Adoptada
                             </div>
                         )}
@@ -71,7 +71,13 @@ function ImageSlider({ images, currentSlide, setCurrentSlide , postid,  setCurre
                 <MenuNav />
             </HeroSlider>:
             <a href={`/post/${postid}`} className="w-full">
+                {images[0] && images[0]?.adoptada && (
+                            <div className=" bg-green-500 text-white px-2 py-1  z-10 text-center">
+                                Adoptada
+                            </div>
+                        )}
                  <img src={images[0].urlfoto} alt="" />
+                 
             </a>
           
             }

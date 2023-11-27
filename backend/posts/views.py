@@ -65,11 +65,52 @@ class LikedComentarios(APIView):
         user_likes = Comentario.objects.filter(user=user)
         liked_publicaciones = [like.content_object for like in user_likes if isinstance(like.content_object, Publicacion)]
         return liked_publicaciones
+    
+def print_post_create(req):
+    post_data = req.data.get('post', {})  # Obtener una lista de valores bajo la clave 'post'
+    print('post_data print_post_create: ', post_data)
+    if post_data:
+        idorganizacion = post_data.get('idorganizacion')
+        estado = post_data.get('estado')
+        titulo = post_data.get('titulo')
+        descripcion = post_data.get('descripcion')
+        n_mascotas = post_data.get('n_mascotas')
+        n_mascotas_adoptadas = post_data.get('n_mascotas_adoptadas')
+        mascotas = post_data.get('mascotas', [])
 
-class PublicacionView(APIView): #CREAR PUBLICACION CON MASCOTAS 
+        print(f'idorganizacion: {idorganizacion}')
+        print(f'estado: {estado}')
+        print(f'titulo: {titulo}')
+        print(f'descripcion: {descripcion}')
+        print(f'n_mascotas: {n_mascotas}')
+        print(f'n_mascotas_adoptadas: {n_mascotas_adoptadas}')
+
+        for mascota in mascotas:
+            mascota_id = mascota.get('id')
+            print(f'Mascota ID: {mascota_id}')
+class PublicacionCreate(APIView): #CREAR PUBLICACION CON MASCOTAS 
+    authentication_classes = [SessionAuthentication]
+    permission_classes = [permissions.IsAuthenticated]
     def post(self, request, format=None):
-        post_data = request.data.get('post')
-        pets_data = request.data.get('pets')
+        print('mas pruebas, post.keys: ', request.POST.get('post').items())
+        print_post_create(request)
+        #print('request.data', request.data)
+        post_data = request.data['post']
+        #print('post_data v0', post_data)
+        pets_data = request.data.getlist('mascotas')
+        userid= request.user.id
+        org= post_data.get('idorganizacion')
+        #print('legada de datos','post_data: ', post_data, '\npets_data: ', pets_data,'userid', userid, 'org: ',org)
+        if org is None:
+            if Organizacion.objects.filter(id=userid).exists():
+                post_data['idorganizacion']= userid
+            else:
+                return Response({'error': 'No existe organizacion con ese id'}, status=status.HTTP_400_BAD_REQUEST) 
+        else:
+            if org!=userid:
+                return Response({'error': 'El usuario actual no coincide con la idorganizacion'}, status=status.HTTP_400_BAD_REQUEST)
+        # mas codigo abajo        
+
 
         serializer = PublicacionSerializer(data=post_data)
 

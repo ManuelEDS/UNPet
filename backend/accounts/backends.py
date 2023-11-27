@@ -9,7 +9,7 @@ class AccountsBackend(ModelBackend):
         # Comprobar si userID es una dirección de correo electrónico
         patron_correo = r'^[\w\.-]+@[\w\.-]+\.\w+$'
         if userID is None: 
-            userID = request.POST.get('username')
+            userID = kwargs['username'] if 'username' in kwargs else kwargs['email']
         print('credenciales-->', userID, password)
 
         if re.match(patron_correo, userID):

@@ -9,6 +9,7 @@ from .views import (
     PublicacionesOrg,
     LikePublicacion,
     LikeComentario,
+    PublicacionCreate
 )
 
 urlpatterns = [
@@ -21,5 +22,6 @@ urlpatterns = [
     path('api/posts/<str:org_username>/posts/', PublicacionesOrg.as_view(), name='publicaciones_org'),
     path('api/posts/<int:pk>/like/', LikePublicacion.as_view(), name='publicacion-like'),
     path('api/posts/<int:pk>/comments/<int:comment_pk>/like/', LikeComentario.as_view(), name='comentario-like'),
+    path('api/posts/create/', PublicacionCreate.as_view(), name='publicacion-create'),
 ]
 
