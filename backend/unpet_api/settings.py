@@ -41,7 +41,7 @@ elif RENDER_MODE: # Modo: despliegue en render
     ALLOWED_HOSTS = ['*']
     CORS_ALLOWED_ORIGINS = ['https://unpet-web.onrender.com']
     CSRF_TRUSTED_ORIGINS = ['https://unpet-web.onrender.com']
-
+    CORS_ALLOW_ALL_ORIGINS = True
 else: # Modo: desarrollo en localhost
     ALLOWED_HOSTS = ['*']
     CORS_ALLOWED_ORIGINS = ['http://localhost', 'http://127.0.0.1', 'http://localhost:5173', 'http://127.0.0.1:5173']
@@ -213,7 +213,10 @@ SESSION_COOKIE_SAMESITE = 'Lax'
 CSRF_COOKIE_HTTPONLY = True
 SESSION_COOKIE_HTTPONLY = True
 
-
+if RENDER_MODE:
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
+    
 AUTH_USER_MODEL = "accounts.User"
 
 AUTHENTICATION_BACKENDS = [
