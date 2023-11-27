@@ -41,7 +41,6 @@ elif RENDER_MODE: # Modo: despliegue en render
     ALLOWED_HOSTS = ['*']
     CORS_ALLOWED_ORIGINS = ['https://unpet-web.onrender.com']
     CSRF_TRUSTED_ORIGINS = ['https://unpet-web.onrender.com']
-    CORS_ALLOW_ALL_ORIGINS = True
 
 else: # Modo: desarrollo en localhost
     ALLOWED_HOSTS = ['*']
