@@ -34,8 +34,8 @@ class MascotaRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
 class MascotasOrganizacionListView(generics.ListAPIView):
     """Permite listar todas las mascotas que pertenecen a la organización del usuario actual"""
     serializer_class = MascotaSerializer
-    # permission_classes = (permissions.IsAuthenticated,)
-    # authentication_classes = (SessionAuthentication,) 
+    permission_classes = (permissions.IsAuthenticated,)
+    authentication_classes = (SessionAuthentication,) 
     def get_queryset(self):
         user = self.request.user
         print('mascotas list org: ', user.id, user.groups.filter(name='Organizacion').exists(), user.is_authenticated)

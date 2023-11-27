@@ -2,9 +2,9 @@ import axios from "axios";
 
 //===============================================//
 // --> SOLO UNA PUEDE SER TRUE <-- //
-export const DEBUG = true;
+export const DEBUG = false;
 export const DOCKER_MODE = false;
-export const RENDER_MODE = false;
+export const RENDER_MODE = true;
 //===============================================//
 
 let URL = "";
@@ -40,7 +40,7 @@ if (DEBUG) {
  * @type {string}
  */
 export const BASE_URL = URL;
-export const CREDENTIALS = 'include';
+export const CREDENTIALS = 'same-origin';
 export let csrfToken = null;
 const  getCSRF = async() => {
         fetch(BASE_URL + "/accounts/api/csrf/", {
@@ -99,38 +99,22 @@ export class UNPetAxios {
         console.log('inicializando axios, csrfToken y csrfToken2: ', csrfToken, this.csrfToken2);
     }
     async fetchWithHeaders(url, options = {}, moreHeaders) {
-        if (this.csrfToken2 === null && csrfToken === null) {
-            this.csrfToken2 = await getCSRF();
-        }
-        //console.log('UNPETAXIOS, csrfToken y csrfToken2: ', csrfToken, this.csrfToken2);
-        console.log('UNPETAXIOS, options: ', options, 'moreHeaders: ', moreHeaders);
-        axios.defaults.headers.common['X-CSRFToken'] = this.csrfToken2 || csrfToken;
-        if (axios.defaults.headers.common['X-CSRFToken'] == null | axios.defaults.headers.common['X-CSRFToken'] == undefined) {
-            const csrfCookie = document.cookie.split(';').find(cookie => cookie.trim().startsWith('csrftoken='));
-            console.log('UNPETAXIOS, csrfCookie 0: ', csrfCookie);
-            if (csrfCookie) {
-                const csrfTokenFromCookie = csrfCookie.split('=')[1];
-                console.log('UNPETAXIOS, csrfTokenFromCookie: ', csrfTokenFromCookie);
-                axios.defaults.headers.common['X-CSRFToken'] = csrfTokenFromCookie;
-                this.csrfToken2 = csrfTokenFromCookie;
-            }
-        }else{
-            console.log('UNPETAXIOS, axios.defaults.headers.common[\'X-CSRFToken\'] no es null: ', axios.defaults.headers.common['X-CSRFToken']);
-        }
+        console.log('url: ', url, 'options: ', options, 'moreHeaders: ', moreHeaders);
         let contenttype = moreHeaders ? moreHeaders["Content-Type"] : "application/json";
-        console.log('UNPETAXIOS, contenttype: ', contenttype);
+        
         const allOptions = {
-            headers: {
-                "Content-Type": contenttype,
-                "X-CSRFToken": axios.defaults.headers.common['X-CSRFToken'],
-                ...moreHeaders,
-            },
-            withCredentials: true, // axios usa withCredentials en lugar de credentials
-            ...options,
+          headers: {
+            "Content-Type": contenttype,
+          },
+          withCredentials: true,
+          credentials: 'include', 
+          ...options,
         };
+      
         console.log('JUSTO ANTES DEL FETCH: fetchWithHeaders, allOptions: ', allOptions, 'URL: ', this.BASE_URL_RUTA + url);
-        return axios(this.BASE_URL_RUTA + url, allOptions); // reemplaza fetch con axios
-    }
+        
+        return axios(this.BASE_URL_RUTA + url, allOptions);
+      }
 
     get(url, options = {}) {
         return this.fetchWithHeaders(url, options);

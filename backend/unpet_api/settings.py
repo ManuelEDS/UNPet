@@ -28,10 +28,10 @@ SECRET_KEY = os.environ.get(
 
 # SECURITY WARNING: don't run with debug turned on in production!
 
-DEBUG=True
-LOCAL_DB = True # DEBUG = True #para usar sqlite, FALSE para la db con las variables de entorno
+DEBUG=False
+LOCAL_DB = False # DEBUG = True #para usar sqlite, FALSE para la db con las variables de entorno
 DOCKER_MODE=False
-RENDER_MODE = False
+RENDER_MODE = True
 
 if DOCKER_MODE: # Modo: despliegue en algun seguidor docker (plan B por si render falla)
     ALLOWED_HOSTS = ['*']
