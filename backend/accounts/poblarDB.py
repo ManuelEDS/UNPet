@@ -552,7 +552,7 @@ def agregar_publicaciones():
         {
             "idorganizacion": 26,
             "estado": "Disponibles",
-            "titulo": "Mr 4 meses de nacido, gatos en adopcion, perros en adopcion, perros en adopcion bogota, gatos en adopcion bogota grises,gatos",
+            "titulo": "Mr 4 meses de nacido, gatos en adopcion, perros en adopcion, perros ",
             "descripcion": "Integer ac leo. Pellentesque ultrices mattis odio. Donec vitae nisi.",
             "n_mascotas": 8,
             "n_mascotas_adoptadas": 0,
@@ -659,7 +659,7 @@ def agregar_publicaciones():
     #       (org.id, org.username) for org in Persona.objects.all()])
     print("numero de publicaciones", len(publicaciones))
     for data in publicaciones:
-        
+
         extra_fields = {
             key: value for key, value in data.items() if key not in ["idorganizacion"]
         }
