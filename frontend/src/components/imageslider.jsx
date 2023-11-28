@@ -7,8 +7,8 @@ import { useState, useEffect } from 'react';
 // eslint-disable-next-line react/prop-types
 function ImageSlider({ images, currentSlide, setCurrentSlide , postid,  setCurrentPet}) {
     const [slide, setSlide] = useState(currentSlide || 0);
-    console.log('images', images);
-    console.log('currentSlide', slide);
+    //console.log('images', images);
+    //console.log('currentSlide', slide);
     const length = images.length;
     if (length <= 1) {
         if (setCurrentPet) {

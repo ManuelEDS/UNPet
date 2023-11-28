@@ -41,6 +41,8 @@ export function RegisterOrg() {
   const [errorFile, setErrorFile] = useState(false);
   const {errorPhone, setErrorPhone} = useState(false);
   const [errorUsername, setErrorUsername] = useState('');
+  const [loading, setLoading] = useState(false);
+
   const regexNIT = /^[0-9]{8,11}-[0-9]{1}$/;
   const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const regexPassword = /^(?=.*[0-9])(?=.*[a-zA-Z])[0-9a-zA-Z]{8,}$/;
@@ -81,6 +83,8 @@ export function RegisterOrg() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    
+
     const data = new FormData(event.currentTarget);
     console.log('este es el form data', Object.fromEntries(data));
     const termsIsChecked = data.get('terms');
@@ -119,9 +123,12 @@ export function RegisterOrg() {
     //   return;
     // }
     try {
+      setLoading(true);
       const resp = await orgRegister(data);
       user.checkAuth() // Refresh the page
       navigate('/home');
+      setLoading(false);
+
     } catch (error) {
       setError(true);
       console.log('register org failed: ', error);
@@ -134,6 +141,9 @@ export function RegisterOrg() {
 }, []);
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+      {loading && <div className="fixed top-0 left-0 z-50 w-screen h-screen flex items-center justify-center bg-black bg-opacity-50">
+                <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-white"></div>
+            </div>}
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <div className="text-center">
           <FaLock className="mx-auto h-12 w-auto text-indigo-600" />

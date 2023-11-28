@@ -23,6 +23,8 @@ import { UserPage } from './pages/UserPage'
 import { PostPage } from './pages/PostPage'
 import { useParams } from 'react-router-dom';
 import {PetList} from './pages/test-PET_LIST.jsx'
+import { useMediaQuery } from 'react-responsive';
+
 // import {PostContextProvider } from './context/PostContext';
 function NotFoundPage() {
   return (
@@ -34,11 +36,13 @@ function NotFoundPage() {
 }
 
 function App() {
+  const isDesktopOrLaptop = useMediaQuery({ minDeviceWidth: 800 });
+
 
 
   return (
     <div className="bg-gray-200 min-h-screen">
-      <UserContextProvider>
+      <UserContextProvider isDesktop={isDesktopOrLaptop}>
         <BrowserRouter>
           <NavBar />
           <Routes>

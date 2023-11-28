@@ -63,7 +63,7 @@ export async function getPoststrend() {
 export async function getPost(id) {
     const response = await POSTS.get(`/${id}`);
     const data = response.data
-    console.log(data);
+    //console.log(data);
     return data;
 }
 
@@ -74,7 +74,7 @@ export async function createPost(data) {
     const response = await POSTS.post(`/trend/`, data);
     return response.data;
     }else{
-        console.log("Error al crear la publicacion")
+       // console.log("Error al crear la publicacion")
     }
 }
 

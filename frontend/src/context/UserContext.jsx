@@ -1,17 +1,18 @@
 import { createContext, useState, useEffect } from "react";
 import { UNPetAxios } from "../api/config";
-import { useMediaQuery } from 'react-responsive';
 import PropTypes from 'prop-types';
 
 export const UserContext = createContext();
 
-export const UserContextProvider = ({ children }) => {
+export const UserContextProvider = ({ children, isDesktop }) => {
     const UserAxios = new UNPetAxios('/accounts');
     const [searchText, setSearchText] = useState("");
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [userType, setuserType] = useState("Anonymous");
     const [username, setUsername] = useState("Anonymous");
     const [urlfoto, setUrlfoto] = useState("/user-img-default.png");
+    const [isDesktopOrLaptop, setIsDesktopOrLaptop] = useState(isDesktop);
+    const [leftBar, setLeftBar] = useState(false);
 
     const checkAuth = async () => {
         try {
@@ -32,10 +33,16 @@ export const UserContextProvider = ({ children }) => {
 
     useEffect(() => {
         checkAuth();
-    }, []);
+        setIsDesktopOrLaptop(isDesktop);
+        setLeftBar(false);
+    }, [isDesktop]);
+
+    useEffect(() => {
+        console.log('leftbar en context: ', leftBar);
+    }, [leftBar]);
 
     return (
-        <UserContext.Provider value={{ user: { isAuthenticated, username, urlfoto, userType, checkAuth }, search: { searchText, setSearchText } }}>
+        <UserContext.Provider value={{ user: { isAuthenticated, username, urlfoto, userType, checkAuth, isDesktopOrLaptop , leftBar, setLeftBar}, search: { searchText, setSearchText } }}>
             {children}
         </UserContext.Provider>
     );

@@ -30,7 +30,7 @@ if (DEBUG) {
                 URL = testURL;
                 break;
             } catch (error) {
-                console.log('ERROR, EL HOST ES:' + testURL, error);
+               // console.log('ERROR, EL HOST ES:' + testURL, error);
             }
         }
 }
@@ -49,11 +49,11 @@ const  getCSRF = async() => {
             .then((res) => {
                 csrfToken = res.headers.get("X-CSRFToken");
                 //setCsrf(csrfToken);
-                console.log('crsfToken para el nuevo getCSRF(): ',csrfToken);
+                //console.log('crsfToken para el nuevo getCSRF(): ',csrfToken);
                 return csrfToken;
             })
             .catch((err) => {
-                console.log(err);
+                //console.log(err);
             });
 }
 
@@ -65,7 +65,7 @@ const  getCSRF = async() => {
         })
             .then((res) => res.json())
             .then((data) => {
-                console.log(data);
+               // console.log(data);
                 if (data.isAuthenticated) {
                     
                 } else {
@@ -74,7 +74,7 @@ const  getCSRF = async() => {
                 }
             })
             .catch((err) => {
-                console.log(err);
+                //console.log(err);
             });
     }
 
@@ -96,10 +96,10 @@ export class UNPetAxios {
 
     async init() {
         
-        console.log('inicializando axios, csrfToken y csrfToken2: ', csrfToken, this.csrfToken2);
+        //console.log('inicializando axios, csrfToken y csrfToken2: ', csrfToken, this.csrfToken2);
     }
     async fetchWithHeaders(url, options = {}, moreHeaders) {
-        console.log('url: ', url, 'options: ', options, 'moreHeaders: ', moreHeaders);
+        //'url: ', url, 'options: ', options, 'moreHeaders: ', moreHeaders);
         let contenttype = moreHeaders ? moreHeaders["Content-Type"] : "application/json";
         
         const allOptions = {
@@ -121,7 +121,7 @@ export class UNPetAxios {
     }
 
     post(url, body = {}, options = {}, headers = {}) {
-        console.log('UNPETAXIOS, post, body: ', body, 'headers: ', headers);
+        //console.log('UNPETAXIOS, post, body: ', body, 'headers: ', headers);
         return this.fetchWithHeaders(url, {
             method: "post",
             data: body, // axios usa 'data' en lugar de 'body'
