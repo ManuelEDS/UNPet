@@ -122,7 +122,7 @@ function WhoAreWePage() {
                     ¡Apóyanos!
                 </h2>
                 <p className="text-base my-4 right-align">
-                    No realizamos cobros por las adopciones en nuestra página, tu donación cuenta para mentener este sueño en marcha, haz click  
+                    No realizamos cobros por las adopciones en nuestra página, tu donación cuenta para mentener este sueño en marcha, haz click-   
                     <Link to="/donations" className="text-indigo-600 hover:text-indigo-500">
                         aquí
                     </Link>
