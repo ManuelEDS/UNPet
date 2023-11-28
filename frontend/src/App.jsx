@@ -66,7 +66,6 @@ function App() {
             <Route path='/posttest' element={<TestPosts />} />
             <Route path='/create-post' element={<PetList />} />
             <Route path='/user/:username' element={<UserPage />} />
-            <Route path='/pets-list' element={<PetList />} />
             <Route path='/search/:search' element={<HomeSearch />} />
 
             <Route path='/post/:id' element={
