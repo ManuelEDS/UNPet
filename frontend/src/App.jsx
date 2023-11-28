@@ -22,9 +22,9 @@ import { FAQ } from './pages/FAQPage'
 import { UserPage } from './pages/UserPage'
 import { PostPage } from './pages/PostPage'
 import { useParams } from 'react-router-dom';
-import {PetList} from './pages/test-PET_LIST.jsx'
+import { PetList } from './pages/test-PET_LIST.jsx'
 import { useMediaQuery } from 'react-responsive';
-
+import SearchPage from './components/Feed/SearchPage.jsx'
 // import {PostContextProvider } from './context/PostContext';
 function NotFoundPage() {
   return (
@@ -69,9 +69,10 @@ function App() {
             <Route path='/profile' element={<Profile />} />
             <Route path='/user/:username' element={<UserPage />} />
             <Route path='/pets-list' element={<PetList />} />
+            <Route path='/search/:search' element={<SearchPage />} />
 
             <Route path='/post/:id' element={
-                <PostPage />
+              <PostPage />
             } />
 
           </Routes>
