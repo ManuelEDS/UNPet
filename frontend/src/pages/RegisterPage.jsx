@@ -19,7 +19,7 @@ export function Register() {
   const [errorEmail, setErrorEmail] = useState('');
   const [errorPassword, setErrorPassword] = useState('');
   const [errorID, setErrorID] = useState(false);
-  const {errorPhone, setErrorPhone} = useState(false);
+  const { errorPhone, setErrorPhone } = useState(false);
   const [errorFile, setErrorFile] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -104,16 +104,16 @@ export function Register() {
     }
   };
   useEffect(() => {
-    if(user.isAuthenticated){
+    if (user.isAuthenticated) {
       navigate('/home');
     }
-}, []);
+  }, []);
 
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       {loading && <div className="fixed top-0 left-0 z-50 w-screen h-screen flex items-center justify-center bg-black bg-opacity-50">
-                <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-white"></div>
-            </div>}
+        <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-white"></div>
+      </div>}
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <div className="text-center"></div>
         <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
@@ -121,8 +121,18 @@ export function Register() {
             <div>
               <FaCheckCircle className="h-12 w-12 text-green-500 mx-auto" />
               <h1 className="text-2xl font-semibold text-gray-900 mt-6 text-center">Registrarse</h1>
+              <p className="mt-2 text-center text-sm text-gray-600">
+                O{' '}
+                <Link
+                  to="/register-org"
+                  className="font-medium text-indigo-600 hover:text-indigo-500"
+                >
+                  regístrate como organización
+                </Link>
+              </p>
+
             </div>
-            
+
             <form className="space-y-6" method="POST" encType="multipart/form-data" onSubmit={handleSubmit}>
 
               <div className="rounded-md shadow-sm -space-y-px">
@@ -177,14 +187,16 @@ export function Register() {
                   <input
                     id="n_doc"
                     name="n_doc"
-                    type="text"
+                    type="number"
                     autoComplete="n_doc"
                     required
                     className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                     placeholder="Número de documento"
+                    min="111111"
+                    max="200000000"
                   />
                   {errorID && <p className="mt-2 text-sm text-red-600">
-                  El numero de documento no es válido</p>
+                    El numero de documento no es válido</p>
                   }
                 </div>
                 <div>
@@ -211,41 +223,42 @@ export function Register() {
                   <input
                     id="telefono"
                     name="telefono"
-                    type="text"
+                    type="number"
                     autoComplete="telefono"
                     required
                     className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                     placeholder="Teléfono"
+                    min="1111111111"
+                    max="3311111111"
                   />
                   {errorPhone &&
-                  
-                  <p className="mt-2 text-sm text-red-600">
-                  El numero de telefono no es válido</p>
+                    <p className="mt-2 text-sm text-red-600">
+                      El numero de telefono no es válido</p>
                   }
                 </div>
                 <div>
-                <label htmlFor="idlocalidad" className="block text-sm font-medium text-gray-700">
-                  Localidad
-                </label>
-                <div className="mt-1">
-                  <select
-                    id="idlocalidad"
-                    name="idlocalidad"
-                    autoComplete="family-name"
-                    required
-                    className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                    value={localidad}
-                    onChange={(e) => setLocalidad(e.target.value)}
-                  >
-                    <option value="">Seleccione una localidad</option>
-                    {localidades.map((loc) => (
-                      <option key={'k-loc' + loc.id} value={loc.id}>
-                        {loc.name}
-                      </option>
-                    ))}
-                  </select>
+                  <label htmlFor="idlocalidad" className="block text-sm font-medium text-gray-700">
+                    Localidad
+                  </label>
+                  <div className="mt-1">
+                    <select
+                      id="idlocalidad"
+                      name="idlocalidad"
+                      autoComplete="family-name"
+                      required
+                      className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                      value={localidad}
+                      onChange={(e) => setLocalidad(e.target.value)}
+                    >
+                      <option value="">Seleccione una localidad</option>
+                      {localidades.map((loc) => (
+                        <option key={'k-loc' + loc.id} value={loc.id}>
+                          {loc.name}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
                 </div>
-              </div>
                 <div>
                   <label htmlFor="photo_file" className="block text-sm font-medium text-gray-700 py-2">
                     Foto de perfil
@@ -258,9 +271,9 @@ export function Register() {
                     className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                   />
                   {errorFile &&
-                  
-                  <p className="mt-2 text-sm text-red-600">
-                  El archivo no es de tipo imagen</p>
+
+                    <p className="mt-2 text-sm text-red-600">
+                      El archivo no es de tipo imagen</p>
                   }
                 </div>
                 <div>
@@ -272,14 +285,15 @@ export function Register() {
                     name="email"
                     type="email"
                     autoComplete="email"
+                    pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}"
                     required
                     className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-cyan-500 focus:border-cyan-500 focus:z-10 sm:text-sm"
                     placeholder="Correo electrónico"
                   />
                   {errorEmail &&
-                  
-                  <p className="mt-2 text-sm text-red-600">
-                  El coreo electrónico no es válido</p>
+
+                    <p className="mt-2 text-sm text-red-600">
+                      El coreo electrónico no es válido</p>
                   }
                 </div>
                 <div>
@@ -295,11 +309,11 @@ export function Register() {
                     className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-cyan-500 focus:border-cyan-500 focus:z-10 sm:text-sm"
                     placeholder="Nombre de usuario"
                   />
-                  
+
                   {errorUsername &&
-                  
-                  <p className="mt-2 text-sm text-red-600">
-                  El username no es válido</p>
+
+                    <p className="mt-2 text-sm text-red-600">
+                      El username no es válido</p>
                   }
                 </div>
                 <div>
@@ -314,11 +328,13 @@ export function Register() {
                     required
                     className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-cyan-500 focus:border-cyan-500 focus:z-10 sm:text-sm"
                     placeholder="Contraseña"
+                    minLength="8"
+                    maxLength="16"
                   />
                   {errorPassword &&
-                  
-                  <p className="mt-2 text-sm text-red-600">
-                  La contraseña debe ser de almenos 8 caracteres, con numeros y letras</p>
+
+                    <p className="mt-2 text-sm text-red-600">
+                      La contraseña debe ser de almenos 8 caracteres, máximo 16</p>
                   }
                 </div>
               </div>
@@ -340,9 +356,9 @@ export function Register() {
                     </Link>
                   </label>
                   {errorTerms &&
-                  
-                  <p className="mt-2 text-sm text-red-600">
-                  Debes aceptar los terminos y condiciones</p>
+
+                    <p className="mt-2 text-sm text-red-600">
+                      Debes aceptar los terminos y condiciones</p>
                   }
                 </div>
               </div>

@@ -1,5 +1,5 @@
 
-import { FaHome, FaHashtag, FaQuestion, FaCog, FaUserCircle, FaChevronRight, FaChevronDown, FaExclamation, FaAddressBook  } from 'react-icons/fa';
+import { FaHome, FaHashtag, FaQuestion, FaCog, FaUserCircle, FaChevronRight, FaChevronDown, FaExclamation, FaAddressBook } from 'react-icons/fa';
 import { VscLaw } from 'react-icons/vsc';
 import { IconContext } from 'react-icons';
 import { useNavigate } from 'react-router-dom';
@@ -15,10 +15,10 @@ function LeftBar() {
         setShowSubItems(!showSubItems);
     };
     return (
-        <div className="left-bar sticky top-0" style={{ height: "100%", width: ` ${user.leftBar? '100%': '270px'}` }}>
+        <div className="left-bar sticky top-0" style={{ height: "100%", width: ` ${user.leftBar ? '100%' : '270px'}` }}>
             <ul className="space-y-5 py-5 pt-10" style={{ display: 'flex', flexDirection: 'column' }}>
                 <li className="text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-md py-2 px-5 flex items-center justify-start">
-                    <a href="#" className='py-2 px-3 flex items-center'>
+                    <a href="/home" className='py-2 px-3 flex items-center'>
                         <IconContext.Provider value={{ className: 'h-5 w-5 inline-block mr-2' }}>
                             <FaHome />
                         </IconContext.Provider>
@@ -26,7 +26,7 @@ function LeftBar() {
                     </a>
                 </li>
                 <li className="text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-md py-2 px-5 flex items-center justify-start">
-                    <a href="#" className='py-2 px-3 flex items-center'>
+                    <a href="/home" className='py-2 px-3 flex items-center'>
                         <IconContext.Provider value={{ className: 'h-5 w-5 inline-block mr-2' }}>
                             <FaHashtag />
                         </IconContext.Provider>
@@ -35,7 +35,7 @@ function LeftBar() {
                 </li>
 
                 <li className="text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-md py-2 px-5 flex items-center justify-start">
-                    <button className='py-2 px-3 flex items-center' onClick={() => { user.isAuthenticated ? navigate('/profile') : navigate('/login') }}>
+                    <button className='py-2 px-3 flex items-center' onClick={() => { user.isAuthenticated ? navigate('/user/' + user.username) : navigate('/login') }}>
                         <IconContext.Provider value={{ className: 'h-5 w-5 inline-block mr-2' }}>
                             <FaCog />
                         </IconContext.Provider>
@@ -88,7 +88,7 @@ function LeftBar() {
                                 Preguntas frecuentes
                             </a>
                         </li>
-                      
+
                     </ul>
                 )}
             </ul>
