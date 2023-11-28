@@ -35,13 +35,16 @@ function NotFoundPage() {
 }
 
 function App() {
+
+
+
   const isDesktopOrLaptop = useMediaQuery({ minDeviceWidth: 800 });
 
 
 
   return (
     <div className="bg-gray-200 min-h-screen">
-      <UserContextProvider isDesktop={isDesktopOrLaptop}>
+      <UserContextProvider isDesktop={isDesktopOrLaptop} >
         <BrowserRouter>
           <NavBar />
           <Routes>

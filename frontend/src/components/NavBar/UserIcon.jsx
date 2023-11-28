@@ -58,6 +58,9 @@ function UserIcon({ user: userdata }) {
                             <li className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 cursor-pointer" onClick={ handleLogout}>
                                 Cerrar sesión
                             </li>
+                            <li className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 cursor-pointer" onClick={ ()=>{navigate('/user/'+ user.username)}}>
+                                Mi perfil
+                            </li>
                             {userdata.usertype == 'Organizacion' && <li className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 cursor-pointer" onClick={() => { setIsUserMenuOpen(false); navigate('/create-post') }}>
 
                                 <button

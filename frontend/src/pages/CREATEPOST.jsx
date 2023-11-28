@@ -4,6 +4,8 @@ import { getOrganizationPets, updatePet, deletePet, createPet } from '../api/pet
 import { Modal } from '../components/Modal.jsx';
 import { MdEdit, MdCancel, MdDelete } from "react-icons/md";
 import { createPost } from '../api/posts.api.js';
+import { BASE_URL } from '../api/config.js';
+import axios from 'axios';
 export const PetList = () => {
     const [pets, setPets] = useState([]);
     const [selectedPets, setSelectedPets] = useState([]);;
@@ -12,12 +14,20 @@ export const PetList = () => {
     const [editedPet, setEditedPet] = useState(null)
     const [showCreate, setShowCreate] = useState(false);
     const { user } = useContext(UserContext)
+    const request = axios.create({
+        baseURL: BASE_URL,
+        headers: {
+            "Content-Type": 'application/json',
+           "X-CSRFToken": user.csrfToken,
+        },
+        withCredentials: true,
+    });
     useEffect(() => {
         const fetchPets = async () => {
             console.log('EL FETCH CON FNCION: ');
-            const data = await getOrganizationPets();
+            const data = await request.get('/pets/api/pets/organization').then((response) => setPets(response.data))
             console.log('EL DATA con unpetaxios: ', data)
-            setPets(data);
+            
         }
         fetchPets();
         setShowEdit(false);
@@ -64,10 +74,22 @@ export const PetList = () => {
             setLoading(true);
             console.log('valido, aqui se ejecuta el updatePet()');
             //await new Promise(resolve => setTimeout(resolve, 500));
-            Response = await updatePet(editedPet.id, editedPet);
+            // request.defaults.headers.put['X-CSRFToken'] = user.csrfToken;
+            // request.defaults.headers.put['csrftoken'] = user.csrfToken;
+            document.cookie = `csrftoken=${user.csrfToken}`;
+            console.log('justo antes de enviar el request: ', editedPet, user.csrfToken, request.defaults.headers);
+            request.put('/pets/api/pets/'+editedPet.id+'/update/', editedPet)
+            .then((response) => {
+                // Maneja la respuesta aquí
+                console.log('uodate pet: Response: ', response);
+            })
+            .catch((error) => console.error(error));
+            
+            
+            //Response = await updatePet(editedPet.id, editedPet);
             console.log('Response: ', Response);
             setLoading(false);
-            window.location.reload();
+            // window.location.reload();
         }
         setShowEdit(false);
 

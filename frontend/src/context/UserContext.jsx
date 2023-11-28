@@ -1,7 +1,7 @@
 import { createContext, useState, useEffect } from "react";
 import { UNPetAxios } from "../api/config";
 import PropTypes from 'prop-types';
-
+import { getCSRF } from "../api/config";
 export const UserContext = createContext();
 
 export const UserContextProvider = ({ children, isDesktop }) => {
@@ -13,6 +13,7 @@ export const UserContextProvider = ({ children, isDesktop }) => {
     const [urlfoto, setUrlfoto] = useState("/user-img-default.png");
     const [isDesktopOrLaptop, setIsDesktopOrLaptop] = useState(isDesktop);
     const [leftBar, setLeftBar] = useState(false);
+    const [csrfToken, setCsrfToken] = useState(null);
 
     const checkAuth = async () => {
         try {
@@ -37,12 +38,22 @@ export const UserContextProvider = ({ children, isDesktop }) => {
         setLeftBar(false);
     }, [isDesktop]);
 
+
     useEffect(() => {
-        console.log('leftbar en context: ', leftBar);
-    }, [leftBar]);
+        const fetchCSRFToken = async () => {
+            const tk = await getCSRF();
+            setCsrfToken(tk);
+        };
+
+        fetchCSRFToken();
+    }, []);
+
+    useEffect(() => {
+        console.log('csrfToken en el user CONTEXT: ', csrfToken);
+    }, [csrfToken]);
 
     return (
-        <UserContext.Provider value={{ user: { isAuthenticated, username, urlfoto, userType, checkAuth, isDesktopOrLaptop , leftBar, setLeftBar}, search: { searchText, setSearchText } }}>
+        <UserContext.Provider value={{ user: { isAuthenticated, username, urlfoto, userType, checkAuth, isDesktopOrLaptop , leftBar, setLeftBar, csrfToken}, search: { searchText, setSearchText } }}>
             {children}
         </UserContext.Provider>
     );

@@ -41,8 +41,8 @@ elif RENDER_MODE: # Modo: despliegue en render
     ALLOWED_HOSTS = ['*']
     CORS_ALLOWED_ORIGINS = ['https://unpet-web.onrender.com']
     CSRF_TRUSTED_ORIGINS = ['https://unpet-web.onrender.com']
+    
     CORS_ORIGIN_WHITELIST = ['https://unpet-web.onrender.com']
-
     CORS_ALLOW_ALL_ORIGINS = True
 else: # Modo: desarrollo en localhost
     ALLOWED_HOSTS = ['*']
@@ -52,10 +52,18 @@ else: # Modo: desarrollo en localhost
     CORS_ALLOW_ALL_ORIGINS = True
 
    
-CORS_EXPOSE_HEADERS = ['Content-Type', 'X-CSRFToken']
+CORS_EXPOSE_HEADERS = ['Content-Type', 'X-CSRFToken', 'csrftoken']
 CORS_ALLOW_CREDENTIALS = True
 
-
+CORS_ALLOW_HEADERS = [
+    'csrftoken',
+    'content-type',
+    'origin',
+    'x-allowed-headers',
+    'x-csrftoken',
+    'x-requested-with',
+    # Agrega cualquier otro header que necesites permitir
+]
 # https://docs.djangoproject.com/en/3.0/ref/settings/#allowed-hosts
  # poner el de render react url
 
@@ -218,6 +226,8 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 
 if RENDER_MODE:
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
     CSRF_COOKIE_SAMESITE = 'None'
     SESSION_COOKIE_SAMESITE = 'None'
     CSRF_COOKIE_HTTPONLY = False

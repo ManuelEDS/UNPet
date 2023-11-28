@@ -10,11 +10,13 @@ function ImageSlider({ images, currentSlide, setCurrentSlide , postid,  setCurre
     //console.log('images', images);
     //console.log('currentSlide', slide);
     const length = images.length;
-    if (length <= 1) {
-        if (setCurrentPet) {
-            setCurrentPet(images[0]);
+    useEffect(() => {
+        if (length <= 1) {
+            if (setCurrentPet) {
+                setCurrentPet(images[0]);
+            }
         }
-    }
+    } , []);
     const handleBeforeSliding = (previousSlide, nextSlide) => {
         console.debug(
             "onBeforeSliding(previousSlide, nextSlide): ",
@@ -76,7 +78,7 @@ function ImageSlider({ images, currentSlide, setCurrentSlide , postid,  setCurre
                                 Adoptada
                             </div>
                         )}
-                 <img src={images[0].urlfoto} alt="" />
+                 <img src={images[0].urlfoto} alt="" style={{ maxHeight: '600px', minWidth: '600px'}}/>
                  
             </a>
           

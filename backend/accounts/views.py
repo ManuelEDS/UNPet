@@ -78,15 +78,8 @@ class get_csrf(APIView):
     def get(self, request):
         csrf_token = get_token(request)
         return Response({'csrfToken': csrf_token})
-        return response
-# class CSRFTokenView(APIView):
-#     def get(self, request):
-#         csrf_token = get_token(request)
-#         return Response({'csrfToken': csrf_token})
-# def get_csrf(request):
-#     response = JsonResponse({'detail': 'CSRF cookie set'})
-#     response['X-CSRFToken'] = get_token(request)
-#     return response
+
+        
 class SessionView(APIView):
     authentication_classes = [SessionAuthentication]
     permission_classes = [permissions.AllowAny]

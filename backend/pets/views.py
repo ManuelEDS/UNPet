@@ -7,14 +7,16 @@ from rest_framework.exceptions import ValidationError
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from accounts.models import Organizacion
+from django.views.decorators.csrf import csrf_exempt
+from rest_framework.authentication import BasicAuthentication
 
 class MascotaListCreateView(generics.ListCreateAPIView):
     """Para crear una mascota"""
     permission_classes = (permissions.AllowAny,)
-    authentication_classes = (SessionAuthentication,)
+    authentication_classes = [BasicAuthentication]
     queryset = Mascota.objects.all()
     serializer_class = MascotaSerializer
-
+    @csrf_exempt
     def perform_create(self, serializer):
         user = self.request.user
         if user.groups.filter(name='Organizacion').exists():
@@ -26,9 +28,9 @@ class MascotaRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
     """Para obtener, editar y eliminar una mascota por su id"""
     queryset = Mascota.objects.all()
     serializer_class = MascotaUpdateSerializer
-    permission_classes = (permissions.IsAuthenticated,)
+    authentication_classes = [BasicAuthentication]
     authentication_classes = (SessionAuthentication,)
-
+    @csrf_exempt
     def check_object_permissions(self, request, obj):
         if request.method in ['PUT', 'PATCH', 'DELETE', 'POST']:
             pet = Mascota.objects.get(pk=obj.id)
@@ -39,8 +41,9 @@ class MascotaRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
 
 class MascotaUpdateView(APIView):
     """Para actualizar una mascota"""
-    permission_classes = (permissions.IsAuthenticated,)
+    authentication_classes = [BasicAuthentication]
     authentication_classes = (SessionAuthentication,)
+    @csrf_exempt
     def put(self, request, pk, format=None):
         user = self.request.user
         if user.groups.filter(name='Organizacion').exists():
@@ -52,11 +55,12 @@ class MascotaUpdateView(APIView):
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         else:
             raise ValidationError("No tienes permisos para editar esta mascota.")
-        
+
 class MascotaDeleteView(APIView):
     """Para eliminar una mascota"""
-    permission_classes = (permissions.IsAuthenticated,)
+    authentication_classes = [BasicAuthentication]
     authentication_classes = (SessionAuthentication,)
+    @csrf_exempt
     def delete(self, request, pk, format=None):
         user = self.request.user
         if user.groups.filter(name='Organizacion').exists():
@@ -68,8 +72,9 @@ class MascotaDeleteView(APIView):
         
 class MascotaCreateView(APIView):
     """Para crear una mascota"""
-    permission_classes = (permissions.IsAuthenticated,)
+    authentication_classes = [BasicAuthentication]
     authentication_classes = (SessionAuthentication,)
+    @csrf_exempt
     def post(self, request, format=None):
         user = self.request.user
         if user.groups.filter(name='Organizacion').exists():
@@ -107,8 +112,9 @@ class MascotaCreateView(APIView):
 class MascotasOrganizacionListView(generics.ListAPIView):
     """Permite listar todas las mascotas que pertenecen a la organización del usuario actual"""
     serializer_class = MascotaSerializer
-    permission_classes = (permissions.IsAuthenticated,)
+    authentication_classes = [BasicAuthentication]
     authentication_classes = (SessionAuthentication,)
+    @csrf_exempt
     def get_queryset(self):
         user = self.request.user
         print('mascotas list org: ', user.id, user.groups.filter(name='Organizacion').exists(), user.is_authenticated)
@@ -121,9 +127,9 @@ class MascotasOrganizacionListView(generics.ListAPIView):
     # class PetsView(viewsets.ModelViewSet): # NOTA: CREAR MASCOTA EXLUSIVO DE CREAR PUBLICACION?
 #     # Una organizacion puede crear mascota para en otro lugar subir una publicacion? o todo en uno?
 #     # lo de que si es exclusivo es que todas estas cosas son de Organizacion, no personas
-#     # permission_classes = (permissions.IsAuthenticated,)
+#     # authentication_classes = [BasicAuthentication]
 #     # authentication_classes = (SessionAuthentication,)
-#     permission_classes = (permissions.IsAuthenticated,)
+#     authentication_classes = [BasicAuthentication]
 #     authentication_classes = (SessionAuthentication,)
 #     serializer_class = MascotaSerializer
 #     queryset = Mascota.objects.all()
