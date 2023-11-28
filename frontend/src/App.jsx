@@ -21,7 +21,7 @@ import { FAQ } from './pages/FAQPage'
 import { UserPage } from './pages/UserPage'
 import { PostPage } from './pages/PostPage'
 import { useParams } from 'react-router-dom';
-import { PetList } from './pages/test-PET_LIST.jsx'
+import { PetList } from './pages/CREATEPOST.jsx'
 import { useMediaQuery } from 'react-responsive';
 import HomeSearch from './pages/HomeSearch.jsx'
 // import {PostContextProvider } from './context/PostContext';
@@ -64,7 +64,7 @@ function App() {
             <Route path='/donations' element={<Donations />} />
             <Route path='/quienes-somos' element={<WhoAreWePage />} />
             <Route path='/posttest' element={<TestPosts />} />
-            <Route path='/create-post' element={<CreatePost />} />
+            <Route path='/create-post' element={<PetList />} />
             <Route path='/user/:username' element={<UserPage />} />
             <Route path='/pets-list' element={<PetList />} />
             <Route path='/search/:search' element={<HomeSearch />} />

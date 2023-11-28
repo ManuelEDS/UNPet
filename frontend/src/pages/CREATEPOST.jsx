@@ -1,9 +1,9 @@
 import { useEffect, useState, useContext } from 'react';
-import { UserContext } from '../context/UserContext';
-import { getOrganizationPets, updatePet, deletePet, createPet } from '../api/pets.api';
+import { UserContext } from '../context/UserContext.jsx';
+import { getOrganizationPets, updatePet, deletePet, createPet } from '../api/pets.api.js';
 import { Modal } from '../components/Modal.jsx';
 import { MdEdit, MdCancel, MdDelete } from "react-icons/md";
-import { createPost } from '../api/posts.api';
+import { createPost } from '../api/posts.api.js';
 export const PetList = () => {
     const [pets, setPets] = useState([]);
     const [selectedPets, setSelectedPets] = useState([]);;
@@ -82,6 +82,35 @@ export const PetList = () => {
         window.location.reload();
 
     }
+    const handleCreatePet = async (event) => {
+        event.preventDefault();
+        console.log('CREAR PET INICIANDO...');
+        const data = new FormData(event.currentTarget);
+        const valid = validateData(data);
+        if (!valid) {
+            console.log('no valido');
+        }
+        else {
+            setLoading(true);
+            console.log('valido, aqui se ejecuta el createPet()');
+            //await new Promise(resolve => setTimeout(resolve, 500));
+            Response = await createPet(data);
+            console.log('Response: ', Response);
+            setLoading(false);
+            window.location.reload();
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
     const handleCheckboxChange = (event) => {
         console.log('event.target.name: ', event.target.name, ' event.target.checked: ', event.target.checked);
         const newPet = {
@@ -153,6 +182,8 @@ export const PetList = () => {
             }
             const response = await createPost(data);
             console.log('Response: ', response);
+            setLoading(false);
+            window.location.reload();
         }
     }
 
