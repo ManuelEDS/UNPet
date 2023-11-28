@@ -39,7 +39,7 @@ export function RegisterOrg() {
   const [errorEmail, setErrorEmail] = useState('');
   const [errorTerms, setErrorTerms] = useState(false);
   const [errorFile, setErrorFile] = useState(false);
-  const {errorPhone, setErrorPhone} = useState(false);
+  const { errorPhone, setErrorPhone } = useState(false);
   const [errorUsername, setErrorUsername] = useState('');
   const [loading, setLoading] = useState(false);
 
@@ -83,7 +83,7 @@ export function RegisterOrg() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    
+
 
     const data = new FormData(event.currentTarget);
     console.log('este es el form data', Object.fromEntries(data));
@@ -135,21 +135,30 @@ export function RegisterOrg() {
     }
   };
   useEffect(() => {
-    if(user.isAuthenticated){
+    if (user.isAuthenticated) {
       navigate('/home');
     }
-}, []);
+  }, []);
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       {loading && <div className="fixed top-0 left-0 z-50 w-screen h-screen flex items-center justify-center bg-black bg-opacity-50">
-                <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-white"></div>
-            </div>}
+        <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-white"></div>
+      </div>}
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <div className="text-center">
           <FaLock className="mx-auto h-12 w-auto text-indigo-600" />
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-            Registrarse
+            Registrarse como organización
           </h2>
+          <p className="mt-2 text-center text-sm text-gray-600">
+            O{' '}
+            <Link
+              to="/register"
+              className="font-medium text-indigo-600 hover:text-indigo-500"
+            >
+              regístrate como adoptante
+            </Link>
+          </p>
         </div>
         <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
           <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
@@ -164,6 +173,7 @@ export function RegisterOrg() {
                     name="name"
                     type="text"
                     autoComplete="given-name"
+                    placeholder="Nombre de la organización"
                     required
                     className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                   />
@@ -178,18 +188,18 @@ export function RegisterOrg() {
                   <input
                     id="nit"
                     name="nit"
-                    type="text"
-                    autoComplete="family-name"
+                    type="number"
+                    placeholder="NIT"
                     required
                     className={`appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm`}
                   />
 
                 </div>
                 {nitError &&
-                  
+
                   <p className="mt-2 text-sm text-red-600">
-                  El formato para NIT son de 8 a 10 numeros, seguido de un guión para finalizar con un numero</p>
-                  }
+                    El formato para NIT son de 8 a 10 numeros, seguido de un guión para finalizar con un numero</p>
+                }
               </div>
 
               <div>
@@ -200,17 +210,18 @@ export function RegisterOrg() {
                   <input
                     id="telefono"
                     name="telefono"
-                    type="text"
+                    type="number"
                     autoComplete="family-name"
+                    placeholder="Teléfono"
                     required
                     className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                   />
                 </div>
                 {errorPhone &&
-                  
+
                   <p className="mt-2 text-sm text-red-600">
-                  El numero de telefono no es válido</p>
-                  }
+                    El numero de telefono no es válido</p>
+                }
               </div>
 
               <div>
@@ -238,7 +249,7 @@ export function RegisterOrg() {
               </div>
               <div>
                 <label htmlFor="photo_file" className="block text-sm font-medium text-gray-700 py-2">
-                Foto de perfil
+                  Foto de perfil
                 </label>
                 <input
                   id="photo_file"
@@ -248,10 +259,10 @@ export function RegisterOrg() {
                   className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                 />
                 {errorFile &&
-                  
+
                   <p className="mt-2 text-sm text-red-600">
-                  El archivo no es de tipo imagen</p>
-                  }
+                    El archivo no es de tipo imagen</p>
+                }
               </div>
               <div>
                 <label htmlFor="email" className="block text-sm font-medium text-gray-700">
@@ -263,35 +274,36 @@ export function RegisterOrg() {
                     name="email"
                     type="email"
                     autoComplete="email"
+                    placeholder="organizacion@mail.com"
                     required
                     className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                   />
                 </div>
                 {errorEmail &&
-                  
+
                   <p className="mt-2 text-sm text-red-600">
-                  El coreo electrónico no es válido</p>
-                  }
+                    El coreo electrónico no es válido</p>
+                }
               </div>
               <div>
-                  <label htmlFor="username" className="block text-sm font-medium text-gray-700 py-2">
-                    Username de la Organizacion
-                  </label>
-                  <input
-                    id="username"
-                    name="username"
-                    type="text"
-                    autoComplete="username"
-                    required
-                    className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-cyan-500 focus:border-cyan-500 focus:z-10 sm:text-sm"
-                    placeholder="Nombre de usuario"
-                  />
-                  {errorUsername &&
-                  
+                <label htmlFor="username" className="block text-sm font-medium text-gray-700 py-2">
+                  Username de la Organización
+                </label>
+                <input
+                  id="username"
+                  name="username"
+                  type="text"
+                  autoComplete="username"
+                  required
+                  className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-cyan-500 focus:border-cyan-500 focus:z-10 sm:text-sm"
+                  placeholder=" Username de la Organizacion"
+                />
+                {errorUsername &&
+
                   <p className="mt-2 text-sm text-red-600">
-                  El username no es válido</p>
-                  }
-                </div>
+                    El username no es válido</p>
+                }
+              </div>
               <div>
                 <label htmlFor="password" className="block text-sm font-medium text-gray-700">
                   Contraseña
@@ -307,10 +319,10 @@ export function RegisterOrg() {
                   />
                 </div>
                 {errorPassword &&
-                  
+
                   <p className="mt-2 text-sm text-red-600">
-                  La contraseña debe ser de almenos 8 caracteres, con numeros y letras</p>
-                  }
+                    La contraseña debe ser de almenos 8 caracteres, con numeros y letras</p>
+                }
               </div>
 
               <div className="flex items-center">
@@ -318,7 +330,7 @@ export function RegisterOrg() {
                   id="terms"
                   name="terms"
                   type="checkbox"
-                  
+
                   className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
                 />
                 <label htmlFor="terms" className="ml-2 block text-sm text-gray-900">
@@ -329,10 +341,10 @@ export function RegisterOrg() {
                   del servicio
                 </label>
                 {errorTerms &&
-                  
+
                   <p className="mt-2 text-sm text-red-600">
-                  Debes aceptar los terminos y condiciones</p>
-                  }
+                    Debes aceptar los terminos y condiciones</p>
+                }
               </div>
 
               <div>

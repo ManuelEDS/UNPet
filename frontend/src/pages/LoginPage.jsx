@@ -6,7 +6,7 @@ import { login } from '../api/accounts.api';
 import { FaLock } from 'react-icons/fa';
 import { useContext } from 'react';
 import { UserContext } from '../context/UserContext.jsx';
-    
+
 export function Login() {
   const { user } = useContext(UserContext);
   const navigate = useNavigate();
@@ -36,9 +36,9 @@ export function Login() {
 
   return (
     <div className="max-h-screen bg-gray-50 flex flex-col justify-center py-36 sm:px-6 lg:px-8 h-full">
-       {loading && <div className="fixed top-0 left-0 z-50 w-screen h-screen flex items-center justify-center bg-black bg-opacity-50">
-                <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-white"></div>
-            </div>}
+      {loading && <div className="fixed top-0 left-0 z-50 w-screen h-screen flex items-center justify-center bg-black bg-opacity-50">
+        <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-white"></div>
+      </div>}
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <img
           className="mx-auto h-12 w-auto"
@@ -130,7 +130,7 @@ export function Login() {
 
               <div className="text-sm">
                 <Link
-                  to="/password"
+                  to="/password-reset"
                   className="font-medium text-indigo-600 hover:text-indigo-500"
                 >
                   ¿Olvidaste tu contraseña?
