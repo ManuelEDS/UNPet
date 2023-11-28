@@ -2,16 +2,18 @@ import { useState, useEffect } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { UNPetAxios } from '../../api/config';
 import PostCard from './PostCard';
+import { useParams } from 'react-router-dom';
 
-const SearchPage = ({ urlBase, onItemSelect = () => { }, forceUpdate = () => { } }) => {
+const SearchPage = ({ onItemSelect = () => { }, forceUpdate = () => { } }) => {
+    const urlBase = "/search/api/general/?q=";
+    const { search } = useParams();
     const unPetAxios = new UNPetAxios();
     const [items, setItems] = useState([]);
     const [hasMore, setHasMore] = useState(true);
-    const [nextPageUrl, setNextPageUrl] = useState(removeAPIUrl(urlBase));
+    const [nextPageUrl, setNextPageUrl] = useState(removeAPIUrl(urlBase + search));
 
     useEffect(() => {
         fetchItems();
-
     }, []);
 
 

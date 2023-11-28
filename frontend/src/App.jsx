@@ -14,7 +14,6 @@ import { UserContextProvider } from './context/UserContext'
 import NavBar from './components/NavBar/NavBar'
 import Footer from './components/Footer'
 import { CreatePost } from './components/org/CreatePost.jsx'
-import { Profile } from './components/Profile'
 import PasswordChange from './pages/PasswordChange'
 import { PasswordReset } from './pages/PasswordReset'
 import PasswordResetConfirm from './pages/PasswordResetConfirm'
@@ -24,7 +23,7 @@ import { PostPage } from './pages/PostPage'
 import { useParams } from 'react-router-dom';
 import { PetList } from './pages/test-PET_LIST.jsx'
 import { useMediaQuery } from 'react-responsive';
-import SearchPage from './components/Feed/SearchPage.jsx'
+import HomeSearch from './pages/HomeSearch.jsx'
 // import {PostContextProvider } from './context/PostContext';
 function NotFoundPage() {
   return (
@@ -66,10 +65,9 @@ function App() {
             <Route path='/quienes-somos' element={<WhoAreWePage />} />
             <Route path='/posttest' element={<TestPosts />} />
             <Route path='/create-post' element={<CreatePost />} />
-            <Route path='/profile' element={<Profile />} />
             <Route path='/user/:username' element={<UserPage />} />
             <Route path='/pets-list' element={<PetList />} />
-            <Route path='/search/:search' element={<SearchPage />} />
+            <Route path='/search/:search' element={<HomeSearch />} />
 
             <Route path='/post/:id' element={
               <PostPage />

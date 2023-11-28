@@ -23,10 +23,11 @@ function NavBar() {
     const trimmedSearchText = searchText.trim();
     const singleSpacedText = trimmedSearchText.replace(/\s+/g, ' ');
     const formattedSearchText = encodeURIComponent(singleSpacedText);
+    console.log(formattedSearchText)
     search.setSearchText(formattedSearchText);
     console.log('este es el texto a buscar: ', formattedSearchText);
     console.log('resultados: ', searchGeneral(formattedSearchText));
-    window.location.href = "/search";
+    window.location.href = "/search/" + formattedSearchText;
   }
   return (
     <nav className="bg-gray-800">
