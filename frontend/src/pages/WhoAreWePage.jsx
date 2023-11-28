@@ -126,6 +126,7 @@ function WhoAreWePage() {
                     <Link to="/register" className="text-indigo-600 hover:text-indigo-500">
                         aquí
                     </Link>
+                </p>
                 <br />
                 <br />
                 <br />
