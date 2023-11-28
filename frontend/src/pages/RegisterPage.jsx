@@ -192,6 +192,8 @@ export function Register() {
                     required
                     className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                     placeholder="Número de documento"
+                    min="111111"
+                    max="200000000"
                   />
                   {errorID && <p className="mt-2 text-sm text-red-600">
                     El numero de documento no es válido</p>
@@ -226,9 +228,10 @@ export function Register() {
                     required
                     className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                     placeholder="Teléfono"
+                    min="1111111111"
+                    max="3311111111"
                   />
                   {errorPhone &&
-
                     <p className="mt-2 text-sm text-red-600">
                       El numero de telefono no es válido</p>
                   }
@@ -282,6 +285,7 @@ export function Register() {
                     name="email"
                     type="email"
                     autoComplete="email"
+                    pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}"
                     required
                     className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-cyan-500 focus:border-cyan-500 focus:z-10 sm:text-sm"
                     placeholder="Correo electrónico"
@@ -324,11 +328,13 @@ export function Register() {
                     required
                     className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-cyan-500 focus:border-cyan-500 focus:z-10 sm:text-sm"
                     placeholder="Contraseña"
+                    minLength="8"
+                    maxLength="16"
                   />
                   {errorPassword &&
 
                     <p className="mt-2 text-sm text-red-600">
-                      La contraseña debe ser de almenos 8 caracteres, con numeros y letras</p>
+                      La contraseña debe ser de almenos 8 caracteres, máximo 16</p>
                   }
                 </div>
               </div>

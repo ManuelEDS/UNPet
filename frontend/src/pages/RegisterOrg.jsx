@@ -190,6 +190,9 @@ export function RegisterOrg() {
                     name="nit"
                     type="number"
                     placeholder="NIT"
+                    min="11111111"
+                    max="99999999999"
+                    pattern="[0-9]+@[-]+[0-9]$"
                     required
                     className={`appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm`}
                   />
@@ -213,6 +216,8 @@ export function RegisterOrg() {
                     type="number"
                     autoComplete="family-name"
                     placeholder="Teléfono"
+                    min="1111111111"
+                    max="3311111111"
                     required
                     className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                   />
@@ -275,6 +280,7 @@ export function RegisterOrg() {
                     type="email"
                     autoComplete="email"
                     placeholder="organizacion@mail.com"
+                    pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
                     required
                     className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                   />
@@ -294,6 +300,8 @@ export function RegisterOrg() {
                   name="username"
                   type="text"
                   autoComplete="username"
+                  minLength="6"
+                  maxLength="16"
                   required
                   className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-cyan-500 focus:border-cyan-500 focus:z-10 sm:text-sm"
                   placeholder=" Username de la Organizacion"
@@ -301,7 +309,7 @@ export function RegisterOrg() {
                 {errorUsername &&
 
                   <p className="mt-2 text-sm text-red-600">
-                    El username no es válido</p>
+                    El username no es válido, debe tener mínimo 5 caracteres, máximo 16</p>
                 }
               </div>
               <div>
@@ -314,6 +322,8 @@ export function RegisterOrg() {
                     name="password"
                     type="password"
                     autoComplete="new-password"
+                    minLength="8"
+                    maxLength="16"
                     required
                     className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                   />
@@ -321,7 +331,7 @@ export function RegisterOrg() {
                 {errorPassword &&
 
                   <p className="mt-2 text-sm text-red-600">
-                    La contraseña debe ser de almenos 8 caracteres, con numeros y letras</p>
+                    La contraseña debe ser de almenos 8 caracteres, máximo 16</p>
                 }
               </div>
 
