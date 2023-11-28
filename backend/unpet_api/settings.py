@@ -41,8 +41,9 @@ elif RENDER_MODE: # Modo: despliegue en render
     ALLOWED_HOSTS = ['*']
     CORS_ALLOWED_ORIGINS = ['https://unpet-web.onrender.com']
     CSRF_TRUSTED_ORIGINS = ['https://unpet-web.onrender.com']
-    CORS_ALLOW_ALL_ORIGINS = True
     CORS_ORIGIN_WHITELIST = ['https://unpet-web.onrender.com']
+
+    CORS_ALLOW_ALL_ORIGINS = True
 else: # Modo: desarrollo en localhost
     ALLOWED_HOSTS = ['*']
     CORS_ALLOWED_ORIGINS = ['http://localhost', 'http://127.0.0.1', 'http://localhost:5173', 'http://127.0.0.1:5173']
@@ -217,8 +218,8 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 
 if RENDER_MODE:
-    CSRF_COOKIE_SAMESITE = 'Lax'
-    SESSION_COOKIE_SAMESITE = 'Lax'
+    CSRF_COOKIE_SAMESITE = 'None'
+    SESSION_COOKIE_SAMESITE = 'None'
     CSRF_COOKIE_HTTPONLY = False
     SESSION_COOKIE_HTTPONLY = False
 else:
