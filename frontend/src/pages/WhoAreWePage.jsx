@@ -76,6 +76,14 @@ function WhoAreWePage() {
                     Nuestra misión en UNPet es simple pero poderosa: darle visibilidad a las fundaciones de adopción de mascotas y ayudar a los usuarios a encontrar la mascota perfecta que se adapte a su estilo de vida y necesidades. Creemos en el poder de la adopción responsable, y estamos comprometidos a conectar a personas cariñosas con las mascotas que necesitan un nuevo hogar.
                 </p>
                 <br />
+                <h2 className="text-3xl my-4 right-align">
+                    Nuestra Visión
+                </h2>
+
+                <p className="text-base my-4 right-align">
+                    Para el 2025 seremos la primera elección para cualquier persona que busca adoptar una mascota porque seremos el destino principal cuando una persona piense en adoptar un perrito o gatito, lideraremos la promoción de la adopción responsable y en la creación de un mundo en el que cada mascota encuentre el amor y cuidado que merece.
+                </p>
+                <br />
 
                 <h2 className="text-3xl my-4 right-align">
                     Lo que nos impulsa
