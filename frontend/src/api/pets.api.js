@@ -1,8 +1,9 @@
-import axios from 'axios';
-import { BASE_URL } from './config'
-const PETS = axios.create({
-    baseURL: BASE_URL + '/pets/api/'
-})
+
+import { UNPetAxios } from './config'
+const BASE_RUTA = '/pets/api/'
+const PETS = new UNPetAxios(BASE_RUTA)
+PETS.init()
+
 
 /**
  * Obtiene la lista de mascotas desde el servidor.

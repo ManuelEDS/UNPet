@@ -39,11 +39,16 @@ function UserIcon({ user: userdata }) {
     return (
 
 
-        <div>
+        <div className='mr-12'>
+            
+            
+
             <div className="flex-shrink-0 flex items-center relative">
+            {user.isAuthenticated && <div className="font-bold text-white bg-green p-2 rounded-lg mr-3 "><p>{user.username}</p></div>}
                 <button onClick={() => { setIsUserMenuOpen(!isUserMenuOpen); }} className="flex-shrink-0 flex items-center focus:outline-none" >
                     <img className="h-10 w-10 rounded-full" src={userdata.urlfoto} alt="user_photo" />
                 </button>
+                
             </div>
             {isUserMenuOpen && (
                 <ul ref={userMenuRef} className="absolute right-0 mt-2 py-2 w-48 bg-white rounded-md shadow-lg">

@@ -552,7 +552,7 @@ def agregar_publicaciones():
         {
             "idorganizacion": 26,
             "estado": "Disponibles",
-            "titulo": "Mr 4 meses de nacido, gatos en adopcion, perros en adopcion, perros en adopcion bogota, gatos en adopcion bogota grises,gatos",
+            "titulo": "Mr 4 meses de nacido, gatos en adopcion, perros en adopcion, perros ",
             "descripcion": "Integer ac leo. Pellentesque ultrices mattis odio. Donec vitae nisi.",
             "n_mascotas": 8,
             "n_mascotas_adoptadas": 0,
@@ -659,6 +659,7 @@ def agregar_publicaciones():
     #       (org.id, org.username) for org in Persona.objects.all()])
     print("numero de publicaciones", len(publicaciones))
     for data in publicaciones:
+
         extra_fields = {
             key: value for key, value in data.items() if key not in ["idorganizacion"]
         }
@@ -891,7 +892,7 @@ def agregar_mascotas():
             "urlfoto": "https://images.unsplash.com/photo-1617112513579-d8755a2c4693?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=700&ixid=MnwxfDB8MXxyYW5kb218MHx8Y2F0fHx8fHx8MTcwMDk2MTQ0NA&ixlib=rb-4.0.3&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=900",
             "idorganizacion": 28,
             "adoptada": False,
-            "publicacion": 14,
+            "publicacion": 4,
         },
         {
             "nombre": "Buddy",
@@ -902,7 +903,7 @@ def agregar_mascotas():
             "urlfoto": "https://images.unsplash.com/photo-1618826411640-d6df44dd3f7a?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=700&ixid=MnwxfDB8MXxyYW5kb218MHx8Y2F0fHx8fHx8MTcwMDk2MTQ0Ng&ixlib=rb-4.0.3&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=900",
             "idorganizacion": 27,
             "adoptada": False,
-            "publicacion": 14,
+            "publicacion": 6,
         },
         {
             "nombre": "Charlie",
@@ -913,7 +914,7 @@ def agregar_mascotas():
             "urlfoto": "https://images.unsplash.com/photo-1612532276780-14ed318a03e0?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=700&ixid=MnwxfDB8MXxyYW5kb218MHx8Y2F0fHx8fHx8MTcwMDk2MTQ0OA&ixlib=rb-4.0.3&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=900",
             "idorganizacion": 28,
             "adoptada": False,
-            "publicacion": 14,
+            "publicacion": 10,
         },
         {
             "nombre": "Luna",

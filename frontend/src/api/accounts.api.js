@@ -122,7 +122,7 @@ export const getHTML = async (filename) => {
         const response = await ACCOUNTS.get('legal/'+filename);
 
         if (response.status === 200) {
-            return response.text();
+            return response.data
         } else {
             throw new Error(response.data.message);
         }

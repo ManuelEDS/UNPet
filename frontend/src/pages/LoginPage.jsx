@@ -11,9 +11,10 @@ export function Login() {
   const { user } = useContext(UserContext);
   const navigate = useNavigate();
   const [error, setError] = useState(false);
-
+  const [loading, setLoading] = useState(false);
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setLoading(true);
     const data = new FormData(event.currentTarget);
     console.log({
       userID: data.get('userID'),
@@ -23,7 +24,9 @@ export function Login() {
       const resp = await login(data);
       console.log('Login successful: ', resp);
       user.checkAuth()
+
       navigate('/home');
+      setLoading(false);
 
     } catch (error) {
       setError(true);
@@ -33,6 +36,9 @@ export function Login() {
 
   return (
     <div className="max-h-screen bg-gray-50 flex flex-col justify-center py-36 sm:px-6 lg:px-8 h-full">
+       {loading && <div className="fixed top-0 left-0 z-50 w-screen h-screen flex items-center justify-center bg-black bg-opacity-50">
+                <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-white"></div>
+            </div>}
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <img
           className="mx-auto h-12 w-auto"

@@ -1,15 +1,16 @@
 from rest_framework import serializers
 from pets.serializer import MascotaSerializer
 from .models import Publicacion, Comentario
-
+from utils.unpet_user import UNPetUserManager
 
 class ComentarioSerializer(serializers.ModelSerializer):
     autor = serializers.SerializerMethodField()
     respuestas = serializers.SerializerMethodField()
+    urlfoto_autor = serializers.SerializerMethodField()
 
     class Meta:
         model = Comentario
-        fields = ['id', 'contenido', 'autor', 'publicacion', 'comentario_padre', 'respuestas', 'fechapublicacion']
+        fields = ['id', 'contenido', 'autor', 'publicacion', 'comentario_padre', 'respuestas', 'fechapublicacion', 'urlfoto_autor']
         read_only_fields = ['id', 'fechapublicacion']
 
     def get_autor(self, obj):
@@ -19,6 +20,10 @@ class ComentarioSerializer(serializers.ModelSerializer):
         if obj.respuestas.exists():
             return ComentarioSerializer(obj.respuestas.all(), many=True).data
         return None
+
+    def get_urlfoto_autor(self, obj):
+        U = UNPetUserManager(user_instance=obj.get_autor())
+        return U.get_role_instance.urlfoto
 
 class PublicacionSerializer(serializers.ModelSerializer):
     mascotas = serializers.SerializerMethodField()
@@ -31,7 +36,7 @@ class PublicacionSerializer(serializers.ModelSerializer):
         read_only_fields = ['id', 'idorganizacion', 'fechapublicacion']
 
     def get_mascotas(self, obj):
-        return [{"id": mascota.id, "urlfoto": mascota.urlfoto} for mascota in obj.mascotas.all()]
+        return [{"id": mascota.id, "urlfoto": mascota.urlfoto, "adoptada": mascota.adoptada} for mascota in obj.mascotas.all()]
 
     def get_nombreorganizacion(self, obj):
         return str(obj.idorganizacion)

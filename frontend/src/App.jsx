@@ -22,6 +22,9 @@ import { FAQ } from './pages/FAQPage'
 import { UserPage } from './pages/UserPage'
 import { PostPage } from './pages/PostPage'
 import { useParams } from 'react-router-dom';
+import {PetList} from './pages/test-PET_LIST.jsx'
+import { useMediaQuery } from 'react-responsive';
+
 // import {PostContextProvider } from './context/PostContext';
 function NotFoundPage() {
   return (
@@ -33,11 +36,13 @@ function NotFoundPage() {
 }
 
 function App() {
+  const isDesktopOrLaptop = useMediaQuery({ minDeviceWidth: 800 });
+
 
 
   return (
     <div className="bg-gray-200 min-h-screen">
-      <UserContextProvider>
+      <UserContextProvider isDesktop={isDesktopOrLaptop}>
         <BrowserRouter>
           <NavBar />
           <Routes>
@@ -56,13 +61,14 @@ function App() {
             <Route path='/home' element={<HomePage searchText={NavBar.searchText} />} />
             <Route path='/legal/terms-and-conditions' element={<TermsCond />} />
             <Route path='/legal/privacy-policies' element={<PoliticsPriv />} />
+            <Route path='/legal/faq' element={<FAQ />} />
             <Route path='/donations' element={<Donations />} />
             <Route path='/quienes-somos' element={<WhoAreWePage />} />
             <Route path='/posttest' element={<TestPosts />} />
             <Route path='/create-post' element={<CreatePost />} />
             <Route path='/profile' element={<Profile />} />
-            <Route path='/faq' element={<FAQ />} />
             <Route path='/user/:username' element={<UserPage />} />
+            <Route path='/pets-list' element={<PetList />} />
 
             <Route path='/post/:id' element={
                 <PostPage />

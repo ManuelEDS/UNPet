@@ -322,7 +322,7 @@ class UserLogin(APIView):
             return Response({'error': 'Usuario no encontrado'},
                             status=status.HTTP_404_NOT_FOUND)
 
-        user = authenticate(userID=user.username, password=password)
+        user = authenticate(userID=userID, password=password)
 
         if user is not None:
             login(request, user)
@@ -372,6 +372,12 @@ class UserView(APIView):
         # userB= UNPetUserManager(user_id=user_model.id)
         # if debug:print('por id se pudo', user_model.toDict())
         # if debug:print(userA, userB)
+        if request.user.is_authenticated:
+            role_obj = user.get_role_instance
+            data = user.toDict()
+            data['telefono'] = role_obj.telefono
+            return Response(data={"detail": "Usuario encontrado", "user": data}, status=status.HTTP_200_OK)
+
         return Response(data={"detail": "Usuario encontrado", "user": user.toDict()}, status=status.HTTP_200_OK)
 
 class ProfileView(APIView):

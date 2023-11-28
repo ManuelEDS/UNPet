@@ -91,9 +91,9 @@ export const CreatePost = () => {
                     {/* // COMENTARIOS */}
                     <div className="bg-white rounded-lg shadow-lg mt-8  self-start " id='seccion-comentarios'>
                     <div className="bg-white rounded-lg  max-w-lg">
+                        {/* <Coment post={post}  />
                         <Coment post={post}  />
-                        <Coment post={post}  />
-                        <Coment post={post}  />
+                        <Coment post={post}  /> */}
                     </div>
                     
                     </div>

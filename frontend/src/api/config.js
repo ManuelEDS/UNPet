@@ -30,7 +30,7 @@ if (DEBUG) {
                 URL = testURL;
                 break;
             } catch (error) {
-                console.log('ERROR, EL HOST ES:' + testURL, error);
+               // console.log('ERROR, EL HOST ES:' + testURL, error);
             }
         }
 }
@@ -40,7 +40,7 @@ if (DEBUG) {
  * @type {string}
  */
 export const BASE_URL = URL;
-export const CREDENTIALS = 'include';
+export const CREDENTIALS = 'same-origin';
 export let csrfToken = null;
 const  getCSRF = async() => {
         fetch(BASE_URL + "/accounts/api/csrf/", {
@@ -49,11 +49,11 @@ const  getCSRF = async() => {
             .then((res) => {
                 csrfToken = res.headers.get("X-CSRFToken");
                 //setCsrf(csrfToken);
-                console.log('crsfToken para el nuevo getCSRF(): ',csrfToken);
+                //console.log('crsfToken para el nuevo getCSRF(): ',csrfToken);
                 return csrfToken;
             })
             .catch((err) => {
-                console.log(err);
+                //console.log(err);
             });
 }
 
@@ -65,7 +65,7 @@ const  getCSRF = async() => {
         })
             .then((res) => res.json())
             .then((data) => {
-                console.log(data);
+               // console.log(data);
                 if (data.isAuthenticated) {
                     
                 } else {
@@ -74,7 +74,7 @@ const  getCSRF = async() => {
                 }
             })
             .catch((err) => {
-                console.log(err);
+                //console.log(err);
             });
     }
 
@@ -96,36 +96,32 @@ export class UNPetAxios {
 
     async init() {
         
-        console.log('inicializando axios, csrfToken y csrfToken2: ', csrfToken, this.csrfToken2);
+        //console.log('inicializando axios, csrfToken y csrfToken2: ', csrfToken, this.csrfToken2);
     }
     async fetchWithHeaders(url, options = {}, moreHeaders) {
-        if (this.csrfToken2 === null && csrfToken === null) {
-            this.csrfToken2 = await getCSRF();
-        }
-        //console.log('UNPETAXIOS, csrfToken y csrfToken2: ', csrfToken, this.csrfToken2);
-        console.log('UNPETAXIOS, options: ', options, 'moreHeaders: ', moreHeaders);
-        axios.defaults.headers.common['X-CSRFToken'] = this.csrfToken2 || csrfToken;
+        //'url: ', url, 'options: ', options, 'moreHeaders: ', moreHeaders);
         let contenttype = moreHeaders ? moreHeaders["Content-Type"] : "application/json";
-        console.log('UNPETAXIOS, contenttype: ', contenttype);
+        
         const allOptions = {
-                headers: {
-                        "Content-Type": contenttype,
-                        "X-CSRFToken": axios.defaults.headers.common['X-CSRFToken'],
-                        ...moreHeaders,
-                },
-                withCredentials: true, // axios usa withCredentials en lugar de credentials
-                ...options,
+          headers: {
+            "Content-Type": contenttype,
+          },
+          withCredentials: true,
+          credentials: 'include', 
+          ...options,
         };
+      
         console.log('JUSTO ANTES DEL FETCH: fetchWithHeaders, allOptions: ', allOptions, 'URL: ', this.BASE_URL_RUTA + url);
-        return axios(this.BASE_URL_RUTA + url, allOptions); // reemplaza fetch con axios
-    }
+        
+        return axios(this.BASE_URL_RUTA + url, allOptions);
+      }
 
     get(url, options = {}) {
         return this.fetchWithHeaders(url, options);
     }
 
     post(url, body = {}, options = {}, headers = {}) {
-        console.log('UNPETAXIOS, post, body: ', body, 'headers: ', headers);
+        //console.log('UNPETAXIOS, post, body: ', body, 'headers: ', headers);
         return this.fetchWithHeaders(url, {
             method: "post",
             data: body, // axios usa 'data' en lugar de 'body'

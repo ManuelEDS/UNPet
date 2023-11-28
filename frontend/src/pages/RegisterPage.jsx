@@ -21,6 +21,8 @@ export function Register() {
   const [errorID, setErrorID] = useState(false);
   const {errorPhone, setErrorPhone} = useState(false);
   const [errorFile, setErrorFile] = useState(false);
+  const [loading, setLoading] = useState(false);
+
   const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const regexUsername = /^(?!.*\.\.)(?!.*\.$)[a-zA-Z0-9][\w.]{0,29}$/
   const regexPassword = /^(?=.*[0-9])(?=.*[a-zA-Z])[0-9a-zA-Z]{8,}$/;
@@ -55,6 +57,7 @@ export function Register() {
   }
   const handleSubmit = async (event) => {
     event.preventDefault();
+
     const data = new FormData(event.currentTarget);
     console.log('este es el form data', Object.fromEntries(data));
     const termsIsChecked = data.get('terms');
@@ -89,9 +92,12 @@ export function Register() {
     //   return;
     // }
     try {
+      setLoading(true);
       const resp = await register(data);
       user.checkAuth() // Refresh the page
       navigate('/home');
+      setLoading(false);
+
     } catch (error) {
       setError(true);
       console.log('Login failed: ', error);
@@ -105,6 +111,9 @@ export function Register() {
 
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+      {loading && <div className="fixed top-0 left-0 z-50 w-screen h-screen flex items-center justify-center bg-black bg-opacity-50">
+                <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-white"></div>
+            </div>}
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <div className="text-center"></div>
         <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">

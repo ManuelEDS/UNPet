@@ -21,8 +21,8 @@ class Like(models.Model):
 class Publicacion(models.Model):
     idorganizacion = models.ForeignKey('accounts.Organizacion', models.DO_NOTHING, related_name='publicaciones_organizacion', db_column='idorganizacion', blank=True, null=True)
     estado = models.CharField(max_length=45)
-    titulo = models.CharField(max_length=100)
-    descripcion = models.CharField(max_length=300)
+    titulo = models.CharField(max_length=2048)
+    descripcion = models.CharField(max_length=2048)
     fechapublicacion = models.DateTimeField(auto_now_add=True)
     likes = models.PositiveIntegerField(default=0)
     n_mascotas = models.IntegerField(default=0)
@@ -38,7 +38,7 @@ class Publicacion(models.Model):
 # id organizaciones: [24 - 29] | is personas: [1 - 23]
 class Comentario(models.Model):
     autor = models.ForeignKey(User, on_delete=models.CASCADE, related_name='comentarios', blank=True, null=True)
-    contenido = models.CharField(max_length=300)
+    contenido = models.CharField(max_length=2048)
     publicacion = models.ForeignKey(
         Publicacion, on_delete=models.CASCADE, related_name='comentarios', blank=True, null=True)
     comentario_padre = models.ForeignKey(
