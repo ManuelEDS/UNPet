@@ -118,6 +118,14 @@ function WhoAreWePage() {
                 <p className="text-base my-4 right-align">
                     Juntos, podemos marcar la diferencia en la vida de las mascotas y hacer que el mundo sea un lugar más cálido y amoroso para todos. ¡Bienvenido a UNPet!
                 </p>
+                <h2 href="/donations" className="text-3xl my-4 right-align">
+                    ¡Apóyanos!
+                </h2>
+                <p className="text-base my-4 right-align">
+                    No realizamos cobros por las adopciones en nuestra página, tu donación cuenta para mentener este sueño en marcha, haz click  
+                    <Link to="/register" className="text-indigo-600 hover:text-indigo-500">
+                        aquí
+                    </Link>
                 <br />
                 <br />
                 <br />
