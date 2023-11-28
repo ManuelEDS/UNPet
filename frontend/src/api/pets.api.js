@@ -1,9 +1,9 @@
 
 import { UNPetAxios } from './config'
+import { getCSRF } from './config'
 const BASE_RUTA = '/pets/api/'
 const PETS = new UNPetAxios(BASE_RUTA)
 PETS.init()
-
 
 /**
  * Obtiene la lista de mascotas desde el servidor.
@@ -30,7 +30,7 @@ async function getPets() {
  */
 async function createPet(petData) {
   try {
-    const response = await PETS.post('pets/', petData);
+    const response = await PETS.post('pets/create/', petData);
     return response.data;
   } catch (error) {
     throw error;
@@ -63,10 +63,21 @@ async function getPetById(id) {
  */
 async function updatePet(id, petData) {
   try {
-    const response = await PETS.put(`pets/${id}/`, petData);
+    // Obtén el token CSRF de las cookies
+    console.log('cookies: ', document.cookie);
+    let token = null;
+    if (document.cookie === ''  | document.cookie === undefined) {
+      token = await getCSRF();
+    }else{
+      token = document.cookie.split('; ').find(row => row.startsWith('csrftoken')).split('=')[1];
+    }
+    console.log('token: ', token);
+    // Incluye el token CSRF en las cabeceras de la solicitud
+    const response = await PETS.put(`pets/${id}/update/`, petData);
+
     return response.data;
   } catch (error) {
-    throw error;
+    console.log('error en update pet: ', error);
   }
 }
 
@@ -82,7 +93,7 @@ async function updatePet(id, petData) {
  */
 async function deletePet(id) {
   try {
-    const response = await PETS.delete(`pets/${id}/`);
+    const response = await PETS.delete(`pets/${id}/delete/`);
     return response.data;
   } catch (error) {
     throw error;

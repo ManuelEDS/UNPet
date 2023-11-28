@@ -35,6 +35,7 @@ class MascotaUpdateSerializer(serializers.ModelSerializer):
 
     def update(self, instance, validated_data):
         # Solo las organizaciones pueden editar mascotas
+        print('update mascota desde serializer')
         user = self.context['request'].user
         if user.groups.filter(name='Organizacion').exists():
             for attr, value in validated_data.items():

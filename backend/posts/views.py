@@ -15,6 +15,7 @@ from django.db import transaction
 from pets.models import Mascota
 from .models import Publicacion, Like
 from django.http import Http404
+import json
 
 
 class LikePublicacion(APIView):
@@ -92,14 +93,41 @@ class PublicacionCreate(APIView): #CREAR PUBLICACION CON MASCOTAS
     authentication_classes = [SessionAuthentication]
     permission_classes = [permissions.IsAuthenticated]
     def post(self, request, format=None):
-        print('mas pruebas, post.keys: ', request.POST.get('post').items())
-        print_post_create(request)
         #print('request.data', request.data)
-        post_data = request.data['post']
+        # print_post_create(request)
+        #print('request.data', request.data)
+        post_data = json.loads(request.data['post'])
         #print('post_data v0', post_data)
-        pets_data = request.data.getlist('mascotas')
+
+
+        # Elimina 'mascotas' de post_data
+        
+
+        #print('post_data v1', post_data)
+
+
+        #print('mascpotas v0', post_data["mascotas"])
+        mascotas = json.loads(post_data["mascotas"])
+        mascotas = [json.loads(mascota) for mascota in mascotas]
+
+        print('mascotas v1', mascotas)
+        if 'mascotas' in post_data:
+            del post_data['mascotas']
+
+
+        # aqui ya se tiene todo lo de la publicacion y las mascotas
+
+        post_data['n_mascotas'] = int(post_data['n_mascotas'])
+        post_data['n_mascotas_adoptadas'] = int(post_data['n_mascotas_adoptadas'])
+        post_data['idorganizacion'] = request.user.id
+        
+
+
+        
+        
         userid= request.user.id
         org= post_data.get('idorganizacion')
+        
         #print('legada de datos','post_data: ', post_data, '\npets_data: ', pets_data,'userid', userid, 'org: ',org)
         if org is None:
             if Organizacion.objects.filter(id=userid).exists():
@@ -110,25 +138,25 @@ class PublicacionCreate(APIView): #CREAR PUBLICACION CON MASCOTAS
             if org!=userid:
                 return Response({'error': 'El usuario actual no coincide con la idorganizacion'}, status=status.HTTP_400_BAD_REQUEST)
         # mas codigo abajo        
-
+        post_data['idorganizacion'] = Organizacion.objects.get(id=userid)
+        del post_data['idorganizacion']
 
         serializer = PublicacionSerializer(data=post_data)
+        organizacion = Organizacion.objects.get(id=userid)
+        post_data['idorganizacion'] = organizacion.id
 
         if serializer.is_valid():
-            with transaction.atomic():
-                # Crea la publicación...
-                publicacion = serializer.save()
+            post = serializer.save()
+            
+            for pet_data in mascotas:
+                # Obtiene la mascota de la base de datos
+                mascota = Mascota.objects.get(id=pet_data['id'])
 
-                # Para cada mascota en los datos de mascotas...
-                for pet_data in pets_data:
-                    # Obtiene la mascota de la base de datos
-                    mascota = Mascota.objects.get(id=pet_data['id'])
-
-                    # Relaciona la mascota con la publicación
-                    mascota.publicacion = publicacion
-                    mascota.save()
-
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
+                # Relaciona la mascota con la publicación
+                mascota.publicacion = post
+                mascota.save()
+            print('serializer.data', post, post_data)
+            return Response({"status":"creado!"}, status=status.HTTP_201_CREATED)
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 

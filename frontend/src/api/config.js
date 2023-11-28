@@ -35,6 +35,16 @@ if (DEBUG) {
         }
 }
 
+function getCookie(name) {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(';').shift();
+  }
+  
+  const sessionId = getCookie('sessionid');
+  console.log('sessionid COOKIE: ', sessionId);
+  const X_CDRFToken = getCookie('csrftoken');
+    console.log('csrftoken COOKIE: ', X_CDRFToken);
 /**
  * La URL base del host.
  * @type {string}
@@ -42,14 +52,14 @@ if (DEBUG) {
 export const BASE_URL = URL;
 export const CREDENTIALS = 'same-origin';
 export let csrfToken = null;
-const  getCSRF = async() => {
+export const  getCSRF = async() => {
         fetch(BASE_URL + "/accounts/api/csrf/", {
             credentials: CREDENTIALS,
         })
             .then((res) => {
-                csrfToken = res.headers.get("X-CSRFToken");
+                csrfToken = res.headers.get('X-CSRFToken');
                 //setCsrf(csrfToken);
-                //console.log('crsfToken para el nuevo getCSRF(): ',csrfToken);
+                console.log('crsfToken para el nuevo getCSRF(): ',csrfToken);
                 return csrfToken;
             })
             .catch((err) => {
@@ -105,6 +115,7 @@ export class UNPetAxios {
         const allOptions = {
           headers: {
             "Content-Type": contenttype,
+            "X-CSRFToken": X_CDRFToken,
           },
           withCredentials: true,
           credentials: 'include', 
@@ -129,12 +140,12 @@ export class UNPetAxios {
         }, headers);
     }
     
-    put(url, body = {}, options = {}) {
+    put(url, body = {}, options = {}, headers = {}) {
         return this.fetchWithHeaders(url, {
             method: "put",
             data: body, // axios usa 'data' en lugar de 'body'
             ...options,
-        });
+        }, headers);
     }
 
     delete(url, options = {}) {

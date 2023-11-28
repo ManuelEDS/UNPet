@@ -1,7 +1,6 @@
 // PostCard.jsimport { Fragment } from 'react';
 import ImageSlider from '../../components/imageslider';
 import { FaHeart, FaComment, FaPaw, FaShareAlt, FaCopy } from 'react-icons/fa';
-import Modal from '../Modal';
 import { useEffect, useState, useRef } from 'react';
 
 const PostCard = ({ post, onItemSelect = () => { } }) => {

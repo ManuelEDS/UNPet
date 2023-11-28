@@ -29,7 +29,7 @@ SECRET_KEY = os.environ.get(
 # SECURITY WARNING: don't run with debug turned on in production!
 
 DEBUG=False
-LOCAL_DB = False # DEBUG = True #para usar sqlite, FALSE para la db con las variables de entorno
+LOCAL_DB = True # DEBUG = True #para usar sqlite, FALSE para la db con las variables de entorno
 DOCKER_MODE=False
 RENDER_MODE = True
 
@@ -42,14 +42,18 @@ elif RENDER_MODE: # Modo: despliegue en render
     CORS_ALLOWED_ORIGINS = ['https://unpet-web.onrender.com']
     CSRF_TRUSTED_ORIGINS = ['https://unpet-web.onrender.com']
     CORS_ALLOW_ALL_ORIGINS = True
+    CORS_ORIGIN_WHITELIST = ['https://unpet-web.onrender.com']
 else: # Modo: desarrollo en localhost
     ALLOWED_HOSTS = ['*']
     CORS_ALLOWED_ORIGINS = ['http://localhost', 'http://127.0.0.1', 'http://localhost:5173', 'http://127.0.0.1:5173']
     CSRF_TRUSTED_ORIGINS = ['http://localhost:5173', 'http://127.0.0.1:5173']
+    CORS_ORIGIN_WHITELIST = ['http://localhost:5173', 'http://127.0.0.1:5173']
+    CORS_ALLOW_ALL_ORIGINS = True
+
    
 CORS_EXPOSE_HEADERS = ['Content-Type', 'X-CSRFToken']
 CORS_ALLOW_CREDENTIALS = True
-CORS_ORIGIN_WHITELIST = ['https://unpet-web.onrender.com']
+
 
 # https://docs.djangoproject.com/en/3.0/ref/settings/#allowed-hosts
  # poner el de render react url
@@ -210,17 +214,19 @@ if not RENDER_MODE:
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 
-CSRF_COOKIE_HTTPONLY = True
-SESSION_COOKIE_HTTPONLY = True
+
 
 if RENDER_MODE:
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
     CSRF_COOKIE_SAMESITE = 'None'
     SESSION_COOKIE_SAMESITE = 'None'
+    CORS_ALLOW_CREDENTIALS = True
 else:
     CSRF_COOKIE_SAMESITE = 'Lax'
     SESSION_COOKIE_SAMESITE = 'Lax'
+    CSRF_COOKIE_HTTPONLY = False
+    SESSION_COOKIE_HTTPONLY = False
 
 AUTH_USER_MODEL = "accounts.User"
 

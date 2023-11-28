@@ -42,6 +42,9 @@ def uploadUserIMG(foto:UploadedFile, nombre:str):
         
         photo_data=None
         # Lee los datos binarios de la foto
+        if isinstance(foto, list) and len(foto) > 0:
+            # Extrae el primer elemento de la lista
+            foto = foto[0]
         if not isinstance(foto, UploadedFile) and not isinstance(foto, bytes):
             raise ValueError("El parámetro 'foto' debe ser un objeto UploadedFile o de tipo bytes.")
         elif isinstance(foto, UploadedFile) and foto.size > 1024 * 1024 * 5: #---> 5 MB, si pesa mas que eso se rechaza

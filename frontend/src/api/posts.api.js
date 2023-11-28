@@ -70,11 +70,16 @@ export async function getPost(id) {
 
 
 export async function createPost(data) {
-    if(data && data.post && data.pets){
-    const response = await POSTS.post(`/trend/`, data);
+    if(data){
+        try{
+    const response = await POSTS.post(`/create/`, data);
     return response.data;
+        }
+        catch(error){
+            console.log('error en createpost: ', error);
+        }
     }else{
-       // console.log("Error al crear la publicacion")
+       console.log("Faltan datos para crear la publicacion")
     }
 }
 

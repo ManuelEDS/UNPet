@@ -33,7 +33,7 @@ function NavBar() {
       <div className="mx-auto px-0">
         
         <div className="flex items-center justify-between h-16">
-        {!user.isDesktopOrLaptop &&  <div className='bg-white px-3 py-2 mx-2  rounded-lg cursor-pointer'>
+        {!user.isDesktopOrLaptop &&  window.location.pathname === '/home' && <div className='bg-white px-3 py-2 mx-2  rounded-lg cursor-pointer'>
             <button onClick={handleShowLeftBar}>
             <GiHamburgerMenu/>
             </button>
