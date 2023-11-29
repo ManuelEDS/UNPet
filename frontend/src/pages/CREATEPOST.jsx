@@ -74,27 +74,32 @@ export const PetList = () => {
             setLoading(true);
             console.log('valido, aqui se ejecuta el updatePet()');
             //await new Promise(resolve => setTimeout(resolve, 500));
-            request.defaults.headers.put['X-CSRFToken'] = user.csrfToken;
-            request.defaults.headers.put['csrftoken'] = user.csrfToken;
-            document.cookie = `csrftoken=${user.csrfToken}`;
-            console.log('justo antes de enviar el request: ', editedPet, user.csrfToken, request.defaults.headers, 'document.cookie: ',document.cookie);
-            request.put('/pets/api/pets/'+editedPet.id+'/update/', editedPet, {
+
+
+
+            // Primero, obtenemos el token CSRF
+        fetch(BASE_URL + "/accounts/api/csrf/", {
+            credentials: 'include'
+        })
+        .then(response => response.headers.get('X-CSRFToken'))
+        .then(csrfToken => {
+            // Luego, hacemos la petición POST con el token CSRF
+            fetch(BASE_URL + '/pets/api/pets/'+editedPet.id+'/update/', {
+                method: 'PUT',
                 headers: {
-                    "Content-Type": 'application/json',
-                     "X-CSRFToken": user.csrfToken,
-                     'csrftoken': user.csrfToken
-                    
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': csrfToken
                 },
+                body: editedPet,
+                credentials: 'include'
             })
-            .then((response) => {
-                // Maneja la respuesta aquí
-                console.log('uodate pet: Response: ', response);
-            })
-            .catch((error) => console.error(error));
-            
+            .then(response => response.json())
+            .then(data => {
+                console.log('SE LOGGRÓ: data: ', data);
+            });
+        });
             
             //Response = await updatePet(editedPet.id, editedPet);
-            console.log('Response: ', Response);
             setLoading(false);
             // window.location.reload();
         }
@@ -202,6 +207,16 @@ export const PetList = () => {
             dataPost.append("mascotas", JSON.stringify(mascotas));
             data.append("post", JSON.stringify(Object.fromEntries(dataPost.entries())));
     
+
+
+
+
+
+
+
+
+
+
             setLoading(true);
             console.log('valido, aqui se ejecuta el createPost()');
             //await new Promise(resolve => setTimeout(resolve, 500));
@@ -209,8 +224,38 @@ export const PetList = () => {
             for (let [key, value] of data.entries()) {
                 console.log(`${key}: ${value}`);
             }
-            const response = await createPost(data);
-            console.log('Response: ', response);
+            // const response = await createPost(data);
+
+
+                // Primero, obtenemos el token CSRF
+        fetch(BASE_URL + "/accounts/api/csrf/", {
+            credentials: 'include'
+        })
+        .then(response => response.headers.get('X-CSRFToken'))
+        .then(csrfToken => {
+            // Luego, hacemos la petición POST con el token CSRF
+            fetch(BASE_URL + '/posts/api/posts/create/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': csrfToken
+                },
+                body: editedPet,
+                credentials: 'include'
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('SE LOGGRÓ: data: ', data);
+            });
+        });
+
+
+
+
+
+
+
+
             setLoading(false);
             window.location.reload();
         }

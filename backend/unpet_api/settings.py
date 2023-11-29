@@ -29,7 +29,7 @@ SECRET_KEY = os.environ.get(
 # SECURITY WARNING: don't run with debug turned on in production!
 
 DEBUG=False
-LOCAL_DB = False # DEBUG = True #para usar sqlite, FALSE para la db con las variables de entorno
+LOCAL_DB = True # DEBUG = True #para usar sqlite, FALSE para la db con las variables de entorno
 DOCKER_MODE=False
 RENDER_MODE = True
 
@@ -39,11 +39,9 @@ if DOCKER_MODE: # Modo: despliegue en algun seguidor docker (plan B por si rende
     CSRF_TRUSTED_ORIGINS = ['http://localhost:81']
 elif RENDER_MODE: # Modo: despliegue en render
     ALLOWED_HOSTS = ['*']
-    CORS_ALLOWED_ORIGINS = ['https://unpet-web.onrender.com']
-    CSRF_TRUSTED_ORIGINS = ['https://unpet-web.onrender.com']
-    
-    CORS_ORIGIN_WHITELIST = ['https://unpet-web.onrender.com']
-    CORS_ALLOW_ALL_ORIGINS = True
+    CORS_ALLOWED_ORIGINS = ["https://unpet-web.onrender.com", "https://unpet-api-rest.onrender.com"]
+    CSRF_TRUSTED_ORIGINS = ["https://unpet-web.onrender.com", "https://unpet-api-rest.onrender.com"]
+
 else: # Modo: desarrollo en localhost
     ALLOWED_HOSTS = ['*']
     CORS_ALLOWED_ORIGINS = ['http://localhost', 'http://127.0.0.1', 'http://localhost:5173', 'http://127.0.0.1:5173']
@@ -52,30 +50,37 @@ else: # Modo: desarrollo en localhost
     CORS_ALLOW_ALL_ORIGINS = True
 
    
-CORS_EXPOSE_HEADERS = ['Content-Type', 'X-CSRFToken', 'csrftoken']
+CORS_EXPOSE_HEADERS = ['Content-Type', 'X-CSRFToken']
 CORS_ALLOW_CREDENTIALS = True
 
-CORS_ALLOW_HEADERS = [
-    'csrftoken',
-    'content-type',
-    'origin',
-    'x-allowed-headers',
-    'x-csrftoken',
-    'x-requested-with',
-    'X-CSRFToken',
-    # Agrega cualquier otro header que necesites permitir
-]
+
+if RENDER_MODE:
+    # PROD ONLY
+    CSRF_COOKIE_SECURE = True
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SAMESITE = 'None'
+    SESSION_COOKIE_SAMESITE = 'None'
+    CSRF_COOKIE_HTTPONLY = True
+    SESSION_COOKIE_HTTPONLY = True
+else:
+    CSRF_COOKIE_SAMESITE = 'Lax'
+    SESSION_COOKIE_SAMESITE = 'Lax'
+    CSRF_COOKIE_HTTPONLY = False
+    SESSION_COOKIE_HTTPONLY = False
+
+
 # https://docs.djangoproject.com/en/3.0/ref/settings/#allowed-hosts
  # poner el de render react url
 
 # Application definition
 
-apps = [
-    "django.contrib.admin",
-    "django.contrib.auth",
-    "django.contrib.contenttypes",
-    "django.contrib.sessions",
-    "django.contrib.messages",
+
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
     "rest_framework",
     "coreapi",
     "utils",
@@ -84,29 +89,17 @@ apps = [
     "posts",
     "search",
 ]
-
-if not DOCKER_MODE:
-    apps.append('corsheaders')
-
-#if not RENDER_MODE:
-#apps.remove( "django.contrib.staticfiles")
-
-INSTALLED_APPS = apps
-middleware = [
-    "django.middleware.security.SecurityMiddleware",
-    "whitenoise.middleware.WhiteNoiseMiddleware",
-    "django.contrib.sessions.middleware.SessionMiddleware",
-    "django.middleware.common.CommonMiddleware",
-    "django.middleware.csrf.CsrfViewMiddleware",
-    "django.contrib.auth.middleware.AuthenticationMiddleware",
-    "django.contrib.messages.middleware.MessageMiddleware",
-    "django.middleware.clickjacking.XFrameOptionsMiddleware",
+MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.security.SecurityMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-if not DOCKER_MODE:
-    middleware.insert(0, 'corsheaders.middleware.CorsMiddleware')
-
-MIDDLEWARE = middleware
 
 ROOT_URLCONF = "unpet_api.urls"
 
@@ -226,18 +219,6 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 
 
-if RENDER_MODE:
-    SESSION_COOKIE_SECURE = True
-    CSRF_COOKIE_SECURE = True
-    CSRF_COOKIE_SAMESITE = 'None'
-    SESSION_COOKIE_SAMESITE = 'None'
-    CSRF_COOKIE_HTTPONLY  = True
-    SESSION_COOKIE_HTTPONLY = True
-else:
-    CSRF_COOKIE_SAMESITE = 'Lax'
-    SESSION_COOKIE_SAMESITE = 'Lax'
-    CSRF_COOKIE_HTTPONLY = False
-    SESSION_COOKIE_HTTPONLY = False
 
 AUTH_USER_MODEL = "accounts.User"
 
