@@ -42,7 +42,7 @@ class MascotaUpdateView(APIView):
     """Para actualizar una mascota"""
     permission_classes = (permissions.IsAuthenticated,)
     authentication_classes = (SessionAuthentication,)
-    @csrf_exempt
+
     def initial(self, request, *args, **kwargs):
         super().initial(request, *args, **kwargs)
 
