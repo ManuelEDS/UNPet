@@ -52,18 +52,19 @@ function getCookie(name) {
 export const BASE_URL = URL;
 export const CREDENTIALS = 'same-origin';
 
-export const getCSRF = async () => {
-    return fetch(BASE_URL + "/accounts/api/csrf/", {
+const  getCSRF = async() => {
+    fetch(BASE_URL + "/accounts/api/csrf/", {
         credentials: CREDENTIALS,
     })
-    .then(response => response.json())
-    .then(data => {
-        console.log('crsfToken para el nuevo getCSRF(): ', data.csrfToken);
-        return data.csrfToken;
-    })
-    .catch((err) => {
-        //console.log(err);
-    });
+        .then((res) => {
+            csrfToken = res.headers.get("X-CSRFToken");
+            //setCsrf(csrfToken);
+            console.log('crsfToken para el nuevo getCSRF(): ',csrfToken);
+            return csrfToken;
+        })
+        .catch((err) => {
+            console.log(err);
+        });
 }
 // Wrap getSession function inside a self-invoking function
 // (function() {
@@ -100,23 +101,25 @@ export class UNPetAxios {
     }
 
    
-    async fetchWithHeaders(url, options = {}, moreHeaders) {
-        //'url: ', url, 'options: ', options, 'moreHeaders: ', moreHeaders);
+    async fetchWithHeaders(url, options = {}, moreHeaders = {}) {
         let contenttype = moreHeaders ? moreHeaders["Content-Type"] : "application/json";
-        
+    
+        // Primero, obtenemos el token CSRF
+        const csrfResponse = await axios.get(BASE_URL + "/accounts/api/csrf/", { withCredentials: true });
+        const csrfToken = csrfResponse.headers['x-csrftoken'];
+    
         const allOptions = {
             headers: {
                 "Content-Type": contenttype,
-               "X-CSRFToken": this.csrfToken,
+                "X-CSRFToken": csrfToken, // Aquí ponemos el token CSRF
+                ...moreHeaders
             },
-            withCredentials: true,
-            credentials: 'include',
+            withCredentials: true, // axios usa withCredentials en lugar de credentials
             ...options,
         };
-
+    
         console.log('JUSTO ANTES DEL FETCH: fetchWithHeaders, allOptions: ', allOptions, 'URL: ', this.BASE_URL_RUTA + url);
-
-        return axios(this.BASE_URL_RUTA + url, allOptions);
+        return axios(this.BASE_URL_RUTA + url, allOptions); // reemplaza fetch con axios
     }
 
     get(url, options = {}) {

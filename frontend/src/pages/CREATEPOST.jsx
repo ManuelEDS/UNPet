@@ -25,7 +25,7 @@ export const PetList = () => {
     useEffect(() => {
         const fetchPets = async () => {
             console.log('EL FETCH CON FNCION: ');
-            const data = await request.get('/pets/api/pets/organization').then((response) => setPets(response.data))
+            const data = await getOrganizationPets()
             console.log('EL DATA con unpetaxios: ', data)
             
         }
