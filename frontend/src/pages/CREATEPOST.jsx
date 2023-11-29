@@ -74,11 +74,18 @@ export const PetList = () => {
             setLoading(true);
             console.log('valido, aqui se ejecuta el updatePet()');
             //await new Promise(resolve => setTimeout(resolve, 500));
-            // request.defaults.headers.put['X-CSRFToken'] = user.csrfToken;
-            // request.defaults.headers.put['csrftoken'] = user.csrfToken;
+            request.defaults.headers.put['X-CSRFToken'] = user.csrfToken;
+            request.defaults.headers.put['csrftoken'] = user.csrfToken;
             document.cookie = `csrftoken=${user.csrfToken}`;
             console.log('justo antes de enviar el request: ', editedPet, user.csrfToken, request.defaults.headers, 'document.cookie: ',document.cookie);
-            request.put('/pets/api/pets/'+editedPet.id+'/update/', editedPet)
+            request.put('/pets/api/pets/'+editedPet.id+'/update/', editedPet, {
+                headers: {
+                    "Content-Type": 'application/json',
+                     "X-CSRFToken": user.csrfToken,
+                     'csrftoken': user.csrfToken
+                    
+                },
+            })
             .then((response) => {
                 // Maneja la respuesta aquí
                 console.log('uodate pet: Response: ', response);
