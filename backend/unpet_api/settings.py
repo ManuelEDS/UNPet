@@ -62,6 +62,7 @@ CORS_ALLOW_HEADERS = [
     'x-allowed-headers',
     'x-csrftoken',
     'x-requested-with',
+    'X-CSRFToken',
     # Agrega cualquier otro header que necesites permitir
 ]
 # https://docs.djangoproject.com/en/3.0/ref/settings/#allowed-hosts

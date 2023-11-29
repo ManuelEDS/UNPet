@@ -77,7 +77,7 @@ export const PetList = () => {
             // request.defaults.headers.put['X-CSRFToken'] = user.csrfToken;
             // request.defaults.headers.put['csrftoken'] = user.csrfToken;
             document.cookie = `csrftoken=${user.csrfToken}`;
-            console.log('justo antes de enviar el request: ', editedPet, user.csrfToken, request.defaults.headers);
+            console.log('justo antes de enviar el request: ', editedPet, user.csrfToken, request.defaults.headers, 'document.cookie: ',document.cookie);
             request.put('/pets/api/pets/'+editedPet.id+'/update/', editedPet)
             .then((response) => {
                 // Maneja la respuesta aquí
