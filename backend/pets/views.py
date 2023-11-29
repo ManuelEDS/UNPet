@@ -7,6 +7,7 @@ from rest_framework.exceptions import ValidationError
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from accounts.models import Organizacion
+from django.views.decorators.csrf import csrf_exempt
 
 class MascotaListCreateView(generics.ListCreateAPIView):
     """Para crear una mascota"""
@@ -41,6 +42,8 @@ class MascotaUpdateView(APIView):
     """Para actualizar una mascota"""
     permission_classes = (permissions.IsAuthenticated,)
     authentication_classes = (SessionAuthentication,)
+
+    @csrf_exempt
     def put(self, request, pk, format=None):
         user = self.request.user
         if user.groups.filter(name='Organizacion').exists():
