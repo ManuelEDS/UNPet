@@ -52,19 +52,18 @@ function getCookie(name) {
 export const BASE_URL = URL;
 export const CREDENTIALS = 'same-origin';
 
-const  getCSRF = async() => {
-    fetch(BASE_URL + "/accounts/api/csrf/", {
+export const getCSRF = async () => {
+    return fetch(BASE_URL + "/accounts/api/csrf/", {
         credentials: CREDENTIALS,
     })
-        .then((res) => {
-            csrfToken = res.headers.get("X-CSRFToken");
-            //setCsrf(csrfToken);
-            console.log('crsfToken para el nuevo getCSRF(): ',csrfToken);
-            return csrfToken;
-        })
-        .catch((err) => {
-            console.log(err);
-        });
+    .then(response => response.json())
+    .then(data => {
+        console.log('crsfToken para el nuevo getCSRF(): ', data.csrfToken);
+        return data.csrfToken;
+    })
+    .catch((err) => {
+        //console.log(err);
+    });
 }
 // Wrap getSession function inside a self-invoking function
 // (function() {
