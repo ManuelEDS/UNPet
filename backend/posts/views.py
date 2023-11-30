@@ -109,7 +109,7 @@ class PublicacionCreate(APIView): #CREAR PUBLICACION CON MASCOTAS
         userid= request.user.id
         org= post_data.get('idorganizacion')
         
-        #print('legada de datos','post_data: ', post_data, '\npets_data: ', pets_data,'userid', userid, 'org: ',org)
+        print('legada de datos','post_data: ', post_data, '\mascotas: ', mascotas,'userid', userid, 'org: ',org)
         if org is None:
             if Organizacion.objects.filter(id=userid).exists():
                 post_data['idorganizacion']= userid
@@ -125,9 +125,9 @@ class PublicacionCreate(APIView): #CREAR PUBLICACION CON MASCOTAS
 
         post1 = Publicacion.objects.create(**post_data)
         
-        if True:
+        if post1:
             
-            
+            print("la publicacion se creo, se procede a vincular las mascotas las mascotas")
             for pet_data in mascotas:
                 # Obtiene la mascota de la base de datos
                 mascota = Mascota.objects.get(id=pet_data['id'])
@@ -136,9 +136,10 @@ class PublicacionCreate(APIView): #CREAR PUBLICACION CON MASCOTAS
                 mascota.publicacion = post1
                 mascota.save()
             print('serializer.data', post1, post_data)
+            print('mascotas vinculadas')
             return Response({"status":"creado!"}, status=status.HTTP_201_CREATED)
 
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return Response({"error":"No se pudo crear la publicacion"}, status=status.HTTP_400_BAD_REQUEST)
 
 
 class PublicacionRecentList(APIView):

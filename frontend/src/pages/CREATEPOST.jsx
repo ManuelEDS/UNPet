@@ -238,7 +238,7 @@ export const PetList = () => {
                             'Content-Type': 'application/json',
                             'X-CSRFToken': csrfToken
                         },
-                        body: JSON.stringify(editedPet),
+                        body: editedPet,
                         credentials: 'include'
                     })
                         .then(response => response.json())
