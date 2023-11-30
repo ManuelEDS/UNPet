@@ -38,7 +38,7 @@ const OrganizacionCard = ({ user }) => {
         <div className="max-w-2xl mx-auto mt-10 ">
           <h2 className="text-2xl font-bold text-center mb-4 py-4">Publicaciones de la organización</h2>
 
-          <ScrollList urlBase={'/posts/api/posts/' + user.username + '/posts/'}></ScrollList>
+          <ScrollList urlBase={'/posts/api/posts/' + user.username + '/posts/'} org={true}></ScrollList>
         </div>
       </div>
 

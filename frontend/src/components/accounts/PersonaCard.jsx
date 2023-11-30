@@ -37,10 +37,7 @@ const PersonaCard = ({ user, detailed = false }) => {
                 </div>
             </div>
             <div className='flex justify-between m-6' id='posts'> {/* Added 'justify-center' class */}
-                <div>hola</div>
-                <div>hola</div>
-                <div>hola</div>
-                <div>hola</div><div>hola</div><div>hola</div><div>hola</div><div>hola</div>
+                
             </div>
 
 

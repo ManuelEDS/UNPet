@@ -186,35 +186,24 @@ export const PetList = () => {
     const handleCreatePost = async (event) => {
         event.preventDefault();
         console.log('CREAR POST INICIANDO...');
-
+    
         const dataPost = new FormData(event.currentTarget);
         const data = new FormData();
         const valid = true //validateData(dataPost);
-
+    
         if (!valid || selectedPets.length === 0) {
             console.log('no valido');
-            return
         }
         else {
             addDataToForm(dataPost, "n_mascotas", selectedPets.length);
             addDataToForm(dataPost, "n_mascotas_adoptadas", 0);
             addDataToForm(dataPost, "idorganizacion", user.id);
-
+           
             // Añade los valores para 'mascotas'
             let mascotas = selectedPets.map(pet => JSON.stringify(pet));
             dataPost.append("mascotas", JSON.stringify(mascotas));
             data.append("post", JSON.stringify(Object.fromEntries(dataPost.entries())));
-
-
-
-
-
-
-
-
-
-
-
+    
             setLoading(true);
             console.log('valido, aqui se ejecuta el createPost()');
             //await new Promise(resolve => setTimeout(resolve, 500));
@@ -222,43 +211,13 @@ export const PetList = () => {
             for (let [key, value] of data.entries()) {
                 console.log(`${key}: ${value}`);
             }
-            // const response = await createPost(data);
-
-
-            // Primero, obtenemos el token CSRF
-            fetch(BASE_URL + "/accounts/api/csrf/", {
-                credentials: 'include'
-            })
-                .then(response => response.headers.get('X-CSRFToken'))
-                .then(csrfToken => {
-                    // Luego, hacemos la petición POST con el token CSRF
-                    fetch(BASE_URL + '/posts/api/posts/create/', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'X-CSRFToken': csrfToken
-                        },
-                        body: editedPet,
-                        credentials: 'include'
-                    })
-                        .then(response => response.json())
-                        .then(data => {
-                            console.log('SE LOGGRÓ: data: ', data);
-                            setLoading(false);
-                            //window.location.reload();
-                        });
-                });
-
-
-
-
-
-
-
-
-
+            const response = await createPost(data);
+            console.log('Response: ', response);
+            setLoading(false);
+            window.location.reload();
         }
     }
+
 
     function handleImageUpload(e) {
         const file = e.target.files[0];

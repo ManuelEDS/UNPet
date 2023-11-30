@@ -135,7 +135,7 @@ export const PostPage = () => {
                                     <Coment coment={answers} post={post} />
                                 </div>
                             ))}
-                            <button className='flex m-5' onClick={() => { console.log(coments) }}>Cargar comentarios</button>
+                            
                         </div>
                     </div>
 

@@ -82,7 +82,10 @@ export async function createPost(data) {
        console.log("Faltan datos para crear la publicacion")
     }
 }
-
+export async function deletePost(id) {
+    const response = await POSTS.delete(`/${id}/delete/`);
+    return response.data;
+}
 /**
  * Obtiene la lista de comentarios de una publicación.
  * @function

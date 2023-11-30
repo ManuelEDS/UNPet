@@ -2,13 +2,17 @@
 import ImageSlider from '../../components/imageslider';
 import { FaHeart, FaComment, FaPaw, FaShareAlt, FaCopy } from 'react-icons/fa';
 import { useEffect, useState, useRef } from 'react';
-
-const PostCard = ({ post, onItemSelect = () => { } }) => {
+import {deletePost} from '../../api/posts.api';
+const PostCard = ({ post, onItemSelect = () => { }, org = false }) => {
   const username = post.nombreorganizacion.match(/\(([^)]+)\)$/)[1];
   // Formatear la fecha
   const fecha = new Date(post.fechapublicacion).toLocaleDateString();
   const [showModal, setShowModal] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [selectedPost, setSelectedPost] = useState(null);
+  const [loading, setLoading] = useState(false);
+
   const modalRef = useRef(null);
   function getRandomInt(max) {
     return Math.floor(Math.random() * max);
@@ -50,8 +54,25 @@ const PostCard = ({ post, onItemSelect = () => { } }) => {
     navigator.clipboard.writeText(link);
     setCopied(true);
   };
+  const handleDeletePost = async (id) => {
+    try {
+      setLoading(true)
+      console.log('eliminando post')
+    const data = await deletePost(id)
+    console.log(data)
+    setLoading(false)
+    setShowDeleteModal(false)
+    window.location.reload()
+    } catch (error) {
+      console.log('error en delete post: ',error)
+    }
+    
+  };
   return (
     <>
+     {loading && <div className="fixed top-0 left-0 z-50 w-screen h-screen flex items-center justify-center bg-black bg-opacity-50">
+                <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-white"></div>
+            </div>}
       <div className="bg-white rounded-lg shadow-lg mb-8" onClick={onItemSelect}>
         {/* <Modal open={open} /> */}
         <div className="p-4">
@@ -72,7 +93,7 @@ const PostCard = ({ post, onItemSelect = () => { } }) => {
             {post.mascotas.length > 0 ? (
               <ImageSlider className="w-full z-0" images={post.mascotas} postid={post.id} />
             ) : (
-              <a href={"/post/"+post.id}>
+              <a href={"/post/" + post.id}>
                 <img className="w-full z-0" src="../../../public/default-post-img.jpg" alt="" />
 
               </a>
@@ -85,7 +106,7 @@ const PostCard = ({ post, onItemSelect = () => { } }) => {
                 <FaHeart id={"heart" + post.id} className="w-5 h-5 text-gray-500 mr-1" />
                 <p className="text-gray-500 text-sm">{post.likes}</p>
               </a >
-              <a href={"/post/"+post.id} className="flex items-center">
+              <a href={"/post/" + post.id} className="flex items-center">
                 <FaComment className="w-5 h-5 text-gray-500 mr-1" />
                 <span className="text-gray-500 text-sm mr-1">{post.comments}</span>
               </a >
@@ -98,6 +119,13 @@ const PostCard = ({ post, onItemSelect = () => { } }) => {
               </button>
             </div>
           </div>
+          {org &&
+            <div className='w-full text-center'>
+              <button className='bg-red-600 font-mono font-bold b-3 w-full text-white' onClick={()=> {setSelectedPost(post.id);setShowDeleteModal(true)}}>
+                Eliminar Publicación
+
+              </button>
+            </div>}
         </div>
       </div>
       {showModal &&
@@ -119,6 +147,23 @@ const PostCard = ({ post, onItemSelect = () => { } }) => {
         </div>
 
 
+      }
+      {showDeleteModal &&
+        <div className="fixed inset-0 flex items-center justify-center z-40" >
+          <div className="bg-white rounded-lg shadow-lg p-4">
+            <p className="text-center mb-4">¿Estás seguro que quieres eliminar esta publicación?</p>
+            <div className="flex items-center justify-between">
+              <button className='ml-2 bg-blue-500 rounded p-2   flex items-center ' onClick={() => { setShowDeleteModal(false); setCopied(false) }}>
+                Cerrar
+              </button>
+              <button className='ml-2 bg-blue-500 rounded p-2   flex items-center ' onClick={() => { handleDeletePost(selectedPost); setCopied(false) }}>
+                Eliminar
+              </button>
+            </div>
+
+          </div>
+        </div>
+      
       }
     </>
   );
