@@ -21,7 +21,7 @@ export const PetList = () => {
             const data = await getOrganizationPets()
             console.log('EL DATA con unpetaxios: ', data)
             setPets(data);
-            
+
         }
         fetchPets();
         setShowEdit(false);
@@ -72,30 +72,30 @@ export const PetList = () => {
 
 
             // Primero, obtenemos el token CSRF
-        fetch(BASE_URL + "/accounts/api/csrf/", {
-            credentials: 'include'
-        })
-        .then(response => response.headers.get('X-CSRFToken'))
-        .then(csrfToken => {
-            // Luego, hacemos la petición POST con el token CSRF
-            fetch(BASE_URL + '/pets/api/pets/'+editedPet.id+'/update/', {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRFToken': csrfToken
-                },
-                body: JSON.stringify(editedPet),
+            fetch(BASE_URL + "/accounts/api/csrf/", {
                 credentials: 'include'
             })
-            .then(response => response.json())
-            .then(data => {
-                console.log('SE LOGGRÓ: data: ', data);
-                setPets(pets => pets.map(pet => pet.id === data.id ? data : pet));
-            }).catch(error => {
-                console.log('error: ', error);
-            })
-        });
-            
+                .then(response => response.headers.get('X-CSRFToken'))
+                .then(csrfToken => {
+                    // Luego, hacemos la petición POST con el token CSRF
+                    fetch(BASE_URL + '/pets/api/pets/' + editedPet.id + '/update/', {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRFToken': csrfToken
+                        },
+                        body: JSON.stringify(editedPet),
+                        credentials: 'include'
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            console.log('SE LOGGRÓ: data: ', data);
+                            setPets(pets => pets.map(pet => pet.id === data.id ? data : pet));
+                        }).catch(error => {
+                            console.log('error: ', error);
+                        })
+                });
+
             //Response = await updatePet(editedPet.id, editedPet);
             setLoading(false);
             // window.location.reload();
@@ -186,24 +186,25 @@ export const PetList = () => {
     const handleCreatePost = async (event) => {
         event.preventDefault();
         console.log('CREAR POST INICIANDO...');
-    
+
         const dataPost = new FormData(event.currentTarget);
         const data = new FormData();
         const valid = true //validateData(dataPost);
-    
+
         if (!valid || selectedPets.length === 0) {
             console.log('no valido');
+            return
         }
         else {
             addDataToForm(dataPost, "n_mascotas", selectedPets.length);
             addDataToForm(dataPost, "n_mascotas_adoptadas", 0);
             addDataToForm(dataPost, "idorganizacion", user.id);
-           
+
             // Añade los valores para 'mascotas'
             let mascotas = selectedPets.map(pet => JSON.stringify(pet));
             dataPost.append("mascotas", JSON.stringify(mascotas));
             data.append("post", JSON.stringify(Object.fromEntries(dataPost.entries())));
-    
+
 
 
 
@@ -224,27 +225,29 @@ export const PetList = () => {
             // const response = await createPost(data);
 
 
-                // Primero, obtenemos el token CSRF
-        fetch(BASE_URL + "/accounts/api/csrf/", {
-            credentials: 'include'
-        })
-        .then(response => response.headers.get('X-CSRFToken'))
-        .then(csrfToken => {
-            // Luego, hacemos la petición POST con el token CSRF
-            fetch(BASE_URL + '/posts/api/posts/create/', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRFToken': csrfToken
-                },
-                body: editedPet,
+            // Primero, obtenemos el token CSRF
+            fetch(BASE_URL + "/accounts/api/csrf/", {
                 credentials: 'include'
             })
-            .then(response => response.json())
-            .then(data => {
-                console.log('SE LOGGRÓ: data: ', data);
-            });
-        });
+                .then(response => response.headers.get('X-CSRFToken'))
+                .then(csrfToken => {
+                    // Luego, hacemos la petición POST con el token CSRF
+                    fetch(BASE_URL + '/posts/api/posts/create/', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRFToken': csrfToken
+                        },
+                        body: JSON.stringify(editedPet),
+                        credentials: 'include'
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            console.log('SE LOGGRÓ: data: ', data);
+                            setLoading(false);
+                            //window.location.reload();
+                        });
+                });
 
 
 
@@ -253,8 +256,7 @@ export const PetList = () => {
 
 
 
-            setLoading(false);
-            window.location.reload();
+
         }
     }
 
@@ -402,7 +404,14 @@ export const PetList = () => {
 
                     <label className="mb-2">
                         Fecha de nacimiento:
-                        <input type="date" name="fechanacimiento" value={editedPet.fechanacimiento} onChange={handleChange} className="w-full p-2 mt-1 border rounded" />
+                        <input
+                            type="date"
+                            name="fechanacimiento"
+                            value={editedPet.fechanacimiento}
+                            onChange={handleChange}
+                            className="w-full p-2 mt-1 border rounded"
+                            max={new Date().toISOString().split("T")[0]}
+                        />
                     </label>
                     <label className="mb-2">
                         URL de la foto:
@@ -444,7 +453,12 @@ export const PetList = () => {
                         </label>
                         <label className="mb-2">
                             Fecha de nacimiento:
-                            <input type="date" name="fechanacimiento" className="w-full p-2 mt-1 border rounded" />
+                            <input
+                                type="date"
+                                name="fechanacimiento"
+                                className="w-full p-2 mt-1 border rounded"
+                                max={new Date().toISOString().split("T")[0]}
+                            />
                         </label>
 
                         <label htmlFor="photo_file" className="block text-sm font-medium text-gray-700 py-2">
