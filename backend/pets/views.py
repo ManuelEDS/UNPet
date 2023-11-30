@@ -25,10 +25,11 @@ class MascotaListCreateView(generics.ListCreateAPIView):
 
 class MascotaRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
     """Para obtener, editar y eliminar una mascota por su id"""
-    queryset = Mascota.objects.all()
-    serializer_class = MascotaUpdateSerializer
     permission_classes = (permissions.IsAuthenticated,)
     authentication_classes = (SessionAuthentication,)
+    queryset = Mascota.objects.all()
+    serializer_class = MascotaUpdateSerializer
+
 
     def check_object_permissions(self, request, obj):
         if request.method in ['PUT', 'PATCH', 'DELETE', 'POST']:
@@ -111,9 +112,10 @@ class MascotaCreateView(APIView):
 
 class MascotasOrganizacionListView(generics.ListAPIView):
     """Permite listar todas las mascotas que pertenecen a la organización del usuario actual"""
-    serializer_class = MascotaSerializer
     permission_classes = (permissions.IsAuthenticated,)
     authentication_classes = (SessionAuthentication,)
+    serializer_class = MascotaSerializer
+
     def get_queryset(self):
         user = self.request.user
         print('mascotas list org: ', user.id, user.groups.filter(name='Organizacion').exists(), user.is_authenticated)

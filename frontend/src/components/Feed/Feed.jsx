@@ -2,8 +2,10 @@ import { useState, useEffect } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { UNPetAxios } from '../../api/config';
 import PostCard from './PostCard';
-
-const ScrollList = ({urlBase, onItemSelect = () => {} , forceUpdate=() => {} }) => {
+import { getCSRF } from '../../api/config';
+import { BASE_URL } from '../../api/config';
+import axios from 'axios';
+const ScrollList = ({ urlBase, onItemSelect = () => { }, forceUpdate = () => { } }) => {
     const unPetAxios = new UNPetAxios();
     const [items, setItems] = useState([]);
     const [hasMore, setHasMore] = useState(true);
@@ -22,11 +24,34 @@ const ScrollList = ({urlBase, onItemSelect = () => {} , forceUpdate=() => {} }) 
         }
 
         try {
-            const response = await unPetAxios.get(nextPageUrl);
-            const { count, next, previous, results } = response.data
-            setItems(prevItems => [...prevItems, ...results]);
-            setHasMore(next !== null);
-            setNextPageUrl(removeAPIUrl(next));
+            fetch(BASE_URL + "/accounts/api/csrf/", {
+                credentials: 'include'
+            })
+                .then(response => response.headers.get('X-CSRFToken'))
+                .then(csrfToken => {
+                    fetch(BASE_URL + urlBase, {
+
+                        method: 'GET',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRFToken': csrfToken
+                        },
+                        credentials: 'include'
+
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+
+                            const { count, next, previous, results } = data
+                            setItems(prevItems => [...prevItems, ...results]);
+                            setHasMore(next !== null);
+                            setNextPageUrl(removeAPIUrl(next));
+
+                        });
+
+
+                })
+
         } catch (error) {
             console.error(error);
         }

@@ -50,7 +50,7 @@ function getCookie(name) {
  * @type {string}
  */
 export const BASE_URL = URL;
-export const CREDENTIALS = 'same-origin';
+export const CREDENTIALS = 'include';
 
 export const getCSRF = async () => {
     return fetch(BASE_URL + "/accounts/api/csrf/", {
@@ -105,7 +105,7 @@ export class UNPetAxios {
     
         // Primero, obtenemos el token CSRF
         const csrfResponse = await axios.get(BASE_URL + "/accounts/api/csrf/", { withCredentials: true });
-        const csrfToken = csrfResponse.headers['x-csrftoken'];
+        const csrfToken = csrfResponse.headers.get('X-CSRFToken');
     
         const allOptions = {
             headers: {

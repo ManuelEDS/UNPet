@@ -340,6 +340,8 @@ class UserLogin(APIView):
 #             return Response(data={"data":"Algo salió mal con el cierre de sesión"},status=status.HTTP_400_BAD_REQUEST)
 
 class UserLogout(APIView):
+    permission_classes = (permissions.AllowAny,)
+    authentication_classes = (SessionAuthentication,)
     def get(self, request):
         if not request.user.is_authenticated:
             return Response({'detail': 'You\'re not logged in.'}, status=400)

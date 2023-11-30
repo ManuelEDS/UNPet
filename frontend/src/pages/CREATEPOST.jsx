@@ -14,19 +14,13 @@ export const PetList = () => {
     const [editedPet, setEditedPet] = useState(null)
     const [showCreate, setShowCreate] = useState(false);
     const { user } = useContext(UserContext)
-    const request = axios.create({
-        baseURL: BASE_URL,
-        headers: {
-            "Content-Type": 'application/json',
-           "X-CSRFToken": user.csrfToken,
-        },
-        withCredentials: true,
-    });
+
     useEffect(() => {
         const fetchPets = async () => {
             console.log('EL FETCH CON FNCION: ');
             const data = await getOrganizationPets()
             console.log('EL DATA con unpetaxios: ', data)
+            setPets(data);
             
         }
         fetchPets();
@@ -90,13 +84,16 @@ export const PetList = () => {
                     'Content-Type': 'application/json',
                     'X-CSRFToken': csrfToken
                 },
-                body: editedPet,
+                body: JSON.stringify(editedPet),
                 credentials: 'include'
             })
             .then(response => response.json())
             .then(data => {
                 console.log('SE LOGGRÓ: data: ', data);
-            });
+                setPets(pets => pets.map(pet => pet.id === data.id ? data : pet));
+            }).catch(error => {
+                console.log('error: ', error);
+            })
         });
             
             //Response = await updatePet(editedPet.id, editedPet);
@@ -304,7 +301,7 @@ export const PetList = () => {
                             Descripción:
                             <textarea name="descripcion" className="w-full p-2 mt-1 border rounded"></textarea>
                         </label>
-                        <img src="../../public/default-post-img.jpg" alt="Default Post" className="w-full " />
+                        <img src="/default-post-img.jpg" alt="Default Post" className="w-full " />
                         <button type="submit" className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:ml-3 sm:w-auto sm:text-sm mb-4">
                             Crear
                         </button>
